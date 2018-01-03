@@ -8,12 +8,12 @@ bot.on("ready", function() {
 
 bot.on("message", function(message) {
 	if (message.author.username == "OwO bot") return;
-	var s = message.content.split(" ");
-	var head = s[0].toLowerCase();
+	var agra = message.content.split(" ");
+	var head = agar[0].toLowerCase();
 	if(head == "!test") {
 		message.channel.sendMessage("本機正常運作中... ...");
 	}
-	else if (message.content.indexOf("OwO") != -1) {
+	else if (agar.find("OwO") != -1) {
 		message.channel.sendMessage("-OwO- 喵？");
 	}
 	else if (message.content.indexOf("誰是世界上最醜的人") != -1) {
