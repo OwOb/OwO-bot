@@ -53,6 +53,19 @@ bot.on("message", function(message) {
 		setTimeout(function(){command_cd["≣owo≣"] = 0;}, 5000);
 	}
 	
+	else if (!command_cd["😶"] && (head.idexOf("😶") != -1 || end.idexOf("😶") != -1)) {
+		var counthead = head.match(/😶/g).length, endcount = end.match(/😶/g).length;
+		if (head.length != counthead*"😶".length)
+			counthead = 0;
+		if (end.length != countend*"😶".length)
+			countend = 0;
+		if (max(counthead, countend) > 0) {
+			message.channel.sendMessage("😶".repeat(max(counthead, countend)+"😶");
+			command_cd["😶"] = 1;
+			setTimeout(function(){command_cd["😶"] = 0;}, 5000);
+		}
+	}
+	
 	else if (!command_cd["誰是世界上最醜的人"] && message.content.indexOf("誰是世界上最醜的人") != -1) {
 		message.channel.sendMessage(message.author.username+"是世界上最醜的人~~~  OwO");
 		command_cd["誰是世界上最醜的人"] = 1;
