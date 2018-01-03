@@ -52,7 +52,7 @@ bot.on("message", function(message) {
 		command_cd["≣owo≣"] = 1;
 		setTimeout(function(){command_cd["≣owo≣"] = 0;}, 5000);
 	}
-	/*
+	!command_cd["😶"];/*
 	else if (!command_cd["😶"] && (head.idexOf("😶") != -1 || end.idexOf("😶") != -1)) {
 		var counthead = head.match(/(😶)/g).length, endcount = end.match(/(😶)/g).length;
 		if (head.length != counthead*"😶".length)
@@ -71,14 +71,14 @@ bot.on("message", function(message) {
 		command_cd["誰是世界上最醜的人"] = 1;
 		setTimeout(function(){command_cd["誰是世界上最醜的人"] = 0;}, 5000);
 	}
-	
+	/*
 	else {
 		var str = "";
 		for (var i = 0; i != message.content.length; i++)
 			str += message.content[i]+" ";
 		message.channel.sendMessage(str);
 	}
-	
+	*/
 	//message.channel.sendMessage(message.author.username);
 });
 
