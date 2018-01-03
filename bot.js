@@ -54,10 +54,14 @@ bot.on("message", function(message) {
 	}
 	
 	else if (!command_cd["😶"] && (head.indexOf("😶") != -1 || end.indexOf("😶") != -1)) {
-		var counthead = head.match(/😶/g).length, countend = end.match(/😶/g).length;
-		if (head.length != counthead*"😶".length)
+		var counthead = head.match(/😶/g), countend = end.match(/😶/g);
+		if (counthead == null)
 			counthead = 0;
-		if (end.length != countend*"😶".length)
+		else if (head.length != counthead*"😶".length)
+			counthead = 0;
+		if (countend == null)
+			countend = 0;
+		else if (end.length != countend*"😶".length)
 			countend = 0;
 		if (Math.max(counthead, countend) > 0) {
 			message.channel.sendMessage("😶".repeat(Math.max(counthead, countend)+1));
