@@ -59,7 +59,6 @@ bot.on("message", function(message) {
 			counthead = 0;
 		if (end.length != countend*"😶".length)
 			countend = 0;
-		message.channel.sendMessage(String(Math.max(counthead, countend)));
 		if (Math.max(counthead, countend) > 0) {
 			message.channel.sendMessage("😶".repeat(Math.max(counthead, countend)+1));
 			command_cd["😶"] = 1;
@@ -80,11 +79,11 @@ bot.on("message", function(message) {
 		message.channel.sendMessage(str);
 	}
 	*/
-	
+	/*
 	else {
 		message.channel.sendMessage(message.content);
 	}
-	
+	*/
 	//message.channel.sendMessage(message.author.username);
 });
 
