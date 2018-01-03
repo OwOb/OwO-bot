@@ -16,7 +16,7 @@ bot.on("message", function(message) {
 	
 	var head = agar[0].toLowerCase();
 	var end = agar[agar.length-1].toLowerCase();
-	
+	!command_cd["😶"];
 	if(!command_cd["!test"] && head == "!test") {
 		message.channel.sendMessage("本機正常運作中... ...");
 		command_cd["!test"] = 1;
@@ -52,7 +52,7 @@ bot.on("message", function(message) {
 		command_cd["≣owo≣"] = 1;
 		setTimeout(function(){command_cd["≣owo≣"] = 0;}, 5000);
 	}
-	!command_cd["😶"];/*
+	/*
 	else if (!command_cd["😶"] && (head.idexOf("😶") != -1 || end.idexOf("😶") != -1)) {
 		var counthead = head.match(/(😶)/g).length, endcount = end.match(/(😶)/g).length;
 		if (head.length != counthead*"😶".length)
