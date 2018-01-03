@@ -15,9 +15,7 @@ bot.on("message", function(message) {
 		message.channel.sendMessage("本機正常運作中... ...");
 	}
 	
-	else if (agar.find(function CompareLower_owo(str) {
-		return str.toLowerCase() == "owo";
-	})) {
+	else if (agar.find(function CompareLower_owo(str) {return str.toLowerCase() == "owo";})) {
 		message.channel.sendMessage("-OwO- 喵？");
 	}
 	
