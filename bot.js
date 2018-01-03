@@ -53,7 +53,7 @@ bot.on("message", function(message) {
 		setTimeout(function(){command_cd["≣owo≣"] = 0;}, 5000);
 	}
 	
-	else if (!command_cd["😶"] && (head.indexOf("😶") != -1 || end.idexOf("😶") != -1)) {
+	else if (!command_cd["😶"] && (head.indexOf("😶") != -1 || end.indexOf("😶") != -1)) {
 		var counthead = head.match(/(😶)/g).length, endcount = end.match(/(😶)/g).length;
 		if (head.length != counthead*"😶".length)
 			counthead = 0;
