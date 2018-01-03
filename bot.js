@@ -14,45 +14,45 @@ bot.on("message", function(message) {
 	
 	var agar = message.content.split(" ");
 	
-	var head = agar[0].toLowerCase();
-	var end = agar[agar.length-1].toLowerCase();
-	!command_cd["😶"];
-	if(!command_cd["!test"] && head == "!test") {
+	var head = agar[0], end = agar[agar.length-1]; 
+	var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
+	
+	if(!command_cd["!test"] && headlower == "!test") {
 		message.channel.sendMessage("本機正常運作中... ...");
 		command_cd["!test"] = 1;
 		setTimeout(function(){command_cd["!test"] = 0;}, 5000);
 	}
 	
-	else if (!command_cd["owo"] && (head == "owo" || end == "owo")) {
+	else if (!command_cd["owo"] && (headlower == "owo" || endlower == "owo")) {
 		message.channel.sendMessage("-OwO- 喵？");
 		command_cd["owo"] = 1;
 		setTimeout(function(){command_cd["owo"] = 0;}, 5000);
 	}
 	
-	else if (!command_cd["-owo-"] && (head == "-owo-" || end == "-owo-")) {
+	else if (!command_cd["-owo-"] && (headlower == "-owo-" || endlower == "-owo-")) {
 		message.channel.sendMessage("=OwO= 喵喵？");
 		command_cd["-owo-"] = 1;
 		setTimeout(function(){command_cd["-owo-"] = 0;}, 5000);
 	}
 	
-	else if (!command_cd["=owo="] && (head == "=owo=" || end == "=owo=")) {
+	else if (!command_cd["=owo="] && (headlower == "=owo=" || endlower == "=owo=")) {
 		message.channel.sendMessage("≡OwO≡ 喵喵喵？");
 		command_cd["=owo="] = 1;
 		setTimeout(function(){command_cd["=owo="] = 0;}, 5000);
 	}
 	
-	else if (!command_cd["≡owo≡"] && (head == "≡owo≡" || end == "≡owo≡")) {
+	else if (!command_cd["≡owo≡"] && (headlower == "≡owo≡" || endlower == "≡owo≡")) {
 		message.channel.sendMessage("≣OwO≣ 喵喵喵喵？");
 		command_cd["≡owo≡"] = 1;
 		setTimeout(function(){command_cd["≡owo≡"] = 0;}, 5000);
 	}
 	
-	else if (!command_cd["≣owo≣"] && (head == "≣owo≣" || end == "≣owo≣")) {
+	else if (!command_cd["≣owo≣"] && (headlower == "≣owo≣" || endlower == "≣owo≣")) {
 		message.channel.sendMessage("OwO ？");
 		command_cd["≣owo≣"] = 1;
 		setTimeout(function(){command_cd["≣owo≣"] = 0;}, 5000);
 	}
-	/*
+	
 	else if (!command_cd["😶"] && (head.idexOf("😶") != -1 || end.idexOf("😶") != -1)) {
 		var counthead = head.match(/(😶)/g).length, endcount = end.match(/(😶)/g).length;
 		if (head.length != counthead*"😶".length)
@@ -65,7 +65,7 @@ bot.on("message", function(message) {
 			setTimeout(function(){command_cd["😶"] = 0;}, 5000);
 		}
 	}
-	*/
+	
 	else if (!command_cd["誰是世界上最醜的人"] && message.content.indexOf("誰是世界上最醜的人") != -1) {
 		message.channel.sendMessage(message.author.username+"是世界上最醜的人~~~  OwO");
 		command_cd["誰是世界上最醜的人"] = 1;
