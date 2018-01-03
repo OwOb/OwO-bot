@@ -18,11 +18,11 @@ bot.on("message", function(message) {
 	if(head == "!test") {
 		message.channel.sendMessage("本機正常運作中... ...");
 	}
-	/*
+	
 	else if (head == "owo" || end == "owo") {
 		message.channel.sendMessage("-OwO- 喵？");
 	}
-	*/
+	
 	else if (head == "-owo-" || end == "-owo-") {
 		message.channel.sendMessage("=OwO= 喵喵？");
 	}
