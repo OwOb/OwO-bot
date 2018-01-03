@@ -17,7 +17,7 @@ bot.on("message", function(message) {
 	var head = agar[0].toLowerCase();
 	var end = agar[agar.length-1].toLowerCase();
 	
-	if(head == "!test") {
+	if(head == "!test" && !command_cd[0]) {
 		message.channel.sendMessage("本機正常運作中... ...");
 		command_cd[0] = 1;
 		setTimeout(function(){command_cd[0] = 0;}, 5000);
