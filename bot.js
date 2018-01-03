@@ -18,9 +18,9 @@ bot.on("message", function(message) {
 	var end = agar[agar.length-1].toLowerCase();
 	
 	if(head == "!test") {
-		message.channel.sendMessage("本機正常運作中... ...");/*
+		message.channel.sendMessage("本機正常運作中... ...");
 		command_cd[0] = 1;
-		setTimeout("command_cd[0] = 0", 5000);*/
+		setTimeout("command_cd[0] = 0", 5000);
 	}
 	
 	else if (head == "owo" || end == "owo") {
