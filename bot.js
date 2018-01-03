@@ -13,7 +13,7 @@ bot.on("message", function(message) {
 	var agar = message.content.split(" ");
 	
 	var head = agar[0].toLowerCase();
-	var end = agar[arar.length-1].toLowerCase();
+	var end = agar[agar.length-1].toLowerCase();
 	
 	if(head == "!test") {
 		message.channel.sendMessage("本機正常運作中... ...");
