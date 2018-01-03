@@ -54,7 +54,7 @@ bot.on("message", function(message) {
 	}
 	
 	else if (!command_cd["😶"] && (head.indexOf("😶") != -1 || end.indexOf("😶") != -1)) {
-		var counthead = head.match(/😶/g).length, endcount = end.match(/😶/g).length;
+		var counthead = head.match(/😶/g).length, countend = end.match(/😶/g).length;
 		if (head.length != counthead*"😶".length)
 			counthead = 0;
 		if (end.length != countend*"😶".length)
