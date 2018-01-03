@@ -8,17 +8,19 @@ bot.on("ready", function() {
 
 bot.on("message", function(message) {
 	if (message.author.username == "OwO bot") return;
-	var agra = message.content.split(" ");
+	var agar = message.content.split(" ");
 	var head = agar[0].toLowerCase();
 	
 	if(head == "!test") {
 		message.channel.sendMessage("本機正常運作中... ...");
 	}
-	/*
-	else if (head == "owo") {
+	
+	else if (agar.find(function CompareLower_owo(str) {
+		return str.toLowerCase() == "owo";
+	})) {
 		message.channel.sendMessage("-OwO- 喵？");
 	}
-	*/
+	
 	else if (message.content.indexOf("誰是世界上最醜的人") != -1) {
 		message.channel.sendMessage(message.author.username+"是世界上最醜的人~~~  OwO");
 	}
