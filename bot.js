@@ -79,6 +79,11 @@ bot.on("message", function(message) {
 		message.channel.sendMessage(str);
 	}
 	*/
+	
+	else {
+		message.channel.sendMessage(message.content);
+	}
+	
 	//message.channel.sendMessage(message.author.username);
 });
 
