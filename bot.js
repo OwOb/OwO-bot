@@ -13,7 +13,7 @@ bot.on("message", function(message) {
 	if(head == "!test") {
 		message.channel.sendMessage("本機正常運作中... ...");
 	}
-	else if (message.content.indexOf("誰是世界上最醜的人OwO") != -1) {
+	else if (message.content.indexOf("OwO") != -1) {
 		message.channel.sendMessage("-OwO- 喵？");
 	}
 	else if (message.content.indexOf("誰是世界上最醜的人") != -1) {
