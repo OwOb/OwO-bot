@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 var bot = new Discord.Client();
 
-var command_cd = new Array();
+var command_cd = new Array(1000);
 
 bot.on("ready", function() {
 	console.log("Ready");
