@@ -56,15 +56,15 @@ bot.on("message", function(message) {
 	else if (!command_cd["😶"] && (head.indexOf("😶") != -1 || end.indexOf("😶") != -1)) {
 		var counthead = head.match(/😶/g), countend = end.match(/😶/g);
 		if (counthead == null)
-			counthead = 0;
-		else if (head.length != counthead*"😶".length)
-			counthead = 0;
+			counthead = [];
+		else if (head.length != counthead.length*"😶".length)
+			counthead = [];
 		if (countend == null)
-			countend = 0;
-		else if (end.length != countend*"😶".length)
-			countend = 0;
-		if (Math.max(counthead, countend) > 0) {
-			message.channel.sendMessage("😶".repeat(Math.max(counthead, countend)+1));
+			countend = [];
+		else if (end.length != countend.length*"😶".length)
+			countend = [];
+		if (Math.max(counthead.length, countend.length) > 0) {
+			message.channel.sendMessage("😶".repeat(Math.max(counthead.length, countend.length)+1));
 			command_cd["😶"] = 1;
 			setTimeout(function(){command_cd["😶"] = 0;}, 5000);
 		}
