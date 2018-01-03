@@ -59,8 +59,8 @@ bot.on("message", function(message) {
 			counthead = 0;
 		if (end.length != countend*"😶".length)
 			countend = 0;
-		if (max(counthead, countend) > 0) {
-			message.channel.sendMessage("😶".repeat(max(counthead, countend)+"😶");
+		if (Math.max(counthead, countend) > 0) {
+			message.channel.sendMessage("😶".repeat(Math.max(counthead, countend)+"😶");
 			command_cd["😶"] = 1;
 			setTimeout(function(){command_cd["😶"] = 0;}, 5000);
 		}
