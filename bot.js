@@ -75,7 +75,7 @@ bot.on("message", function(message) {
 		if (agar.length == 1)
 			message.channel.sendMessage("沒給算式本機要算什麼啦！(╯‵□ˊ)╯︵┴─┴");
 		else
-			message.channel.sendMessage(math.format(math.eval(message.content.substr("運算".length).value.replace(/\'/g,"\"")), {precision: 14}));
+			message.channel.sendMessage(math.format(math.eval(message.content.substring("運算".length).replace(/\'/g,"\"")), {precision: 14}));
 		command_cd["運算"] = 1;
 		setTimeout(function(){command_cd["運算"] = 0;}, 5000);
 	}
