@@ -72,7 +72,7 @@ bot.on("message", function(message) {
 	}
 	
 	else if (!command_cd["運算"] && message.content.indexOf("運算") == 0) {
-		if (agar.length == 1)
+		if (agar.length == 1 && head == "運算")
 			message.channel.sendMessage("沒給算式本機要算什麼啦！(╯‵□ˊ)╯︵┴─┴");
 		else {
 			try {
