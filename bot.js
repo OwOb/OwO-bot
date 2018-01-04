@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const math = require('mathjs');
 
 var bot = new Discord.Client();
 
@@ -68,6 +69,15 @@ bot.on("message", function(message) {
 			command_cd["😶"] = 1;
 			setTimeout(function(){command_cd["😶"] = 0;}, 5000);
 		}
+	}
+	
+	else if (!command_cd["運算"] && headlower == "運算") {
+		if (endlower == "運算")
+			message.channel.sendMessage("沒給算式本機要算什麼啦！(╯‵□ˊ )╯︵┴─┴");
+		else
+			message.channel.sendMessage(math.eval(message.content.substr("運算".length)));
+		command_cd["運算"] = 1;
+		setTimeout(function(){command_cd["運算"] = 0;}, 5000);
 	}
 	
 	else if (!command_cd["誰是世界上最醜的人"] && message.content.indexOf("誰是世界上最醜的人") != -1) {
