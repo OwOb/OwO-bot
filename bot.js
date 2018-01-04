@@ -71,11 +71,11 @@ bot.on("message", function(message) {
 		}
 	}
 	
-	else if (!command_cd["運算"] && headlower == "運算") {
-		if (endlower == "運算")
-			message.channel.sendMessage("沒給算式本機要算什麼啦！(╯‵□ˊ )╯︵┴─┴");
+	else if (!command_cd["運算"] && message.content.indexOf("運算") == 0) {
+		if (endlower == null || agar.length == 1)
+			message.channel.sendMessage("沒給算式本機要算什麼啦！(╯‵□ˊ)╯︵┴─┴");
 		else
-			message.channel.sendMessage(math.eval(message.content.substr("運算".length)));
+			message.channel.sendMessage(math.eval(message.content.substr("運算".substring)));
 		command_cd["運算"] = 1;
 		setTimeout(function(){command_cd["運算"] = 0;}, 5000);
 	}
