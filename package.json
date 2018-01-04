@@ -9,6 +9,7 @@
   "author": "OwO",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.2.1"
+    "discord.js": "^11.2.1",
+    "mathjs": "3.18.1"
   }
 }
