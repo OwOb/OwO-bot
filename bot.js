@@ -13,7 +13,7 @@ bot.on("message", function(message) {
 	
 	if (message.author.username == "OwO bot") return
 	
-	var agar = message.content.split(" ");
+	var agar = message.content.replace(/　/g," ").split(" ");
 	
 	var head = agar[0], end = agar[agar.length-1]; 
 	var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
