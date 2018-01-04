@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const math = require('mathjs');
+var math = require('mathjs');
 
 var bot = new Discord.Client();
 
@@ -72,7 +72,7 @@ bot.on("message", function(message) {
 	}
 	
 	else if (!command_cd["運算"] && message.content.indexOf("運算") == 0) {
-		if (endlower == null || agar.length == 1)
+		if (agar.length == 1)
 			message.channel.sendMessage("沒給算式本機要算什麼啦！(╯‵□ˊ)╯︵┴─┴");
 		else
 			message.channel.sendMessage(math.eval(message.content.substr("運算".substring)));
