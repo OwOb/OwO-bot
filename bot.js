@@ -74,8 +74,14 @@ bot.on("message", function(message) {
 	else if (!command_cd["運算"] && message.content.indexOf("運算") == 0) {
 		if (agar.length == 1)
 			message.channel.sendMessage("沒給算式本機要算什麼啦！(╯‵□ˊ)╯︵┴─┴");
-		else
-			message.channel.sendMessage(math.format(math.eval(message.content.substring("運算".length).replace(/\'/g,"\"")), {precision: 14}));
+		else {
+			try {
+				message.channel.sendMessage(math.format(math.eval(message.content.substring("運算".length).replace(/\'/g,"\"")), {precision: 14}));
+			}
+			catch(err) {
+				message.channel.sendMessage("算式格式有誤！(╯‵□ˊ)╯︵┴─┴");
+			}
+		}
 		command_cd["運算"] = 1;
 		setTimeout(function(){command_cd["運算"] = 0;}, 5000);
 	}
