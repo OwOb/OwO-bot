@@ -75,12 +75,10 @@ bot.on("message", function(message) {
 		if (agar.length == 1 && head == "運算")
 			message.channel.sendMessage("沒給算式本機要算什麼啦！(╯‵□ˊ)╯︵┴─┴");
 		else {
-			try {
+			try
 				message.channel.sendMessage(math.format(math.eval(message.content.replace(/　/g," ").substring("運算".length).replace(/\'/g,"\"")), {precision: 14}));
-			}
-			catch(err) {
+			catch(calculateerror)
 				message.channel.sendMessage("算式格式有誤啦！害本機算那麼久！(╯‵□ˊ)╯︵┴─┴");
-			}
 		}
 		command_cd["運算"] = 1;
 		setTimeout(function(){command_cd["運算"] = 0;}, 5000);
