@@ -79,7 +79,7 @@ bot.on("message", function(message) {
 				message.channel.sendMessage(math.format(math.eval(message.content.substring("運算".length).replace(/\'/g,"\"")), {precision: 14}));
 			}
 			catch(err) {
-				message.channel.sendMessage("算式格式有誤！(╯‵□ˊ)╯︵┴─┴");
+				message.channel.sendMessage("算式格式有誤啦！害本機算那麼久！(╯‵□ˊ)╯︵┴─┴");
 			}
 		}
 		command_cd["運算"] = 1;
