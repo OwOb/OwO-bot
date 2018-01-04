@@ -13,7 +13,7 @@ bot.on("message", function(message) {
 	
 	if (message.author.username == "OwO bot") return
 	
-	var agar = message.content.replace(/　/g," ").split(" ");
+	var agar = message.content.split(" ");
 	
 	var head = agar[0], end = agar[agar.length-1]; 
 	var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
@@ -76,7 +76,7 @@ bot.on("message", function(message) {
 			message.channel.sendMessage("沒給算式本機要算什麼啦！(╯‵□ˊ)╯︵┴─┴");
 		else {
 			try {
-				message.channel.sendMessage(math.format(math.eval(message.content.substring("運算".length).replace(/\'/g,"\"")), {precision: 14}));
+				message.channel.sendMessage(math.format(math.eval(message.content.replace(/　/g," ").substring("運算".length).replace(/\'/g,"\"")), {precision: 14}));
 			}
 			catch(err) {
 				message.channel.sendMessage("算式格式有誤啦！害本機算那麼久！(╯‵□ˊ)╯︵┴─┴");
