@@ -94,20 +94,22 @@ bot.on("message", function(message) {
 		setTimeout(function(){command_cd["誰是世界上最醜的人"] = 0;}, 5000);
 	}
 	
-	for (var i = 0; i < urllist.length; i++) {
-		 message.channel.sendMessage(urllist[i]);
-		/*
-		if (!command_cd["gist.github.com"] && urllist[i].indexOf(/http:\/\/gist.github.com\/[-a-zA-Z0-9\.\/_]+\/[0-9a-f]+|https:\/\/gist.github.com\/[-a-zA-Z0-9\.\/_]+\/[0-9a-f]+/g) == 0) {
-			request({
-				url: urllist[i]+"/raw",
-				method: "GET"
-				}, function(error,response,body) {
-					if(!error) message.channel.sendMessage("```\n"+body+"\n```");
-				});
-			command_cd["gist.github.com"] = 1;
-			setTimeout(function(){command_cd["gist.github.com"] = 0;}, 5000);
+	if (urllist != null) {
+		for (var i = 0; i < urllist.length; i++) {
+			 message.channel.sendMessage(urllist[i]);
+			/*
+			if (!command_cd["gist.github.com"] && urllist[i].indexOf(/http:\/\/gist.github.com\/[-a-zA-Z0-9\.\/_]+\/[0-9a-f]+|https:\/\/gist.github.com\/[-a-zA-Z0-9\.\/_]+\/[0-9a-f]+/g) == 0) {
+				request({
+					url: urllist[i]+"/raw",
+					method: "GET"
+					}, function(error,response,body) {
+						if(!error) message.channel.sendMessage("```\n"+body+"\n```");
+					});
+				command_cd["gist.github.com"] = 1;
+				setTimeout(function(){command_cd["gist.github.com"] = 0;}, 5000);
+			}
+			*/
 		}
-		*/
 	}
 	
 	/*
