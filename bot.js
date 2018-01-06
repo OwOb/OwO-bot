@@ -109,7 +109,7 @@ bot.on("message", function(message) {
 			}
 			else if (!command_cd["ideone.com"] && urllist[i].search(/http:\/\/ideone.com\/[a-zA-Z0-9]+|https:\/\/ideone.com\/[a-zA-Z0-9]+/g) == 0) {
 				request({
-					url: urllist[i].replace("ideone.com","ideone.com/plain"),
+					url: urllist[i],
 					method: "GET"
 					}, function(error,response,body) {
 						if (!error) message.channel.sendMessage("```\n"+body+"\n```");
