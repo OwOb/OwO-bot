@@ -96,7 +96,7 @@ bot.on("message", function(message) {
 	
 	var parse_url = /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/;
 	for (var i = 0; i < url.length; i++) {
-		var result = parse_url.exec(url);
+		var result = parse_url.exec(url[i]);
 		if (result[3] == "gist.github.com") {
 			request({
 				url: head+"/raw",
