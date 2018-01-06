@@ -98,11 +98,28 @@ bot.on("message", function(message) {
 		for (var i = 0; i < urllist.length; i++) {
 			//message.channel.sendMessage(urllist[i]);
 			if (!command_cd["gist.github.com"] && urllist[i].search(/http:\/\/gist.github.com\/[a-zA-Z0-9\-]+\/[0-9a-f]+|https:\/\/gist.github.com\/[a-zA-Z0-9\-]+\/[0-9a-f]+/g) == 0) {
+				var language = "";
+				request({
+					url: urllist[i],
+					method: "GET"
+					}, function(error,response,body) {
+						if (!error) {
+							var filename = body.substring(body.indexOf("<title>")+7).match(/[^/>]/).split(".")[1].toLowerCase();
+							if (filename == "c")
+								language = "c";
+							else if (filename == "cpp")
+								language = "cpp";
+							else if (filename == "py")
+								language = "python";
+							else if (filename == "js")
+								language = "javascript";
+						}
+					});
 				request({
 					url: urllist[i]+"/raw",
 					method: "GET"
 					}, function(error,response,body) {
-						if(!error) message.channel.sendMessage("```\n"+body+"\n```");
+						if (!error) message.channel.sendMessage("```"+language+"\n"+body+"\n```");
 					});
 				command_cd["gist.github.com"] = 1;
 				setTimeout(function(){command_cd["gist.github.com"] = 0;}, 5000);
