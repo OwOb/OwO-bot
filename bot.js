@@ -59,8 +59,8 @@ bot.on("message", function(message) {
 		request({
 			url: head+"/raw",
 			method: "GET"
-			}, function(e,r,b) {
-				if(!e) message.channel.sendMessage(b);
+			}, function(error,response,body) {
+				if(!error) message.channel.sendMessage("```\n"+body+"\n```");
 			});
 		command_cd["gist.github.com"] = 1;
 		setTimeout(function(){command_cd["gist.github.com"] = 0;}, 5000);
