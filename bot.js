@@ -94,12 +94,10 @@ bot.on("message", function(message) {
 		setTimeout(function(){command_cd["誰是世界上最醜的人"] = 0;}, 5000);
 	}
 	
-	var parse_url = /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/;
 	for (var i = 0; i < url.length; i++) {
-		var result = parse_url.exec(url[i]);
-		if (result[3] == "gist.github.com") {
+		if (!command_cd["gist.github.com"] && url[i].indexOf(/http:\/\/gist.github.com\/[-a-zA-Z0-9\.\/_]+\/[0-9a-f]+|https:\/\/gist.github.com\/[-a-zA-Z0-9\.\/_]+\/[0-9a-f]+/g) == 0) {
 			request({
-				url: head+"/raw",
+				url: url[i]+"/raw",
 				method: "GET"
 				}, function(error,response,body) {
 					if(!error) message.channel.sendMessage("```\n"+body+"\n```");
