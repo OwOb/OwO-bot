@@ -1,16 +1,16 @@
 {
-	  "name": "owo-bot",
-	  "version": "1.0.0",
-	  "description": "A bot for fun for discord",
-	  "main": "bot.js",
-	  "scripts": {
-			"test": "echo \"Error: no test specified\" && exit 1"
-	  },
-	  "author": "OwO",
-	  "license": "ISC",
-	  "dependencies": {
-			"discord.js": "^11.2.1",
-			"mathjs": "3.18.1",
-			"request": "2.83.1"
-	  }
+	"name": "owo-bot",
+	"version": "1.0.0",
+	"description": "A bot for fun for discord",
+	"main": "bot.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "OwO",
+	"license": "ISC",
+	"dependencies": {
+		"discord.js": "^11.2.1",
+		"mathjs": "3.18.1",
+		"request": "2.83.1"
+	}
 }
