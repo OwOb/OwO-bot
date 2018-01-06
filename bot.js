@@ -15,7 +15,7 @@ bot.on("message", function(message) {
 	if (message.author.username == "OwO bot") return
 	
 	var agar = message.content.split(" ");
-	var url = message.content.match(/http:\/\/[a-zA-Z0-9\.\/_]+|https:\/\/[a-zA-Z0-9\.\/_]+/g);
+	var urllist = message.content.match(/http:\/\/[a-zA-Z0-9\.\/_]+|https:\/\/[a-zA-Z0-9\.\/_]+/g);
 	
 	var head = agar[0], end = agar[agar.length-1]; 
 	var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
@@ -93,11 +93,13 @@ bot.on("message", function(message) {
 		command_cd["誰是世界上最醜的人"] = 1;
 		setTimeout(function(){command_cd["誰是世界上最醜的人"] = 0;}, 5000);
 	}
-	/*
-	for (var i = 0; i < url.length; i++) {
-		if (!command_cd["gist.github.com"] && url[i].indexOf(/http:\/\/gist.github.com\/[-a-zA-Z0-9\.\/_]+\/[0-9a-f]+|https:\/\/gist.github.com\/[-a-zA-Z0-9\.\/_]+\/[0-9a-f]+/g) == 0) {
+	
+	for (var i = 0; i < urllist.length; i++) {
+		 message.channel.sendMessage(urllist[i]);
+		/*
+		if (!command_cd["gist.github.com"] && urllist[i].indexOf(/http:\/\/gist.github.com\/[-a-zA-Z0-9\.\/_]+\/[0-9a-f]+|https:\/\/gist.github.com\/[-a-zA-Z0-9\.\/_]+\/[0-9a-f]+/g) == 0) {
 			request({
-				url: url[i]+"/raw",
+				url: urllist[i]+"/raw",
 				method: "GET"
 				}, function(error,response,body) {
 					if(!error) message.channel.sendMessage("```\n"+body+"\n```");
@@ -105,8 +107,9 @@ bot.on("message", function(message) {
 			command_cd["gist.github.com"] = 1;
 			setTimeout(function(){command_cd["gist.github.com"] = 0;}, 5000);
 		}
+		*/
 	}
-	*/
+	
 	/*
 	else {
 		var str = "";
