@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-var request = require("request");
+var math = require("mathjs");
 
 var bot = new Discord.Client();
 
