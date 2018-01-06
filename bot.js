@@ -104,6 +104,8 @@ bot.on("message", function(message) {
 					method: "GET"
 					}, function(error,response,body) {
 						if (!error) {
+							message.channel.sendMessage("```"+language+"\n"+body+"\n```");
+							/*
 							var filename = body.substring(body.indexOf("<title>")+7).match(/[^/>]/).split(".")[1].toLowerCase();
 							if (filename == "c")
 								language = "c";
@@ -113,6 +115,7 @@ bot.on("message", function(message) {
 								language = "python";
 							else if (filename == "js")
 								language = "javascript";
+							*/
 						}
 					});
 				request({
