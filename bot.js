@@ -55,6 +55,17 @@ bot.on("message", function(message) {
 		setTimeout(function(){command_cd["≣owo≣"] = 0;}, 5000);
 	}
 	
+	else if (!command_cd["gist.github.com"] && (head.indexOf("gist.github.com") || head.indexOf("https://gist.github.com"))) {
+		request({
+			url: head+"/raw",
+			method: "GET"
+			}, function(e,r,b) {
+				if(!e) message.channel.sendMessage(b);
+			});
+		command_cd["gist.github.com"] = 1;
+		setTimeout(function(){command_cd["gist.github.com"] = 0;}, 5000);
+	}
+	
 	else if (!command_cd["😶"] && (head.indexOf("😶") != -1 || end.indexOf("😶") != -1)) {
 		var counthead = head.match(/😶/g), countend = end.match(/😶/g);
 		if (counthead == null)
