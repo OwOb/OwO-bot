@@ -108,8 +108,8 @@ bot.on("message", function(message) {
 				setTimeout(function(){command_cd["gist.github.com"] = 0;}, 5000);
 			}
 			
-			else if (!command_cd["github.com"] && urllist[i].search(/http:\/\/github.com\/[a-zA-Z0-9\-\.]+|https:\/\/github.com\/[a-zA-Z0-9\-\.]+/g) == 0) {
-				if (urllist[i].indexOf(".") != -1) {
+			else if (!command_cd["github.com"] && urllist[i].search(/http:\/\/github.com\/[a-zA-Z0-9\-\.\/]+|https:\/\/github.com\/[a-zA-Z0-9\-\.\/]+/g) == 0) {
+				if (urllist[i].substring(20).indexOf(".") != -1) {
 					request({
 						url: urllist[i].replace("github.com","raw.githubusercontent.com").replace("/blob",""),
 						method: "GET"
