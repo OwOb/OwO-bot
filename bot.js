@@ -96,8 +96,7 @@ bot.on("message", function(message) {
 	
 	if (urllist != null) {
 		for (var i = 0; i < urllist.length; i++) {
-			 message.channel.sendMessage(urllist[i]);
-			/*
+			//message.channel.sendMessage(urllist[i]);
 			if (!command_cd["gist.github.com"] && urllist[i].indexOf(/http:\/\/gist.github.com\/[-a-zA-Z0-9\.\/_]+\/[0-9a-f]+|https:\/\/gist.github.com\/[-a-zA-Z0-9\.\/_]+\/[0-9a-f]+/g) == 0) {
 				request({
 					url: urllist[i]+"/raw",
@@ -108,7 +107,6 @@ bot.on("message", function(message) {
 				command_cd["gist.github.com"] = 1;
 				setTimeout(function(){command_cd["gist.github.com"] = 0;}, 5000);
 			}
-			*/
 		}
 	}
 	
