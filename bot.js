@@ -111,7 +111,7 @@ bot.on("message", function(message) {
 			else if (!command_cd["github.com"] && urllist[i].search(/http:\/\/github.com\/[a-zA-Z0-9\-\.]+|https:\/\/github.com\/[a-zA-Z0-9\-\.]+/g) == 0) {
 				if (urllist[i].indexOf(".") != -1) {
 					request({
-						url: urllist[i].replace("github.com","raw.githubusercontent.com"),
+						url: urllist[i].replace("github.com","raw.githubusercontent.com").replace("/blob",""),
 						method: "GET"
 						}, function(error,response,body) {
 							if (!error) message.channel.sendMessage("```\n"+body+"\n```");
