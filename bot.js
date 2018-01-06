@@ -93,7 +93,7 @@ bot.on("message", function(message) {
 		command_cd["誰是世界上最醜的人"] = 1;
 		setTimeout(function(){command_cd["誰是世界上最醜的人"] = 0;}, 5000);
 	}
-	
+	/*
 	for (var i = 0; i < url.length; i++) {
 		if (!command_cd["gist.github.com"] && url[i].indexOf(/http:\/\/gist.github.com\/[-a-zA-Z0-9\.\/_]+\/[0-9a-f]+|https:\/\/gist.github.com\/[-a-zA-Z0-9\.\/_]+\/[0-9a-f]+/g) == 0) {
 			request({
@@ -106,7 +106,7 @@ bot.on("message", function(message) {
 			setTimeout(function(){command_cd["gist.github.com"] = 0;}, 5000);
 		}
 	}
-	
+	*/
 	/*
 	else {
 		var str = "";
