@@ -117,6 +117,16 @@ bot.on("message", function(message) {
 				command_cd["ideone.com"] = 1;
 				setTimeout(function(){command_cd["ideone.com"] = 0;}, 5000);
 			}
+			else if (!command_cd["codepad.org"] && urllist[i].search(/http:\/\/codepad.org\/[a-zA-Z0-9]+|https:\/\/codepad.org\/[a-zA-Z0-9]+/g) == 0) {
+				request({
+					url: urllist[i]+"raw.cpp",
+					method: "GET"
+					}, function(error,response,body) {
+						if (!error) message.channel.sendMessage("```\n"+body+"\n```");
+					});
+				command_cd["codepad.org"] = 1;
+				setTimeout(function(){command_cd["codepad.org"] = 0;}, 5000);
+			}
 		}
 	}
 	
