@@ -15,7 +15,7 @@ bot.on("message", function(message) {
 	if (message.author.username == "OwO bot") return
 	
 	var agar = message.content.split(" ");
-	var urllist = message.content.match(/http:\/\/[a-zA-Z0-9\.\/_]+|https:\/\/[a-zA-Z0-9\.\/_]+/g);
+	var urllist = message.content.match(/http:\/\/^[ \n]+|https:\/\/^[ \n]+/g);
 	
 	var head = agar[0], end = agar[agar.length-1]; 
 	var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
