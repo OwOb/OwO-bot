@@ -55,7 +55,7 @@ bot.on("message", function(message) {
 		setTimeout(function(){command_cd["≣owo≣"] = 0;}, 5000);
 	}
 	
-	else if (!command_cd["gist.github.com"] && (head.indexOf("gist.github.com") || head.indexOf("https://gist.github.com"))) {
+	else if (!command_cd["gist.github.com"] && (head.indexOf("gist.github.com") == 0 || head.indexOf("https://gist.github.com") == 0)) {
 		request({
 			url: head+"/raw",
 			method: "GET"
