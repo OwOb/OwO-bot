@@ -117,6 +117,9 @@ bot.on("message", function(message) {
 								language = "javascript";
 							*/
 						}
+						else {
+							message.channel.sendMessage(response);
+						}
 					});
 				request({
 					url: urllist[i]+"/raw",
