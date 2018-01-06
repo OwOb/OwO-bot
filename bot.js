@@ -118,7 +118,7 @@ bot.on("message", function(message) {
 							*/
 						}
 						else {
-							message.channel.sendMessage(response);
+							message.channel.sendMessage("QAQ");
 						}
 					});
 				request({
