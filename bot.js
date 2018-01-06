@@ -103,6 +103,12 @@ bot.on("message", function(message) {
 		command_cd["誰是世界上最醜的人"] = 1;
 		setTimeout(function(){command_cd["誰是世界上最醜的人"] = 0;}, 5000);
 	}
+	
+	if (message.attachments.url != "")
+		message.channel.sendMessage(message.attachments.url);
+	else
+		message.channel.sendMessage("QAQ");
+	
 	/*
 	else {
 		var str = "";
