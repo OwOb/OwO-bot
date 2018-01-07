@@ -73,12 +73,15 @@ bot.on("message", function(message) {
 		}
 	}
 	
-	else if (!command_cd["運算"] && message.content.indexOf("運算") == 0) {
+	else if (!command_cd["運算"] && (message.content.indexOf("運算") == 0 || message.content.indexOf("calc") == 0 )) {
 		if (agar.length == 1 && head == "運算")
 			message.channel.sendMessage("沒給算式本機要算什麼啦！(╯‵□ˊ)╯︵┴─┴");
 		else {
 			try {
-				message.channel.sendMessage(math.format(math.eval(message.content.replace(/　/g," ").substring("運算".length).replace(/\'/g,"\"")), {precision: 14}));
+				if (message.content.indexOf("運算") == 0)
+					message.channel.sendMessage(math.format(math.eval(message.content.replace(/　/g," ").substring("運算".length).replace(/\'/g,"\"")), {precision: 14}));
+				else
+					message.channel.sendMessage(math.format(math.eval(message.content.replace(/　/g," ").substring("calc".length).replace(/\'/g,"\"")), {precision: 14}));
 			}
 			catch(calculateerror) {
 				message.channel.sendMessage("算式格式有誤啦！害本機算那麼久！(╯‵□ˊ)╯︵┴─┴");
