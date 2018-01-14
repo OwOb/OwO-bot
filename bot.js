@@ -85,7 +85,7 @@ bot.on("message", function(message) {
   
   else if(!command_cd["javascript"] && message.content.indexOf("javascript") == 0) {
     try {
-      var geval = eval, timer = setTimeout("throw new Error(\"TLE\")", 3000);
+      var geval = eval, timer = setTimeout("message.channel.sendMessage(\"QAQ\");", 3000);
       var javascripteval = geval(message.content.substring(10));
       message.channel.sendMessage(javascripteval);
     }
