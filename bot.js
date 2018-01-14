@@ -32,6 +32,12 @@ bot.on("message", function(message) {
     setTimeout(function(){command_cd["!id"] = 0;}, 5000);
   }
   
+  else if(!command_cd["!me"] && headlower == "!me") {
+    message.channel.sendMessage(message.guild.roles.get(message.author.id));
+    command_cd["!me"] = 1;
+    setTimeout(function(){command_cd["!me"] = 0;}, 5000);
+  }
+  
   else if (!command_cd["owo"] && (headlower == "owo" || endlower == "owo")) {
     message.channel.sendMessage("-OwO- 喵？");
     command_cd["owo"] = 1;
