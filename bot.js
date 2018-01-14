@@ -47,8 +47,8 @@ bot.on("message", function(message) {
     setTimeout(function(){command_cd["!me"] = 0;}, 5000);
   }
   
-  else if(!command_cd["!say"] && headlower.indexOf("!say") == 0) {
-    message.channel.sendMessage(message.content.snbstring(4));
+  else if(!command_cd["!say"] && headlower == "!say") {
+    message.channel.sendMessage(message.content.substring(5));
     command_cd["!say"] = 1;
     setTimeout(function(){command_cd["!say"] = 0;}, 5000);
   }
