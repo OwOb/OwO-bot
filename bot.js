@@ -33,7 +33,7 @@ bot.on("message", function(message) {
   }
   
   else if(!command_cd["!me"] && headlower == "!me") {
-    var roles = message.member.roles;
+    var roles = message.member.roles.array();
     var s = "";
     for (var key in roles) {
       s += key+",";
