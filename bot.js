@@ -47,6 +47,12 @@ bot.on("message", function(message) {
     setTimeout(function(){command_cd["!me"] = 0;}, 5000);
   }
   
+  else if(!command_cd["!say"] && headlower.indexOf("!say") == 0) {
+    message.channel.sendMessage(message.content.snbstring(4));
+    command_cd["!say"] = 1;
+    setTimeout(function(){command_cd["!say"] = 0;}, 5000);
+  }
+  
   else if (!command_cd["owo"] && (headlower == "owo" || endlower == "owo")) {
     message.channel.sendMessage("-OwO- 喵？");
     command_cd["owo"] = 1;
