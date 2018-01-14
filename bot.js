@@ -21,8 +21,8 @@ bot.on("message", function(message) {
   var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
   
   if(!command_cd["!test"] && headlower == "!test") {
-    message.channel.sendMessage("本機正常運作中... ...");
     setTimeout(function(){message.channel.sendMessage("本機正常運作中... ...");}, 5000);
+    message.channel.sendMessage("本機正常運作中... ...");
     command_cd["!test"] = 1;
     setTimeout(function(){command_cd["!test"] = 0;}, 5000);
   }
