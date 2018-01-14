@@ -53,6 +53,12 @@ bot.on("message", function(message) {
     setTimeout(function(){command_cd["!say"] = 0;}, 5000);
   }
   
+  else if(!command_cd["..."] && headlower.indexOf("...") == 0 && headlower == "."*headlower.length) {
+    message.channel.sendMessage("別無言了，本機在此有話直說 😐");
+    command_cd["..."] = 1;
+    setTimeout(function(){command_cd["..."] = 0;}, 5000);
+  }
+  
   else if (!command_cd["owo"] && (headlower == "owo" || endlower == "owo")) {
     message.channel.sendMessage("-OwO- 喵？");
     command_cd["owo"] = 1;
