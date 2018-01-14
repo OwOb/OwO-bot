@@ -33,7 +33,7 @@ bot.on("message", function(message) {
   }
   
   else if(!command_cd["!me"] && headlower == "!me") {
-    message.channel.sendMessage(message.member.roles.findAll("id",message.author.id)[0].name);
+    message.channel.sendMessage(message.member.roles.findAll("id",message.author.id) == null);
     command_cd["!me"] = 1;
     setTimeout(function(){command_cd["!me"] = 0;}, 5000);
   }
