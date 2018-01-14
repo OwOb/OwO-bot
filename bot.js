@@ -53,7 +53,7 @@ bot.on("message", function(message) {
     setTimeout(function(){command_cd["!say"] = 0;}, 5000);
   }
   
-  else if(!command_cd["..."] && headlower.indexOf("...") == 0 && headlower == "."*headlower.length) {
+  else if(!command_cd["..."] && headlower.indexOf("...") == 0 && headlower == ".".repeat(headlower.length)) {
     message.channel.sendMessage("別無言了，本機在此有話直說 😐");
     command_cd["..."] = 1;
     setTimeout(function(){command_cd["..."] = 0;}, 5000);
@@ -90,7 +90,7 @@ bot.on("message", function(message) {
   }
   
   else if (!command_cd["😶"] && (head.indexOf("😶") != -1 || end.indexOf("😶") != -1)) {
-    var counthead = head.match(/??/g), countend = end.match(/??/g);
+    var counthead = head.match(/😶/g), countend = end.match(/😶/g);
     if (counthead == null)
       counthead = [];
     else if (head.length != counthead.length*"😶".length)
