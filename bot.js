@@ -36,7 +36,7 @@ bot.on("message", function(message) {
     var roles = message.member.roles.array();
     var s = "";
     for (var key in roles) {
-      s += key+",";
+      s += roles[key].name+",";
     }
     message.channel.sendMessage(s);
     command_cd["!me"] = 1;
