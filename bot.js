@@ -83,6 +83,17 @@ bot.on("message", function(message) {
     setTimeout(function(){command_cd["86"] = 0;}, 5000);
   }
   
+  else if(!command_cd["javascript"] && headlower == "javascript") {
+    try {
+      message.channel.sendMessage(eval(message.content.substring(10)));
+    }
+    catch(javascripterror) {
+      message.channel.sendMessage("別想拿錯誤或跑不出結果的的程式碼來坑本機！ O3O");
+    }
+    command_cd["javascript"] = 1;
+    setTimeout(function(){command_cd["javascript"] = 0;}, 5000);
+  }
+  
   else if (!command_cd["owo"] && (headlower == "owo" || endlower == "owo")) {
     message.channel.sendMessage("-OwO- 喵？");
     command_cd["owo"] = 1;
