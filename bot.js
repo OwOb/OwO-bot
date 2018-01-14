@@ -90,7 +90,7 @@ bot.on("message", function(message) {
       message.channel.sendMessage(javascripteval);
     }
     catch(javascripterror) {
-      if (javascripterror.message == "TLE")
+      if (javascripterror.name == "TLE")
         message.channel.sendMessage("執行時間超過1s了！ 你確定這程式會結束？ O3O");
       else
         message.channel.sendMessage("別想拿錯誤或跑不出結果的的程式碼來坑本機！ O3O");
