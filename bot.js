@@ -59,6 +59,30 @@ bot.on("message", function(message) {
     setTimeout(function(){command_cd["..."] = 0;}, 5000);
   }
   
+  else if(!command_cd["3210"] && headlower == "3210") {
+    message.channel.sendMessage("(*ﾉﾟ▽ﾟ)ﾉ*・゜☆HAPPY NEW YEAR☆゜・*ヽ(*´∀｀)ﾉﾟ");
+    command_cd["3210"] = 1;
+    setTimeout(function(){command_cd["3210"] = 0;}, 5000);
+  }
+  
+  else if(!command_cd["78+9"] && headlower == "78+9") {
+    message.channel.sendMessage("其實8+9就是... ...\n咳... 那是各位說的，可不是本機說的 😏");
+    command_cd["78+9"] = 1;
+    setTimeout(function(){command_cd["78+9"] = 0;}, 5000);
+  }
+  
+  else if(!command_cd["8+9"] && headlower == "8+9") {
+    message.channel.sendMessage("8+9=義氣");
+    command_cd["8+9"] = 1;
+    setTimeout(function(){command_cd["8+9"] = 0;}, 5000);
+  }
+  
+  else if(!command_cd["86"] && headlower == "86") {
+    message.channel.sendMessage("能超越86的人... 就是下面那位... ... 😏");
+    command_cd["86"] = 1;
+    setTimeout(function(){command_cd["86"] = 0;}, 5000);
+  }
+  
   else if (!command_cd["owo"] && (headlower == "owo" || endlower == "owo")) {
     message.channel.sendMessage("-OwO- 喵？");
     command_cd["owo"] = 1;
