@@ -22,6 +22,7 @@ bot.on("message", function(message) {
   
   if(!command_cd["!test"] && headlower == "!test") {
     message.channel.sendMessage("本機正常運作中... ...");
+    setTimeout(message.channel.sendMessage("本機正常運作中... ..."), 5000);
     command_cd["!test"] = 1;
     setTimeout(function(){command_cd["!test"] = 0;}, 5000);
   }
