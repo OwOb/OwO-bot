@@ -83,7 +83,7 @@ bot.on("message", function(message) {
     setTimeout(function(){command_cd["86"] = 0;}, 5000);
   }
   
-  else if(!command_cd["javascript"] && headlower == "javascript") {
+  else if(!command_cd["javascript"] && message.content.indexOf("javascript") == 0) {
     try {
       message.channel.sendMessage(eval(message.content.substring(10)));
     }
