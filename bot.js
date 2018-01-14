@@ -35,8 +35,8 @@ bot.on("message", function(message) {
   else if(!command_cd["!me"] && headlower == "!me") {
     var roles = message.member.roles;
     var s = "";
-    for (var i in roles) {
-      s += i.name+","
+    for (var key in roles) {
+      s += roles[key].name+",";
     }
     message.channel.sendMessage(s);
     command_cd["!me"] = 1;
