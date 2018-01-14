@@ -34,11 +34,12 @@ bot.on("message", function(message) {
   
   else if(!command_cd["!me"] && headlower == "!me") {
     var roles = message.member.roles.array();
-    var s = "";
+    var rolename = "";
     for (var key in roles) {
-      s += roles[key].name+",";
+      if (roles[key].name != "@everyone")
+        s += +", "roles[key].name;
     }
-    message.channel.sendMessage(s);
+    message.channel.sendMessage(message.author.username+"是本頻道的: "+s.substring(2));
     command_cd["!me"] = 1;
     setTimeout(function(){command_cd["!me"] = 0;}, 5000);
   }
