@@ -33,7 +33,12 @@ bot.on("message", function(message) {
   }
   
   else if(!command_cd["!me"] && headlower == "!me") {
-    message.channel.sendMessage(message.member.roles[0].name);
+    var roles = message.member.roles;
+    var s = "";
+    for (var i in roles) {
+      s += i.name+","
+    }
+    message.channel.sendMessage(s);
     command_cd["!me"] = 1;
     setTimeout(function(){command_cd["!me"] = 0;}, 5000);
   }
