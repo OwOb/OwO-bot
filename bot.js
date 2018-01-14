@@ -85,7 +85,7 @@ bot.on("message", function(message) {
   
   else if(!command_cd["javascript"] && message.content.indexOf("javascript") == 0) {
     try {
-      var geval = eval, timer = setTimeout(function(){try {throw new Error("TLE");} catch {message.channel.sendMessage("執行時間超過1s了！ 你確定這程式會結束？ O3O");}}, 1000);
+      var geval = eval, timer = setTimeout(function(){try {throw new Error("TLE");} catch(TLEerror) {message.channel.sendMessage("執行時間超過1s了！ 你確定這程式會結束？ O3O");}}, 1000);
       var javascripteval = geval(message.content.substring(10));
       message.channel.sendMessage(javascripteval);
     }
