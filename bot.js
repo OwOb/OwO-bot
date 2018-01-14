@@ -21,6 +21,7 @@ bot.on("message", function(message) {
   var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
   
   if(!command_cd["!test"] && headlower == "!test") {
+    var timer = setTimeout(function(){message.channel.sendMessage("本機正常運作中... ...");}, 5000);
     message.channel.sendMessage("本機正常運作中... ...");
     command_cd["!test"] = 1;
     setTimeout(function(){command_cd["!test"] = 0;}, 5000);
@@ -85,8 +86,8 @@ bot.on("message", function(message) {
   
   else if(!command_cd["javascript"] && message.content.indexOf("javascript") == 0) {
     try {
-      var timer = setTimeout(function(){throw new Error("TLE");}, 1000);
-      var javascripteval = eval(message.content.substring(10)), timestop = clearTimeout(timer);
+      var geval = eval, timer = setTimeout(function(){throw new Error("TLE");}, 1000);
+      var javascripteval = geval(message.content.substring(10)), timestop = clearTimeout(timer);
       message.channel.sendMessage(javascripteval);
     }
     catch(javascripterror) {
