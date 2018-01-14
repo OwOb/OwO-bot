@@ -26,7 +26,7 @@ bot.on("message", function(message) {
     setTimeout(function(){command_cd["!test"] = 0;}, 5000);
   }
   
-  else if(!command_cd["!id"] && headlower == "!test") {
+  else if(!command_cd["!id"] && headlower == "!id") {
     message.channel.sendMessage(message.author.username+"的ID為: "+message.author.id);
     command_cd["!id"] = 1;
     setTimeout(function(){command_cd["!id"] = 0;}, 5000);
