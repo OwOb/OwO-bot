@@ -37,7 +37,7 @@ bot.on("message", function(message) {
     var rolename = "";
     for (var key in roles) {
       if (roles[key].name != "@everyone")
-        rolename += +", "roles[key].name;
+        rolename += ", "roles[key].name;
     }
     message.channel.sendMessage(message.author.username+"是本頻道的: "+rolename.substring(2));
     command_cd["!me"] = 1;
