@@ -37,9 +37,12 @@ bot.on("message", function(message) {
     var rolename = "";
     for (var key in roles) {
       if (roles[key].name != "@everyone")
-        rolename += ", "roles[key].name;
+        rolename += ", "+roles[key].name;
     }
-    message.channel.sendMessage(message.author.username+"是本頻道的: "+rolename.substring(2));
+    if (rolename.length)
+      message.channel.sendMessage(message.author.username+"是本頻道的: "+rolename.substring(2));
+    else
+      message.channel.sendMessage(message.author.username+"不屬於本頻道的任何身分組");
     command_cd["!me"] = 1;
     setTimeout(function(){command_cd["!me"] = 0;}, 5000);
   }
@@ -74,20 +77,20 @@ bot.on("message", function(message) {
     setTimeout(function(){command_cd["≡owo≡"] = 0;}, 5000);
   }
   
-  else if (!command_cd["??"] && (head.indexOf("??") != -1 || end.indexOf("??") != -1)) {
+  else if (!command_cd["😶"] && (head.indexOf("😶") != -1 || end.indexOf("😶") != -1)) {
     var counthead = head.match(/??/g), countend = end.match(/??/g);
     if (counthead == null)
       counthead = [];
-    else if (head.length != counthead.length*"??".length)
+    else if (head.length != counthead.length*"😶".length)
       counthead = [];
     if (countend == null)
       countend = [];
-    else if (end.length != countend.length*"??".length)
+    else if (end.length != countend.length*"😶".length)
       countend = [];
     if (Math.max(counthead.length, countend.length) > 0) {
-      message.channel.sendMessage("??".repeat(Math.max(counthead.length, countend.length)+1));
-      command_cd["??"] = 1;
-      setTimeout(function(){command_cd["??"] = 0;}, 5000);
+      message.channel.sendMessage("😶".repeat(Math.max(counthead.length, countend.length)+1));
+      command_cd["😶"] = 1;
+      setTimeout(function(){command_cd["😶"] = 0;}, 5000);
     }
   }
   
