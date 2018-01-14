@@ -85,8 +85,9 @@ bot.on("message", function(message) {
   
   else if(!command_cd["javascript"] && message.content.indexOf("javascript") == 0) {
     try {
-      message.channel.sendMessage(eval(message.content.substring(10)));
-      setTimeout(function(){throw new Error("TLE");;}, 1000);
+      var timer = setTimeout(function(){throw new Error("TLE");}, 1000);
+      var javascripteval = eval(message.content.substring(10)), timestop = clearTimeout(timer);
+      message.channel.sendMessage(javascripteval);
     }
     catch(javascripterror) {
       if (javascripterror == "TLE")
