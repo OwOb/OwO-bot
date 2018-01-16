@@ -21,10 +21,8 @@ bot.on("message", function(message) {
   var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
   
   if(!command_cd["!test"] && headlower == "!test") {
-    var w = 0;
     setTimeout(function(){
-      setTimeout(function(){w = 1;}, 3000);
-      if (w) {
+      for (var d = new Date(); d.getMilliseconds() <= 3000000; ) {
         setTimeout(function(){message.channel.sendMessage("break");}, 5000);
         return ;
       }
