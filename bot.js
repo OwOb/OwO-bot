@@ -24,11 +24,11 @@ bot.on("message", function(message) {
     setTimeout(function(){
       //message.channel.sendMessage(eval("var a = 13; a*13"));
       //eval("while(1) {var a;};");
-      function send(s) {
-        message.channel.sendMessage(s);
+      function send() {
+        message.channel.sendMessage("www");
       }
       try {
-        setTimeout(send("www"), 5000);
+        setTimeout(send, 5000);
         for (var d = new Date().getTime(); 1; ) {
           if (d+3000 < new Date().getTime()) {
             message.channel.sendMessage("break");
