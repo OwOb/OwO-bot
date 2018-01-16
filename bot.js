@@ -23,10 +23,10 @@ bot.on("message", function(message) {
   if(!command_cd["!test"] && headlower == "!test") {
     setTimeout(function(){
       for (var d = new Date(); d.getMilliseconds() <= 3000000; ) {
-        setTimeout(function(){message.channel.sendMessage("break");}, 5000);
+        message.channel.sendMessage("break");
         return ;
       }
-      setTimeout(function(){message.channel.sendMessage("本機正常運作中5... ...");}, 5000);
+      eval("while(1) {var a;} ;");
     }, 100);
     message.channel.sendMessage("本機正常運作中... ...");
     command_cd["!test"] = 1;
