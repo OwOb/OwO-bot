@@ -22,14 +22,14 @@ bot.on("message", function(message) {
   
   if(!command_cd["!test"] && headlower == "!test") {
     setTimeout(function(){
+      //message.channel.sendMessage(eval("var a = 13; a*13"));
+      setTimeout(function(){message.channel.sendMessage("本機正常運作中5... ...");}, 5000);
       for (var d = new Date().getTime(); 1; ) {
         if (d+3000 < new Date().getTime()) {
           message.channel.sendMessage("break");
           return ;
         }
       }
-      message.channel.sendMessage(eval("var a = 13; a*13"));
-      //setTimeout(function(){message.channel.sendMessage("本機正常運作中5... ...");}, 5000);
     }, 100);
     message.channel.sendMessage("本機正常運作中... ...");
     command_cd["!test"] = 1;
