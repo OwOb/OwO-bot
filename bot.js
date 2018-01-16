@@ -24,8 +24,10 @@ bot.on("message", function(message) {
     var w = 0;
     setTimeout(function(){
       setTimeout(function(){w = 1;}, 3000);
-      if (w)
+      if (w) {
+        setTimeout(function(){message.channel.sendMessage("break");}, 5000);
         return ;
+      }
       setTimeout(function(){message.channel.sendMessage("本機正常運作中5... ...");}, 5000);
     }, 100);
     message.channel.sendMessage("本機正常運作中... ...");
