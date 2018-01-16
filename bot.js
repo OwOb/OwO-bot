@@ -22,13 +22,7 @@ bot.on("message", function(message) {
   
   if(!command_cd["!test"] && headlower == "!test") {
     var w = 1;
-    setTimeout(function(){
-      /*setTimeout(function(){message.channel.sendMessage("本機正常運作中1... ...");}, 1000);
-      setTimeout(function(){w = 1;}, 3000);*/
-      if (w)
-        break;
-      //setTimeout(function(){message.channel.sendMessage("本機正常運作中5... ...");}, 5000);
-    }, 100);
+    setTimeout(function(){if (w) break;}, 100);
     message.channel.sendMessage("本機正常運作中... ...");
     command_cd["!test"] = 1;
     setTimeout(function(){command_cd["!test"] = 0;}, 5000);
