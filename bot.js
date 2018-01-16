@@ -24,10 +24,10 @@ bot.on("message", function(message) {
     setTimeout(function(){
       //message.channel.sendMessage(eval("var a = 13; a*13"));
       //eval("while(1) {var a;};");
-      function send() {
-        message.channel.sendMessage("www");
-      }
       try {
+        function send() {
+          message.channel.sendMessage("www");
+        }
         setTimeout(send, 5000);
         for (var d = new Date().getTime(); 1; ) {
           if (d+3000 < new Date().getTime()) {
