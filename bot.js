@@ -6,15 +6,6 @@ var bot = new Discord.Client();
 
 var command_cd = new Array();
 
-function test(message) {
-  var w = 0;
-  setTimeout(function(){message.channel.sendMessage("本機正常運作中1... ...");}, 1000);
-  setTimeout(function(){w = 1;}, 3000);
-  if (w)
-    break;
-  setTimeout(function(){message.channel.sendMessage("本機正常運作中5... ...");}, 5000);
-};
-
 bot.on("ready", function() {
   console.log("Ready");
 });
@@ -30,6 +21,14 @@ bot.on("message", function(message) {
   var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
   
   if(!command_cd["!test"] && headlower == "!test") {
+    setTimeout(function(){
+      var w = 0;
+      setTimeout(function(){message.channel.sendMessage("本機正常運作中1... ...");}, 1000);
+      setTimeout(function(){w = 1;}, 3000);
+      if (w)
+        break;
+      setTimeout(function(){message.channel.sendMessage("本機正常運作中5... ...");}, 5000);
+    }, 0);
     test(message);
     message.channel.sendMessage("本機正常運作中... ...");
     command_cd["!test"] = 1;
