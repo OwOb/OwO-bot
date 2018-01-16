@@ -29,7 +29,7 @@ bot.on("message", function(message) {
           message.channel.sendMessage("www");
           throw new Error('Whoops!');
         }
-        setTimeout(send, 5000);
+        setTimeout(send.send(), 5000);
         for (var d = new Date().getTime(); 1; ) {
           if (d+3000 < new Date().getTime()) {
             message.channel.sendMessage("break");
