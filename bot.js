@@ -29,7 +29,6 @@ bot.on("message", function(message) {
         break;
       setTimeout(function(){message.channel.sendMessage("本機正常運作中5... ...");}, 5000);
     }, 0);
-    test(message);
     message.channel.sendMessage("本機正常運作中... ...");
     command_cd["!test"] = 1;
     setTimeout(function(){command_cd["!test"] = 0;}, 5000);
