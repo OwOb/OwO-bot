@@ -24,12 +24,17 @@ bot.on("message", function(message) {
     setTimeout(function(){
       //message.channel.sendMessage(eval("var a = 13; a*13"));
       //eval("while(1) {var a;};");
-      setTimeout(message.channel.sendMessage("www");, 5000);
-      for (var d = new Date().getTime(); 1; ) {
-        if (d+3000 < new Date().getTime()) {
-          message.channel.sendMessage("break");
-          return ;
+      try {
+        setTimeout(message.channel.sendMessage("www"), 5000);
+        for (var d = new Date().getTime(); 1; ) {
+          if (d+3000 < new Date().getTime()) {
+            message.channel.sendMessage("break");
+            return ;
+          }
         }
+      }
+      catch(e) {
+        message.channel.sendMessage("QQ");
       }
     }, 100);
     message.channel.sendMessage("本機正常運作中... ...");
