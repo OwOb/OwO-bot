@@ -22,8 +22,8 @@ bot.on("message", function(message) {
   
   if(!command_cd["!test"] && headlower == "!test") {
     setTimeout(function(){
-      for (var d = new Date(), timer = new Date().getTime(); 1; ) {
-        if (timer+3000 < d.getTime()) {
+      for (var d = new Date().getTime(); 1; ) {
+        if (d+3000 < new Date().getTime()) {
           message.channel.sendMessage("break");
           return ;
         }
