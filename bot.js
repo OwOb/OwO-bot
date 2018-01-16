@@ -20,16 +20,15 @@ bot.on("message", function(message) {
   var head = agar[0], end = agar[agar.length-1]; 
   var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
   
-  if(!command_cd["!test"] && headlower == "!test") {/*
+  if(!command_cd["!test"] && headlower == "!test") {
+    var w = 1;
     setTimeout(function(){
-      var w = 0;
       /*setTimeout(function(){message.channel.sendMessage("本機正常運作中1... ...");}, 1000);
-      setTimeout(function(){w = 1;}, 3000);
+      setTimeout(function(){w = 1;}, 3000);*/
       if (w)
         break;
-      setTimeout(function(){message.channel.sendMessage("本機正常運作中5... ...");}, 5000);
-      break;
-    }, 0);*/
+      //setTimeout(function(){message.channel.sendMessage("本機正常運作中5... ...");}, 5000);
+    }, 100);
     message.channel.sendMessage("本機正常運作中... ...");
     command_cd["!test"] = 1;
     setTimeout(function(){command_cd["!test"] = 0;}, 5000);
