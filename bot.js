@@ -22,14 +22,14 @@ bot.on("message", function(message) {
   
   if(!command_cd["!test"] && headlower == "!test") {
     setTimeout(function(){
-      for (var d = new Date(), timer = new Date().getTime(); d.getMilliseconds() <= 3000000; ) {
+      for (var d = new Date(), timer = new Date().getTime(); 1; ) {
         if (timer+3000 < d.getTime()) {
           message.channel.sendMessage("break");
           return ;
         }
       }
       //eval("while(1) {var a;} ;");
-      setTimeout(function(){message.channel.sendMessage(new Date().getTime());}, 5000);
+      setTimeout(function(){message.channel.sendMessage("本機正常運作中5... ...");}, 5000);
     }, 100);
     message.channel.sendMessage("本機正常運作中... ...");
     command_cd["!test"] = 1;
