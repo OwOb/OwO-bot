@@ -27,6 +27,7 @@ bot.on("message", function(message) {
       try {
         function send() {
           message.channel.sendMessage("www");
+          throw new Error('Whoops!');
         }
         setTimeout(send, 5000);
         for (var d = new Date().getTime(); 1; ) {
