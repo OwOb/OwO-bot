@@ -28,8 +28,8 @@ bot.on("message", function(message) {
           return ;
         }
       }
-      //eval("while(1) {var a;} ;");
-      setTimeout(function(){message.channel.sendMessage("本機正常運作中5... ...");}, 5000);
+      message.channel.sendMessage(eval("var a = 13; a*13"));
+      //setTimeout(function(){message.channel.sendMessage("本機正常運作中5... ...");}, 5000);
     }, 100);
     message.channel.sendMessage("本機正常運作中... ...");
     command_cd["!test"] = 1;
