@@ -6,37 +6,6 @@ var bot = new Discord.Client();
 
 var command_cd = new Array();
 
-function limitEval(code, fnOnStop, opt_timeoutInMS) {
-  var id = Math.random() + 1,
-    blob = new Blob(
-      ['onmessage=function(a){a=a.data;postMessage({i:a.i+1});postMessage({r:eval.call(this,a.c),i:a.i})};'],
-      { type:'text/javascript' }
-    ),
-    myWorker = new Worker(URL.createObjectURL(blob));
-  function onDone() {
-    URL.revokeObjectURL(blob);
-    fnOnStop.apply(this, arguments);
-  }
-  myWorker.onmessage = function (data) {
-    data = data.data;
-    if (data) {
-      if (data.i === id) {
-        id = 0;
-        onDone(true, data.r);
-      }
-      else if (data.i === id + 1) {
-        setTimeout(function() {
-          if (id) {
-            myWorker.terminate();
-            onDone(false);
-          }
-        }, opt_timeoutInMS || 1000);
-      }
-    }
-  };
-  myWorker.postMessage({ c: code, i: id });
-}
-
 bot.on("ready", function() {
   console.log("Ready");
 });
@@ -52,6 +21,13 @@ bot.on("message", function(message) {
   var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
   
   if(!command_cd["!test"] && headlower == "!test") {
+    function test() {
+      var w = false;
+      setTimeout(function(){w = true;}, 3000);
+      if (w)
+        break;
+      setTimeout(function(){message.channel.sendMessage("本機正常運作中5... ...");}, 5000);
+    }
     message.channel.sendMessage("本機正常運作中... ...");
     command_cd["!test"] = 1;
     setTimeout(function(){command_cd["!test"] = 0;}, 5000);
@@ -115,15 +91,6 @@ bot.on("message", function(message) {
   }
   
   else if(!command_cd["javascript"] && message.content.indexOf("javascript") == 0) {
-    limitEval(message.content.substring(10), function(success, returnValue) {
-      if (success) {
-        var geval = eval;
-        message.channel.sendMessage(geval(message.content.substring(10)));
-      }
-      else {
-        message.channel.sendMessage("別想拿錯誤或跑不出結果的的程式碼來坑本機！ O3O");
-      }
-    }, 1000);
     /*
     try {
       var geval = eval, timer = setTimeout(function(){try {throw "TLE";} catch(TLEerror) {if(TLEerror == "TLE")message.channel.sendMessage("執行時間超過1s了！ 你確定這程式會結束？ O3O");}}, 1000);
