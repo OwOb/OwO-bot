@@ -21,17 +21,48 @@ bot.on("message", function(message) {
   var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
   
   if(!command_cd["!test"] && headlower == "!test") {
-    setTimeout(function(){
-      //message.channel.sendMessage(eval("var a = 13; a*13"));
-      //eval("while(1) {var a;};");
-      try {
-        setTimeout(function(){var N = new Array(10000000000);}, 3000);
-        while(1) {;};
+    function limitEval(code, fnOnStop, opt_timeoutInMS) {
+      var id = Math.random() + 1,
+        blob = new Blob(
+          ['onmessage=function(a){a=a.data;postMessage({i:a.i+1});postMessage({r:eval.call(this,a.c),i:a.i})};'],
+          { type:'text/javascript' }
+        ),
+        myWorker = new Worker(URL.createObjectURL(blob));
+
+      function onDone() {
+        URL.revokeObjectURL(blob);
+        fnOnStop.apply(this, arguments);
       }
-      catch(e) {
+
+      myWorker.onmessage = function (data) {
+        data = data.data;
+        if (data) {
+          if (data.i === id) {
+            id = 0;
+            onDone(true, data.r);
+          }
+          else if (data.i === id + 1) {
+            setTimeout(function() {
+              if (id) {
+                myWorker.terminate();
+                onDone(false);
+              }
+            }, opt_timeoutInMS || 1000);
+          }
+        }
+      };
+
+      myWorker.postMessage({ c: code, i: id });
+    }
+
+    limitEval("fo", function(success, returnValue) {
+      if (success) {
+        message.channel.sendMessage("www");
+      }
+      else {
         message.channel.sendMessage("QQ");
       }
-    }, 100);
+    }, 3000);
     message.channel.sendMessage("本機正常運作中... ...");
     command_cd["!test"] = 1;
     setTimeout(function(){command_cd["!test"] = 0;}, 5000);
