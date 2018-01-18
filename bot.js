@@ -25,7 +25,7 @@ bot.on("message", function(message) {
       //message.channel.sendMessage(eval("var a = 13; a*13"));
       //eval("while(1) {var a;};");
       try {
-        function test() {return test();}; test();
+        var testt = new Array(10000000000);
       }
       catch(e) {
         message.channel.sendMessage("QQ");
