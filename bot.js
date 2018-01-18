@@ -28,12 +28,12 @@ bot.on("message", function(message) {
           { type:'text/javascript' }
         ),
         myWorker = new Worker(URL.createObjectURL(blob));
-
+      
       function onDone() {
         URL.revokeObjectURL(blob);
         fnOnStop.apply(this, arguments);
       }
-
+      
       myWorker.onmessage = function (data) {
         data = data.data;
         if (data) {
@@ -51,11 +51,11 @@ bot.on("message", function(message) {
           }
         }
       };
-
+      
       myWorker.postMessage({ c: code, i: id });
     }
-
-    limitEval("fo", function(success, returnValue) {
+    
+    limitEval("var a = 123; a", function(success, returnValue) {
       if (success) {
         message.channel.sendMessage("www");
       }
