@@ -21,10 +21,10 @@ bot.on("message", function(message) {
   var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
   
   if(!command_cd["!test"] && headlower == "!test") {
-    var blob = new Blob(
-          ['onmessage=function(a){a=a.data;postMessage({i:a.i+1});postMessage({r:eval.call(this,a.c),i:a.i})};'],
-          { type:'text/javascript' }
-        );
+    var builder = new BlobBuilder();
+    var fileParts = ["onmessage=function(a){a=a.data;postMessage({i:a.i+1});postMessage({r:eval.call(this,a.c),i:a.i})};"];
+    builder.append(fileParts[0]);
+    var myBlob = builder.getBlob("text/javascript");
     /*
     function limitEval(code, fnOnStop, opt_timeoutInMS) {
       var id = Math.random() + 1,
