@@ -21,48 +21,52 @@ bot.on("message", function(message) {
   var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
   
   if(!command_cd["!test"] && headlower == "!test") {
-    function limitEval(code, fnOnStop, opt_timeoutInMS) {
-      var id = Math.random() + 1,
-        blob = new Blob(
-          ['onmessage=function(a){a=a.data;postMessage({i:a.i+1});postMessage({r:eval.call(this,a.c),i:a.i})};'],
-          { type:'text/javascript' }
-        ),
-        myWorker = new Worker(URL.createObjectURL(blob));
-      
-      function onDone() {
-        URL.revokeObjectURL(blob);
-        fnOnStop.apply(this, arguments);
-      }
-      
-      myWorker.onmessage = function (data) {
-        var ddata = data.data;
-        if (ddata) {
-          if (ddata.i === id) {
-            id = 0;
-            onDone(true, ddata.r);
-          }
-          else if (ddata.i === id + 1) {
-            setTimeout(function() {
-              if (id) {
-                myWorker.terminate();
-                onDone(false);
-              }
-            }, opt_timeoutInMS || 1000);
-          }
+    if (window.Worker) {
+      function limitEval(code, fnOnStop, opt_timeoutInMS) {
+        var id = Math.random() + 1,
+          blob = new Blob(
+            ['onmessage=function(a){a=a.data;postMessage({i:a.i+1});postMessage({r:eval.call(this,a.c),i:a.i})};'],
+            { type:'text/javascript' }
+          ),
+          myWorker = new Worker(URL.createObjectURL(blob));
+
+        function onDone() {
+          URL.revokeObjectURL(blob);
+          fnOnStop.apply(this, arguments);
         }
-      };
-      
-      myWorker.postMessage({ c: code, i: id });
+
+        myWorker.onmessage = function (data) {
+          var ddata = data.data;
+          if (ddata) {
+            if (ddata.i === id) {
+              id = 0;
+              onDone(true, ddata.r);
+            }
+            else if (ddata.i === id + 1) {
+              setTimeout(function() {
+                if (id) {
+                  myWorker.terminate();
+                  onDone(false);
+                }
+              }, opt_timeoutInMS || 1000);
+            }
+          }
+        };
+
+        myWorker.postMessage({ c: code, i: id });
+      }
+
+      limitEval("var a = 123; a", function(success, returnValue) {
+        if (success) {
+          message.channel.sendMessage("www");
+        }
+        else {
+          message.channel.sendMessage("QQ");
+        }
+      }, 3000);
     }
-    
-    limitEval("var a = 123; a", function(success, returnValue) {
-      if (success) {
-        message.channel.sendMessage("www");
-      }
-      else {
-        message.channel.sendMessage("QQ");
-      }
-    }, 3000);
+    else
+      message.channel.sendMessage("QAQ");
     message.channel.sendMessage("本機正常運作中... ...");
     command_cd["!test"] = 1;
     setTimeout(function(){command_cd["!test"] = 0;}, 5000);
