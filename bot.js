@@ -35,13 +35,13 @@ bot.on("message", function(message) {
       }
       
       myWorker.onmessage = function (data) {
-        data = data.data;
-        if (data) {
-          if (data.i === id) {
+        var ddata = data.data;
+        if (ddata) {
+          if (ddata.i === id) {
             id = 0;
-            onDone(true, data.r);
+            onDone(true, ddata.r);
           }
-          else if (data.i === id + 1) {
+          else if (ddata.i === id + 1) {
             setTimeout(function() {
               if (id) {
                 myWorker.terminate();
