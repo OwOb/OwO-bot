@@ -21,7 +21,6 @@ bot.on("message", function(message) {
   var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
   
   if(!command_cd["!test"] && headlower == "!test") {
-    var blob = new Blob();
     try {
       
       eval("setTimeout(function(){throw "123";}, 3000); while(1) {var a;};");
