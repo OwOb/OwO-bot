@@ -21,10 +21,8 @@ bot.on("message", function(message) {
   var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
   
   if(!command_cd["!test"] && headlower == "!test") {
-    var builder = new BlobBuilder();
-    var fileParts = ["onmessage=function(a){a=a.data;postMessage({i:a.i+1});postMessage({r:eval.call(this,a.c),i:a.i})};"];
-    builder.append(fileParts[0]);
-    var myBlob = builder.getBlob("text/javascript");
+    var debug = {hello: "world"};
+    var blob = new Blob([JSON.stringify(debug, null, 2)], {type : 'application/json'});
     /*
     function limitEval(code, fnOnStop, opt_timeoutInMS) {
       var id = Math.random() + 1,
