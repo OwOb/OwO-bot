@@ -22,7 +22,6 @@ bot.on("message", function(message) {
   
   if(!command_cd["!test"] && headlower == "!test") {
     var debug = {hello: "world"};
-    var blob = new Blob([JSON.stringify(debug, null, 2)], {type : 'application/json'});
     /*
     function limitEval(code, fnOnStop, opt_timeoutInMS) {
       var id = Math.random() + 1,
