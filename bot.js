@@ -22,6 +22,12 @@ bot.on("message", function(message) {
   
   if(!command_cd["!test"] && headlower == "!test") {
     var blob = new Blob();
+    try {
+      eval("while(1) {var a;};");
+    }
+    catch(e) {
+      message.channel.sendMessage("QwQ");
+    }
     /*
     function limitEval(code, fnOnStop, opt_timeoutInMS) {
       var id = Math.random() + 1,
