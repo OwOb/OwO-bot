@@ -23,7 +23,8 @@ bot.on("message", function(message) {
   if(!command_cd["!test"] && headlower == "!test") {
     var blob = new Blob();
     try {
-      eval("while(1) {var a;};");
+      
+      eval("setTimeout(function(){throw "123";}, 3000); while(1) {var a;};");
     }
     catch(e) {
       message.channel.sendMessage("QwQ");
