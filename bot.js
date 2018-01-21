@@ -22,6 +22,8 @@ bot.on("message", function(message) {
   
   if(!command_cd["!test"] && headlower == "!test") {
     if (window.Worker) {
+      message.channel.sendMessage("OwO");
+      /*
       function limitEval(code, fnOnStop, opt_timeoutInMS) {
         var id = Math.random() + 1,
           blob = new Blob(
@@ -64,6 +66,7 @@ bot.on("message", function(message) {
           message.channel.sendMessage("QQ");
         }
       }, 3000);
+      */
     }
     else
       message.channel.sendMessage("QAQ");
