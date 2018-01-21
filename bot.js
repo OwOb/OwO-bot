@@ -21,7 +21,10 @@ bot.on("message", function(message) {
   var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
   
   if(!command_cd["!test"] && headlower == "!test") {
-    var debug = {hello: "world"};
+    var builder = new BlobBuilder();
+    var fileParts = ['<a id="a"><b id="b">hey!</b></a>'];
+    builder.append(fileParts[0]);
+    var myBlob = builder.getBlob('text/xml');
     /*
     function limitEval(code, fnOnStop, opt_timeoutInMS) {
       var id = Math.random() + 1,
