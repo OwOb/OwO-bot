@@ -21,13 +21,6 @@ bot.on("message", function(message) {
   var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
   
   if(!command_cd["!test"] && headlower == "!test") {
-    try {
-      
-      eval("setTimeout(function(){throw 0;}, 3000); while(1) {var a;};");
-    }
-    catch(e) {
-      message.channel.sendMessage("QwQ");
-    }
     /*
     function limitEval(code, fnOnStop, opt_timeoutInMS) {
       var id = Math.random() + 1,
