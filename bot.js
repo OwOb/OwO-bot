@@ -175,6 +175,12 @@ bot.on("message", function(message) {
     setTimeout(function(){command_cd["≡owo≡"] = 0;}, 5000);
   }
   
+  else if (!command_cd["qq"] && endlower.match(/qq/g).lenght*"qq" == endlower) {
+    message.channel.sendMessage(別難過了~ 本機會陪著你的~~~ "+endlower);
+    command_cd["qq"] = 1;
+    setTimeout(function(){command_cd["qq"] = 0;}, 5000);
+  }
+  
   else if (!command_cd["😶"] && (head.indexOf("😶") != -1 || end.indexOf("😶") != -1)) {
     var counthead = head.match(/😶/g), countend = end.match(/😶/g);
     if (counthead == null)
