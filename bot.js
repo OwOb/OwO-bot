@@ -176,7 +176,10 @@ bot.on("message", function(message) {
   }
   
   else if (!command_cd["qq"] && endlower.length > 1 && endlower[endlower.length-1] == "q" && endlower[endlower.length-2] == "q") {
-    message.channel.sendMessage("別難過了\\~\\~\\~  😭\n本機會陪著你的\\~\\~\\~  "+end);
+    var qqstr = ""
+    for (var qqindex = end.length-1; qqindex >= 0 && (end[qqindex] == "Q") || (end[qqindex] == "q"))
+        qqstr = end[qqindex]+qqstr;
+    message.channel.sendMessage("別難過了\\~\\~\\~  😭\n本機會陪著你的\\~\\~\\~  "+qqstr);
     command_cd["qq"] = 1;
     setTimeout(function(){command_cd["qq"] = 0;}, 5000);
   }
