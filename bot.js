@@ -175,8 +175,7 @@ bot.on("message", function(message) {
     setTimeout(function(){command_cd["≡owo≡"] = 0;}, 5000);
   }
   
-  else if (!command_cd["qq"] && endlower.indexOf("qq") != -1) {
-    message.channel.sendMessage(endlower.match(/qq/g).length);
+  else if (!command_cd["qq"] && endlower.match(/q/g) != null) {
     message.channel.sendMessage("別難過了~ 本機會陪著你的~~~ "+end);
     command_cd["qq"] = 1;
     setTimeout(function(){command_cd["qq"] = 0;}, 5000);
