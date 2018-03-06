@@ -176,7 +176,7 @@ bot.on("message", function(message) {
   }
   
   else if (!command_cd["qq"] && endlower.match(/qq/g).lenght*"qq" == endlower) {
-    message.channel.sendMessage(別難過了~ 本機會陪著你的~~~ "+endlower);
+    message.channel.sendMessage("別難過了~ 本機會陪著你的~~~ "+endlower);
     command_cd["qq"] = 1;
     setTimeout(function(){command_cd["qq"] = 0;}, 5000);
   }
