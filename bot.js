@@ -152,7 +152,7 @@ bot.on("message", function(message) {
         if (message.content[i] == 'Q' || message.content[i] == 'q')
             qcount++;
     if (qcount >= 2) {
-      message.channel.sendMessage("別難過了\\~\\~\\~\n本機會陪著你的\\~\\~\\~ "+message.content.substring(i+1, message.content.length).trim());
+      message.channel.sendMessage("別難過了\\~\\~\\~  😭\n本機會陪著你的\\~\\~\\~  "+message.content.substring(i+1, message.content.length).trim());
     }
 
     else if (head.indexOf("😶") != -1 || end.indexOf("😶") != -1) {
