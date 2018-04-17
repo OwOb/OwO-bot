@@ -12,7 +12,7 @@ bot.on("ready", function() {
 
 bot.on("message", function(message) {
   
-  if (command_cd[message.author.id]) return ;
+  if (message.author.bot || command_cd[message.author.id]) return ;
   
   var agar = message.content.split(" ");
   var urllist = message.content.match(/http:\/\/[^ \n]+|https:\/\/[^ \n]+/g);
@@ -151,7 +151,7 @@ bot.on("message", function(message) {
     for (i = message.content.length-1; (message.content[i] == 'Q' || message.content[i] == 'q' || message.content[i] == ' ' || message.content[i] == '\n') && i >= 0; i--)
         if (message.content[i] == 'Q' || message.content[i] == 'q')
             qcount++;
-    if (!message.author.bot && qcount >= 2) {
+    if (qcount >= 2) {
       message.channel.sendMessage(message.content.substring(i+1, message.content.length).trim());
     }
 
