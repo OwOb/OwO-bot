@@ -146,49 +146,53 @@ bot.on("message", function(message) {
     message.channel.sendMessage("OwO ？");
   }
   
-  else if (endlower.length > 1 && endlower[endlower.length-1] == "q" && endlower[endlower.length-2] == "q") {
-    var qqstr = "";
-    for (var qqindex = end.length-1; qqindex >= 0 && (end[qqindex] == "Q") || (end[qqindex] == "q"); qqindex--)
-        qqstr = end[qqindex]+qqstr;
-    message.channel.sendMessage("別難過了\\~\\~\\~  😭\n本機會陪著你的\\~\\~\\~  "+qqstr);
-  }
-  
-  else if (head.indexOf("😶") != -1 || end.indexOf("😶") != -1) {
-    var counthead = head.match(/😶/g), countend = end.match(/😶/g);
-    if (counthead == null)
-      counthead = [];
-    else if (head.length != counthead.length*"😶".length)
-      counthead = [];
-    if (countend == null)
-      countend = [];
-    else if (end.length != countend.length*"😶".length)
-      countend = [];
-    if (Math.max(counthead.length, countend.length) > 0) {
-      message.channel.sendMessage("😶".repeat(Math.max(counthead.length, countend.length)+1));
+  else {
+    var qcount = 0;
+    for (i = message.content.length-1; (message.content[i] == 'Q' || message.content[i] == 'q' || message.content[i] == ' ' || message.content[i] == '\n') && i >= 0; i--)
+        if (message.content[i] == 'Q' || message.content[i] == 'q')
+            qcount++;
+    if (!message.author.bot && qcount >= 2) {
+      message.channel.sendMessage(message.content.substring(i+1, message.content.length).trim());
     }
-  }
-  
-  else if (message.content.indexOf("運算") == 0 ||  message.content.indexOf("calculate") == 0 || message.content.indexOf("calc") == 0) {
-    if (agar.length == 1 && head == "運算")
-      message.channel.sendMessage("沒給算式本機要算什麼啦！(╯‵□ˊ)╯︵┴─┴");
-    else {
-      try {
-        if (message.content.indexOf("運算") == 0)
-          message.channel.sendMessage(math.format(math.eval(message.content.replace(/　/g," ").substring("運算".length).replace(/\'/g,"\"")), {precision: 14}));
-        else if (message.content.indexOf("calculate") == 0)
-          message.channel.sendMessage(math.format(math.eval(message.content.replace(/　/g," ").substring("calculate".length).replace(/\'/g,"\"")), {precision: 14}));
-        else
-          message.channel.sendMessage(math.format(math.eval(message.content.replace(/　/g," ").substring("calc".length).replace(/\'/g,"\"")), {precision: 14}));
-      }
-      catch(calculateerror) {
-        message.channel.sendMessage("算式格式有誤啦！害本機算那麼久！(╯‵□ˊ)╯︵┴─┴");
-        cd = 30000;
+
+    else if (head.indexOf("😶") != -1 || end.indexOf("😶") != -1) {
+      var counthead = head.match(/😶/g), countend = end.match(/😶/g);
+      if (counthead == null)
+        counthead = [];
+      else if (head.length != counthead.length*"😶".length)
+        counthead = [];
+      if (countend == null)
+        countend = [];
+      else if (end.length != countend.length*"😶".length)
+        countend = [];
+      if (Math.max(counthead.length, countend.length) > 0) {
+        message.channel.sendMessage("😶".repeat(Math.max(counthead.length, countend.length)+1));
       }
     }
-  }
-  
-  else if (message.content.indexOf("誰是世界上最醜的人") != -1) {
-    message.channel.sendMessage(message.author.username+"是世界上最醜的人~~~  OwO");
+
+    else if (message.content.indexOf("運算") == 0 ||  message.content.indexOf("calculate") == 0 || message.content.indexOf("calc") == 0) {
+      if (agar.length == 1 && head == "運算")
+        message.channel.sendMessage("沒給算式本機要算什麼啦！(╯‵□ˊ)╯︵┴─┴");
+      else {
+        try {
+          if (message.content.indexOf("運算") == 0)
+            message.channel.sendMessage(math.format(math.eval(message.content.replace(/　/g," ").substring("運算".length).replace(/\'/g,"\"")), {precision: 14}));
+          else if (message.content.indexOf("calculate") == 0)
+            message.channel.sendMessage(math.format(math.eval(message.content.replace(/　/g," ").substring("calculate".length).replace(/\'/g,"\"")), {precision: 14}));
+          else
+            message.channel.sendMessage(math.format(math.eval(message.content.replace(/　/g," ").substring("calc".length).replace(/\'/g,"\"")), {precision: 14}));
+        }
+        catch(calculateerror) {
+          message.channel.sendMessage("算式格式有誤啦！害本機算那麼久！(╯‵□ˊ)╯︵┴─┴");
+          cd = 30000;
+        }
+      }
+    }
+
+    else if (message.content.indexOf("誰是世界上最醜的人") != -1) {
+      message.channel.sendMessage(message.author.username+"是世界上最醜的人~~~  OwO");
+    }
+    
   }
   
   if (urllist != null) {
