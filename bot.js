@@ -139,10 +139,10 @@ bot.on("message", function(message) {
   }
   
   else if (headlower == "≡owo≡" || endlower == "≡owo≡") {
-    message.channel.sendMessage("≡OwO≡ 喵喵喵喵？");
+    message.channel.sendMessage("≣OwO≣ 喵喵喵喵？");
   }
   
-  else if (headlower == "≡owo≡" || endlower == "≡owo≡") {
+  else if (headlower == "≣owo≣" || endlower == "≣owo≣") {
     message.channel.sendMessage("OwO ？");
   }
   
