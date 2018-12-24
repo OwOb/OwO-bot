@@ -169,6 +169,13 @@ bot.on("message", function(message) {
         message.channel.sendMessage("😶".repeat(Math.max(counthead.length, countend.length)+1));
       }
     }
+    
+    else if (message.content.indexOf("什麼是") == 0 ||  message.content.indexOf("google") == 0 ) {
+      if (message.content.indexOf("什麼是") == 0)
+        message.channel.sendMessage("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,'+').replace(/(\？*$)/g,""))
+      else
+        message.channel.sendMessage("https://www.google.com.tw/search?q="+message.content.substring("google".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,'+').replace(/(\？*$)/g,""))
+    }
 
     else if (message.content.indexOf("運算") == 0 ||  message.content.indexOf("calculate") == 0 || message.content.indexOf("calc") == 0) {
       if (agar.length == 1 && head == "運算")
@@ -184,7 +191,7 @@ bot.on("message", function(message) {
         }
         catch(calculateerror) {
           message.channel.sendMessage("算式格式有誤啦！害本機算那麼久！(╯‵□ˊ)╯︵┴─┴");
-          cd = 30000;
+          cd = 10000;
         }
       }
     }
