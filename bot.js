@@ -19,7 +19,7 @@ bot.on("message", function(message) {
   
   var head = agar[0], end = agar[agar.length-1]; 
   var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
-  var cd = 5000;
+  var cd = 3000;
   
   if(headlower == "!test") {
     /*
