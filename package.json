@@ -10,6 +10,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"discord.js": "^11.2.1",
+		"mathjs": "3.18.1",
 		"mathjs-simple-integral": "0.1.1",
 		"request": "2.83.0"
 	}
