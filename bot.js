@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 var request = require("request");
-var math = require("mathjs-simple-integral");
+var math = require("mathjs");
+math.import(require('mathjs-simple-integral'));
 
 var bot = new Discord.Client();
 
