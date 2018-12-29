@@ -177,6 +177,10 @@ bot.on("message", function(message) {
       else
         message.channel.sendMessage("https://www.google.com.tw/search?q="+message.content.substring("!google".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,'+').replace(/(\？*$)/g,""))
     }
+    
+    else if (message.content.indexOf("蛤") == 0) {
+      message.channel.send({files:["./image/蛤.png"]})
+    }
 
     else if (message.content.indexOf("運算") == 0 ||  message.content.indexOf("calculate") == 0 || message.content.indexOf("calc") == 0) {
       if (agar.length == 1 && head == "運算")
