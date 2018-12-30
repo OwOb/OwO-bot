@@ -96,7 +96,7 @@ bot.on("message", function(message) {
   }
   
   else if(headlower == "3210" || headlower.indexOf("新年快樂") != -1 || headlower.indexOf("happy new year") != -1) {
-    message.channel.sendMessage("(*ﾉﾟ▽ﾟ)ﾉ*・゜☆HAPPY NEW YEAR☆゜・*ヽ(*´∀｀)ﾉﾟ");
+    message.channel.send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
   }
   
   else if(headlower == "78+9") {
