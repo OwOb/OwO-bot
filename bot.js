@@ -17,8 +17,8 @@ bot.on("ready", function() {
   var nowTime = new Date();
   var newTime = new Date("2018/12/30 19:15:00");
   var timeZone = nowTime.getTimezoneOffset();
-  console.log(newTime.getTime()-timeZone*60000-nowTime.getTime());
-  setTimeout(HappyNewYear, newTime.getTime()-timeZone*60000-nowTime.getTime());
+  console.log(newTime.getTime()-28800000-nowTime.getTime()+timeZone*60000);
+  setTimeout(HappyNewYear, newTime.getTime()-28800000-nowTime.getTime()+timeZone*60000);
 });
 
 bot.on("message", function(message) {
