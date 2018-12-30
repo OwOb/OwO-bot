@@ -8,14 +8,14 @@ var bot = new Discord.Client();
 var command_cd = new Array();
 
 function HappyNewYear() {
-  client.channels.get("387545955324657666").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
+  bot.channels.get("387545955324657666").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
 }
 
 bot.on("ready", function() {
   console.log("Ready");
   
   var nowTime = new Date();
-  var newTime = new Date("2018/12/30 19:05:00");
+  var newTime = new Date("2018/12/30 19:07:00");
   var timeZone = nowTime.getTimezoneOffset()*60000;
   setTimeout(HappyNewYear, newTime.getTime()+nowTime.getTimezoneOffset()*60000-480000);
 });
