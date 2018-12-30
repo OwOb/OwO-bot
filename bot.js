@@ -26,6 +26,7 @@ bot.on("message", function(message) {
   
   if (message.author.bot || command_cd[message.author.id]) return ;
   
+  var lowermessage = message.content.toLowerCase();
   var agar = message.content.split(" ");
   var urllist = message.content.match(/http:\/\/[^ \n]+|https:\/\/[^ \n]+/g);
   
@@ -106,7 +107,7 @@ bot.on("message", function(message) {
     message.channel.sendMessage("別無言了，本機在此有話直說 😐");
   }
   
-  else if(headlower == "3210" || message.content.indexOf("新年快樂") != -1 || message.content.toLowerCase().indexOf("happy new year") != -1) {
+  else if(headlower == "3210" || message.content.indexOf("新年快樂") != -1 || lowermessage.indexOf("happy new year") != -1) {
     message.channel.sendMessage("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ");
   }
   
