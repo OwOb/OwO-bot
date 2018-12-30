@@ -15,7 +15,7 @@ bot.on("ready", function() {
   console.log("Ready");
   
   var nowTime = new Date();
-  var newYear = new Date((nowTime.getFullYear())+"/12/31 00:00:00");
+  var newYear = new Date("2018/12/31 00:03:00");
   var timeZone = nowTime.getTimezoneOffset();
   var t = newYear.getTime()-28800000-nowTime.getTime()+timeZone*60000-100;
   if (t >= 0)
@@ -79,11 +79,11 @@ bot.on("message", function(message) {
       }
     }, 3000);
     */
-    message.channel.sendMessage("本機正常運作中... ...");
+    message.channel.send("本機正常運作中... ...");
   }
   
   else if(headlower == "!id") {
-    message.channel.sendMessage(message.author.username+"的ID為: "+message.author.id);
+    message.channel.send(message.author.username+"的ID為: "+message.author.id);
   }
   
   else if(headlower == "!me") {
@@ -94,33 +94,33 @@ bot.on("message", function(message) {
         rolename += ", "+roles[key].name;
     }
     if (rolename.length)
-      message.channel.sendMessage(message.author.username+"是本頻道的: "+rolename.substring(2));
+      message.channel.send(message.author.username+"是本頻道的: "+rolename.substring(2));
     else
-      message.channel.sendMessage(message.author.username+"不屬於本頻道的任何身分組");
+      message.channel.send(message.author.username+"不屬於本頻道的任何身分組");
   }
   
   else if(headlower == "!say") {
-    message.channel.sendMessage(message.content.substring(5));
+    message.channel.send(message.content.substring(5));
   }
   
   else if(headlower.indexOf("...") == 0 && headlower == ".".repeat(headlower.length)) {
-    message.channel.sendMessage("別無言了，本機在此有話直說 😐");
+    message.channel.send("別無言了，本機在此有話直說 😐");
   }
   
   else if(headlower == "3210" || message.content.indexOf("新年快樂") != -1 || lowermessage.indexOf("happy new year") != -1) {
-    message.channel.sendMessage("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ");
+    message.channel.send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ");
   }
   
   else if(headlower == "78+9") {
-    message.channel.sendMessage("其實8+9就是... ...\n咳... 那是各位說的，可不是本機說的 😏");
+    message.channel.send("其實8+9就是... ...\n咳... 那是各位說的，可不是本機說的 😏");
   }
   
   else if(headlower == "8+9") {
-    message.channel.sendMessage("8+9=義氣");
+    message.channel.send("8+9=義氣");
   }
   
   else if(headlower == "86") {
-    message.channel.sendMessage("能超越86的人... 就是下面那位... ... 😏");
+    message.channel.send("能超越86的人... 就是下面那位... ... 😏");
   }
   
   else if(message.content.indexOf("javascript") == 0) {
@@ -140,23 +140,23 @@ bot.on("message", function(message) {
   }
   
   else if (headlower == "owo" || endlower == "owo") {
-    message.channel.sendMessage("-OwO- 喵？");
+    message.channel.send("-OwO- 喵？");
   }
   
   else if (headlower == "-owo-" || endlower == "-owo-") {
-    message.channel.sendMessage("=OwO= 喵喵？");
+    message.channel.send("=OwO= 喵喵？");
   }
   
   else if (headlower == "=owo=" || endlower == "=owo=") {
-    message.channel.sendMessage("≡OwO≡ 喵喵喵？");
+    message.channel.send("≡OwO≡ 喵喵喵？");
   }
   
   else if (headlower == "≡owo≡" || endlower == "≡owo≡") {
-    message.channel.sendMessage("≣OwO≣ 喵喵喵喵？");
+    message.channel.send("≣OwO≣ 喵喵喵喵？");
   }
   
   else if (headlower == "≣owo≣" || endlower == "≣owo≣") {
-    message.channel.sendMessage("OwO ？");
+    message.channel.send("OwO ？");
   }
   
   else {
@@ -165,7 +165,7 @@ bot.on("message", function(message) {
         if (message.content[i] == 'Q' || message.content[i] == 'q')
             qcount++;
     if (qcount >= 2) {
-      message.channel.sendMessage("別難過了\\~\\~\\~  😭\n本機會陪著你的\\~\\~\\~  "+message.content.substring(i+1, message.content.length).trim());
+      message.channel.send("別難過了\\~\\~\\~  😭\n本機會陪著你的\\~\\~\\~  "+message.content.substring(i+1, message.content.length).trim());
     }
 
     else if (head.indexOf("😶") != -1 || end.indexOf("😶") != -1) {
@@ -179,15 +179,15 @@ bot.on("message", function(message) {
       else if (end.length != countend.length*"😶".length)
         countend = [];
       if (Math.max(counthead.length, countend.length) > 0) {
-        message.channel.sendMessage("😶".repeat(Math.max(counthead.length, countend.length)+1));
+        message.channel.send("😶".repeat(Math.max(counthead.length, countend.length)+1));
       }
     }
     
     else if (message.content.indexOf("什麼是") == 0 ||  message.content.indexOf("!google") == 0 ) {
       if (message.content.indexOf("什麼是") == 0)
-        message.channel.sendMessage("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,'+').replace(/(\？*$)/g,""))
+        message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,'+').replace(/(\？*$)/g,""))
       else
-        message.channel.sendMessage("https://www.google.com.tw/search?q="+message.content.substring("!google".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,'+').replace(/(\？*$)/g,""))
+        message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("!google".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,'+').replace(/(\？*$)/g,""))
     }
     
     else if (message.content.indexOf("蛤") == 0) {
@@ -196,24 +196,24 @@ bot.on("message", function(message) {
 
     else if (message.content.indexOf("運算") == 0 ||  message.content.indexOf("calculate") == 0 || message.content.indexOf("calc") == 0) {
       if (agar.length == 1)
-        message.channel.sendMessage("沒給算式本機要算什麼啦！(╯‵□ˊ)╯︵┴─┴");
+        message.channel.send("沒給算式本機要算什麼啦！(╯‵□ˊ)╯︵┴─┴");
       else {
         try {
           if (message.content.indexOf("運算") == 0)
-            message.channel.sendMessage(math.format(math.eval(message.content.replace(/　/g," ").substring("運算".length).replace(/\'/g,"\"")), {precision: 14}));
+            message.channel.send(math.format(math.eval(message.content.replace(/　/g," ").substring("運算".length).replace(/\'/g,"\"")), {precision: 14}));
           else if (message.content.indexOf("calculate") == 0)
-            message.channel.sendMessage(math.format(math.eval(message.content.replace(/　/g," ").substring("calculate".length).replace(/\'/g,"\"")), {precision: 14}));
+            message.channel.send(math.format(math.eval(message.content.replace(/　/g," ").substring("calculate".length).replace(/\'/g,"\"")), {precision: 14}));
           else
-            message.channel.sendMessage(math.format(math.eval(message.content.replace(/　/g," ").substring("calc".length).replace(/\'/g,"\"")), {precision: 14}));
+            message.channel.send(math.format(math.eval(message.content.replace(/　/g," ").substring("calc".length).replace(/\'/g,"\"")), {precision: 14}));
         }
         catch(calculateerror) {
-          message.channel.sendMessage("算式格式有誤啦！害本機算那麼久！(╯‵□ˊ)╯︵┴─┴");
+          message.channel.send("算式格式有誤啦！害本機算那麼久！(╯‵□ˊ)╯︵┴─┴");
         }
       }
     }
 
     else if (message.content.indexOf("誰是世界上最醜的人") != -1) {
-      message.channel.sendMessage(message.author.username+"是世界上最醜的人~~~  OwO");
+      message.channel.send(message.author.username+"是世界上最醜的人~~~  OwO");
     }
     
   }
@@ -226,7 +226,7 @@ bot.on("message", function(message) {
           url: urllist[i]+"/raw",
           method: "GET"
         }, function(error,response,body) {
-          if (!error) message.channel.sendMessage("```\n"+body+"\n```");
+          if (!error) message.channel.send("```\n"+body+"\n```");
         });
       }
       
@@ -236,7 +236,7 @@ bot.on("message", function(message) {
             url: urllist[i].replace("github.com","raw.githubusercontent.com").replace("/blob",""),
             method: "GET"
             }, function(error,response,body) {
-              if (!error) message.channel.sendMessage("```\n"+body+"\n```");
+              if (!error) message.channel.send("```\n"+body+"\n```");
             });
         }
       }
@@ -246,7 +246,7 @@ bot.on("message", function(message) {
           url: urllist[i].replace("ideone.com","ideone.com/plain"),
           method: "GET"
           }, function(error,response,body) {
-            if (!error) message.channel.sendMessage("```\n"+body+"\n```");
+            if (!error) message.channel.send("```\n"+body+"\n```");
           });
       }
         
@@ -255,7 +255,7 @@ bot.on("message", function(message) {
           url: urllist[i]+"/raw.cpp",
           method: "GET"
           }, function(error,response,body) {
-            if (!error) message.channel.sendMessage("```\n"+body+"\n```");
+            if (!error) message.channel.send("```\n"+body+"\n```");
           });
       }
     }
