@@ -7,8 +7,17 @@ var bot = new Discord.Client();
 
 var command_cd = new Array();
 
+function HappyNewYear() {
+  client.channels.get("387545955324657666").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
+}
+
 bot.on("ready", function() {
   console.log("Ready");
+  
+  var nowTime = new Date();
+  var newTime = new Date("2018/12/30 19:05:00");
+  var timeZone = nowTime.getTimezoneOffset()*60000;
+  setTimeout(HappyNewYear, newTime.getTime()+nowTime.getTimezoneOffset()*60000-480000);
 });
 
 bot.on("message", function(message) {
@@ -96,7 +105,7 @@ bot.on("message", function(message) {
   }
   
   else if(headlower == "3210" || headlower.indexOf("新年快樂") != -1 || headlower.indexOf("happy new year") != -1) {
-    message.channel.send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
+    message.channel.sendMessage("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ");
   }
   
   else if(headlower == "78+9") {
