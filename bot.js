@@ -15,7 +15,7 @@ bot.on("ready", function() {
   console.log("Ready");
   
   var nowTime = new Date();
-  var newTime = new Date("2018/12/30 19:10:00");
+  var newTime = new Date("2018/12/30 19:13:00");
   console.log(newTime.getTime()-nowTime.getTime());
   setTimeout(HappyNewYear, newTime.getTime()-nowTime.getTime());
 });
