@@ -15,11 +15,11 @@ bot.on("ready", function() {
   console.log("Ready");
   
   var nowTime = new Date();
-  var newTime = new Date("2018/12/30 21:00:00");
+  var newYear = new Date((nowTime.getFullYear())+"/12/31 00:00:00");
   var timeZone = nowTime.getTimezoneOffset();
-  var t = newTime.getTime()-28800000-nowTime.getTime()+timeZone*60000-100;
+  var t = newYear.getTime()-28800000-nowTime.getTime()+timeZone*60000-100;
   if (t >= 0)
-    setTimeout(HappyNewYear, newTime.getTime()-28800000-nowTime.getTime()+timeZone*60000-100);
+    setTimeout(HappyNewYear, t);
 });
 
 bot.on("message", function(message) {
