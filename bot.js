@@ -183,7 +183,7 @@ bot.on("message", function(message) {
     }
 
     else if (message.content.indexOf("運算") == 0 ||  message.content.indexOf("calculate") == 0 || message.content.indexOf("calc") == 0) {
-      if (agar.length == 1 && head == "運算")
+      if (agar.length == 1)
         message.channel.sendMessage("沒給算式本機要算什麼啦！(╯‵□ˊ)╯︵┴─┴");
       else {
         try {
@@ -196,7 +196,6 @@ bot.on("message", function(message) {
         }
         catch(calculateerror) {
           message.channel.sendMessage("算式格式有誤啦！害本機算那麼久！(╯‵□ˊ)╯︵┴─┴");
-          cd = 10000;
         }
       }
     }
