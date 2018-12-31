@@ -7,21 +7,24 @@ var bot = new Discord.Client();
 
 var command_cd = new Array();
 
+/*
 function HappyNewYear() {
   bot.channels.get("527078660616749056").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
   bot.channels.get("396212584757592066").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
   bot.channels.get("387545955324657666").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
 }
+*/
 
 bot.on("ready", function() {
   console.log("Ready");
-  
+  /*
   var nowTime = new Date();
   var newYear = new Date("2019/01/01 00:00:00");
   var timeZone = nowTime.getTimezoneOffset();
   var t = newYear.getTime()-28800000-nowTime.getTime()+timeZone*60000-100;
   if (t >= 0)
     setTimeout(HappyNewYear, t);
+  */
 });
 
 bot.on("message", function(message) {
