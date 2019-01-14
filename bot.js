@@ -90,9 +90,11 @@ bot.on("message", function(message) {
           url: "https://twitch.center/customapi/quote/list?token=a705af4a&no_id=1&data=1",
           method: "GET"
           }, function(error,response,body) {
-            if (!error){ message.channel.send(response); message.channel.send(body); return body;}
+            if (!error){ message.channel.send(body); return body;}
           });
-    message.channel.send(re);
+    setTimeout(function(){
+      message.channel.send(re);
+    });
     message.channel.send("本機正常運作中... ...");
   }
   
