@@ -87,7 +87,7 @@ bot.on("message", function(message) {
       }
     }, 3000);
     */
-    var res = sync_request("GET", "https://twitch.center/customapi/quote?token=a705af4a&no_id=1").getBody();
+    var res = sync_request("POST", "https://twitch.center/customapi/quote", {json: {token:"a705af4a",no_id:"1"}}).getBody();
     message.channel.send(res ? res : "QAQ") 
     message.channel.send("本機正常運作中... ...");
   }
