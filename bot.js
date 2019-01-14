@@ -7,6 +7,10 @@ var bot = new Discord.Client();
 
 var command_cd = new Array();
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 /*
 function HappyNewYear() {
   bot.channels.get("527078660616749056").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
@@ -86,11 +90,12 @@ bot.on("message", function(message) {
       }
     }, 3000);
     */
-    var re = request({
+    var re = 
+    request({
           url: "https://twitch.center/customapi/quote/list?token=a705af4a&no_id=1&data=1",
           method: "GET"
           }, function(error,response,body) {
-            if (!error){ message.channel.send(body); return body;}
+            if (!error){ message.channel.send(body); re = body;}
           });
     setTimeout(function(){
       message.channel.send(re);
