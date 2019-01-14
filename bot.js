@@ -1,15 +1,12 @@
 const Discord = require("discord.js");
 var request = require("request");
+var sync_request = require("sync-request");
 var math = require("mathjs");
 math.import(require('mathjs-simple-integral'));
 
 var bot = new Discord.Client();
 
 var command_cd = new Array();
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 /*
 function HappyNewYear() {
@@ -90,15 +87,8 @@ bot.on("message", function(message) {
       }
     }, 3000);
     */
-    var re = "";
-    request({
-          url: "https://twitch.center/customapi/quote/list?token=a705af4a&no_id=1&data=1",
-          method: "GET"
-          }, function(error,response,body) {
-            if (!error){ message.channel.send(body); re = body;}
-          });
-    await sleep(1000);
-    message.channel.send("QQ  "+re);
+    var res = request("GET", "https://twitch.center/customapi/quote?token=a705af4a&no_id=1");
+    message.channel.send(res ? res : "QAQ") 
     message.channel.send("本機正常運作中... ...");
   }
   
