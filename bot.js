@@ -31,6 +31,8 @@ bot.on("message", function(message) {
   
   if (message.author.bot || command_cd[message.author.id]) return ;
   
+  var nickname = message.guild.members.get(message.author.id).nickname ? message.guild.members.get(message.author.id).nickname : message.author.username;
+  
   var lowermessage = message.content.toLowerCase();
   var agar = message.content.split(" ");
   var urllist = message.content.match(/http:\/\/[^ \n]+|https:\/\/[^ \n]+/g);
@@ -88,7 +90,7 @@ bot.on("message", function(message) {
   }
   
   else if(headlower == "!id") {
-    message.channel.send(message.author.username+"的ID為: "+message.author.id);
+    message.channel.send(nickname+"的ID為: "+message.author.id);
   }
   
   else if(headlower == "!me") {
@@ -99,9 +101,9 @@ bot.on("message", function(message) {
         rolename += ", "+roles[key].name;
     }
     if (rolename.length)
-      message.channel.send(message.author.username+"是本頻道的: "+rolename.substring(2));
+      message.channel.send(nickname+"是本頻道的: "+rolename.substring(2));
     else
-      message.channel.send(message.author.username+"不屬於本頻道的任何身分組");
+      message.channel.send(nickname+"不屬於本頻道的任何身分組");
   }
   
   else if(headlower == "!say") {
