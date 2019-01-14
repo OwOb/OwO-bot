@@ -86,8 +86,10 @@ bot.on("message", function(message) {
       }
     }, 3000);
     */
-    var q = message.guild.members.get("83010416610906114");
-    if (!q) message.channel.send("不存在~~~");
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", "https://twitch.center/customapi/quote/list?token=a705af4a&no_id=1&data=1", false);
+    xmlHttp.send();
+    message.channel.send(xmlHttp.responseText)
     message.channel.send("本機正常運作中... ...");
   }
   
@@ -194,9 +196,9 @@ bot.on("message", function(message) {
     
     else if (message.content.indexOf("什麼是") == 0 ||  message.content.indexOf("!google") == 0 ) {
       if (message.content.indexOf("什麼是") == 0)
-        message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,'+').replace(/(\？*$)/g,""))
+        message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""))
       else
-        message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("!google".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,'+').replace(/(\？*$)/g,""))
+        message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("!google".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""))
     }
     
     else if (message.content.indexOf("蛤") == 0) {
@@ -219,6 +221,23 @@ bot.on("message", function(message) {
           message.channel.send("算式格式有誤啦！害本機算那麼久！(╯‵□ˊ)╯︵┴─┴");
         }
       }
+    }
+    
+    else if (headlower == "新增筆記" || headlower == "!newnote") {
+      var noteurl = "https://twitch.center/customapi/quote/list?token=a705af4a&no_id=1&data=";
+      request({
+        url: noteurl+"1",
+        method: "GET"
+      }, function(error,response,body) {
+        if (!error) {
+          var notelen = parseInt(body);
+          for (var i = 2; i != notelen; i++)
+            
+        }
+        else {
+          message.channel.send("資料庫沒有回應...\n請稍後再嘗試... _(:з」∠)_");
+        }
+      });
     }
 
     else if (message.content.indexOf("誰是世界上最醜的人") != -1) {
