@@ -86,6 +86,10 @@ bot.on("message", function(message) {
       }
     }, 3000);
     */
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", "https://twitch.center/customapi/quote/list?token=a705af4a&no_id=1&data=1", false);
+    xmlHttp.send();
+    message.channel.send(xmlHttp.responseText);
     message.channel.send("本機正常運作中... ...");
   }
   
@@ -218,7 +222,7 @@ bot.on("message", function(message) {
         }
       }
     }
-    
+    /*
     else if (headlower == "新增筆記" || headlower == "!newnote") {
       var noteurl = "https://twitch.center/customapi/quote/list?token=a705af4a&no_id=1&data=";
       request({
@@ -235,7 +239,7 @@ bot.on("message", function(message) {
         }
       });
     }
-
+    */
     else if (message.content.indexOf("誰是世界上最醜的人") != -1) {
       message.channel.send(nickname+"是世界上最醜的人~~~  OwO");
     }
