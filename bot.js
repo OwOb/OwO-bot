@@ -86,10 +86,6 @@ bot.on("message", function(message) {
       }
     }, 3000);
     */
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", "https://twitch.center/customapi/quote/list?token=a705af4a&no_id=1&data=1", false);
-    xmlHttp.send();
-    message.channel.send(xmlHttp.responseText);
     message.channel.send("本機正常運作中... ...");
   }
   
