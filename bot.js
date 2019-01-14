@@ -97,9 +97,8 @@ bot.on("message", function(message) {
           }, function(error,response,body) {
             if (!error){ message.channel.send(body); re = body;}
           });
-    setTimeout(function(){
-      message.channel.send(re);
-    });
+    await sleep(1000);
+    message.channel.send("QQ  "+re);
     message.channel.send("本機正常運作中... ...");
   }
   
