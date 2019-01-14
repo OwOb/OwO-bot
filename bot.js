@@ -34,11 +34,11 @@ bot.on("message", function(message) {
   var nickname = message.guild.members.get(message.author.id).nickname ? message.guild.members.get(message.author.id).nickname : message.author.username;
   
   var lowermessage = message.content.toLowerCase();
-  var agar = message.content.split(" ");
+  var args = message.content.split(" ");
   var urllist = message.content.match(/http:\/\/[^ \n]+|https:\/\/[^ \n]+/g);
   
-  var head = agar[0], end = agar[agar.length-1]; 
-  var headlower = agar[0].toLowerCase(), endlower = agar[agar.length-1].toLowerCase();
+  var head = args[0], end = args[args.length-1]; 
+  var headlower = args[0].toLowerCase(), endlower = args[args.length-1].toLowerCase();
   var cd = 3000;
   
   if(headlower == "!test") {
@@ -86,8 +86,8 @@ bot.on("message", function(message) {
       }
     }, 3000);
     */
-    var q = message.guild.members.get(397387299832201218);
-    if (!q) message.channel.send("不存在~~~");
+    var q = message.guild.members.get(83010416610906112);
+    if (q) message.channel.send("存在~~~");
     message.channel.send("本機正常運作中... ...");
   }
   
@@ -204,7 +204,7 @@ bot.on("message", function(message) {
     }
 
     else if (message.content.indexOf("運算") == 0 ||  message.content.indexOf("calculate") == 0 || message.content.indexOf("calc") == 0) {
-      if (agar.length == 1)
+      if (args.length == 1)
         message.channel.send("沒給算式本機要算什麼啦！(╯‵□ˊ)╯︵┴─┴");
       else {
         try {
@@ -222,7 +222,7 @@ bot.on("message", function(message) {
     }
 
     else if (message.content.indexOf("誰是世界上最醜的人") != -1) {
-      message.channel.send(message.author.username+"是世界上最醜的人~~~  OwO");
+      message.channel.send(nickname+"是世界上最醜的人~~~  OwO");
     }
     
   }
