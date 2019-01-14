@@ -86,7 +86,7 @@ bot.on("message", function(message) {
       }
     }, 3000);
     */
-    var q = message.guild.members.get(83010416610906112);
+    var q = message.guild.members.get("83010416610906112");
     if (q) message.channel.send("存在~~~");
     message.channel.send("本機正常運作中... ...");
   }
