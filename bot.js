@@ -90,7 +90,7 @@ bot.on("message", function(message) {
       }
     }, 3000);
     */
-    var re = 
+    var re = "";
     request({
           url: "https://twitch.center/customapi/quote/list?token=a705af4a&no_id=1&data=1",
           method: "GET"
