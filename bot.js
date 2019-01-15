@@ -186,7 +186,7 @@ bot.on("message", function(message) {
               "text": images[index]["url"],
               "icon_url": images[index]["url"]
             }
-          });
+          }});
         }
         else
           message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
