@@ -151,7 +151,7 @@ bot.on("message", function(message) {
   }
   
   else if (headlower == "四月") {
-    message.channel.send("四月是你的胃痛，四月一日正式上映❤️", {files:["./image/四月.jpg"]});
+    message.channel.send(Discord.RichEmbed().setTitle("四月是你的胃痛，四月一日正式上映❤️").setImage("./image/四月.jpg"));
   }
   
   else if(message.content.indexOf("javascript") == 0) {
