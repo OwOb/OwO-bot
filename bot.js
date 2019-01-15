@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 var request = require("request");
 var sync_request = require("sync-request");
+var GoogleImages = require("google-images")
 var math = require("mathjs");
 math.import(require('mathjs-simple-integral'));
 
@@ -167,6 +168,16 @@ bot.on("message", function(message) {
       message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""))
     else
       message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("!google".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""))
+  }
+  
+  else if (headlower == "!image") {
+    var GoogleImagesClient = new GoogleImages("000063836301966288744:dhyumeyd1ua","AIzaSyAlrxovDclFOQvlZo6RDK0lNA9ipd7KZKg");
+    try {
+      message.channel.send(GoogleImagesClient.search("遊戲人生")[""]);
+    }
+    catch (e) {
+      message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+    }
   }
   
   else if (message.content.indexOf("蛤") == 0) {
