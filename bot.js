@@ -42,7 +42,7 @@ bot.on("message", function(message) {
   var headlower = args[0].toLowerCase(), endlower = args[args.length-1].toLowerCase();
   var cd = 3000;
   
-  if(headlower == "!test") {
+  if(message.author.id == "239653431583703040" && headlower == "!test") {
     /*
     function limitEval(code, fnOnStop, opt_timeoutInMS) {
       var id = Math.random() + 1,
@@ -90,7 +90,7 @@ bot.on("message", function(message) {
     try {
       var res = sync_request("GET", "https://www.google.com/search?q=node.js+request+wait&tbm=isch", {timeout : 1000}).body.toString();
       var ff = res.indexOf("data-src");
-      message.channel.send(res.substring(ff,ff+100));
+      message.channel.send(res.substring(ff,ff+2000));
     }
     catch (e) {
       message.channel.send("QAQ");
