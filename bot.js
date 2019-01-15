@@ -89,7 +89,7 @@ bot.on("message", function(message) {
     */
     try {
       var res = sync_request("GET", "https://www.google.com/search?q=node.js+request+wait&tbm=isch", {timeout : 1000}).body.toString();
-      var ff = res.indexOf("data-src");
+      var ff = res.indexOf("https://encrypted-tbn0.gstatic.com/");
       message.channel.send(res.substring(ff,ff+2000));
     }
     catch (e) {
