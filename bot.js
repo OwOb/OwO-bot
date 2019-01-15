@@ -177,8 +177,15 @@ bot.on("message", function(message) {
       GoogleImagesClient.search(search).then(images => {
         if (images.length > 0) {
           var index = Math.floor(Math.random()*images.length);
-          var richembed = new Discord.RichEmbed().setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**").setImage(images[index]["url"]).setFooter("["+images[index]["url"]+"]("+images[index]["url"]+")");
-          message.channel.send(richembed);
+          message.channel.send({embed:
+            color: 3447003,
+            title: "**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**",
+            image: images[index]["url"],
+            Footer: {
+              "text": images[index]["url"],
+              "icon_url": images[index]["url"]
+            }
+          });
         }
         else
           message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
