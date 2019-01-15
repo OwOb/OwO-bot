@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 var request = require("request");
 var sync_request = require("sync-request");
-var GoogleImages = require("free-google-image-search")
+import GoogleImageSearch from 'free-google-image-search'
 var math = require("mathjs");
 math.import(require('mathjs-simple-integral'));
 
@@ -172,7 +172,7 @@ bot.on("message", function(message) {
   
   else if (headlower == "!image") {
     try {
-      GoogleImages.searchImage("no_game_no_life").then((res) => {
+      GoogleImageSearch.searchImage("no_game_no_life").then((res) => {
         if (res.length)
           message.channel.send(res[0]);
         else
