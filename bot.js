@@ -171,7 +171,7 @@ bot.on("message", function(message) {
       message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("!google".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""));
   }
   
-  else if (headlower == "!image") {
+  else if (headlower == "圖片搜尋" || headlower == "google圖片" || headlower == "!image") {
     try {
       var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g,"+");
       GoogleImagesClient.search(search).then(images => {
