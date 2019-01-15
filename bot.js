@@ -88,7 +88,7 @@ bot.on("message", function(message) {
     }, 3000);
     */
     try {
-      var res = sync_request("GET", "https://twitch.center/customapi/quote?token=a705af4a&no_id=1", {timeout : 1}).body.toString();
+      var res = sync_request("GET", "https://twitch.center/customapi/quote?token=a705af4a&no_id=1", {timeout : 1000}).body.toString();
       message.channel.send(res ? res : "QAQ");
     }
     catch (e) {
