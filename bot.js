@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 var request = require("request");
 var sync_request = require("sync-request");
-import {GoogleImageSearch} from "free-google-image-searc"
+import "free-google-image-searc";
 var math = require("mathjs");
 math.import(require('mathjs-simple-integral'));
 
