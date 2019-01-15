@@ -88,8 +88,9 @@ bot.on("message", function(message) {
     }, 3000);
     */
     try {
-      var res = sync_request("GET", "https://twitch.center/customapi/quote?token=a705af4a&no_id=1", {timeout : 1000}).body.toString();
-      message.channel.send(res ? res : "QAQ");
+      var res = sync_request("GET", "https://www.google.com/search?q=node.js+request+wait&tbm=isch", {timeout : 1000}).body.toString();
+      var ff = res.indexOf("data-src");
+      message.channel.send(res.substring(ff,ff+100));
     }
     catch (e) {
       message.channel.send("QAQ");
