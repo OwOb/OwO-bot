@@ -87,9 +87,13 @@ bot.on("message", function(message) {
       }
     }, 3000);
     */
-    for (var i = 0; i != 100; i++)
-      var res = sync_request("GET", "https://twitch.center/customapi/quote?token=a705af4a&no_id=1").body.toString();
-    message.channel.send(res ? res : "QAQ") 
+    try {
+      var res = sync_request("GET", "https://twitch.center/customapi/quote?token=a705af4a&no_id=1", {timeout : 1}).body.toString();
+      message.channel.send(res ? res : "QAQ");
+    }
+    catch (e) {
+      message.channel.send("QAQ");
+    }
     message.channel.send("本機正常運作中... ...");
   }
   
@@ -184,7 +188,12 @@ bot.on("message", function(message) {
     else
       message.channel.send(truechooses[Math.floor(Math.random()*truechooses.length)]);
   }
-  
+  /*
+  else if (headlower == "") {
+    var count = parseInt(sync_request("GET", "https://twitch.center/customapi/quote?token=469f651b&no_id=1").body.toString());
+    message.channel.send(nickname+"和本機簽訂契約，成為魔法少女吧！／人◕ ‿‿ ◕人＼");
+  }
+  */
   else if (headlower == "魔法少女" || headlower == "馬猴燒酒") {
     message.channel.send(nickname+"和本機簽訂契約，成為魔法少女吧！／人◕ ‿‿ ◕人＼");
   }
