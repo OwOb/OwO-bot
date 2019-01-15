@@ -188,12 +188,19 @@ bot.on("message", function(message) {
     else
       message.channel.send(truechooses[Math.floor(Math.random()*truechooses.length)]);
   }
-  /*
+  
   else if (headlower == "") {
-    var count = parseInt(sync_request("GET", "https://twitch.center/customapi/quote?token=469f651b&no_id=1").body.toString());
-    message.channel.send(nickname+"和本機簽訂契約，成為魔法少女吧！／人◕ ‿‿ ◕人＼");
+    try {
+      var res = sync_request("GET", "https://twitch.center/customapi/quote?token=469f651b&no_id=1", {timeout : 500}).body.toString();
+      var count = parseInt(res);
+      var res = sync_request("GET", "https://twitch.center/customapi/editquote?token=00bacf764ec2ec4a&data=1%20"+count, {timeout : 500}).body.toString();
+      message.channel.send("本機已經數了 "+count+" 隻加百列～");
+    }
+    catch (e) {
+      message.channel.send("本機數累了... 讓本機休息一下... (っ﹏-) .｡o");
+    }
   }
-  */
+  
   else if (headlower == "魔法少女" || headlower == "馬猴燒酒") {
     message.channel.send(nickname+"和本機簽訂契約，成為魔法少女吧！／人◕ ‿‿ ◕人＼");
   }
