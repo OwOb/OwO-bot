@@ -153,7 +153,7 @@ bot.on("message", function(message) {
   else if (headlower == "四月") {
     //var attachment = new Discord.Attachment("./image/四月.jpg","四月.jpg");
     //var richembed = new Discord.RichEmbed().setTitle("四月是你的胃痛，四月一日正式上映❤️").attachFile(attachment).setImage("attachment://四月.jpg");
-    var richembed = new Discord.RichEmbed().setTitle("四月是你的胃痛，四月一日正式上映❤️").setImage("https://i.imgur.com/J7aYHQO.jpg");
+    var richembed = new Discord.RichEmbed().setTitle("四月是你的胃痛，四月一日正式上映❤️").setImage("https://raw.githubusercontent.com/OwOb/OwO-bot/master/image/%E5%9B%9B%E6%9C%88.jpg");
     message.channel.send(richembed);
   }
   
