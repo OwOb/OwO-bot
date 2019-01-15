@@ -183,8 +183,8 @@ bot.on("message", function(message) {
       var chooses = message.content.substring(headlower == "選擇" ? "選擇".length : "!choose".length).split(",");
       var truechooses = [];
       for (var i in chooses) {
-        var n = chooses[i].replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"");
-        if (!n)
+        var n = chooses[i].replace(/(^\s*)|(\s*$)/g,"");
+        if (n)
           truechooses.push(n);
       }
       if (truechooses.length == 0)
