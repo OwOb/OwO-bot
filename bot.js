@@ -153,7 +153,7 @@ bot.on("message", function(message) {
   else if (headlower == "四月") {
     //var attachment = new Discord.Attachment("./image/四月.jpg","四月.jpg");
     //var richembed = new Discord.RichEmbed().setTitle("四月是你的胃痛，四月一日正式上映❤️").attachFile(attachment).setImage("attachment://四月.jpg");
-    var richembed = new Discord.RichEmbed().setTitle("四月是你的胃痛，四月一日正式上映❤️").setImage("image/新年.png");
+    var richembed = new Discord.RichEmbed().setTitle("四月是你的胃痛，四月一日正式上映❤️").setImage("https://i.imgur.com/J7aYHQO.jpg");
     message.channel.send(richembed);
   }
   
