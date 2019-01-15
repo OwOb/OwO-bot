@@ -157,6 +157,38 @@ bot.on("message", function(message) {
     message.channel.send(richembed);
   }
   
+      
+  else if (message.content.indexOf("什麼是") == 0 ||  message.content.indexOf("!google") == 0 ) {
+    if (message.content.indexOf("什麼是") == 0)
+      message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""))
+    else
+      message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("!google".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""))
+  }
+  
+  else if (message.content.indexOf("蛤") == 0) {
+    message.channel.send({files:["./image/蛤.png"]})
+  }
+  
+  else if (headlower == "選擇" || headlower == "!choose") {
+    var chooses = message.content.substring(headlower.length).split(",");
+    var truechooses = [];
+    for (var i in chooses) {
+      var n = chooses[i].replace(/(^\s*)|(\s*$)/g,"");
+      if (n)
+        truechooses.push(n);
+    }
+    if (truechooses.length == 0)
+      message.channel.send("沒給選項本機要選什麼啦！(╯‵□ˊ)╯︵┴─┴");
+    else if (truechooses.length == 1)
+      message.channel.send("只給一個選項本機要選什麼啦！(╯‵□ˊ)╯︵┴─┴");
+    else
+      message.channel.send(truechooses[Math.floor(Math.random()*truechooses.length)]);
+  }
+  
+  else if (headlower == "魔法少女" || headlower == "馬猴燒酒") {
+    message.channel.send(nickname+"和本機簽訂契約，成為魔法少女吧！／人◕ ‿‿ ◕人＼");
+  }
+  
   else if(message.content.indexOf("javascript") == 0) {
     /*
     try {
@@ -201,22 +233,6 @@ bot.on("message", function(message) {
     if (qcount >= 2) {
       message.channel.send("別難過了\\~\\~\\~  😭\n本機會陪著你的\\~\\~\\~  "+message.content.substring(i+1, message.content.length).trim());
     }
-    
-    else if (headlower == "選擇" || headlower == "!choose") {
-      var chooses = message.content.substring(headlower.length).split(",");
-      var truechooses = [];
-      for (var i in chooses) {
-        var n = chooses[i].replace(/(^\s*)|(\s*$)/g,"");
-        if (n)
-          truechooses.push(n);
-      }
-      if (truechooses.length == 0)
-        message.channel.send("沒給選項本機要選什麼啦！(╯‵□ˊ)╯︵┴─┴");
-      else if (truechooses.length == 1)
-        message.channel.send("只給一個選項本機要選什麼啦！(╯‵□ˊ)╯︵┴─┴");
-      else
-        message.channel.send(truechooses[Math.floor(Math.random()*truechooses.length)]);
-    }
 
     else if (head.indexOf("😶") != -1 || end.indexOf("😶") != -1) {
       var counthead = head.match(/😶/g), countend = end.match(/😶/g);
@@ -231,17 +247,6 @@ bot.on("message", function(message) {
       if (Math.max(counthead.length, countend.length) > 0) {
         message.channel.send("😶".repeat(Math.max(counthead.length, countend.length)+1));
       }
-    }
-    
-    else if (message.content.indexOf("什麼是") == 0 ||  message.content.indexOf("!google") == 0 ) {
-      if (message.content.indexOf("什麼是") == 0)
-        message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""))
-      else
-        message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("!google".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""))
-    }
-    
-    else if (message.content.indexOf("蛤") == 0) {
-      message.channel.send({files:["./image/蛤.png"]})
     }
 
     else if (message.content.indexOf("運算") == 0 ||  message.content.indexOf("calculate") == 0 || message.content.indexOf("calc") == 0) {
