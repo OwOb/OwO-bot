@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 var request = require("request");
 var sync_request = require("sync-request");
-var GoogleImages = require("google-images")
+var GoogleImages = require("free-google-image-search")
 var math = require("mathjs");
 math.import(require('mathjs-simple-integral'));
 
@@ -171,9 +171,13 @@ bot.on("message", function(message) {
   }
   
   else if (headlower == "!image") {
-    var GoogleImagesClient = new GoogleImages("000063836301966288744:dhyumeyd1ua","AIzaSyAlrxovDclFOQvlZo6RDK0lNA9ipd7KZKg");
     try {
-      message.channel.send(GoogleImagesClient.search("遊戲人生")[""]);
+      GoogleImages.searchImage("no_game_no_life").then((res) => {
+        if (res.length)
+          message.channel.send(res[0]);
+        else
+          message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
+      })
     }
     catch (e) {
       message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
