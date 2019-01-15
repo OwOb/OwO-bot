@@ -184,7 +184,8 @@ bot.on("message", function(message) {
       var truechooses = [];
       for (var i in chooses) {
         var n = chooses[i].replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"");
-        truechooses.push(n)
+        if (!n)
+          truechooses.push(n);
       }
       if (truechooses.length == 0)
         message.channel.send("沒給選項本機要選什麼啦！(╯‵□ˊ)╯︵┴─┴");
