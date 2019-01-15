@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 var request = require("request");
 var sync_request = require("sync-request");
-var GoogleImageSearch = require("free-google-image-search");
+import GoogleImageSearch from "free-google-image-searc"
 var math = require("mathjs");
 math.import(require('mathjs-simple-integral'));
 
@@ -177,7 +177,7 @@ bot.on("message", function(message) {
           message.channel.send(res[0]);
         else
           message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
-      })
+      });
     }
     catch (e) {
       message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
