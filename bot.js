@@ -134,6 +134,26 @@ bot.on("message", function(message) {
     message.channel.send("能超越86的人... 就是下面那位... ... 😏");
   }
   
+  else if (headlower == "emt") {
+    message.channel.send("愛蜜莉雅簡直是天使！");
+  }
+  
+  else if (headlower == "san") {
+    message.channel.send("＼(・ω・＼)SAN値！(／・ω・)／ピンチ！");
+  }
+  
+  else if (headlower == "罷工" || headlower == "\罷工/" || message.content.indexOf("\ 罷工 /") == 0) {
+    message.channel.send("我們絕對不要工作，自由就是最棒的！\ 罷工 /\ 罷工 /\ 罷工 /\ 罷工 /");
+  }
+  
+  else if (headlower == "單身狗") {
+    message.channel.send("汪汪汪... ?");
+  }
+  
+  else if (headlower == "四月") {
+    message.channel.send("四月是你的胃痛，四月一日正式上映❤️", {files:["./image/四月.jpg"]});
+  }
+  
   else if(message.content.indexOf("javascript") == 0) {
     /*
     try {
@@ -180,7 +200,7 @@ bot.on("message", function(message) {
     }
     
     else if (headlower == "選擇" || headlower == "!choose") {
-      var chooses = message.content.substring(headlower == "選擇" ? "選擇".length : "!choose".length).split(",");
+      var chooses = message.content.substring(headlower.length).split(",");
       var truechooses = [];
       for (var i in chooses) {
         var n = chooses[i].replace(/(^\s*)|(\s*$)/g,"");
