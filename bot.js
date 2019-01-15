@@ -119,7 +119,7 @@ bot.on("message", function(message) {
   }
   
   else if(headlower == "3210" || message.content.indexOf("新年快樂") != -1 || lowermessage.indexOf("happy new year") != -1) {
-    message.channel.send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ");
+    message.channel.send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
   }
   
   else if(headlower == "78+9") {
@@ -181,7 +181,17 @@ bot.on("message", function(message) {
     
     else if (headlower == "選擇" || headlower == "!choose") {
       var chooses = message.content.substring(headlower == "選擇" ? "選擇".length : "!choose".length).split(",");
-      message.channel.send(chooses[Math.floor(Math.random()*chooses.length)].replace(/(^[\s||\?]*)|([\s||\?]*$)/g,""));
+      var truechooses = [];
+      for (var i in chooses) {
+        var n = chooses[i].replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"");
+        truechooses.push(n)
+      }
+      if (truechooses.length == 0)
+        message.channel.send("沒給選項本機要選什麼啦！(╯‵□ˊ)╯︵┴─┴");
+      else if (truechooses.length == 1)
+        message.channel.send("只給一個選項本機要選什麼啦！(╯‵□ˊ)╯︵┴─┴");
+      else
+        message.channel.send(truechooses[Math.floor(Math.random()*truechooses.length)]);
     }
 
     else if (head.indexOf("😶") != -1 || end.indexOf("😶") != -1) {
