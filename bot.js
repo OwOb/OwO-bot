@@ -174,8 +174,9 @@ bot.on("message", function(message) {
     try {
       var GoogleImagesClient = new GoogleImages('000063836301966288744:dhyumeyd1ua', 'AIzaSyAlrxovDclFOQvlZo6RDK0lNA9ipd7KZKg');
       GoogleImagesClient.search('no_game_no_life').then(images => {
-        if (images.length)
-          message.channel.send(images[0]["url"]);
+        if (images.length > 10)
+          for (var i = 0; i != 10; i++)
+            message.channel.send({files:[images[i]["url"]]});
         else
           message.channel.send("找不到符合的圖片... ╮(╯_╰)╭");
       });
