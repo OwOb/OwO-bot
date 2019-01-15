@@ -177,7 +177,7 @@ bot.on("message", function(message) {
       GoogleImagesClient.search(search).then(images => {
         if (images.length > 0) {
           var index = Math.floor(Math.random()*images.length);
-          var richembed = new Discord.RichEmbed().setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**").setImage(images[index]["url"]).setFooter(images[index]["url"]).setURL(images[index]["url"]);
+          var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**").setImage(images[index]["url"]).setDescription(images[index]["url"]);
           message.channel.send(richembed);
         }
         else
