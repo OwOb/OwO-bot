@@ -6,6 +6,7 @@ var math = require("mathjs");
 math.import(require('mathjs-simple-integral'));
 
 var bot = new Discord.Client();
+var GoogleImagesClient = new GoogleImages('000063836301966288744:dhyumeyd1ua', 'AIzaSyAlrxovDclFOQvlZo6RDK0lNA9ipd7KZKg');
 
 var command_cd = new Array();
 
@@ -165,20 +166,21 @@ bot.on("message", function(message) {
       
   else if (message.content.indexOf("什麼是") == 0 ||  message.content.indexOf("!google") == 0 ) {
     if (message.content.indexOf("什麼是") == 0)
-      message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""))
+      message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""));
     else
-      message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("!google".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""))
+      message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("!google".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""));
   }
   
   else if (headlower == "!image") {
     try {
-      var GoogleImagesClient = new GoogleImages('000063836301966288744:dhyumeyd1ua', 'AIzaSyAlrxovDclFOQvlZo6RDK0lNA9ipd7KZKg');
-      GoogleImagesClient.search('no_game_no_life').then(images => {
-        if (images.length > 10)
-          for (var i = 0; i != 10; i++)
-            message.channel.send({files:[images[i]["url"]]});
+      var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g,"+");
+      GoogleImagesClient.search(search).then(images => {
+        if (images.length > 0) {
+          var richembed = new Discord.RichEmbed().setTitle(search).setImage(images[0]["url"]).setFooter(images[0]["url"]);
+          message.channel.send(richembed);
+        }
         else
-          message.channel.send("找不到符合的圖片... ╮(╯_╰)╭");
+          message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
       });
     }
     catch (e) {
