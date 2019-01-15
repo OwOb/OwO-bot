@@ -155,8 +155,6 @@ bot.on("message", function(message) {
   }
   
   else if (headlower == "四月") {
-    //var attachment = new Discord.Attachment("./image/四月.jpg","四月.jpg");
-    //var richembed = new Discord.RichEmbed().setTitle("四月是你的胃痛，四月一日正式上映❤️").attachFile(attachment).setImage("attachment://四月.jpg");
     var richembed = new Discord.RichEmbed().setTitle("四月是你的胃痛，四月一日正式上映❤️").setImage("https://raw.githubusercontent.com/OwOb/OwO-bot/master/image/%E5%9B%9B%E6%9C%88.jpg");
     message.channel.send(richembed);
   }
@@ -189,7 +187,7 @@ bot.on("message", function(message) {
       message.channel.send(truechooses[Math.floor(Math.random()*truechooses.length)]);
   }
   
-  else if (headlower == "") {
+  else if (headlower == "數加百列") {
     try {
       var res = sync_request("GET", "https://twitch.center/customapi/quote?token=469f651b&no_id=1", {timeout : 500}).body.toString();
       var count = parseInt(res);
