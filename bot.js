@@ -178,7 +178,7 @@ bot.on("message", function(message) {
         if (images.length > 0) {
           var index = Math.floor(Math.random()*images.length);
           console.log(images.length);
-          message.channel.send({embed:
+          message.channel.send({embed: {
             color: 3447003,
             title: "**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**",
             image: images[index]["url"],
