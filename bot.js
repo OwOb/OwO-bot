@@ -178,6 +178,11 @@ bot.on("message", function(message) {
     if (qcount >= 2) {
       message.channel.send("別難過了\\~\\~\\~  😭\n本機會陪著你的\\~\\~\\~  "+message.content.substring(i+1, message.content.length).trim());
     }
+    
+    else if (headlower == "選擇" || headlower == "!choose") {
+      var chooses = message.content.substring(headlower == "選擇" ? "選擇".length : "!choose".length).split(",");
+      message.channel.send(chooses[Math.floor(Math.random()*chooses.length)].replace(/(^[\s||\?]*)|([\s||\?]*$)/g,""));
+    }
 
     else if (head.indexOf("😶") != -1 || end.indexOf("😶") != -1) {
       var counthead = head.match(/😶/g), countend = end.match(/😶/g);
