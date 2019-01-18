@@ -257,9 +257,9 @@ bot.on("message", function(message) {
           if (resultmessage != "") {
             console.log(resultmessage);
             if (resultmessage.length < 1900)
-              message.channel.send("code成功執行\\~\\~\\~  OwO/\n\n執行結果：\n```" + resultmessage + "```");
+              message.channel.send("code成功執行\\~\\~\\~  OwO/\n\n執行結果：\n```\n" + resultmessage + "\n```");
             else {
-              var sss = "code成功執行\\~\\~\\~  OwO/\n\n執行結果：\n```" + resultmessage.substring(0,1900) + "\n\n訊息太長以下省略...```";
+              var sss = "code成功執行\\~\\~\\~  OwO/\n\n執行結果：\n```\n" + resultmessage.substring(0,1900) + "\n\n訊息太長以下省略...\n```";
               console.log("sss:\n"+sss);
               message.channel.send(sss);
             }
@@ -280,9 +280,9 @@ bot.on("message", function(message) {
       .catch(err => {
         var errormessage = err.toString();
         if (errormessage.length < 1900)
-          message.channel.send("貌似遇到一些錯誤了... ?  ( ˘•ω•˘ )\n\n錯誤訊息如下：\n```"+ errormessage +"```");
+          message.channel.send("貌似遇到一些錯誤了... ?  ( ˘•ω•˘ )\n\n錯誤訊息如下：\n```\n"+ errormessage +"\n```");
         else
-          message.channel.send("貌似遇到一些錯誤了... ?  ( ˘•ω•˘ )\n\n錯誤訊息如下：\n```"+ errormessage.substring(0,1900) +"\n\n訊息太長以下省略...```");
+          message.channel.send("貌似遇到一些錯誤了... ?  ( ˘•ω•˘ )\n\n錯誤訊息如下：\n```\n"+ errormessage.substring(0,1900) +"\n\n訊息太長以下省略...\n```");
       });
     }
   }
