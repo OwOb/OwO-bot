@@ -227,11 +227,12 @@ bot.on("message", function(message) {
   }
   
   else if (lowermessage.indexOf("!cpp") == 0 || lowermessage.indexOf("!c++") == 0) {
-    var codeS = lowermessage.indexOf("```cpp") > 0 ? lowermessage.indexOf("```cpp")+"```cpp".length : lowermessage.indexOf("```")+"```".length;
+    var codeS = lowermessage.indexOf("```");
     if (codeS < 0) {
       message.channel.send("沒給code是要本機執行什麼啦!! (╯‵□ˊ)╯︵┴─┴")
     }
     else {
+      codeS += lowermessage.substring(codeS).indexOf("\n");
       var codeE = codeS+lowermessage.substring(codeS).indexOf("```");
       var inputS = codeE+lowermessage.substring(codeE+1).indexOf("```");
       var inputcode = "";
