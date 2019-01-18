@@ -227,8 +227,7 @@ bot.on("message", function(message) {
   }
   
   else if (lowermessage.indexOf("!cpp") == 0 || lowermessage.indexOf("!c++") == 0) {
-    console.log(lowermessage);
-    var codeS = lowermessage.indexOf("```cpp") > 0 ? lowermessage.indexOf("```cpp")+"```cpp".length() : lowermessage.indexOf("```")+"```".length();
+    var codeS = lowermessage.indexOf("```cpp") > 0 ? lowermessage.indexOf("```cpp")+"```cpp".length : lowermessage.indexOf("```")+"```".length;
     console.log("codeS = "+codeS);
     if (codeS < 0) {
       message.channel.send("沒給code是要本機執行什麼啦!! (╯‵□ˊ)╯︵┴─┴")
