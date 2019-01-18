@@ -227,25 +227,31 @@ bot.on("message", function(message) {
   }
   
   else if (lowermessage.indexOf("!cpp") == 0 || lowermessage.indexOf("!c++") == 0) {
+    console.log(lowermessage);
     var codeS = lowermessage.indexOf("```cpp") > 0 ? lowermessage.indexOf("```cpp")+"```cpp".length() : lowermessage.indexOf("```")+"```".length();
+    console.log("codeS = "+codeS);
     if (codeS < 0) {
       message.channel.send("沒給code是要本機執行什麼啦!! (╯‵□ˊ)╯︵┴─┴")
     }
     else {
       var codeE = codeS+lowermessage.substring(codeS).indexOf("```");
+      console.log("codeE = "+codeE);
       var inputS = codeE+lowermessage.substring(codeS).indexOf("```");
+      console.log("codeS = "+codeS);
       var inputcode = "";
       if (inputS > codeE) {
         inputcode = lowermessage.substring(inputS, message.content.substring(inputS).indexOf("```"));
       }
       cpp.runSource(message.content.substring(codeS, codeE-codeS), {stdin: inputcode})
       .then(result => {
-          if (result < 1900)
-            message.channel.send("執行結果：\n" + result);
-          else
-            message.channel.send("執行結果：\n" + result.substring(0,1900) + "\n訊息太長以下省略...");
+        console.log("OwO/");
+        if (result < 1900)
+          message.channel.send("執行結果：\n" + result);
+        else
+          message.channel.send("執行結果：\n" + result.substring(0,1900) + "\n訊息太長以下省略...");
       })
       .catch(err => {
+        console.log("QAQ");
         if (err.length < 1900)
           message.channel.send("貌似遇到一些錯誤了... ?  ( ˘•ω•˘ )\n錯誤訊息如下：\n"+ err );
         else
