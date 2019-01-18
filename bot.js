@@ -251,10 +251,11 @@ bot.on("message", function(message) {
       })
       .catch(err => {
         console.log("QAQ");
-        if (err.length < 1900)
-          message.channel.send("貌似遇到一些錯誤了... ?  ( ˘•ω•˘ )\n錯誤訊息如下：\n"+ err );
+        var errormessage = err.toString();
+        if (errormessage.length < 1900)
+          message.channel.send("貌似遇到一些錯誤了... ?  ( ˘•ω•˘ )\n錯誤訊息如下：\n"+ errormessage );
         else
-          message.channel.send("貌似遇到一些錯誤了... ?  ( ˘•ω•˘ )\n錯誤訊息如下：\n"+ err.substring(0,1900) +"\n訊息太長以下省略...");
+          message.channel.send("貌似遇到一些錯誤了... ?  ( ˘•ω•˘ )\n錯誤訊息如下：\n"+ errormessage.substring(0,1900) +"\n訊息太長以下省略...");
       });
     }
   }
