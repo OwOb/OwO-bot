@@ -258,8 +258,11 @@ bot.on("message", function(message) {
             console.log(resultmessage);
             if (resultmessage.length < 1900)
               message.channel.send("code成功執行\\~\\~\\~  OwO/\n\n執行結果：\n```" + resultmessage + "```");
-            else
-              message.channel.send("code成功執行\\~\\~\\~  OwO/\n\n執行結果：\n```" + resultmessage.substring(0,1900) + "\n\n訊息太長以下省略...```");
+            else {
+              var sss = "code成功執行\\~\\~\\~  OwO/\n\n執行結果：\n```" + resultmessage.substring(0,1900) + "\n\n訊息太長以下省略...```";
+              console.log("sss:\n"+sss);
+              message.channel.send(sss);
+            }
           }
           else {
             message.channel.send("code成功執行\\~\\~\\~  OwO/\n但好像沒有輸出... ?  = =?");
