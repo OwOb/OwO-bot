@@ -237,7 +237,8 @@ bot.on("message", function(message) {
       var inputS = codeE+lowermessage.substring(codeE+3).indexOf("```");
       var inputcode = "";
       if (inputS > codeE) {
-        inputcode = lowermessage.substring(inputS, message.content.substring(inputS).indexOf("```"));
+        inputS = lowermessage.substring(inputS).indexOf("\n")+1;
+        inputcode = lowermessage.substring(inputS,inputS+message.content.substring(inputS).indexOf("```"));
       }
       console.log("codeS="+codeS+" codeE="+codeE);
       console.log("code:\n"+message.content.substring(codeS,codeE));
