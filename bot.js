@@ -240,7 +240,7 @@ bot.on("message", function(message) {
       }
       cpp.runSource(message.content.substring(codeS, codeE-codeS), {stdin: inputcode})
       .then(result => {
-        var resultmessage = result.toString();
+        var resultmessage = result.stdout;
         if (result < 1900)
           message.channel.send("執行結果：\n" + resultmessage);
         else
