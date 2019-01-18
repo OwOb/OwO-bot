@@ -255,6 +255,7 @@ bot.on("message", function(message) {
         if (!result.errorType) {
           var resultmessage = result.stdout;
           if (resultmessage != "") {
+            console.log(resultmessage);
             if (resultmessage.length < 1900)
               message.channel.send("code成功執行\\~\\~\\~  OwO/\n\n執行結果：\n```" + resultmessage + "```");
             else
