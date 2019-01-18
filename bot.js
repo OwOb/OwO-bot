@@ -233,12 +233,14 @@ bot.on("message", function(message) {
     }
     else {
       var codeE = codeS+lowermessage.substring(codeS).indexOf("```");
-      var inputS = codeE+lowermessage.substring(codeS).indexOf("```");
+      var inputS = codeE+lowermessage.substring(codeE+1).indexOf("```");
       var inputcode = "";
       if (inputS > codeE) {
         inputcode = lowermessage.substring(inputS, message.content.substring(inputS).indexOf("```"));
       }
-      cpp.runSource(message.content.substring(codeS, codeE-codeS), {stdin: inputcode})
+      console.log("code:"+message.content.substring(codeS, codeE-codeS));
+      console.log("inputcode:\n"+inputcode);
+      cpp.runSource(message.content.substring(codeS,codeE-codeS), {stdin: inputcode})
       .then(result => {
         if (!result.errorType) {
           var resultmessage = result.stdout;
