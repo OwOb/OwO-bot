@@ -239,10 +239,7 @@ bot.on("message", function(message) {
       if (inputS > codeE) {
         inputcode = lowermessage.substring(inputS, message.content.substring(inputS).indexOf("```"));
       }
-      console.log("codeS="+codeS+" codeE="+codeE);
-      console.log("code:\n"+message.content.substring(codeS,codeE-codeS));
-      console.log("inputcode:\n"+inputcode);
-      cpp.runSource(message.content.substring(codeS,codeE-codeS), {stdin: inputcode})
+      cpp.runSource(message.content.substring(codeS,codeE), {stdin: inputcode})
       .then(result => {
         if (!result.errorType) {
           var resultmessage = result.stdout;
