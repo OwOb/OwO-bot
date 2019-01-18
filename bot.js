@@ -232,14 +232,15 @@ bot.on("message", function(message) {
       message.channel.send("沒給code是要本機執行什麼啦!! (╯‵□ˊ)╯︵┴─┴")
     }
     else {
-      codeS += lowermessage.substring(codeS).indexOf("\n");
+      codeS += lowermessage.substring(codeS).indexOf("\n")+1;
       var codeE = codeS+lowermessage.substring(codeS).indexOf("```");
-      var inputS = codeE+lowermessage.substring(codeE+1).indexOf("```");
+      var inputS = codeE+lowermessage.substring(codeE+3).indexOf("```");
       var inputcode = "";
       if (inputS > codeE) {
         inputcode = lowermessage.substring(inputS, message.content.substring(inputS).indexOf("```"));
       }
-      console.log("code:"+message.content.substring(codeS, codeE-codeS));
+      console.log("codeS="+codeS+" codeE="+codeE);
+      console.log("code:\n"+message.content.substring(codeS,codeE-codeS));
       console.log("inputcode:\n"+inputcode);
       cpp.runSource(message.content.substring(codeS,codeE-codeS), {stdin: inputcode})
       .then(result => {
