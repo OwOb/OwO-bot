@@ -241,10 +241,15 @@ bot.on("message", function(message) {
       cpp.runSource(message.content.substring(codeS, codeE-codeS), {stdin: inputcode})
       .then(result => {
         var resultmessage = result.stdout;
-        if (result < 1900)
-          message.channel.send("執行結果：\n" + resultmessage);
-        else
-          message.channel.send("執行結果：\n" + resultmessage.substring(0,1900) + "\n訊息太長以下省略...");
+        if (resultmessage != "") {
+          if (result.length < 1900)
+            message.channel.send("程式成功執行\\~\\~\\~  OwO/\n\n執行結果：\n" + resultmessage);
+          else
+            message.channel.send("程式成功執行\\~\\~\\~  OwO/\n\n執行結果：\n" + resultmessage.substring(0,1900) + "\n訊息太長以下省略...");
+        }
+        else {
+          message.channel.send("程式成功執行\\~\\~\\~  OwO/\n但好像沒有輸出... ?  = =?")
+        }
       })
       .catch(err => {
         var errormessage = err.toString();
