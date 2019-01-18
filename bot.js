@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 var request = require("request");
 var sync_request = require("sync-request");
 var GoogleImages  = require("google-images")
+const {c, cpp, node, python, java} = require('compile-run');
 var math = require("mathjs");
 math.import(require('mathjs-simple-integral'));
 
@@ -214,7 +215,7 @@ bot.on("message", function(message) {
       var res = sync_request("GET", "https://twitch.center/customapi/quote?token=469f651b&no_id=1", {timeout : 500}).body.toString();
       var count = parseInt(res);
       var res = sync_request("GET", "https://twitch.center/customapi/editquote?token=00bacf764ec2ec4a&data=1%20"+(count+1), {timeout : 500}).body.toString();
-      message.channel.send("本機已經數了 "+count+" 隻加百列～");
+      message.channel.send("本機已經數了 "+count+" 隻加百列～ (っ﹏-) .｡o");
     }
     catch (e) {
       message.channel.send("本機數累了... 讓本機休息一下... (っ﹏-) .｡o");
@@ -225,7 +226,35 @@ bot.on("message", function(message) {
     message.channel.send(nickname+"和本機簽訂契約，成為魔法少女吧！／人◕ ‿‿ ◕人＼");
   }
   
-  else if(message.content.indexOf("javascript") == 0) {
+  else if (lowermessage.indexOf("!cpp") == 0 || lowermessage.indexOf("!c++") == 0) {
+    var codeS = lowermessage.indexOf("```cpp") > 0 ? lowermessage.indexOf("```cpp")+"```cpp".length() : lowermessage.indexOf("```")+"```".length();
+    if (codeS < 0) {
+      message.channel.send("沒給code是要本機執行什麼啦!! (╯‵□ˊ)╯︵┴─┴")
+    }
+    else {
+      var codeE = codeS+lowermessage.substring(codeS).indexOf("```");
+      var inputS = codeE+lowermessage.substring(codeS).indexOf("```");
+      var inputcode = "";
+      if (inputS > codeE) {
+        inputcode = lowermessage.substring(inputS, message.content.substring(inputS).indexOf("```"));
+      }
+      cpp.runSource(message.content.substring(codeS, codeE-codeS), {stdin: inputcode})
+      .then(result => {
+          if (result < 1900)
+            message.channel.send("執行結果：\n" + result);
+          else
+            message.channel.send("執行結果：\n" + result.substring(0,1900) + "\n訊息太長以下省略...");
+      })
+      .catch(err => {
+        if (err.length < 1900)
+          message.channel.send("貌似遇到一些錯誤了... ?  ( ˘•ω•˘ )\n錯誤訊息如下：\n"+ err );
+        else
+          message.channel.send("貌似遇到一些錯誤了... ?  ( ˘•ω•˘ )\n錯誤訊息如下：\n"+ err.substring(0,1900) +"\n訊息太長以下省略...");
+      });
+    }
+  }
+  
+  else if (message.content.indexOf("javascript") == 0) {
     /*
     try {
       var geval = eval, timer = setTimeout(function(){try {throw "TLE";} catch(TLEerror) {if(TLEerror == "TLE")message.channel.sendMessage("執行時間超過1s了！ 你確定這程式會結束？ O3O");}}, 1000);
