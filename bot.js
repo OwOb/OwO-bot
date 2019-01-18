@@ -243,7 +243,7 @@ bot.on("message", function(message) {
       console.log("codeS="+codeS+" codeE="+codeE+" inputS="+inputS);
       console.log("code:\n"+message.content.substring(codeS,codeE));
       console.log("inputcode:\n"+inputcode);
-      cpp.runSource(message.content.substring(codeS,codeE), {stdin: inputcode})
+      python.runSource(message.content.substring(codeS,codeE), {stdin: inputcode})
       .then(result => {
         if (!result.errorType) {
           var resultmessage = result.stdout;
@@ -254,7 +254,7 @@ bot.on("message", function(message) {
               message.channel.send("code成功執行\\~\\~\\~  OwO/\n\n執行結果：\n" + resultmessage.substring(0,1900) + "\n訊息太長以下省略...");
           }
           else {
-            message.channel.send("code成功執行\\~\\~\\~  OwO/\n但好像沒有輸出... ?  = =?")
+            message.channel.send("code成功執行\\~\\~\\~  OwO/\n但好像沒有輸出... ?  = =?");
           }
         }
         else {
