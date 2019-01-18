@@ -240,15 +240,25 @@ bot.on("message", function(message) {
       }
       cpp.runSource(message.content.substring(codeS, codeE-codeS), {stdin: inputcode})
       .then(result => {
-        var resultmessage = result.stdout;
-        if (resultmessage != "") {
-          if (result.length < 1900)
-            message.channel.send("程式成功執行\\~\\~\\~  OwO/\n\n執行結果：\n" + resultmessage);
-          else
-            message.channel.send("程式成功執行\\~\\~\\~  OwO/\n\n執行結果：\n" + resultmessage.substring(0,1900) + "\n訊息太長以下省略...");
+        if (!result.errorType) {
+          var resultmessage = result.stdout;
+          if (resultmessage != "") {
+            if (result.length < 1900)
+              message.channel.send("code成功執行\\~\\~\\~  OwO/\n\n執行結果：\n" + resultmessage);
+            else
+              message.channel.send("code成功執行\\~\\~\\~  OwO/\n\n執行結果：\n" + resultmessage.substring(0,1900) + "\n訊息太長以下省略...");
+          }
+          else {
+            message.channel.send("code成功執行\\~\\~\\~  OwO/\n但好像沒有輸出... ?  = =?")
+          }
         }
         else {
-          message.channel.send("程式成功執行\\~\\~\\~  OwO/\n但好像沒有輸出... ?  = =?")
+          if (result.errorType == "compile-time") {
+            message.channel.send("編譯錯誤!! 請確認code的正確性!!  O3O");
+          }
+          else {
+            message.channel.send("執行超過3秒了!! 你確定這code會結束?? O3O");
+          }
         }
       })
       .catch(err => {
