@@ -259,10 +259,10 @@ bot.on("message", function(message) {
         }
         else {
           if (result.errorType == "compile-time" || result.errorType == "pre-compile-time") {
-            message.channel.send("編譯錯誤!! 請確認code的正確性!!  O3O");
+            message.channel.send("**CE** 編譯錯誤!! 請確認code的正確性!!  O3O");
           }
           else {
-            message.channel.send("執行超過3秒了!! 你確定這code會結束?? O3O");
+            message.channel.send("**RE** 執行時錯誤!! 請確認code的正確性!!  O3O");
           }
         }
       })
