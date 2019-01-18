@@ -15,6 +15,6 @@
 		"request": "2.83.0",
 		"sync-request": "6.0.0",
 		"google-images": "2.1.0",
-		"compile-run": "2.3.0"
+		"compile-run": "2.0.0"
 	}
 }
