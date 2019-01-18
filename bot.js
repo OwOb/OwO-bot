@@ -253,7 +253,7 @@ bot.on("message", function(message) {
           }
         }
         else {
-          if (result.errorType == "compile-time") {
+          if (result.errorType == "compile-time" || result.errorType == "pre-compile-time") {
             message.channel.send("編譯錯誤!! 請確認code的正確性!!  O3O");
           }
           else {
