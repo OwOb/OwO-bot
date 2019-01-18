@@ -250,7 +250,7 @@ bot.on("message", function(message) {
       console.log("codeS="+codeS+" codeE="+codeE+" inputS="+inputS);
       console.log("code:\n"+message.content.substring(codeS,codeE));
       console.log("inputcode:\n"+inputcode);
-      (language == "cpp" ? cpp : python).runSource(message.content.substring(codeS,codeE), {executionPath: language == "python3" ? language : "", stdin: inputcode})
+      (language == "cpp" ? cpp : python).runSource(message.content.substring(codeS,codeE)+"\n", {executionPath: language == "python3" ? language : "", stdin: inputcode})
       .then(result => {
         if (!result.errorType) {
           var resultmessage = result.stdout;
