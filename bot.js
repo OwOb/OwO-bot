@@ -114,7 +114,7 @@ bot.on("message", function(message) {
   }
   
   else if (message.author.id == "239653431583703040" && headlower == "!b") {
-    cpp.runSource("#include <stdio.h>\nint main() {\n    puts(\"OwO\");\n}",{executionPath: "g++", stdin: ""})
+    cpp.runSource("#include <stdio.h>\nint main() {\n    puts(\"OwO\");\n}",{compilationPath: "g++", stdin: ""})
     .then(result => {
       var resultmessage = result.stdout;
       var stderrmessage = result.stderr;
