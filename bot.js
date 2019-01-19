@@ -90,15 +90,16 @@ bot.on("message", function(message) {
       }
     }, 3000);
     */
-    try {
-      var res = sync_request("GET", "https://www.google.com/search?q=node.js+request+wait&tbm=isch", {timeout : 1000}).body.toString();
-      var ff = res.indexOf("https://encrypted-tbn0.gstatic.com/");
-      console.log(res);
-      message.channel.send(res.substring(ff,ff+2000));
-    }
-    catch (e) {
-      message.channel.send("QAQ");
-    }
+    cpp.runSource("#include <stdio.h>\nint main() {\n    puts(\"OwO\");\n}",{executionPath: "", stdin: ""})
+    .then(result => {
+      var resultmessage = result.stdout;
+      var stderrmessage = result.stderr;
+      message.channel.send("resultmessage:\n"+resultmessage);
+      message.channel.send("stderrmessage:\n"+stderrmessage);
+    })
+    .catch(err => {
+      message.channel.send("QQ\n\n"+err);
+    });
     message.channel.send("本機正常運作中... ...");
   }
   
