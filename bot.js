@@ -96,7 +96,7 @@ bot.on("message", function(message) {
   }
   
   else if (message.author.id == "239653431583703040" && headlower == "!a") {
-    var comm = "const {c, cpp, node, python, java} = require(\"compile-run\"); var resultmessage=\"\"; python.runSource(\""+message.content.substring("!a".length)+"\",{executionPath: \"python3\", stdin: \"\"}).then(result => {resultmessage = result.stdout;}).catch(err => {resultmessage = \"QQ\\n\\n\"+err;}); resultmessage";
+    var comm = "const {c, cpp, node, python, java} = require(\"compile-run\"); 10+10";
     console.log(comm);
     var mmm = safeEval(comm);
     console.log(mmm);
