@@ -1,7 +1,8 @@
 const Discord = require("discord.js");
 var request = require("request");
 var sync_request = require("sync-request");
-var GoogleImages  = require("google-images")
+var GoogleImages  = require("google-images");
+var safeEval = require('notevil');
 const {c, cpp, node, python, java} = require('compile-run');
 var math = require("mathjs");
 math.import(require('mathjs-simple-integral'));
@@ -95,6 +96,9 @@ bot.on("message", function(message) {
   }
   
   else if (message.author.id == "239653431583703040" && lowermessage.indexOf("!a") == 0) {
+    var mmm = safeEval("const {c, cpp, node, python, java} = require(\"compile-run\"); c.runSource(\"import os\\nos.system('cat bot.js')\",{executionPath: \"python3\", stdin: \"\"}).then(result => {var resultmessage = result.stdout;}).catch(err => {\"QQ\\n\\n"+err;});");
+    message.channel.send(mmm);
+    /*
     c.runSource("#include <stdio.h>\nint main() {\n    puts(\"OwO\");\n}",{executionPath: "", stdin: ""})
     .then(result => {
       var resultmessage = result.stdout;
@@ -105,6 +109,7 @@ bot.on("message", function(message) {
     .catch(err => {
       message.channel.send("QQ\n\n"+err);
     });
+    */
   }
   
   else if(headlower == "!id") {
