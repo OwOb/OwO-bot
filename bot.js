@@ -21,7 +21,6 @@ function HappyNewYear() {
 */
 
 bot.on("ready", function() {
-  console.log("install gcc");
   console.log("Ready");
   /*
   var nowTime = new Date();
@@ -45,7 +44,7 @@ bot.on("message", function(message) {
   
   var head = args[0], end = args[args.length-1]; 
   var headlower = args[0].toLowerCase(), endlower = args[args.length-1].toLowerCase();
-  var cd = 3000
+  var cd = 3000;
   
   if(headlower == "!test") {
     /*
