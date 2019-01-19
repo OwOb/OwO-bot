@@ -43,9 +43,9 @@ bot.on("message", function(message) {
   
   var head = args[0], end = args[args.length-1]; 
   var headlower = args[0].toLowerCase(), endlower = args[args.length-1].toLowerCase();
-  var cd = 3000;
+  var cd = 3000
   
-  if(message.author.id == "239653431583703040" && headlower == "!test") {
+  if(headlower == "!test") {
     /*
     function limitEval(code, fnOnStop, opt_timeoutInMS) {
       var id = Math.random() + 1,
@@ -90,7 +90,12 @@ bot.on("message", function(message) {
       }
     }, 3000);
     */
-    cpp.runSource("#include <stdio.h>\nint main() {\n    puts(\"OwO\");\n}",{executionPath: "", stdin: ""})
+    
+    message.channel.send("本機正常運作中... ...");
+  }
+  
+  else if (message.author.id == "239653431583703040" && lowermessage.indexOf("!a") == 0) {
+    c.runSource("#include <stdio.h>\nint main() {\n    puts(\"OwO\");\n}",{executionPath: "", stdin: ""})
     .then(result => {
       var resultmessage = result.stdout;
       var stderrmessage = result.stderr;
@@ -100,7 +105,6 @@ bot.on("message", function(message) {
     .catch(err => {
       message.channel.send("QQ\n\n"+err);
     });
-    message.channel.send("本機正常運作中... ...");
   }
   
   else if(headlower == "!id") {
