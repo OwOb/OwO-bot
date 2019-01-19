@@ -23,7 +23,7 @@ function HappyNewYear() {
 
 bot.on("ready", function() {
   cmd.get(
-    "apk add libc-dev",
+    "apt-get install libc6-dev",
     function(err, data, stderr) {
       if (!err)
         console.log("done!");
