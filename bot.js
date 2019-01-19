@@ -38,7 +38,7 @@ bot.on("message", function(message) {
   var nickname = message.guild.members.get(message.author.id).nickname ? message.guild.members.get(message.author.id).nickname : message.author.username;
   
   var lowermessage = message.content.toLowerCase();
-  var args = message.content.split(" ");
+  var args = message.content.split(/\s+/g);
   var urllist = message.content.match(/http:\/\/[^ \n]+|https:\/\/[^ \n]+/g);
   
   var head = args[0], end = args[args.length-1]; 
@@ -170,7 +170,7 @@ bot.on("message", function(message) {
   }
   
       
-  else if (message.content.indexOf("什麼是") == 0 ||  message.content.indexOf("!google") == 0 ) {
+  else if (message.content.indexOf("什麼是") == 0 || headlower == ("!google")) {
     if (message.content.indexOf("什麼是") == 0)
       message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""));
     else
@@ -231,13 +231,13 @@ bot.on("message", function(message) {
     message.channel.send(nickname+"和本機簽訂契約，成為魔法少女吧！／人◕ ‿‿ ◕人＼");
   }
   
-  else if (lowermessage.indexOf("!c\n") == 0 || lowermessage.indexOf("!cpp") == 0 || lowermessage.indexOf("!c++") == 0 || lowermessage.indexOf("!python") == 0 || lowermessage.indexOf("!python2") == 0 || lowermessage.indexOf("!python3") == 0) {
+  else if (headlower == "!c" || headlower == "!cpp" || headlower == "!cpp" || headlower == "!python" || headlower == "!python2" || headlower == "!python3") {
     var language = "";
-    if (lowermessage.indexOf("!c\n") == 0)
+    if (headlower == "!c")
       language = "c";
-    else if (lowermessage.indexOf("!cpp") == 0 || lowermessage.indexOf("!c++") == 0)
+    else if (headlower == "!cpp" || headlower == "!cpp")
        language = "cpp";
-    else if (lowermessage.indexOf("!python2") == 0)
+    else if (headlower == "!python2")
       language = "python2";
     else
       language = "python3";
