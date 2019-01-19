@@ -231,9 +231,11 @@ bot.on("message", function(message) {
     message.channel.send(nickname+"和本機簽訂契約，成為魔法少女吧！／人◕ ‿‿ ◕人＼");
   }
   
-  else if (lowermessage.indexOf("!cpp") == 0 || lowermessage.indexOf("!c++") == 0 || lowermessage.indexOf("!python") == 0 || lowermessage.indexOf("!python2") == 0 || lowermessage.indexOf("!python3") == 0) {
+  else if (lowermessage.indexOf("!c") || lowermessage.indexOf("!cpp") == 0 || lowermessage.indexOf("!c++") == 0 || lowermessage.indexOf("!python") == 0 || lowermessage.indexOf("!python2") == 0 || lowermessage.indexOf("!python3") == 0) {
     var language = "";
-    if (lowermessage.indexOf("!cpp") == 0 || lowermessage.indexOf("!c++") == 0)
+    if (lowermessage.indexOf("!c"))
+      language = "c";
+    else if (lowermessage.indexOf("!cpp") == 0 || lowermessage.indexOf("!c++") == 0)
        language = "cpp";
     else if (lowermessage.indexOf("!python2") == 0)
       language = "python2";
@@ -255,7 +257,7 @@ bot.on("message", function(message) {
       console.log("codeS="+codeS+" codeE="+codeE+" inputS="+inputS);
       console.log("code:\n"+message.content.substring(codeS,codeE));
       console.log("inputcode:\n"+inputcode);
-      (language == "cpp" ? cpp : python).runSource(message.content.substring(codeS,codeE)+"\n", {executionPath: language == "python3" ? language : "", stdin: inputcode})
+      (language == "c" ? c : language == "cpp" ? cpp : python).runSource(message.content.substring(codeS,codeE)+"\n", {executionPath: language == "python3" ? language : "", stdin: inputcode})
       .then(result => {
         if (!result.errorType) {
           var resultmessage = result.stdout;
