@@ -21,7 +21,6 @@ function HappyNewYear() {
 */
 
 bot.on("ready", function() {
-  console.log("CSE="+process.env.GoogleCSE_TOKEN+" API="+process.env.GoogleAPI_TOKEN)
   console.log("Ready");
   /*
   var nowTime = new Date();
