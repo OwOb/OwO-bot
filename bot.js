@@ -23,7 +23,7 @@ function HappyNewYear() {
 
 bot.on("ready", function() {
   cmd.get(
-    "sudo apt-get install g++",
+    "apt-get install g++",
     function(err, data, stderr) {
       if (!err)
         console.log("install done!");
