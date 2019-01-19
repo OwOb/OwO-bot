@@ -22,6 +22,7 @@ function HappyNewYear() {
 */
 
 bot.on("ready", function() {
+  /*
   cmd.get(
     "apt-get install libc6-dev",
     function(err, data, stderr) {
@@ -31,6 +32,7 @@ bot.on("ready", function() {
         console.log("err:\n"+err);
     }
   );
+  */
   console.log("Ready");
   /*
   var nowTime = new Date();
