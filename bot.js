@@ -36,7 +36,7 @@ bot.on("ready", function() {
       if (!err)
         console("install done!");
       else
-        onsole.log('error', err);
+        console.log('error', err);
     }
   );
   console.log("Ready");
