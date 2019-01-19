@@ -22,6 +22,15 @@ function HappyNewYear() {
 */
 
 bot.on("ready", function() {
+  cmd.get(
+    "apk add libc-dev",
+    function(err, data, stderr) {
+      if (!err)
+        console.log("done!");
+      else
+        console.log("err:\n"+err);
+    }
+  );
   console.log("Ready");
   /*
   var nowTime = new Date();
