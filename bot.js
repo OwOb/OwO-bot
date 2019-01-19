@@ -210,6 +210,9 @@ bot.on("message", function(message) {
         }
         else
           message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
+      })
+      .catch(error => {
+        console.log(error);
       });
     }
     catch (e) {
