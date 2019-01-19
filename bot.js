@@ -9,7 +9,7 @@ var math = require("mathjs");
 math.import(require('mathjs-simple-integral'));
 
 var bot = new Discord.Client();
-var GoogleImagesClient = new GoogleImages('000063836301966288744:dhyumeyd1ua', 'AIzaSyAlrxovDclFOQvlZo6RDK0lNA9ipd7KZKg');
+var GoogleImagesClient = new GoogleImages(process.env.GoogleCSE_TOKEN, process.env.GoogleAPI_TOKEN);
 
 var command_cd = new Array();
 
