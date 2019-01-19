@@ -25,6 +25,33 @@ bot.on("ready", function() {
   console.log("install gcc");
   cmd.get(
     `
+    curl ftp://ftp.gnu.org/gnu/gmp/gmp-5.1.3.tar.bz2 -s -O
+    tar -xjf gmp-5.1.3.tar.bz2
+    mkdir gmp
+    cd gmp-5.1.3
+    ./configure --prefix=/app/.heroku/gmp
+    make && make install
+    cd ../gmp/lib
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD
+    cd ../..
+    curl ftp://ftp.gnu.org/gnu/mpfr/mpfr-3.1.2.tar.xz -s -O
+    tar -xf mpfr-3.1.2.tar.xz
+    mkdir mpfr
+    cd mpfr-3.1.2
+    ./configure --prefix=/app/.heroku/mpfr --with-gmp=/app/.heroku/gmp
+    make && make install
+    cd ../mpfr/lib
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD
+    cd ../..
+    curl ftp://ftp.gnu.org/gnu/mpc/mpc-1.0.2.tar.gz -s -O
+    tar -xzf mpc-1.0.2.tar.gz
+    mkdir mpc
+    cd mpc-1.0.2
+    ./configure --prefix=/app/.heroku/mpc --with-gmp=/app/.heroku/gmp --with-mpfr=/app/.heroku/mpfr
+    make && make install
+    cd ../mpc/lib
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD
+    cd ../..
     curl ftp://ftp.gnu.org/gnu/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz -s -O
     tar -xzf gcc-4.9.2.tar.gz
     mkdir gcc
