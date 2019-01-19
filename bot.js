@@ -8,7 +8,7 @@ var math = require("mathjs");
 math.import(require('mathjs-simple-integral'));
 
 var bot = new Discord.Client();
-var GoogleImagesClient = new GoogleImages(process.env.GoogleCSE_TOKEN.toString(), process.env.GoogleAPI_TOKEN.toString());
+var GoogleImagesClient = new GoogleImages(process.env.GoogleCSE_TOKEN, process.env.GoogleAPI_TOKEN);
 
 var command_cd = new Array();
 
