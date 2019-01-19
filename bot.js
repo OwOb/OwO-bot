@@ -200,33 +200,34 @@ bot.on("message", function(message) {
   }
   
   else if (headlower == "圖片搜尋" || headlower == "google圖片" || headlower == "!image") {
-//     var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g,"%20");
+//     var search = encodeURI(message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ")).replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/#/g,"%23");
 //     request({
-//       url: "ideone.com","ideone.com/plain",
-//       method: "GET"
+//         url: "https://www.googleapis.com/customsearch/v1?q="+search+"&searchType=image&cx="+process.env.GoogleCSE_TOKEN.replace(/:/g,"%3A")+"&key="+process.env.GoogleAPI_TOKEN,
+//         method: "GET"
 //       },
 //       function(error,response,body) {
-//         if (error) message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");;
+//         if (!error) {
+//           //
+//         }
+//         else
+//           message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
 //       }
 //     );
-    try {
-      var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g,"+");
-      GoogleImagesClient.search(search).then(images => {
-        if (images.length > 0) {
-          var index = Math.floor(Math.random()*images.length);
-          var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**").setImage(images[index]["url"]).setFooter(images[index]["url"]);
-          message.channel.send(richembed);
-        }
-        else
-          message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    }
-    catch (e) {
+    var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g,"+");
+    GoogleImagesClient.search(search)
+    .then(images => {
+      if (images.length > 0) {
+        var index = Math.floor(Math.random()*images.length);
+        var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**").setImage(images[index]["url"]).setFooter(images[index]["url"]);
+        message.channel.send(richembed);
+      }
+      else
+        message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
+    })
+    .catch(error => {
       message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
-    }
+      console.log(error);
+    });
   }
   
   else if (message.content.indexOf("蛤") == 0) {
