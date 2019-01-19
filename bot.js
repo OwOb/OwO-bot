@@ -213,7 +213,7 @@ bot.on("message", function(message) {
 //           message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
 //       }
 //     );
-    var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g,"+");
+    var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ");
     GoogleImagesClient.search(search)
     .then(images => {
       if (images.length > 0) {
