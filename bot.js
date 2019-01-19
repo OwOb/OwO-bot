@@ -23,7 +23,15 @@ function HappyNewYear() {
 
 bot.on("ready", function() {
   console.log("install gcc");
-  cmd.run("curl ftp://ftp.gnu.org/gnu/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz -s -O");
+  cmd.get(
+    "curl ftp://ftp.gnu.org/gnu/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz -s -O"',
+    function(err, data, stderr){
+      if (!err)
+        console.log('the current dir contains these files :\n',data);
+      else
+        console.log('err :\n',err);
+    }
+  );
   console.log("Ready");
   /*
   var nowTime = new Date();
