@@ -2,7 +2,6 @@ const Discord = require("discord.js");
 var request = require("request");
 var sync_request = require("sync-request");
 var GoogleImages  = require("google-images");
-const { spawn } = require('child_process');
 var safeEval = require('notevil');
 const {c, cpp, node, python, java} = require('compile-run');
 var math = require("mathjs");
@@ -23,7 +22,6 @@ function HappyNewYear() {
 
 bot.on("ready", function() {
   console.log("install gcc");
-  spawn("curl ftp://ftp.gnu.org/gnu/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz -s -O");
   console.log("Ready");
   /*
   var nowTime = new Date();
