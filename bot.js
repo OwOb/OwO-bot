@@ -262,6 +262,7 @@ bot.on("message", function(message) {
       console.log("codeS="+codeS+" codeE="+codeE+" inputS="+inputS);
       console.log("code:\n"+message.content.substring(codeS,codeE));
       console.log("inputcode:\n"+inputcode);
+      var lastTime = new Date();
       (language == "c" ? c : language == "cpp" ? cpp : python).runSource(message.content.substring(codeS,codeE)+"\n", {executionPath: language == "python3" ? language : "", stdin: inputcode})
       .then(result => {
         if (!result.errorType) {
@@ -281,7 +282,11 @@ bot.on("message", function(message) {
           }
         }
         else {
-          if (result.errorType == "compile-time" || result.errorType == "pre-compile-time") {
+          var nowTime = new Date();
+          if (nowTime.getTime()-lastTime.getTime() >= 3000) {
+            message.channel.send("**TLE** 執行超過3秒了!! 你確定這code會結束?? O3O");
+          }
+          else if (result.errorType == "compile-time" || result.errorType == "pre-compile-time") {
             message.channel.send("**CE** 編譯錯誤!! 請確認code的正確性!!  O3O");
           }
           else {
