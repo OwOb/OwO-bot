@@ -48,51 +48,6 @@ bot.on("message", function(message) {
   var cd = 3000;
   
   if(headlower == "!test") {
-    /*
-    function limitEval(code, fnOnStop, opt_timeoutInMS) {
-      var id = Math.random() + 1,
-        blob = new Blob(
-          ['onmessage=function(a){a=a.data;postMessage({i:a.i+1});postMessage({r:eval.call(this,a.c),i:a.i})};'],
-          { type:'text/javascript' }
-        ),
-        myWorker = new Worker(URL.createObjectURL(blob));
-
-      function onDone() {
-        URL.revokeObjectURL(blob);
-        fnOnStop.apply(this, arguments);
-      }
-
-      myWorker.onmessage = function (data) {
-        var ddata = data.data;
-        if (ddata) {
-          if (ddata.i === id) {
-            id = 0;
-            onDone(true, ddata.r);
-          }
-          else if (ddata.i === id + 1) {
-            setTimeout(function() {
-              if (id) {
-                myWorker.terminate();
-                onDone(false);
-              }
-            }, opt_timeoutInMS || 1000);
-          }
-        }
-      };
-
-      myWorker.postMessage({ c: code, i: id });
-    }
-
-    limitEval("var a = 123; a", function(success, returnValue) {
-      if (success) {
-        message.channel.sendMessage("www");
-      }
-      else {
-        message.channel.sendMessage("QQ");
-      }
-    }, 3000);
-    */
-    
     message.channel.send("本機正常運作中... ...");
   }
   
@@ -117,7 +72,7 @@ bot.on("message", function(message) {
   }
   
   else if (message.author.id == "239653431583703040" && headlower == "!b") {
-    c.runSource("#include <stdio.h>\nint main() {\n    puts(\"OwO\");\n}",{compilationPath: "g++", stdin: ""})
+    c.runSource("#include <stdio.h>\nint main() {\n    puts(\"OwO\");\n}",{stdin: ""})
     .then(result => {
       var resultmessage = result.stdout;
       var stderrmessage = result.stderr;
@@ -266,13 +221,13 @@ bot.on("message", function(message) {
     message.channel.send(nickname+"和本機簽訂契約，成為魔法少女吧！／人◕ ‿‿ ◕人＼");
   }
   
-  else if (headlower == "!c" || headlower == "!cpp" || headlower == "!cpp" || headlower == "!python" || headlower == "!python2" || headlower == "!python3") {
+  else if (headlower == "!c" || headlower == "!cpp" || headlower == "!cpp" || headlower == "!python2" || headlower == "!py2" || headlower == "!python3" || headlower == "!py3" || headlower == "!python" || headlower == "!py") {
     var language = "";
     if (headlower == "!c")
       language = "c";
     else if (headlower == "!cpp" || headlower == "!cpp")
        language = "cpp";
-    else if (headlower == "!python2")
+    else if (headlower == "!python2" || headlower == "!py2")
       language = "python2";
     else
       language = "python3";
@@ -289,7 +244,7 @@ bot.on("message", function(message) {
         inputS = inputS+lowermessage.substring(inputS).indexOf("\n")+1;
         inputcode = message.content.substring(inputS,inputS+message.content.substring(inputS).indexOf("```"));
       }
-      console.log("codeS="+codeS+" codeE="+codeE+" inputS="+inputS);
+      console.log("language="+language+" codeS="+codeS+" codeE="+codeE+" inputS="+inputS);
       console.log("code:\n"+message.content.substring(codeS,codeE));
       console.log("inputcode:\n"+inputcode);
       var lastTime = new Date();
