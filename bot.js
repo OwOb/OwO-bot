@@ -231,9 +231,9 @@ bot.on("message", function(message) {
     message.channel.send(nickname+"和本機簽訂契約，成為魔法少女吧！／人◕ ‿‿ ◕人＼");
   }
   
-  else if (lowermessage.indexOf("!c") || lowermessage.indexOf("!cpp") == 0 || lowermessage.indexOf("!c++") == 0 || lowermessage.indexOf("!python") == 0 || lowermessage.indexOf("!python2") == 0 || lowermessage.indexOf("!python3") == 0) {
+  else if (lowermessage.indexOf("!c\n") == 0 || lowermessage.indexOf("!cpp") == 0 || lowermessage.indexOf("!c++") == 0 || lowermessage.indexOf("!python") == 0 || lowermessage.indexOf("!python2") == 0 || lowermessage.indexOf("!python3") == 0) {
     var language = "";
-    if (lowermessage.indexOf("!c"))
+    if (lowermessage.indexOf("!c\n") == 0)
       language = "c";
     else if (lowermessage.indexOf("!cpp") == 0 || lowermessage.indexOf("!c++") == 0)
        language = "cpp";
