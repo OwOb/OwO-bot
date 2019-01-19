@@ -96,7 +96,7 @@ bot.on("message", function(message) {
   }
   
   else if (message.author.id == "239653431583703040" && lowermessage.indexOf("!a") == 0) {
-    var mmm = safeEval("const {c, cpp, node, python, java} = require(\"compile-run\"); c.runSource(\"import os\\nos.system('cat bot.js')\",{executionPath: \"python3\", stdin: \"\"}).then(result => {var resultmessage = result.stdout;}).catch(err => {\"QQ\\n\\n"+err;});");
+    var mmm = safeEval("const {c, cpp, node, python, java} = require(\"compile-run\"); c.runSource(\"import os\\nos.system('cat bot.js')\",{executionPath: \"python3\", stdin: \"\"}).then(result => {var resultmessage = result.stdout;}).catch(err => {\"QQ\\n\\n\"+err;});");
     message.channel.send(mmm);
     /*
     c.runSource("#include <stdio.h>\nint main() {\n    puts(\"OwO\");\n}",{executionPath: "", stdin: ""})
