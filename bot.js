@@ -22,15 +22,6 @@ function HappyNewYear() {
 */
 
 bot.on("ready", function() {
-  cmd.get(
-    "apt-get install g++",
-    function(err, data, stderr) {
-      if (!err)
-        console.log("install done!");
-      else
-        console.log("err:\n"+err);
-    }
-  );
   console.log("Ready");
   /*
   var nowTime = new Date();
@@ -342,9 +333,8 @@ bot.on("message", function(message) {
       });
     }
   }
-  
+  /*
   else if (message.content.indexOf("javascript") == 0) {
-    /*
     try {
       var geval = eval, timer = setTimeout(function(){try {throw "TLE";} catch(TLEerror) {if(TLEerror == "TLE")message.channel.sendMessage("執行時間超過1s了！ 你確定這程式會結束？ O3O");}}, 1000);
       var javascripteval = geval(message.content.substring(10));
@@ -356,9 +346,8 @@ bot.on("message", function(message) {
       else
         message.channel.sendMessage("別想拿錯誤或跑不出結果的的程式碼來坑本機！ O3O");
     }
-    */
   }
-  
+  */
   else if (headlower == "owo" || endlower == "owo") {
     message.channel.send("-OwO- 喵？");
   }
