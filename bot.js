@@ -21,6 +21,7 @@ function HappyNewYear() {
 */
 
 bot.on("ready", function() {
+  console.log("CSE="+process.env.GoogleCSE_TOKEN+" API="+process.env.GoogleAPI_TOKEN)
   console.log("Ready");
   /*
   var nowTime = new Date();
@@ -199,6 +200,15 @@ bot.on("message", function(message) {
   }
   
   else if (headlower == "圖片搜尋" || headlower == "google圖片" || headlower == "!image") {
+//     var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g,"%20");
+//     request({
+//       url: "ideone.com","ideone.com/plain",
+//       method: "GET"
+//       },
+//       function(error,response,body) {
+//         if (error) message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");;
+//       }
+//     );
     try {
       var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g,"+");
       GoogleImagesClient.search(search).then(images => {
