@@ -23,7 +23,7 @@ function HappyNewYear() {
 
 bot.on("ready", function() {
   console.log("install gcc");
-  await spawn("curl ftp://ftp.gnu.org/gnu/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz -s -O");
+  spawn("curl ftp://ftp.gnu.org/gnu/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz -s -O");
   console.log("Ready");
   /*
   var nowTime = new Date();
