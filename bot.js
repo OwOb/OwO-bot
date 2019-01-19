@@ -24,12 +24,19 @@ function HappyNewYear() {
 bot.on("ready", function() {
   console.log("install gcc");
   cmd.get(
-    "curl ftp://ftp.gnu.org/gnu/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz -s -O",
-    function(err, data, stderr){
+    `
+    curl ftp://ftp.gnu.org/gnu/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz -s -O
+    tar -xzf gcc-4.9.2.tar.gz
+    mkdir gcc
+    cd gcc-4.9.2
+    ./configure --prefix=/app/.heroku/gcc --with-gmp=/app/.heroku/gmp/ --with-mpfr=/app/.heroku/mpfr/ --with-mpc=/app/.heroku/mpc/ --disable-multilib
+    make && make install
+    `,
+    function(err, data, stderr) {
       if (!err)
-        console.log('the current dir contains these files :\n',data);
+        console("install done!");
       else
-        console.log('err :\n',err);
+        onsole.log('error', err);
     }
   );
   console.log("Ready");
