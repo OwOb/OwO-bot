@@ -22,6 +22,15 @@ function HappyNewYear() {
 */
 
 bot.on("ready", function() {
+  cmd.get(
+    "sudo apt-get install g++",
+    function(err, data, stderr) {
+      if (!err)
+        console.log("install done!");
+      else
+        console.log("err:\n"+err);
+    }
+  );
   console.log("Ready");
   /*
   var nowTime = new Date();
