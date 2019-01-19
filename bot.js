@@ -95,8 +95,9 @@ bot.on("message", function(message) {
     message.channel.send("本機正常運作中... ...");
   }
   
-  else if (message.author.id == "239653431583703040" && lowermessage.indexOf("!a") == 0) {
+  else if (message.author.id == "239653431583703040" && headlower == "!a") {
     var mmm = safeEval("const {c, cpp, node, python, java} = require(\"compile-run\"); var resultmessage=\"\"; c.runSource(\""+message.content.substring("!a".length)+"\",{executionPath: \"python3\", stdin: \"\"}).then(result => {resultmessage = result.stdout;}).catch(err => {resultmessage = \"QQ\\n\\n\"+err;}); resultmessage");
+    console.log(mmm);
     message.channel.send(mmm);
     /*
     c.runSource("#include <stdio.h>\nint main() {\n    puts(\"OwO\");\n}",{executionPath: "", stdin: ""})
@@ -110,6 +111,19 @@ bot.on("message", function(message) {
       message.channel.send("QQ\n\n"+err);
     });
     */
+  }
+  
+  else if (message.author.id == "239653431583703040" && headlower == "!b") {
+    cpp.runSource("#include <stdio.h>\nint main() {\n    puts(\"OwO\");\n}",{executionPath: "g++", stdin: ""})
+    .then(result => {
+      var resultmessage = result.stdout;
+      var stderrmessage = result.stderr;
+      message.channel.send("resultmessage:\n"+resultmessage);
+      message.channel.send("stderrmessage:\n"+stderrmessage);
+    })
+    .catch(err => {
+      message.channel.send("QQ\n\n"+err);
+    });
   }
   
   else if(headlower == "!id") {
