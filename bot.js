@@ -4,6 +4,7 @@ var sync_request = require("sync-request");
 var GoogleImages = require("google-images");
 var cmd = require("node-cmd");
 var safeEval = require("notevil");
+var path = require("path");
 require('typescript-require');
 var {c, cpp, node, python, java} = require("./compile-run/index.ts");
 //const {c, cpp, node, python, java} = require("compile-run");
