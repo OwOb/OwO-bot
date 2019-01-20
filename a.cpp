@@ -2,5 +2,5 @@
 
 int main() {
     int n = 5;
-    printf("%d\n", n);
+    std::cout << n << '\n';
 }
