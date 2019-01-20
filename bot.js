@@ -105,7 +105,7 @@ bot.on("message", function(message) {
           if (cmdmessage.length < 1900)
             message.channel.send("完成~~~  OwO/\n\ncmd訊息：\n```\n"+cmdmessage+"\n```");
           else
-            message.channel.send("完成~~~  OwO/\n\ncmd訊息：\n```\n"+cmdmessage.substring(0,1900)+"\n\n訊息太長以下省略...\n```");
+            message.channel.send("完成~~~  OwO/\n\ncmd訊息：\n```\n"+cmdmessage.substring(0,1900)+"\n訊息太長以下省略...\n```");
           console.log("done!\n"+data);
          }
         else {
@@ -114,7 +114,7 @@ bot.on("message", function(message) {
           if (errormessage.length < 1900)
             message.channel.send("發生錯誤!!\n\n錯誤訊息：\n```\n"+errormessage+"\n```");
           else
-            message.channel.send("發生錯誤!!\n\n錯誤訊息：\n```\n"+errormessage.substring(0,1900)+"\n\n訊息太長以下省略...\n```");
+            message.channel.send("發生錯誤!!\n\n錯誤訊息：\n```\n"+errormessage.substring(0,1900)+"\n訊息太長以下省略...\n```");
         }
       }
     );
