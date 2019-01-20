@@ -4,8 +4,8 @@ var sync_request = require("sync-request");
 var GoogleImages = require("google-images");
 var cmd = require("node-cmd");
 var safeEval = require("notevil");
-//const {c, cpp, node, python, java} = require('./compile-run/index.ts');
-const {c, cpp, node, python, java} = require("compile-run")
+const {c, cpp, node, python, java} = require("./compile-run/index");
+//const {c, cpp, node, python, java} = require("compile-run")
 var math = require("mathjs");
 math.import(require("mathjs-simple-integral"));
 
@@ -113,11 +113,11 @@ bot.on("message", function(message) {
             for (var i = 0; i < cmdmessage.length; i += 1900)
               message.channel.send("```\n"+cmdmessage.substring(i,i+1900)+"\n```");
           }
-          console.log("done!\n"+data);
+          //console.log("done!\n"+data);
         }
         else {
           var errormessage = err ? err.toString() : stderr;
-          console.log("err:\n"+err);
+          //console.log("err:\n"+err);
           if (errormessage.length < 1900)
             message.channel.send("發生錯誤!!\n\n錯誤訊息：\n```\n"+errormessage+"\n```");
           else {
