@@ -48,6 +48,7 @@ bot.on("message", function(message) {
   
   if (message.author.bot || command_cd[message.author.id]) return ;
   
+  var owner = message.author.id == "239653431583703040";
   var nickname = message.guild.members.get(message.author.id).nickname ? message.guild.members.get(message.author.id).nickname : message.author.username;
   
   var lowermessage = message.content.toLowerCase();
@@ -62,7 +63,7 @@ bot.on("message", function(message) {
     message.channel.send("本機正常運作中... ...");
   }
   
-  else if (message.author.id == "239653431583703040" && headlower == "!a") {
+  else if (owner && headlower == "!a") {
     var comm = "const {c, cpp, node, python, java} = require(\"compile-run\"); 10+10";
     console.log(comm);
     var mmm = safeEval(comm);
@@ -82,7 +83,7 @@ bot.on("message", function(message) {
     */
   }
   
-  else if (message.author.id == "239653431583703040" && headlower == "!b") {
+  else if (owner && headlower == "!b") {
     //var ccode = message.content.substring(headlower.length);
     cpp.runSource("#include <iostream>\nusing namespace std;\nint main() {\n    auto n = 10; cin>>n, cout<<n<<'\\n';\n}",{executionPath: "-std=c11", stdin: "5"})
     .then(result => {
@@ -95,8 +96,8 @@ bot.on("message", function(message) {
       message.channel.send("QQ\n\n"+err);
     });
   }
-  /*
-  else if (headlower == "!cmd") {
+  
+  else if (owner && headlower == "!cmd") {
     var cmdcommand = message.content.substring(headlower.length);
     cmd.get(
       cmdcommand,
@@ -128,7 +129,7 @@ bot.on("message", function(message) {
       }
     );
   }
-  */
+  
   else if (headlower == "!id") {
     message.channel.send(nickname+"的ID為: "+message.author.id);
   }
