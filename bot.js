@@ -109,7 +109,7 @@ bot.on("message", function(message) {
           console.log("done!\n"+data);
          }
         else {
-          var errormessage = err;
+          var errormessage = err.toString();
           console.log("err:\n"+err);
           if (errormessage.length < 1900)
             message.channel.send("發生錯誤!!\n\n錯誤訊息：\n```\n"+errormessage+"\n```");
