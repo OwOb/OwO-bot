@@ -100,16 +100,16 @@ bot.on("message", function(message) {
     cmd.get(
       cmdcommand,
       function(err, data, stderr) {
-        if (!err) {
+        if (!err && !stderr) {
           var cmdmessage = data;
           if (cmdmessage.length < 1900)
             message.channel.send("完成~~~  OwO/\n\ncmd訊息：\n```\n"+cmdmessage+"\n```");
           else
             message.channel.send("完成~~~  OwO/\n\ncmd訊息：\n```\n"+cmdmessage.substring(0,1900)+"\n訊息太長以下省略...\n```");
           console.log("done!\n"+data);
-         }
+        }
         else {
-          var errormessage = err.toString();
+          var errormessage = err ? err.toString() : stderr;
           console.log("err:\n"+err);
           if (errormessage.length < 1900)
             message.channel.send("發生錯誤!!\n\n錯誤訊息：\n```\n"+errormessage+"\n```");
