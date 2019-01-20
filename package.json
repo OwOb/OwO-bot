@@ -16,7 +16,6 @@
 		"sync-request": "6.0.0",
 		"google-images": "2.1.0",
 		"node-cmd": "3.0.0",
-		"notevil": "1.1.0",
-		"require-ts": "0.2.2"
+		"notevil": "1.1.0"
 	}
 }
