@@ -83,7 +83,7 @@ bot.on("message", function(message) {
   }
   
   else if (message.author.id == "239653431583703040" && headlower == "!b") {
-    c.runSource("#include <stdio.h>\nint main() {\n    puts(\"OwO\");\n}",{stdin: ""})
+    cpp.runSource("#include <iostream>\nint main() {\n    int n = 10; scanf(\"%d\", &n), printf(\"%d\\n\", n);\n}",{stdin: "5"})
     .then(result => {
       var resultmessage = result.stdout;
       var stderrmessage = result.stderr;
@@ -94,7 +94,7 @@ bot.on("message", function(message) {
       message.channel.send("QQ\n\n"+err);
     });
   }
-  
+  /*
   else if (headlower == "!cmd") {
     var cmdcommand = message.content.substring(headlower.length);
     cmd.get(
@@ -127,7 +127,7 @@ bot.on("message", function(message) {
       }
     );
   }
-  
+  */
   else if (headlower == "!id") {
     message.channel.send(nickname+"的ID為: "+message.author.id);
   }
