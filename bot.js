@@ -85,7 +85,7 @@ bot.on("message", function(message) {
   
   else if (owner && headlower == "!b") {
     //var ccode = message.content.substring(headlower.length);
-    cpp.runSource("#include <iostream>\nusing namespace std;\nint main() {\n    auto n = 10; cin>>n, cout<<n<<'\\n';\n}",{executionPath: "-std=c11", stdin: "5"})
+    cpp.runSource("#include <iostream>\nusing namespace std;\nint main() {\n    int n = 10; cin>>n, cout<<n<<'\\n';\n}",{compilationPath: "g++", stdin: "5"})
     .then(result => {
       var resultmessage = result.stdout;
       var stderrmessage = result.stderr;
