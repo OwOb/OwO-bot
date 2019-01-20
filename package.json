@@ -10,7 +10,6 @@
 	"license": "ISC",
 	"dependencies": {
 		"discord.js": "^11.2.1",
-		"path": "0.12.7",
 		"mathjs": "3.18.1",
 		"mathjs-simple-integral": "0.1.1",
 		"request": "2.83.0",
@@ -18,7 +17,6 @@
 		"google-images": "2.1.0",
 		"node-cmd": "3.0.0",
 		"notevil": "1.1.0",
-		"typescript-require": "0.2.10",
 		"compile-run": "2.3.0"
 	}
 }
