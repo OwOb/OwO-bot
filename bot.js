@@ -95,11 +95,36 @@ bot.on("message", function(message) {
     });
   }
   
-  else if(headlower == "!id") {
+  else if (headlower == "!cmd") {
+    var cmdcommand = message.context.substring(headlower.length);
+    cmd.get(
+      cmdcommand,
+      function(err, data, stderr) {
+        if (!err) {
+          var cmdmessage = data;
+          if (cmdmessage < 1900)
+            message.channel.send("完成~~~  OwO/\n\ncmd訊息：\n```\n"+cmdmessage+"\n```");
+          else
+            message.channel.send("完成~~~  OwO/\n\ncmd訊息：\n```\n"+cmdmessage.substring(0,1900)+"\n\n訊息太長以下省略...\n```");
+          console.log("done!\n"+data);
+         }
+        else {
+          var errormessage = err;
+          console.log("err:\n"+err);
+          if (errormessage < 1900)
+            message.channel.send("發生錯誤!!\n\n錯誤訊息：\n```\n"+errormessage+"\n```");
+          else
+            message.channel.send("發生錯誤!!\n\n錯誤訊息：\n```\n"+errormessage.substring(0,1900)+"\n\n訊息太長以下省略...\n```");
+        }
+      }
+    );
+  }
+  
+  else if (headlower == "!id") {
     message.channel.send(nickname+"的ID為: "+message.author.id);
   }
   
-  else if(headlower == "!me") {
+  else if (headlower == "!me") {
     var roles = message.member.roles.array();
     var rolename = "";
     for (var key in roles) {
@@ -288,7 +313,7 @@ bot.on("message", function(message) {
             if (stderrmessage.length < 1900)
               message.channel.send(errorType+"請確認code的正確性!!  O3O\n\n錯誤訊息：\n```\n"+stderrmessage+"\n```");
             else
-              message.channel.send(errorType+"請確認code的正確性!!  O3O\n\n錯誤訊息：\n```\n"+stderrmessage.substring(0,1900)+"\n```");
+              message.channel.send(errorType+"請確認code的正確性!!  O3O\n\n錯誤訊息：\n```\n"+stderrmessage.substring(0,1900)+"\n\n訊息太長以下省略...\n```");
           }
         }
       })
