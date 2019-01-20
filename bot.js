@@ -280,7 +280,7 @@ bot.on("message", function(message) {
       message.channel.send("沒給code是要本機執行什麼啦!! (╯‵□ˊ)╯︵┴─┴")
     }
     else {
-      codeS += lowermessage.substring(codeS).indexOf(/\s/g)+1;
+      codeS += lowermessage.substring(codeS).indexOf("\n")+1;
       var codeE = codeS+lowermessage.substring(codeS).indexOf("```");
       var inputS = codeE+3+lowermessage.substring(codeE+3).indexOf("```");
       var inputcode = "";
