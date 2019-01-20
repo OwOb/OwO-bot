@@ -6,7 +6,7 @@ var cmd = require("node-cmd");
 var safeEval = require("notevil");
 require('typescript-require');
 declare function require(name:string);
-var {c, cpp, node, python, java} = require("./compile-run/index.ts");
+import c, cpp, node, python, java from 'modulename';
 //const {c, cpp, node, python, java} = require("compile-run");
 var math = require("mathjs");
 math.import(require("mathjs-simple-integral"));
