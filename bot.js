@@ -4,7 +4,7 @@ var sync_request = require("sync-request");
 var GoogleImages = require("google-images");
 var cmd = require("node-cmd");
 var safeEval = require("notevil");
-import c, cpp, node, python, java from 'modulename';
+import compileRun from 'modulename';
 //const {c, cpp, node, python, java} = require("compile-run");
 var math = require("mathjs");
 math.import(require("mathjs-simple-integral"));
