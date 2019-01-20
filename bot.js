@@ -83,7 +83,8 @@ bot.on("message", function(message) {
   }
   
   else if (message.author.id == "239653431583703040" && headlower == "!b") {
-    cpp.runSource("#include <iostream>\nint main() {\n    int n = 10; scanf(\"%d\", &n), printf(\"%d\\n\", n);\n}",{stdin: "5"})
+    //var ccode = message.content.substring(headlower.length);
+    cpp.runSource("#include <iostream>\nusing namespace std;\nint main() {\n    int n = 10; cin>>n, cout<<n<<'\\n';\n}",{stdin: "5"})
     .then(result => {
       var resultmessage = result.stdout;
       var stderrmessage = result.stderr;
