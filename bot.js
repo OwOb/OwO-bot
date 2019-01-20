@@ -4,7 +4,6 @@ var sync_request = require("sync-request");
 var GoogleImages = require("google-images");
 var cmd = require("node-cmd");
 var safeEval = require("notevil");
-require('typescript-require');
 import c, cpp, node, python, java from 'modulename';
 //const {c, cpp, node, python, java} = require("compile-run");
 var math = require("mathjs");
