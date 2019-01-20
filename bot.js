@@ -2,11 +2,12 @@ const Discord = require("discord.js");
 var request = require("request");
 var sync_request = require("sync-request");
 var GoogleImages = require("google-images");
-var cmd = require('node-cmd');
-var safeEval = require('notevil');
-const {c, cpp, node, python, java} = require('./compile-run/index.ts');
+var cmd = require("node-cmd");
+var safeEval = require("notevil");
+//const {c, cpp, node, python, java} = require('./compile-run/index.ts');
+const {c, cpp, node, python, java} = require("compile-run")
 var math = require("mathjs");
-math.import(require('mathjs-simple-integral'));
+math.import(require("mathjs-simple-integral"));
 
 var bot = new Discord.Client();
 var GoogleImagesClient = new GoogleImages(process.env.GoogleCSE_TOKEN, process.env.GoogleAPI_TOKEN);
