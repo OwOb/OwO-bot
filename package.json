@@ -17,6 +17,6 @@
 		"google-images": "2.1.0",
 		"node-cmd": "3.0.0",
 		"notevil": "1.1.0",
-		"typescript-require": "0.2.10"
+		"compile-run": "2.3.0"
 	}
 }
