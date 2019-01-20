@@ -4,13 +4,7 @@ var sync_request = require("sync-request");
 var GoogleImages = require("google-images");
 var cmd = require("node-cmd");
 var safeEval = require("notevil");
-require('typescript-require')({
-    nodeLib: true,
-    targetES5: true,
-    exitOnError: true,
-    emitOnError: true
-});
-var {c, cpp, node, python, java} = require("./compile-run/index.ts");
+import compileRun = require("./compile-run/index.ts");
 //const {c, cpp, node, python, java} = require("compile-run");
 var math = require("mathjs");
 math.import(require("mathjs-simple-integral"));
