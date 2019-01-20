@@ -85,7 +85,7 @@ bot.on("message", function(message) {
   
   else if (owner && headlower == "!b") {
     //var ccode = message.content.substring(headlower.length);
-    c.runSource("#include <stdio.h>\nint main() {\n    int n = 10; scanf(\"%d\", n), printf(\"%d\\n\", n), puts(\"OwO\");\n}",{compilationPath: "g++", executionPath: "-static -O2", stdin: "5"})
+    c.runSource("#include <stdio.h>\nint main() {\n    auto n = 10; scanf(\"%d\", n), printf(\"%d\\n\", n), puts(\"OwO\");\n}",{compilationPath: "g++", executionPath: "-std=c++11", stdin: "5"})
     .then(result => {
       var resultmessage = result.stdout;
       var stderrmessage = result.stderr;
