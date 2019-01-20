@@ -5,6 +5,7 @@ var GoogleImages = require("google-images");
 var cmd = require("node-cmd");
 var safeEval = require("notevil");
 require('typescript-require');
+declare function require(name:string);
 var {c, cpp, node, python, java} = require("./compile-run/index.ts");
 //const {c, cpp, node, python, java} = require("compile-run");
 var math = require("mathjs");
