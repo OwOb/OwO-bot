@@ -46,7 +46,7 @@ bot.on("ready", function() {
 
 bot.on("message", function(message) {
   
-  if (/*message.author.bot ||*/ command_cd[message.author.id]) return ;
+  if (message.author.bot || command_cd[message.author.id]) return ;
   
   var nickname = message.guild.members.get(message.author.id).nickname ? message.guild.members.get(message.author.id).nickname : message.author.username;
   
