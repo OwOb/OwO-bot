@@ -282,11 +282,13 @@ bot.on("message", function(message) {
           if (nowTime.getTime()-lastTime.getTime() >= 3000) {
             message.channel.send("**TLE** 執行超過3秒了!! 你確定這code會結束?? O3O");
           }
-          else if (result.errorType == "compile-time" || result.errorType == "pre-compile-time") {
-            message.channel.send("**CE** 編譯錯誤!! 請確認code的正確性!!  O3O");
-          }
           else {
-            message.channel.send("**RE** 執行時錯誤!! 請確認code的正確性!!  O3O");
+            var errorType = result.errorType == "compile-time" || result.errorType == "pre-compile-time" ? "**CE** 編譯錯誤!! " : "**RE** 執行時錯誤!! ";
+            var stderrmessage = result.stderr;
+            if (stderrmessage.length < 1900)
+              message.channel.send(errorType+"請確認code的正確性!!  O3O\n\n錯誤訊息：\n```\n"+stderrmessage+"\n```");
+            else
+              message.channel.send(errorType+"請確認code的正確性!!  O3O\n\n錯誤訊息：\n```\n"+stderrmessage.substring(0,1900)+"\n```");
           }
         }
       })
