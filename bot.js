@@ -102,7 +102,7 @@ bot.on("message", function(message) {
       function(err, data, stderr) {
         if (!err) {
           var cmdmessage = data;
-          if (cmdmessage < 1900)
+          if (cmdmessage.length < 1900)
             message.channel.send("完成~~~  OwO/\n\ncmd訊息：\n```\n"+cmdmessage+"\n```");
           else
             message.channel.send("完成~~~  OwO/\n\ncmd訊息：\n```\n"+cmdmessage.substring(0,1900)+"\n\n訊息太長以下省略...\n```");
@@ -111,7 +111,7 @@ bot.on("message", function(message) {
         else {
           var errormessage = err;
           console.log("err:\n"+err);
-          if (errormessage < 1900)
+          if (errormessage.length < 1900)
             message.channel.send("發生錯誤!!\n\n錯誤訊息：\n```\n"+errormessage+"\n```");
           else
             message.channel.send("發生錯誤!!\n\n錯誤訊息：\n```\n"+errormessage.substring(0,1900)+"\n\n訊息太長以下省略...\n```");
