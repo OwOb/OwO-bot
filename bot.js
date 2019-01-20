@@ -96,7 +96,7 @@ bot.on("message", function(message) {
   }
   
   else if (headlower == "!cmd") {
-    var cmdcommand = message.context.substring(headlower.length);
+    var cmdcommand = message.content.substring(headlower.length);
     cmd.get(
       cmdcommand,
       function(err, data, stderr) {
