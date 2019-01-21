@@ -85,22 +85,27 @@ bot.on("message", function(message) {
   
   else if (owner && headlower == "!b") {
     //var ccode = message.content.substring(headlower.length);
-    var saf = safeEval(
-      `
-      var {c, cpp, node, python, java} = require("compile-run");
-      var mse = "QAQ";
-      c.runSource("#include <stdio.h>\nint main() {\n    int n = 10; scanf(\"%d\", n), printf(\"%d\\n\", n), puts(\"OwO\");\n}",{compilationPath: "g++", stdin: "5"})
-      .then(result => {
-        var resultmessage = result.stdout;
-        mse = "resultmessage:\n"+resultmessage;
-      })
-      .catch(err => {
-        mse = "QQ\n\n"+err;
-      });
-      mse
-      `
-    )
-    message.channel.send(saf);
+    try {
+      var saf = safeEval(
+        `
+        var {c, cpp, node, python, java} = require("compile-run");
+        var mse = "QAQ";
+        c.runSource("#include <stdio.h>\nint main() {\n    int n = 10; scanf(\"%d\", n), printf(\"%d\\n\", n), puts(\"OwO\");\n}",{compilationPath: "g++", stdin: "5"})
+        .then(result => {
+          var resultmessage = result.stdout;
+          mse = "resultmessage:\n"+resultmessage;
+        })
+        .catch(err => {
+          mse = "QQ\n\n"+err;
+        });
+        mse
+        `
+      )
+      message.channel.send(saf);
+    }
+    catch(e) {
+      message.channel.send(e);
+    }
   }
   
   else if (owner && headlower == "!cmd") {
