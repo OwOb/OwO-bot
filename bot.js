@@ -21,6 +21,13 @@ function HappyNewYear() {
 }
 */
 
+function to02d(n) {
+  if (n > 100)
+    return n.toString();
+  else
+    return Math.floor(n/10).toString() + (n%10).toString();
+}
+
 bot.on("ready", function() {
   /*
   cmd.get(
@@ -58,6 +65,8 @@ bot.on("message", function(message) {
   var head = args[0], end = args[args.length-1]; 
   var headlower = args[0].toLowerCase(), endlower = args[args.length-1].toLowerCase();
   var cd = 3000;
+  
+  var NakanoMiku = ["39", "３９", "三玖", "中野三玖", "三九", "三十九", "nakanomiku"];
   
   if(headlower == "!test") {
     message.channel.send("本機正常運作中... ...");
@@ -158,27 +167,32 @@ bot.on("message", function(message) {
       message.channel.send(nickname+"不屬於本頻道的任何身分組");
   }
   
-  else if(headlower == "!say") {
+  else if (headlower == "!say") {
     message.channel.send(message.content.substring(5));
   }
   
-  else if(headlower.indexOf("...") == 0 && headlower == ".".repeat(headlower.length)) {
+  else if (headlower.indexOf("...") == 0 && headlower == ".".repeat(headlower.length)) {
     message.channel.send("別無言了，本機在此有話直說 😐");
   }
   
-  else if(headlower == "3210" || message.content.indexOf("新年快樂") != -1 || lowermessage.indexOf("happy new year") != -1) {
+  else if (NakanoMiku.indexOf(headlower) > 0 || NakanoMiku.indexOf(endlower) > 0) {
+    var mikumessage = ["三玖天下第一!! OwO/", "三玖是天!! OwO/", "三玖三玖得第一!! OwO/"];
+    message.channel.send(mikumessage[Math.floor(Math.random()*mikumessage.length)], {files:["./image/39/"+to02d(Math.floor(Math.random()*12)+1)+".jpg"]});
+  }
+  
+  else if (headlower == "3210" || message.content.indexOf("新年快樂") != -1 || lowermessage.indexOf("happy new year") != -1) {
     message.channel.send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
   }
   
-  else if(headlower == "78+9") {
+  else if (headlower == "78+9") {
     message.channel.send("其實8+9就是... ...\n咳... 那是各位說的，可不是本機說的 😏");
   }
   
-  else if(headlower == "8+9") {
+  else if (headlower == "8+9") {
     message.channel.send("8+9=義氣");
   }
   
-  else if(headlower == "86") {
+  else if (headlower == "86") {
     message.channel.send("能超越86的人... 就是下面那位... ... 😏");
   }
   
