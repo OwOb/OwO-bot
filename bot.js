@@ -178,7 +178,7 @@ bot.on("message", function(message) {
   
   else if (NakanoMiku.indexOf(headlower) != -1 || NakanoMiku.indexOf(endlower) != -1) {
     var mikumessage = ["三玖天下第一", "三玖是天", "三玖三玖得第一"];
-    var richembed = new Discord.RichEmbed().setColor(11068927).setTitle("**"+mikumessage[Math.floor(Math.random()*mikumessage.length)]+"!!  (*´∀`)~♥**").setImage("https://raw.githubusercontent.com/OwOb/OwO-bot/master/image/39/"+to02d(Math.floor(Math.random()*12)+1)+".jpg");
+    var richembed = new Discord.RichEmbed().setColor(11068927).setTitle("**"+mikumessage[Math.floor(Math.random()*mikumessage.length)]+"!!  (*´∀`)～♥**").setImage("https://raw.githubusercontent.com/OwOb/OwO-bot/master/image/39/"+to02d(Math.floor(Math.random()*12)+1)+".jpg");
     message.channel.send(richembed);
   }
   
