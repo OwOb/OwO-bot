@@ -85,16 +85,22 @@ bot.on("message", function(message) {
   
   else if (owner && headlower == "!b") {
     //var ccode = message.content.substring(headlower.length);
-    c.runSource("#include <stdio.h>\nint main() {\n    auto n = 10; scanf(\"%d\", n), printf(\"%d\\n\", n), puts(\"OwO\");\n}",{compilationPath: "g++", stdin: "5"})
-    .then(result => {
-      var resultmessage = result.stdout;
-      var stderrmessage = result.stderr;
-      message.channel.send("resultmessage:\n"+resultmessage);
-      message.channel.send("stderrmessage:\n"+stderrmessage);
-    })
-    .catch(err => {
-      message.channel.send("QQ\n\n"+err);
-    });
+    var saf = safeEval(
+      `
+      var {c, cpp, node, python, java} = require("compile-run");
+      var mse = "QAQ";
+      c.runSource("#include <stdio.h>\nint main() {\n    int n = 10; scanf(\"%d\", n), printf(\"%d\\n\", n), puts(\"OwO\");\n}",{compilationPath: "g++", stdin: "5"})
+      .then(result => {
+        var resultmessage = result.stdout;
+        mse = "resultmessage:\n"+resultmessage;
+      })
+      .catch(err => {
+        mse = "QQ\n\n"+err;
+      });
+      mse
+      `
+    )
+    message.channel.send(saf);
   }
   
   else if (owner && headlower == "!cmd") {
@@ -290,21 +296,21 @@ bot.on("message", function(message) {
         inputS = inputS+lowermessage.substring(inputS).indexOf("\n")+1;
         inputcode = message.content.substring(inputS,inputS+message.content.substring(inputS).indexOf("```"));
       }
-      console.log("language="+language+" codeS="+codeS+" codeE="+codeE+" inputS="+inputS);
-      console.log("code:\n"+message.content.substring(codeS,codeE));
-      console.log("inputcode:\n"+inputcode);
+      //console.log("language="+language+" codeS="+codeS+" codeE="+codeE+" inputS="+inputS);
+      //console.log("code:\n"+message.content.substring(codeS,codeE));
+      //console.log("inputcode:\n"+inputcode);
       var lastTime = new Date();
       (language == "c" ? c : language == "cpp" ? cpp : python).runSource(message.content.substring(codeS,codeE)+"\n", {executionPath: language == "python3" ? language : "", stdin: inputcode})
       .then(result => {
         if (!result.errorType) {
           var resultmessage = result.stdout;
           if (resultmessage != "") {
-            console.log(resultmessage);
+            //console.log(resultmessage);
             if (resultmessage.length < 1900)
               message.channel.send("code成功執行\\~\\~\\~  OwO/\n\n執行結果：\n```\n" + resultmessage + "\n```");
             else {
               var sss = "code成功執行\\~\\~\\~  OwO/\n\n執行結果：\n```\n" + resultmessage.substring(0,1900) + "\n\n訊息太長以下省略...\n```";
-              console.log("sss:\n"+sss);
+              //console.log("sss:\n"+sss);
               message.channel.send(sss);
             }
           }
