@@ -176,12 +176,10 @@ bot.on("message", function(message) {
     message.channel.send("別無言了，本機在此有話直說 😐");
   }
   
-  else if (NakanoMiku.indexOf(headlower) > 0 || NakanoMiku.indexOf(endlower) > 0) {
+  else if (NakanoMiku.indexOf(headlower) != -1 || NakanoMiku.indexOf(endlower) != -1) {
     var mikumessage = ["三玖天下第一!! OwO/", "三玖是天!! OwO/", "三玖三玖得第一!! OwO/"];
-    var choosemsg = mikumessage[Math.floor(Math.random()*mikumessage.length)];
-    var chooseimg = "./image/39/"+to02d(Math.floor(Math.random()*12)+1)+".jpg";
-    console.log(choosemsg+"\n"+chooseimg);
-    message.channel.send(choosemsg, {files:[chooseimg]});
+    var richembed = new Discord.RichEmbed().setColor(52162777).setTitle("**"+mikumessage[Math.floor(Math.random()*mikumessage.length)]+"**").setImage("./image/39/"+to02d(Math.floor(Math.random()*12)+1)+".jpg"));
+    message.channel.send(richembed);
   }
   
   else if (!isself && (headlower == "3210" || message.content.indexOf("新年快樂") != -1 || lowermessage.indexOf("happy new year") != -1)) {
