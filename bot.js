@@ -178,7 +178,10 @@ bot.on("message", function(message) {
   
   else if (NakanoMiku.indexOf(headlower) > 0 || NakanoMiku.indexOf(endlower) > 0) {
     var mikumessage = ["三玖天下第一!! OwO/", "三玖是天!! OwO/", "三玖三玖得第一!! OwO/"];
-    message.channel.send(mikumessage[Math.floor(Math.random()*mikumessage.length)], {files:["./image/39/"+to02d(Math.floor(Math.random()*12)+1)+".jpg"]});
+    var choosemsg = mikumessage[Math.floor(Math.random()*mikumessage.length)];
+    var chooseimg = "./image/39/"+to02d(Math.floor(Math.random()*12)+1)+".jpg";
+    console.log(choosemsg+"\n"+chooseimg);
+    message.channel.send(choosemsg, {files:[chooseimg]});
   }
   
   else if (!isself && (headlower == "3210" || message.content.indexOf("新年快樂") != -1 || lowermessage.indexOf("happy new year") != -1)) {
