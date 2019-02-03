@@ -68,6 +68,7 @@ bot.on("message", function(message) {
   var cd = 3000;
   
   var NakanoMiku = ["39", "３９", "三玖", "中野三玖", "三九", "三十九", "nakanomiku"];
+  var languages = ["!c", "!cpp", "!c++", "!python", "!py", "!python2", "!py2", "!python3", "!py3"];
   
   if(!isself && headlower == "!test") {
     message.channel.send("本機正常運作中... ...");
@@ -294,7 +295,7 @@ bot.on("message", function(message) {
     message.channel.send(nickname+"和本機簽訂契約，成為魔法少女吧！／人◕ ‿‿ ◕人＼");
   }
   
-  else if (!isself && (headlower == "!c" || headlower == "!cpp" || headlower == "!cpp" || headlower == "!python2" || headlower == "!py2" || headlower == "!python3" || headlower == "!py3" || headlower == "!python" || headlower == "!py")) {
+  else if (!isself && languages.indexOf(headlower) != -1) {
     var language = "";
     if (headlower == "!c")
       language = "c";
