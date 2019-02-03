@@ -222,7 +222,7 @@ bot.on("message", function(message) {
   
   else if (lowermessage.indexOf("咚噠yo") != -1 || lowermessage.indexOf("咚~噠yo") != -1 || lowermessage.indexOf("咚～噠yo") != -1) {
     var index = Math.floor(Math.random()*2)+1;
-    var richembed = new Discord.RichEmbed().setColor(15061716).setTitle("**咚～噠YO！**").setImage("https://raw.githubusercontent.com/OwOb/OwO-bot/master/image/%E5%92%9A%E5%99%A0YO_"+to02d(index)+".jpg").setFooter("《輝夜姬想讓人告白~天才們的戀愛頭腦戰~》"+(index == 1 ? "動畫 第04話" : "漫畫 第02卷 第18話"));
+    var richembed = new Discord.RichEmbed().setColor(15061716).setTitle("**咚噠YO!!**").setImage("https://raw.githubusercontent.com/OwOb/OwO-bot/master/image/%E5%92%9A%E5%99%A0YO_"+to02d(index)+".jpg").setFooter("《輝夜姬想讓人告白~天才們的戀愛頭腦戰~》"+(index == 1 ? "動畫 第04話" : "漫畫 第02卷 第18話"));
     message.channel.send(richembed);
   }
       
