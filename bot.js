@@ -220,6 +220,10 @@ bot.on("message", function(message) {
     message.channel.send(richembed);
   }
   
+  else if (lowermessage.indexOf("咚噠yo") != -1) {
+    var richembed = new Discord.RichEmbed().setTitle("**咚噠YO!!**").setImage("https://raw.githubusercontent.com/OwOb/OwO-bot/master/image/%E6%9B%B8%E8%A8%98.jpg").setFooter("《輝夜姬想讓人告白~天才們的戀愛頭腦戰~》第04話");
+    message.channel.send(richembed);
+  }
       
   else if (!isself && (message.content.indexOf("什麼是") == 0 || headlower == ("!google"))) {
     if (message.content.indexOf("什麼是") == 0)
