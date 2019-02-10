@@ -11,7 +11,10 @@ math.import(require("mathjs-simple-integral"));
 var bot = new Discord.Client();
 var GoogleImagesClient = new GoogleImages(process.env.GoogleCSE_TOKEN, process.env.GoogleAPI_TOKEN);
 
-var command_cd = new Array();
+var cd = 3000;
+var user_cd = new Array();
+var NakanoMiku = ["39", "３９", "三玖", "中野三玖", "三九", "三十九", "nakanomiku"];
+var languages = ["!c", "!cpp", "!c++", "!python", "!py", "!python2", "!py2", "!python3", "!py3"];
 
 /*
 function HappyNewYear() {
@@ -53,7 +56,7 @@ bot.on("ready", function() {
 
 bot.on("message", function(message) {
   
-  if (/*message.author.bot ||*/ command_cd[message.author.id]) return ;
+  if (/*message.author.bot ||*/ user_cd[message.author.id]) return ;
   
   var isself = message.author.id == "397387299832201218";
   var owner = message.author.id == "239653431583703040";
@@ -65,10 +68,6 @@ bot.on("message", function(message) {
   
   var head = args[0], end = args[args.length-1]; 
   var headlower = args[0].toLowerCase(), endlower = args[args.length-1].toLowerCase();
-  var cd = 3000;
-  
-  var NakanoMiku = ["39", "３９", "三玖", "中野三玖", "三九", "三十九", "nakanomiku"];
-  var languages = ["!c", "!cpp", "!c++", "!python", "!py", "!python2", "!py2", "!python3", "!py3"];
   
   if(!isself && headlower == "!test") {
     message.channel.send("本機正常運作中... ...");
