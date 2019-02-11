@@ -44,6 +44,7 @@ bot.on("ready", function() {
     }
   );
   */
+  bot.user.setActivity("《OwO bot 使用手冊》", {type: "WATCHING"});
   console.log("Ready");
   /*
   var nowTime = new Date();
@@ -155,10 +156,10 @@ bot.on("message", function(message) {
   
   else if (owner && headlower == "!sba") {
     if (lowerargs.length < 3) {
-      message.channel.send("指令有誤!!  O3O\n格式: !sba (活動類型) (活動名稱)");
+      message.channel.send("指令有誤啦！(╯‵□ˊ)╯︵┴─┴\n格式: !sba (活動類型) (活動名稱)");
     }
     else if (!(lowerargs[1] in activities)) {
-      message.channel.send("活動類型有誤!!  O3O\n活動類型:\np - PLAYING\ns - STREAMING\nl - LISTENING\nw - WATCHING");
+      message.channel.send("活動類型有誤啦！(╯‵□ˊ)╯︵┴─┴\n活動類型:\nP - PLAYING\nS - STREAMING\nL - LISTENING\nW - WATCHING");
     }
     else {
       var activitytype = activities[lowerargs[1]];
