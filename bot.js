@@ -58,8 +58,8 @@ bot.on("message", function(message) {
   
   if (/*message.author.bot ||*/ user_cd[message.author.id]) return ;
   
-  var isself = message.author.id == "397387299832201218";
-  var owner = message.author.id == "239653431583703040";
+  var isself = message.author.id == process.env.OwObot_ID;
+  var owner = message.author.id == process.env.OwO_ID;
   var nickname = message.guild.members.get(message.author.id).nickname ? message.guild.members.get(message.author.id).nickname : message.author.username;
   
   var lowermessage = message.content.toLowerCase();
@@ -149,6 +149,12 @@ bot.on("message", function(message) {
         }
       }
     );
+  }
+  
+  else if (owner && headlower == "!sbg") {
+    var setbotgame = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"");
+    bot.user.setActivity(setbotgame);
+    message.channel.send("設定為: 正在玩"+setbotgame);
   }
   
   else if (headlower == "!id") {
