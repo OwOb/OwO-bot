@@ -516,8 +516,8 @@ bot.on("message", function(message) {
       }
     }
   }
-  command_cd[message.author.id] = 1;
-  setTimeout(function(){command_cd[message.author.id] = 0;}, cd);
+  user_cd[message.author.id] = 1;
+  setTimeout(function(){user_cd[message.author.id] = 0;}, cd);
   /*
   else {
       var str = "";
