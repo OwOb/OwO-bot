@@ -15,6 +15,7 @@ var cd = 3000;
 var user_cd = new Array();
 var NakanoMiku = ["39", "３９", "三玖", "中野三玖", "三九", "三十九", "nakanomiku"];
 var languages = ["!c", "!cpp", "!c++", "!python", "!py", "!python2", "!py2", "!python3", "!py3"];
+var activities = {"p": "PLAYING", "s": "STREAMING", "l": "LISTENING", "w": "WATCHING"};
 
 /*
 function HappyNewYear() {
@@ -63,7 +64,7 @@ bot.on("message", function(message) {
   var nickname = message.guild.members.get(message.author.id).nickname ? message.guild.members.get(message.author.id).nickname : message.author.username;
   
   var lowermessage = message.content.toLowerCase();
-  var args = message.content.split(/\s+/g);
+  var args = message.content.split(/\s+/g), lowerargs = lowermessage.split(/\s+/g);
   var urllist = message.content.match(/http:\/\/[^ \n]+|https:\/\/[^ \n]+/g);
   
   var head = args[0], end = args[args.length-1]; 
@@ -151,10 +152,19 @@ bot.on("message", function(message) {
     );
   }
   
-  else if (owner && headlower == "!sbg") {
-    var setbotgame = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"");
-    bot.user.setActivity(setbotgame);
-    message.channel.send("設定為: 正在玩"+setbotgame);
+  else if (owner && headlower == "!sba") {
+    if (args.length < 3) {
+      message.channel.send("指令有誤!!  O3O\n格式: !sba (活動類型) (活動名稱)");
+    }
+    else if (lowermessage[1] in activities) {
+      message.channel.send("活動類型有誤!!  O3O\n活動類型:\np - PLAYING\ns - STREAMING\nl - LISTENING\nw - WATCHING");
+    }
+    else {
+      var activitytype = activities[lowermessage[1]];
+      var setbotact = message.content.substring(headlower.length+2).replace(/(^\s*)|(\s*$)/g,"");
+      bot.user.setActivity(setbotact, {type: activitytype});
+      message.channel.send("設定為: "+activitytype+" "+setbotact);
+    }
   }
   
   else if (headlower == "!id") {
