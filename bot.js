@@ -154,14 +154,14 @@ bot.on("message", function(message) {
   }
   
   else if (owner && headlower == "!sba") {
-    if (args.length < 3) {
+    if (lowerargs.length < 3) {
       message.channel.send("指令有誤!!  O3O\n格式: !sba (活動類型) (活動名稱)");
     }
-    else if (!(lowermessage[1] in activities)) {
+    else if (!(lowerargs[1] in activities)) {
       message.channel.send("活動類型有誤!!  O3O\n活動類型:\np - PLAYING\ns - STREAMING\nl - LISTENING\nw - WATCHING");
     }
     else {
-      var activitytype = activities[lowermessage[1]];
+      var activitytype = activities[lowerargs[1]];
       var setbotact = message.content.substring(headlower.length+2).replace(/(^\s*)|(\s*$)/g,"");
       bot.user.setActivity(setbotact, {type: activitytype});
       message.channel.send("設定為: "+activitytype+" "+setbotact);
