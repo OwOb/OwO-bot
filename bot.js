@@ -64,7 +64,8 @@ bot.on("message", function(message) {
   var nickname = message.guild.members.get(message.author.id).nickname ? message.guild.members.get(message.author.id).nickname : message.author.username;
   
   var lowermessage = message.content.toLowerCase();
-  var args = message.content.split(/\s+/g), lowerargs = lowermessage.split(/\s+/g);
+  var args = message.content.replace(/(^\s*)|(\s*$)/g,"").split(/\s+/g);
+  var lowerargs = lowermessage.replace(/(^\s*)|(\s*$)/g,"").split(/\s+/g);
   var urllist = message.content.match(/http:\/\/[^ \n]+|https:\/\/[^ \n]+/g);
   
   var head = args[0], end = args[args.length-1]; 
@@ -156,7 +157,7 @@ bot.on("message", function(message) {
     if (args.length < 3) {
       message.channel.send("指令有誤!!  O3O\n格式: !sba (活動類型) (活動名稱)");
     }
-    else if (lowermessage[1] in activities) {
+    else if (!(lowermessage[1] in activities)) {
       message.channel.send("活動類型有誤!!  O3O\n活動類型:\np - PLAYING\ns - STREAMING\nl - LISTENING\nw - WATCHING");
     }
     else {
