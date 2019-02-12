@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const { Client } = require('pg');
 var request = require("request");
 var sync_request = require("sync-request");
 var GoogleImages = require("google-images");
@@ -7,6 +8,12 @@ var safeEval = require("notevil");
 const {c, cpp, node, python, java} = require("compile-run");
 var math = require("mathjs");
 math.import(require("mathjs-simple-integral"));
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
+client.connect();
 
 var bot = new Discord.Client();
 var GoogleImagesClient = new GoogleImages(process.env.GoogleCSE_TOKEN, process.env.GoogleAPI_TOKEN);
@@ -154,6 +161,24 @@ bot.on("message", function(message) {
         }
       }
     );
+  }
+  
+  else if (owner && headlower == "!db") {
+    var command = message.content.substring(headlower).replace(/(^\s*)|(\s*$)/g,"").replace(/\s*/g," ");
+    if (command[command.length-1] != ";")
+      command += ";";
+    client.query(command, (err, res) => {
+      if (!err) {
+        for (let row of res.rows) {
+          message.channel.send(JSON.stringify(row));
+        }
+        client.end();
+      }
+      else {
+        message.channel.send("QAQ");
+        console.log(err);
+      }
+    });
   }
   
   else if (owner && headlower == "!sba") {
