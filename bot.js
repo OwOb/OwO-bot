@@ -164,10 +164,11 @@ bot.on("message", function(message) {
   }
   
   else if (owner && headlower == "!db") {
-    var command = message.content.substring(headlower).replace(/(^\s*)|(\s*$)/g,"").replace(/\s*/g," ");
-    if (command[command.length-1] != ";")
-      command += ";";
-    client.query(command, (err, res) => {
+    var db_command = message.content.substring(headlower).replace(/(^\s*)|(\s*$)/g,"").replace(/\s*/g," ");
+    if (db_command[db_command.length-1] != ";")
+      db_command += ";";
+    console.log(db_command);
+    client.query(db_command, (err, res) => {
       if (!err) {
         for (let row of res.rows) {
           message.channel.send(JSON.stringify(row));
