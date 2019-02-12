@@ -164,7 +164,7 @@ bot.on("message", function(message) {
   }
   
   else if (owner && headlower == "!db") {
-    var db_command = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ");
+    var db_command = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"");
     if (db_command[db_command.length-1] != ";")
       db_command += ";";
     console.log(db_command);
@@ -264,9 +264,10 @@ bot.on("message", function(message) {
     var richembed = new Discord.RichEmbed().setColor(14535382).setTitle("**咚噠YO!!**").setImage("https://raw.githubusercontent.com/OwOb/OwO-bot/master/image/%E5%92%9A%E5%99%A0YO_"+to02d(index)+".jpg").setFooter("《輝夜姬想讓人告白~天才們的戀愛頭腦戰~》"+(index == 1 ? "動畫 第04話" : "漫畫 第02卷 第18話"));
     message.channel.send(richembed);
   }
-  
+  /*
   else if (!isself && (headlower == "新增筆記" || headlower == "!new_note")) {
-    var noteDetail = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"");
+    var noteTitle = message.content.match(/\s*!db\s*`[^\s]+`/);
+    var noteDetail = message.content.substring(noteTitle ? noteTitle.length : headlower.length).replace(/(^\s*)|(\s*$)/g,"");
     if (!noteDetail) {
       message.channel.send("根本就沒有內容是要本機紀錄什麼啦！(╯‵□ˊ)╯︵┴─┴");
     }
@@ -286,7 +287,7 @@ bot.on("message", function(message) {
       });
     }
   }
-  
+  */
   else if (!isself && (message.content.indexOf("什麼是") == 0 || headlower == ("!google"))) {
     if (message.content.indexOf("什麼是") == 0)
       message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""));
