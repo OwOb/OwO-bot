@@ -170,9 +170,12 @@ bot.on("message", function(message) {
     console.log(db_command);
     client.query(db_command, (err, res) => {
       if (!err) {
+        message.channel.send(res);
+        /*
         for (let row of res.rows) {
           message.channel.send(JSON.stringify(row));
         }
+        */
       }
       else {
         message.channel.send("QAQ");
@@ -235,18 +238,6 @@ bot.on("message", function(message) {
     message.channel.send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
   }
   
-  else if (headlower == "78+9") {
-    message.channel.send("其實8+9就是... ...\n咳... 那是各位說的，可不是本機說的 😏");
-  }
-  
-  else if (headlower == "8+9") {
-    message.channel.send("8+9=義氣");
-  }
-  
-  else if (headlower == "86") {
-    message.channel.send("能超越86的人... 就是下面那位... ... 😏");
-  }
-  
   else if (headlower == "emt") {
     message.channel.send("愛蜜莉雅簡直是天使！");
   }
@@ -273,7 +264,17 @@ bot.on("message", function(message) {
     var richembed = new Discord.RichEmbed().setColor(14535382).setTitle("**咚噠YO!!**").setImage("https://raw.githubusercontent.com/OwOb/OwO-bot/master/image/%E5%92%9A%E5%99%A0YO_"+to02d(index)+".jpg").setFooter("《輝夜姬想讓人告白~天才們的戀愛頭腦戰~》"+(index == 1 ? "動畫 第04話" : "漫畫 第02卷 第18話"));
     message.channel.send(richembed);
   }
-      
+  /*
+  else if (!isself && (headlower == "新增筆記" || headlower == "!new_note")) {
+    var noteDetail = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"");
+    if (!noteDetail) {
+      message.channel.send("根本就沒有內容是要本機紀錄什麼啦！(╯‵□ˊ)╯︵┴─┴");
+    }
+    else if (noteDetail.length >= 1600) {
+      message.channel.send("本機！( > 人 <  ; )");
+    }
+  }
+  */
   else if (!isself && (message.content.indexOf("什麼是") == 0 || headlower == ("!google"))) {
     if (message.content.indexOf("什麼是") == 0)
       message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""));
@@ -493,24 +494,7 @@ bot.on("message", function(message) {
         }
       }
     }
-    /*
-    else if (headlower == "新增筆記" || headlower == "!newnote") {
-      var noteurl = "https://twitch.center/customapi/quote/list?token=a705af4a&no_id=1&data=";
-      request({
-        url: noteurl+"1",
-        method: "GET"
-      }, function(error,response,body) {
-        if (!error) {
-          var notelen = parseInt(body);
-          for (var i = 2; i != notelen; i++)
-            
-        }
-        else {
-          message.channel.send("資料庫沒有回應...\n請稍後再嘗試... _(:з」∠)_");
-        }
-      });
-    }
-    */
+    
     else if (!isself && message.content.indexOf("誰是世界上最醜的人") != -1) {
       message.channel.send(nickname+"是世界上最醜的人~~~  OwO");
     }
