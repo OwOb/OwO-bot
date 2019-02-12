@@ -69,7 +69,7 @@ bot.on("message", function(message) {
   var lowerargs = lowermessage.replace(/(^\s*)|(\s*$)/g,"").split(/\s+/g);
   var urllist = message.content.match(/http(|s):\/\/[^\s\.]*\.[^\s]*/g);
   
-  console.log(urllist);
+  urllist && console.log(urllist);
   
   var head = args[0], end = args[args.length-1]; 
   var headlower = args[0].toLowerCase(), endlower = args[args.length-1].toLowerCase();
