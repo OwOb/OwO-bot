@@ -165,8 +165,8 @@ bot.on("message", function(message) {
     }
     else {
       var activitytype = activities[lowerargs[1]];
-      var activityurl = lowerargs[1] == "s" && urllist ? urllist[0] : "";
-      var setbotact = message.content.substring(lowerargs[1] == "s" && urllist ? message.content.indexOf(urllist[0])+urllist[0].length : headlower.length+2).replace(/(^\s*)|(\s*$)/g,"");
+      var activityurl = (lowerargs[1] == "s" && urllist ? urllist[0] : "");
+      var setbotact = message.content.substring(activityurl ? message.content.indexOf(activityurl)+activityurl.length : headlower.length+2).replace(/(^\s*)|(\s*$)/g,"");
       bot.user.setActivity(setbotact, {type: activitytype, url: activityurl});
       message.channel.send("設定為: "+activitytype+" "+setbotact);
     }
