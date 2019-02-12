@@ -165,7 +165,7 @@ bot.on("message", function(message) {
       var activitytype = activities[lowerargs[1]];
       var activityurl = urllist ? urllist[0] : "";
       var setbotact = message.content.substring(urllist ? message.content.indexOf(urllist[0]) : headlower.length+2).replace(/(^\s*)|(\s*$)/g,"");
-      bot.user.setActivity(setbotact, {type: activitytype, url: });
+      bot.user.setActivity(setbotact, {type: activitytype, url: activityurl});
       message.channel.send("設定為: "+activitytype+" "+setbotact);
     }
   }
