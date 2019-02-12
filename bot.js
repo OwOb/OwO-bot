@@ -69,6 +69,8 @@ bot.on("message", function(message) {
   var lowerargs = lowermessage.replace(/(^\s*)|(\s*$)/g,"").split(/\s+/g);
   var urllist = message.content.match(/http(|s):\/\/[^\s\.]*\.[^\s]*/g);
   
+  console.log(urllist);
+  
   var head = args[0], end = args[args.length-1]; 
   var headlower = args[0].toLowerCase(), endlower = args[args.length-1].toLowerCase();
   
@@ -155,16 +157,16 @@ bot.on("message", function(message) {
   }
   
   else if (owner && headlower == "!sba") {
-    if (args.length < (urllist ? 4 : 3) || urllist && urllist[0] != args[2]) {
-      message.channel.send("指令有誤啦！(╯‵□ˊ)╯︵┴─┴\n格式: !sba [活動類型] (活動網址) [活動名稱]");
+    if (args.length < (urllist ? 4 : 3) || lowerargs[1] == "s" && urllist && urllist[0] != args[2]) {
+      message.channel.send("指令有誤啦！(╯‵□ˊ)╯︵┴─┴\n格式: !sba [活動類型] ([直播網址](限STREAMING)) [活動名稱]");
     }
     else if (!(lowerargs[1] in activities)) {
       message.channel.send("活動類型有誤啦！(╯‵□ˊ)╯︵┴─┴\n活動類型:\nP - PLAYING\nS - STREAMING\nL - LISTENING\nW - WATCHING");
     }
     else {
       var activitytype = activities[lowerargs[1]];
-      var activityurl = urllist ? urllist[0] : "";
-      var setbotact = message.content.substring(urllist ? message.content.indexOf(urllist[0])+urllist[0].length : headlower.length+2).replace(/(^\s*)|(\s*$)/g,"");
+      var activityurl = lowerargs[1] == "s" && urllist ? urllist[0] : "";
+      var setbotact = message.content.substring(lowerargs[1] == "s" && urllist ? message.content.indexOf(urllist[0])+urllist[0].length : headlower.length+2).replace(/(^\s*)|(\s*$)/g,"");
       bot.user.setActivity(setbotact, {type: activitytype, url: activityurl});
       message.channel.send("設定為: "+activitytype+" "+setbotact);
     }
