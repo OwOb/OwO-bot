@@ -173,7 +173,6 @@ bot.on("message", function(message) {
         for (let row of res.rows) {
           message.channel.send(JSON.stringify(row));
         }
-        client.end();
       }
       else {
         message.channel.send("QAQ");
