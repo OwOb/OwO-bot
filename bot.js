@@ -164,7 +164,7 @@ bot.on("message", function(message) {
   }
   
   else if (owner && headlower == "!db") {
-    var db_command = message.content.substring(headlower).replace(/(^\s*)|(\s*$)/g,"").replace(/\s*/g," ");
+    var db_command = message.content.substring(headlower).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ");
     if (db_command[db_command.length-1] != ";")
       db_command += ";";
     console.log(db_command);
