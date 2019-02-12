@@ -155,16 +155,17 @@ bot.on("message", function(message) {
   }
   
   else if (owner && headlower == "!sba") {
-    if (lowerargs.length < 3) {
-      message.channel.send("指令有誤啦！(╯‵□ˊ)╯︵┴─┴\n格式: !sba (活動類型) (活動名稱)");
+    if (lowerargs.length < (urllist ? 4 : 3) || urllist && urllist[0] != args[2]) {
+      message.channel.send("指令有誤啦！(╯‵□ˊ)╯︵┴─┴\n格式: !sba [活動類型] (活動網址) [活動名稱]");
     }
     else if (!(lowerargs[1] in activities)) {
       message.channel.send("活動類型有誤啦！(╯‵□ˊ)╯︵┴─┴\n活動類型:\nP - PLAYING\nS - STREAMING\nL - LISTENING\nW - WATCHING");
     }
     else {
       var activitytype = activities[lowerargs[1]];
-      var setbotact = message.content.substring(headlower.length+2).replace(/(^\s*)|(\s*$)/g,"");
-      bot.user.setActivity(setbotact, {type: activitytype});
+      var activityurl = urllist ? urllist[0] : "";
+      var setbotact = message.content.substring(urllist ? message.content.indexOf(urllist[0]) : headlower.length+2).replace(/(^\s*)|(\s*$)/g,"");
+      bot.user.setActivity(setbotact, {type: activitytype, url: });
       message.channel.send("設定為: "+activitytype+" "+setbotact);
     }
   }
