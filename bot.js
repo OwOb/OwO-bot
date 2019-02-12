@@ -170,7 +170,7 @@ bot.on("message", function(message) {
     console.log(db_command);
     client.query(db_command, (err, res) => {
       if (!err) {
-        message.channel.send(res);
+        console.log(res);
         /*
         for (let row of res.rows) {
           message.channel.send(JSON.stringify(row));
