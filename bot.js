@@ -264,17 +264,29 @@ bot.on("message", function(message) {
     var richembed = new Discord.RichEmbed().setColor(14535382).setTitle("**咚噠YO!!**").setImage("https://raw.githubusercontent.com/OwOb/OwO-bot/master/image/%E5%92%9A%E5%99%A0YO_"+to02d(index)+".jpg").setFooter("《輝夜姬想讓人告白~天才們的戀愛頭腦戰~》"+(index == 1 ? "動畫 第04話" : "漫畫 第02卷 第18話"));
     message.channel.send(richembed);
   }
-  /*
+  
   else if (!isself && (headlower == "新增筆記" || headlower == "!new_note")) {
     var noteDetail = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"");
     if (!noteDetail) {
       message.channel.send("根本就沒有內容是要本機紀錄什麼啦！(╯‵□ˊ)╯︵┴─┴");
     }
     else if (noteDetail.length >= 1600) {
-      message.channel.send("本機！( > 人 <  ; )");
+      message.channel.send("本機的記憶體很小！所以只能記錄小於1600字的筆記！十分抱歉！( > 人 <  ; )");
+    }
+    else {
+      var db_command = "SELECT COUNT(User_ID) FROM Note_Table WHERE User_ID = '"+message.author.id+"';";
+      client.query(db_command, (err, res) => {
+        if (!err) {
+          var numberOfNote = res.rows[0]["count"];
+          message.channel.send(numberOfNote);
+        }
+        else {
+          message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+        }
+      });
     }
   }
-  */
+  
   else if (!isself && (message.content.indexOf("什麼是") == 0 || headlower == ("!google"))) {
     if (message.content.indexOf("什麼是") == 0)
       message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""));
