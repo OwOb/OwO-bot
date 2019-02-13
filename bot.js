@@ -273,7 +273,7 @@ bot.on("message", function(message) {
     var noteNewTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
     
     if (!noteNewDetail)
-      message.channel.send("根本就沒有內容是要本機紀錄什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" (\\`筆記標題\\`) [筆記內容]");
+      message.channel.send("根本就沒有內容是要本機紀錄什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" (**`筆記標題`**) [筆記內容]");
     else if (noteNewTitle && noteNewTitle.length >= 128)
       message.channel.send("由於本機的記憶體很小！所以只能記錄標題小於128字的筆記！十分抱歉！( > 人 <  ; )");
     else if (noteNewDetail.length >= 1600)
@@ -297,7 +297,7 @@ bot.on("message", function(message) {
                 break;
             
             if (noteTitles.has(noteNewTitle))
-              message.channel.send("你已經擁有相同標題的筆記 `"+noteNewTitle+"` 了！請刪除原筆記或者換另一個標題名稱！");
+              message.channel.send("你已經擁有相同標題的筆記 **`"+noteNewTitle+"`** 了！請刪除原筆記或者換另一個標題名稱！");
             else {
               if (!noteNewTitle) {
                 var index = 1;
@@ -309,7 +309,7 @@ bot.on("message", function(message) {
               
               client.query("INSERT INTO Note_Table (user_id, note_no, note_title, note_detail) VALUES ("+message.author.id+", "+noteNewNo.toString()+", CONCAT('"+noteNewTitle.replace(/'/g,"', chr(39), '")+"'), CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'));", (err, res) => {
                 if (!err)
-                  message.channel.send("筆記編號 **"+to02d(noteNewNo)+"** : 筆記 `"+noteNewTitle+"` 已成功儲存！ OwO/");
+                  message.channel.send("筆記編號 **"+to02d(noteNewNo)+"** : 筆記 **`"+noteNewTitle+"`** 已成功儲存！ OwO/");
                 else
                   message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
               });
@@ -331,7 +331,7 @@ bot.on("message", function(message) {
     console.log(noteFindTitle || "empty");
     
     if (!noteFindTitle && noteFindNo == null)
-      message.channel.send("指令格式有誤啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [\\`筆記標題\\`/筆記編號]");
+      message.channel.send("指令格式有誤啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [**`筆記標題`**/筆記編號]");
     else if (!noteFindTitle && noteFindNo <= 0)
       message.channel.send("別想愚弄本機！筆記編號一定是正整數！O3O");
     else if (!noteFindTitle && noteFindNo > noteMAXN)
@@ -359,9 +359,9 @@ bot.on("message", function(message) {
             }
           }
           if (noteFind)
-            message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** / 標題 `"+noteFind.note_title+"`\n"+noteFind.note_detail);
+            message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** / 標題 **`"+noteFind.note_title+"`**\n————————————————\n"+noteFind.note_detail);
           else if (noteFindTitle)
-            message.channel.send("別想愚弄本機！你根本就沒有標題為 `"+noteFindTitle+"` 的筆記！O3O");
+            message.channel.send("別想愚弄本機！你根本就沒有標題為 **`"+noteFindTitle+"`** 的筆記！O3O");
           else
             message.channel.send("別想愚弄本機！你根本就沒有編號為 **"+noteFindNo+"** 的筆記！O3O")
         }
