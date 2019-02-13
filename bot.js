@@ -66,27 +66,26 @@ bot.on("ready", function() {
 
 bot.on("message", function(message) {
   
-  if (/*message.author.bot ||*/ user_cd[message.author.id]) return ;
-  
   var isself = message.author.id == process.env.OwObot_ID;
   var owner = message.author.id == process.env.OwO_ID;
   var guild = message.guild.name;
   var channel = message.channel.name;
   var nickname = message.guild.members.get(message.author.id).nickname ? message.guild.members.get(message.author.id).nickname : message.author.username;
   
+  if (!isself)
+    console.log("----------------\n群組: "+guild+" / 頻道: "+channel+" / 留言者: "+nickname+"\n內容:\n"+message.content);
+  
+  if (/*message.author.bot ||*/ user_cd[message.author.id]) return ;
+  
+  
   var lowermessage = message.content.toLowerCase();
   var args = message.content.replace(/(^\s*)|(\s*$)/g,"").split(/\s+/g);
   var lowerargs = lowermessage.replace(/(^\s*)|(\s*$)/g,"").split(/\s+/g);
   var urllist = message.content.match(/http(|s):\/\/[^\s\.]*\.[^\s]*/g);
   
-  urllist && console.log(urllist);
-  
   var head = args[0], end = args[args.length-1]; 
   var headlower = args[0].toLowerCase(), endlower = args[args.length-1].toLowerCase();
-  
-  if (!isself) {
-    console.log("----------------\n群組: "+guild+" / 頻道: "+channel+" / 留言者: "+nickname+"\n內容:\n"+message.content);
-  }
+
   
   if(!isself && headlower == "!test") {
     message.channel.send("本機正常運作中... ...");
@@ -268,6 +267,10 @@ bot.on("message", function(message) {
   
   else if (!isself && (headlower == "新增筆記" || headlower == "!newnote" || headlower == "!addnote")) {
     var matchTitle = message.content.match(/\s*(新增筆記|!newnote|!addnote)\s*`(.|\n)+`/);
+    if (matchTitle) {
+      console.log(matchTitle.length);
+      console.log(matchTitle[0]);
+    }
     var noteNewNo = 1;
     var noteNewDetail = message.content.substring(matchTitle ? matchTitle[0].length : headlower.length).replace(/(^\s*)|(\s*$)/g,"");
     var noteNewTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
