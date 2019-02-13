@@ -363,18 +363,22 @@ bot.on("message", function(message) {
           var rows = res.rows;
           var noteFind = null;
           
-          if (noteFindTitle)
-            for (var row of rows)
+          if (noteFindTitle) {
+            for (var row of rows) {
               if (row.note_title.replace(/(^\s*)|(\s*$)/g,"") == noteFindTitle) {
                 noteFind = row;
                 break;
               }
-          else
-            for (var row of rows)
+            }
+          }
+          else {
+            for (var row of rows) {
               if (row.note_no == noteFindNo) {
                 noteFind = row;
                 break;
               }
+            }
+          }
           
           if (noteFind)
             message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** / 標題 **`"+noteFind.note_title+"`**\n\n"+noteFind.note_detail);
@@ -393,8 +397,6 @@ bot.on("message", function(message) {
     var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(筆記|!note)\s*`(.|\n)+`/);
     var noteFindNo = !matchTitle && /^(|-)\d+$/.test(args[1]) ? parseInt(args[1]) : null;
     var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
-    console.log(noteFindNo == null ? "null" : noteFindNo);
-    console.log(noteFindTitle || "empty");
     
     client.query("SELECT * FROM Note_Table WHERE user_id = '"+message.author.id+"';", (err, res) => {
       if (!err) {
@@ -411,18 +413,22 @@ bot.on("message", function(message) {
           message.channel.send("別想愚弄本機！筆記編號不可能超過"+noteMAXN.toString()+"！O3O");
         
         else {
-          if (noteFindTitle)
-            for (var row of rows)
+          if (noteFindTitle) {
+            for (var row of rows) {
               if (row.note_title.replace(/(^\s*)|(\s*$)/g,"") == noteFindTitle) {
                 noteFind = row;
                 break;
               }
-          else
-            for (var row of rows)
+            }
+          }
+          else {
+            for (var row of rows) {
               if (row.note_no == noteFindNo) {
                 noteFind = row;
                 break;
               }
+            }
+          }
           
           if (noteFind) {
             client.query("DELETE FROM Note_Table WHERE "+(noteFindTitle ? "note_title = CONCAT('"+noteFindTitle.replace(/'/g,"', chr(39), '")+"')" : "note_no = "+noteFindNo.toString()), (err, res) => {
