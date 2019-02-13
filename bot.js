@@ -285,7 +285,7 @@ bot.on("message", function(message) {
           }
           else {
             var noteTitles = new Set();
-            for (var row in rows) {
+            for (var row of rows) {
               noteTitles.add(row.note_title);
             }
             message.channel.send(numberOfNote);
