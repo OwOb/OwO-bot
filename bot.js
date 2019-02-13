@@ -288,7 +288,9 @@ bot.on("message", function(message) {
             for (var row in rows) {
               noteTitles.add(row.note_title);
             }
-            message.channel.send(Array.from(noteTitles));
+            message.channel.send(numberOfNote);
+            console.log(noteTitles.length);
+            console.log(Array.from(noteTitles));
           }
         }
         else {
