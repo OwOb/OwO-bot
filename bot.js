@@ -84,6 +84,10 @@ bot.on("message", function(message) {
   var head = args[0], end = args[args.length-1]; 
   var headlower = args[0].toLowerCase(), endlower = args[args.length-1].toLowerCase();
   
+  if (!isself) {
+    console.log("群組: "+guild+" / 頻道: "+channel+" / 留言者: "+nickname+"\n內容:\n"+message.content);
+  }
+  
   if(!isself && headlower == "!test") {
     message.channel.send("本機正常運作中... ...");
   }
