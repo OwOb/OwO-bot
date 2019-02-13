@@ -85,7 +85,7 @@ bot.on("message", function(message) {
   var headlower = args[0].toLowerCase(), endlower = args[args.length-1].toLowerCase();
   
   if (!isself) {
-    console.log("群組: "+guild+" / 頻道: "+channel+" / 留言者: "+nickname+"\n內容:\n"+message.content);
+    console.log("----------------\n群組: "+guild+" / 頻道: "+channel+" / 留言者: "+nickname+"\n內容:\n"+message.content);
   }
   
   if(!isself && headlower == "!test") {
@@ -268,6 +268,8 @@ bot.on("message", function(message) {
   
   else if (!isself && (headlower == "新增筆記" || headlower == "!newnote" || headlower == "!addnote")) {
     var matchTitle = message.content.match(/\s*!db\s*`(.|\n)+`/);
+    if (matchTitle)
+      console.log(matchTitle[0]);
     var noteNewNo = 1;
     var noteNewDetail = message.content.substring(matchTitle ? matchTitle[0].length : headlower.length).replace(/(^\s*)|(\s*$)/g,"");
     var noteNewTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
