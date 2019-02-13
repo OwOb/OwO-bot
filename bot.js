@@ -333,7 +333,7 @@ bot.on("message", function(message) {
           for (var row of rows)
             noteList.push([row.note_no, row.note_title]);
           noteList.sort(function (a, b) { return a[0]-b[0]; });
-          var notes = "根據本機不可靠的記憶體來看，你擁有以下 "+rows.length.toString()+" 份筆記:\n";
+          var notes = "根據本機不可靠的記憶體來看，你擁有以下 "+rows.length.toString()+" 份筆記:\n\n";
           for (var note of noteList)
             notes += "筆記編號 **"+to02d(note[0])+"** : **`"+note[1]+"`**\n";
           message.channel.send(notes);
@@ -380,7 +380,7 @@ bot.on("message", function(message) {
             }
           }
           if (noteFind)
-            message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** / 標題 **`"+noteFind.note_title+"`**\n————————————————\n"+noteFind.note_detail);
+            message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** / 標題 **`"+noteFind.note_title+"`**\n\n"+noteFind.note_detail);
           else if (noteFindTitle)
             message.channel.send("別想愚弄本機！你根本就沒有標題為 **`"+noteFindTitle+"`** 的筆記！O3O");
           else
