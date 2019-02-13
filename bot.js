@@ -267,9 +267,7 @@ bot.on("message", function(message) {
   }
   
   else if (!isself && (headlower == "新增筆記" || headlower == "!newnote" || headlower == "!addnote")) {
-    var matchTitle = message.content.match(/\s*!db\s*`(.|\n)+`/);
-    if (matchTitle)
-      console.log(matchTitle[0]);
+    var matchTitle = message.content.match(/\s*(新增筆記|!newnote|!addnote)\s*`(.|\n)+`/);
     var noteNewNo = 1;
     var noteNewDetail = message.content.substring(matchTitle ? matchTitle[0].length : headlower.length).replace(/(^\s*)|(\s*$)/g,"");
     var noteNewTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
