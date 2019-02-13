@@ -341,20 +341,27 @@ bot.on("message", function(message) {
           var noteFind = null;
           
           if (noteFindTitle) {
-            for (var row of rows)
+            for (var row of rows) {
               if (row.note_title.replace(/(^\s*)|(\s*$)/g,"") == noteFindTitle) {
                 noteFind = row;
                 break;
               }
+            }
           }
           else {
-            for (var row of rows)
+            for (var row of rows) {
               if (row.note_no == noteFindNo) {
                 noteFind = row;
                 break;
               }
+            }
           }
-          message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** / 標題 `"+noteFind.note_title+"`\n"+noteFind.note_detail);
+          if (!noteFind)
+            message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** / 標題 `"+noteFind.note_title+"`\n"+noteFind.note_detail);
+          else if (noteFindTitle)
+            message.channel.send("別想愚弄本機！你根本就沒有標題為 `"+noteFindTitle+"` 的筆記！O3O");
+          else
+            message.channel.send("別想愚弄本機！你根本就沒有編號為 **"+noteFindNo+"** 的筆記！O3O")
         }
         else
           message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
