@@ -280,13 +280,10 @@ bot.on("message", function(message) {
     else if (noteNewDetail.length >= 1600)
       message.channel.send("由於本機的記憶體很小！所以只能記錄內容小於1600字的筆記！十分抱歉！( > 人 <  ; )");
     else {
-      var db_command = "SELECT * FROM Note_Table WHERE User_ID = '"+message.author.id+"';";
-      client.query(db_command, (err, res) => {
+      client.query("SELECT * FROM Note_Table WHERE User_ID = '"+message.author.id+"';", (err, res) => {
         if (!err) {
           var rows = res.rows;
-          var numberOfNote = rows.length;
-          
-          if (numberOfNote >= 16)
+          if (rows.length >= 16)
             message.channel.send("由於本機的記憶體很小！所以一人最多擁有16份筆記！十分抱歉！( > 人 <  ; )\n你已經達到持有筆記上限，還請刪除多餘的筆記！");
           else {
             var noteTitles = new Set();
@@ -300,31 +297,31 @@ bot.on("message", function(message) {
               if (!noteNos.has(noteNewNo))
                 break;
             
-            var changeTitle = 0;
-            if (!noteNewTitle) {
-              var index = 1;
-              for (index = 1; index <= noteMAXN; index++)
-                if (!noteTitles.has(nickname+"的筆記"+to02d(index)))
-                  break;
-              noteNewTitle = nickname+"的筆記"+to02d(index);
-              changeTitle = -1;
+            if (noteTitles.has(noteNewTitle))
+              message.channel.send("你已經擁有\\`"+noteNewTitle+"\\`相同標題的筆記了！請刪除原筆記或者換另一個標題名稱！");
+            else {
+              if (!noteNewTitle) {
+                var index = 1;
+                for (index = 1; index <= noteMAXN; index++)
+                  if (!noteTitles.has(nickname+"的筆記"+to02d(index)))
+                    break;
+                noteNewTitle = nickname+"的筆記"+to02d(index);
+              }
+              
+              client.query("INSERT INTO Note_Table (user_id, note_no, note_title, note_detail) VALUES ("+message.author.id+", "+noteNewNo.toString()+", CONCAT('"+noteNewTitle.replace(/'/g,"', chr(39), '")+"'), CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'));", (err, res) => {
+                if (!err)
+                  message.channel.send("已將筆記成功儲存於\\`"+noteNewTitle+"\\`！ OwO/");
+                else
+                  message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+              });
+              
+              message.channel.send(noteNewTitle);
+              console.log(Array.from(noteTitles));
             }
-            else if (noteTitles.has(noteNewTitle)) {
-              var index = 2;
-              for (index = 2; index <= noteMAXN; index++)
-                if (!noteTitles.has(noteNewTitle+to02d(index)))
-                  break;
-              noteNewTitle += to02d(index);
-              changeTitle = 1;
-            }
-
-            message.channel.send(noteNewTitle);
-            console.log(Array.from(noteTitles));
           }
         }
-        else {
+        else
           message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
-        }
       });
     }
   }
