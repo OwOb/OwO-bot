@@ -283,7 +283,7 @@ bot.on("message", function(message) {
         if (!err) {
           var rows = res.rows;
           if (rows.length >= noteMAXN)
-            message.channel.send("由於本機的記憶體很小！所以一人最多擁有16份筆記！十分抱歉！( > 人 <  ; )\n你已經達到持有筆記上限，還請刪除多餘的筆記！");
+            message.channel.send("由於本機的記憶體很小！所以一人最多擁有"+noteMAXN.toString()+"份筆記！十分抱歉！( > 人 <  ; )\n你已經達到持有筆記上限，還請刪除多餘的筆記！");
           else {
             var noteTitles = new Set();
             var noteNos = new Set();
