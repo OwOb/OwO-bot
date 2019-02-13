@@ -173,6 +173,7 @@ bot.on("message", function(message) {
     var db_command = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"");
     if (db_command[db_command.length-1] != ";")
       db_command += ";";
+    console.log("----------------");
     console.log(db_command);
     client.query(db_command, (err, res) => {
       if (!err) {
@@ -267,14 +268,9 @@ bot.on("message", function(message) {
   
   else if (!isself && (headlower == "新增筆記" || headlower == "!newnote" || headlower == "!addnote")) {
     var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(新增筆記|!newnote|!addnote)\s*`(.|\n)+`/);
-    if (matchTitle) {
-      console.log(matchTitle.length);
-      console.log(matchTitle[0]);
-    }
     var noteNewNo = 1;
     var noteNewDetail = message.content.substring(matchTitle ? matchTitle[0].length : headlower.length).replace(/(^\s*)|(\s*$)/g,"");
     var noteNewTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
-    console.log(noteNewTitle);
     
     if (!noteNewDetail)
       message.channel.send("根本就沒有內容是要本機紀錄什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" (\\`筆記標題\\`) [筆記內容]");
@@ -283,7 +279,7 @@ bot.on("message", function(message) {
     else if (noteNewDetail.length >= 1600)
       message.channel.send("由於本機的記憶體很小！所以只能記錄內容小於1600字的筆記！十分抱歉！( > 人 <  ; )");
     else {
-      client.query("SELECT * FROM Note_Table WHERE User_ID = '"+message.author.id+"';", (err, res) => {
+      client.query("SELECT * FROM Note_Table WHERE user_id = '"+message.author.id+"';", (err, res) => {
         if (!err) {
           var rows = res.rows;
           if (rows.length >= 16)
@@ -325,6 +321,46 @@ bot.on("message", function(message) {
           message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
       });
     }
+  }
+  
+  else if (!isself && (headlower == "筆記" || headlower == "!note")) {
+    var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(筆記|!note)\s*`(.|\n)+`/);
+    var noteFindNo = matchTitle && /^(|-)\d+$/.test(message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g, "")) ? null : parseInt(message.content.substring(headlower.length));
+    var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
+    
+    if (!noteFindTitle && noteFindNo != null)
+      message.channel.send("指令格式有誤啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [\\`筆記標題\\`/筆記編號]");
+    else if (noteFindNo <= 0)
+      message.channel.send("別想愚弄本機！筆記編號一定是正整數！O3O");
+    else if (noteFindNo > noteMAXN)
+      message.channel.send("別想愚弄本機！筆記編號不可能超過"+noteMAXN.toString()+"！O3O");
+    else {
+      client.query("SELECT * FROM Note_Table WHERE user_id = '"+message.author.id+"';", (err, res) => {
+        if (!err) {
+          var rows = res.rows;
+          var noteFind = null;
+          
+          if (noteFindTitle) {
+            for (var row of rows)
+              if (row.note_title.replace(/(^\s*)|(\s*$)/g,"") == noteFindTitle) {
+                noteFind = row;
+                break;
+              }
+          }
+          else {
+            for (var row of rows)
+              if (row.note_no == noteFindNo) {
+                noteFind = row;
+                break;
+              }
+          }
+          message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** / 標題 `"+noteFind.note_title+"`\n"+noteFind.note_detail);
+        }
+        else
+          message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+      });
+    }
+    
   }
   
   else if (!isself && (message.content.indexOf("什麼是") == 0 || headlower == ("!google"))) {
