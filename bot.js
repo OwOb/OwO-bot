@@ -425,7 +425,7 @@ bot.on("message", function(message) {
           if (noteFind) {
             client.query("DELETE FROM Note_Table WHERE "+(noteFindTitle ? "note_title = CONCAT('"+noteFindTitle.replace(/'/g,"', chr(39), '")+"')" : "note_no = "+noteFindNo.toString()), (err, res) => {
               if (!err)
-                message.channel.send("筆記編號 **"+to02d(noteNewNo)+"** : 筆記 **`"+noteNewTitle+"`** 已成功刪除！ OwO/");
+                message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** : 筆記 **`"+noteFind.note_title+"`** 已成功刪除！ OwO/");
               else
                 message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
             });
