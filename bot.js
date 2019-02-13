@@ -325,7 +325,7 @@ bot.on("message", function(message) {
   
   else if (/*!isself*/owner && (headlower == "筆記" || headlower == "!note")) {
     var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(筆記|!note)\s*`(.|\n)+`/);
-    var noteFindNo = matchTitle && !/^(|-)\d+$/.test(args[1]) ? null : parseInt(args[1]);
+    var noteFindNo = !matchTitle && /^(|-)\d+$/.test(args[1]) ? parseInt(args[1]) : null;
     var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
     console.log(noteFindNo == null ? "null" : noteFindNo);
     console.log(noteFindTitle || "empty");
