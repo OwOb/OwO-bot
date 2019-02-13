@@ -271,20 +271,25 @@ bot.on("message", function(message) {
     noteTitle = noteTitle.split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ");
     
     if (!noteDetail) {
-      message.channel.send("根本就沒有內容是要本機紀錄什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower" (\`筆記標題\`) [筆記內容]"+);
+      message.channel.send("根本就沒有內容是要本機紀錄什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower" (\`筆記標題\`) [筆記內容]");
     }
     else if (noteTitle && noteTitle.length >= 128) {
-      message.channel.send("本機的記憶體很小！所以只能記錄標題小於128字的筆記！十分抱歉！( > 人 <  ; )");
+      message.channel.send("由於本機的記憶體很小！所以只能記錄標題小於128字的筆記！十分抱歉！( > 人 <  ; )");
     }
     else if (noteDetail.length >= 1600) {
-      message.channel.send("本機的記憶體很小！所以只能記錄內容小於1600字的筆記！十分抱歉！( > 人 <  ; )");
+      message.channel.send("由於本機的記憶體很小！所以只能記錄內容小於1600字的筆記！十分抱歉！( > 人 <  ; )");
     }
     else {
       var db_command = "SELECT COUNT(User_ID) FROM Note_Table WHERE User_ID = '"+message.author.id+"';";
       client.query(db_command, (err, res) => {
         if (!err) {
           var numberOfNote = res.rows[0]["count"];
-          message.channel.send(numberOfNote);
+          if (numberOfNote >= 16) {
+            message.channel.send("由於本機的記憶體很小！所以一人最多擁有16份筆記！十分抱歉！( > 人 <  ; )\n你已經達到持有筆記上限，還請刪除多餘的筆記！");
+          }
+          else {
+            message.channel.send(numberOfNote);
+          }
         }
         else {
           message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
