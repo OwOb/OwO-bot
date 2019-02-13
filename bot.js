@@ -327,12 +327,14 @@ bot.on("message", function(message) {
     var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(筆記|!note)\s*`(.|\n)+`/);
     var noteFindNo = matchTitle && !/^(|-)\d+$/.test(message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g, "")) ? null : parseInt(message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g, ""));
     var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
+    console.log(noteFindNo);
+    console.log(noteFindTitle);
     
-    if (!noteFindTitle && noteFindNo != null)
+    if (!noteFindTitle && noteFindNo == null)
       message.channel.send("指令格式有誤啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [\\`筆記標題\\`/筆記編號]");
-    else if (noteFindNo <= 0)
+    else if (!noteFindTitle && noteFindNo <= 0)
       message.channel.send("別想愚弄本機！筆記編號一定是正整數！O3O");
-    else if (noteFindNo > noteMAXN)
+    else if (!noteFindTitle && noteFindNo > noteMAXN)
       message.channel.send("別想愚弄本機！筆記編號不可能超過"+noteMAXN.toString()+"！O3O");
     else {
       client.query("SELECT * FROM Note_Table WHERE user_id = '"+message.author.id+"';", (err, res) => {
