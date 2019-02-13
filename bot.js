@@ -331,7 +331,7 @@ bot.on("message", function(message) {
         
         if (rows.length) {
           for (var row of rows)
-            noteList.push([row.note_no, row.note_title]);
+            noteList.push([row.note_no, row.note_title.replace(/(^\s*)|(\s*$)/g,"")]);
           noteList.sort(function (a, b) { return a[0]-b[0]; });
           var notes = "根據本機不可靠的記憶體來看，你擁有以下 "+rows.length.toString()+" 份筆記:\n\n";
           for (var note of noteList)
@@ -381,7 +381,7 @@ bot.on("message", function(message) {
           }
           
           if (noteFind)
-            message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** / 標題 **`"+noteFind.note_title+"`**\n\n"+noteFind.note_detail);
+            message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** / 標題 **`"+noteFind.note_title.replace(/(^\s*)|(\s*$)/g,"")+"`**\n\n"+noteFind.note_detail.replace(/(^\s*)|(\s*$)/g,""));
           else if (noteFindTitle)
             message.channel.send("別想愚弄本機！你根本就沒有標題為 **`"+noteFindTitle+"`** 的筆記！O3O");
           else
@@ -433,7 +433,7 @@ bot.on("message", function(message) {
           if (noteFind) {
             client.query("DELETE FROM Note_Table WHERE "+(noteFindTitle ? "note_title = CONCAT('"+noteFindTitle.replace(/'/g,"', chr(39), '")+"')" : "note_no = "+noteFindNo.toString()), (err, res) => {
               if (!err)
-                message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** : 筆記 **`"+noteFind.note_title+"`** 已成功刪除！ OwO/");
+                message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** : 筆記 **`"+noteFind.note_title.replace(/(^\s*)|(\s*$)/g,"")+"`** 已成功刪除！ OwO/");
               else
                 message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
             });
