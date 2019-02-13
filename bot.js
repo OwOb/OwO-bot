@@ -325,7 +325,7 @@ bot.on("message", function(message) {
   
   else if (!isself && (headlower == "筆記" || headlower == "!note")) {
     var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(筆記|!note)\s*`(.|\n)+`/);
-    var noteFindNo = matchTitle && /^(|-)\d+$/.test(message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g, "")) ? null : parseInt(message.content.substring(headlower.length));
+    var noteFindNo = matchTitle && !/^(|-)\d+$/.test(message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g, "")) ? null : parseInt(message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g, ""));
     var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
     
     if (!noteFindTitle && noteFindNo != null)
@@ -356,7 +356,7 @@ bot.on("message", function(message) {
               }
             }
           }
-          if (!noteFind)
+          if (noteFind)
             message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** / 標題 `"+noteFind.note_title+"`\n"+noteFind.note_detail);
           else if (noteFindTitle)
             message.channel.send("別想愚弄本機！你根本就沒有標題為 `"+noteFindTitle+"` 的筆記！O3O");
