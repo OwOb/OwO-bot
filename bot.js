@@ -283,7 +283,7 @@ bot.on("message", function(message) {
       var db_command = "SELECT COUNT(User_ID) FROM Note_Table WHERE User_ID = '"+message.author.id+"';";
       client.query(db_command, (err, res) => {
         if (!err) {
-          var numberOfNote = res.rows[0]["count"];
+          var numberOfNote = res.rows[0].count;
           if (numberOfNote >= 16) {
             message.channel.send("由於本機的記憶體很小！所以一人最多擁有16份筆記！十分抱歉！( > 人 <  ; )\n你已經達到持有筆記上限，還請刪除多餘的筆記！");
           }
