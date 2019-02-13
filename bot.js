@@ -299,14 +299,8 @@ bot.on("message", function(message) {
             if (noteTitles.has(noteNewTitle))
               message.channel.send("你已經擁有相同標題的筆記 **`"+noteNewTitle+"`** 了！請刪除原筆記或者換另一個標題名稱！");
             else {
-              if (!noteNewTitle) {
-                var index = 1;
-                for (index = 1; index <= noteMAXN; index++)
-                  if (!noteTitles.has(nickname+"的筆記"+to02d(index)))
-                    break;
-                noteNewTitle = nickname+"的筆記"+to02d(index);
-              }
-              
+              if (!noteNewTitle)
+                noteNewTitle = nickname+"的筆記"+to02d(noteNewNo);
               client.query("INSERT INTO Note_Table (user_id, note_no, note_title, note_detail) VALUES ("+message.author.id+", "+noteNewNo.toString()+", CONCAT('"+noteNewTitle.replace(/'/g,"', chr(39), '")+"'), CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'));", (err, res) => {
                 if (!err)
                   message.channel.send("筆記編號 **"+to02d(noteNewNo)+"** : 筆記 **`"+noteNewTitle+"`** 已成功儲存！ OwO/");
