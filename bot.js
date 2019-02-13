@@ -315,8 +315,6 @@ bot.on("message", function(message) {
                   message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
               });
               
-              message.channel.send(noteNewTitle);
-              console.log(Array.from(noteTitles));
             }
           }
         }
