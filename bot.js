@@ -266,7 +266,7 @@ bot.on("message", function(message) {
     message.channel.send(richembed);
   }
   
-  else if (!isself && (headlower == "新增筆記" || headlower == "!newnote" || headlower == "!addnote")) {
+  else if (/*!isself*/owner && (headlower == "新增筆記" || headlower == "!newnote" || headlower == "!addnote")) {
     var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(新增筆記|!newnote|!addnote)\s*`(.|\n)+`/);
     var noteNewNo = 1;
     var noteNewDetail = message.content.substring(matchTitle ? matchTitle[0].length : headlower.length).replace(/(^\s*)|(\s*$)/g,"");
@@ -323,9 +323,9 @@ bot.on("message", function(message) {
     }
   }
   
-  else if (!isself && (headlower == "筆記" || headlower == "!note")) {
+  else if (/*!isself*/owner && (headlower == "筆記" || headlower == "!note")) {
     var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(筆記|!note)\s*`(.|\n)+`/);
-    var noteFindNo = matchTitle && !/^(|-)\d+$/.test(message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g, "")) ? null : parseInt(message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g, ""));
+    var noteFindNo = matchTitle && !/^(|-)\d+$/.test(args[1]) ? null : parseInt(args[1]);
     var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
     console.log(noteFindNo == null ? "null" : noteFindNo);
     console.log(noteFindTitle || "empty");
