@@ -266,7 +266,7 @@ bot.on("message", function(message) {
   }
   
   else if (!isself && (headlower == "新增筆記" || headlower == "!newnote" || headlower == "!addnote")) {
-    var matchTitle = message.content.match(/\s*(新增筆記|!newnote|!addnote)\s*`(.|\n)+`/);
+    var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(新增筆記|!newnote|!addnote)\s*`(.|\n)+`/);
     if (matchTitle) {
       console.log(matchTitle.length);
       console.log(matchTitle[0]);
