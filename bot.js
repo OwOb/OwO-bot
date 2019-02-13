@@ -327,8 +327,8 @@ bot.on("message", function(message) {
     var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(筆記|!note)\s*`(.|\n)+`/);
     var noteFindNo = matchTitle && !/^(|-)\d+$/.test(message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g, "")) ? null : parseInt(message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g, ""));
     var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
-    console.log(noteFindNo);
-    console.log(noteFindTitle);
+    console.log(noteFindNo || "null");
+    console.log(noteFindTitle || "empty");
     
     if (!noteFindTitle && noteFindNo == null)
       message.channel.send("指令格式有誤啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [\\`筆記標題\\`/筆記編號]");
