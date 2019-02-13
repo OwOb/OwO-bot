@@ -19,6 +19,7 @@ var bot = new Discord.Client();
 var GoogleImagesClient = new GoogleImages(process.env.GoogleCSE_TOKEN, process.env.GoogleAPI_TOKEN);
 
 var cd = 3000;
+var noteMAXN = 16;
 var user_cd = new Array();
 var NakanoMiku = ["39", "３９", "三玖", "中野三玖", "三九", "三十九", "nakanomiku"];
 var languages = ["!c", "!cpp", "!c++", "!python", "!py", "!python2", "!py2", "!python3", "!py3"];
@@ -259,12 +260,6 @@ bot.on("message", function(message) {
     message.channel.send(richembed);
   }
   
-  else if (lowermessage.indexOf("咚噠yo") != -1 || lowermessage.indexOf("咚~噠yo") != -1 || lowermessage.indexOf("咚～噠yo") != -1) {
-    var index = Math.floor(Math.random()*2)+1;
-    var richembed = new Discord.RichEmbed().setColor(14535382).setTitle("**咚噠YO!!**").setImage("https://raw.githubusercontent.com/OwOb/OwO-bot/master/image/%E5%92%9A%E5%99%A0YO_"+to02d(index)+".jpg").setFooter("《輝夜姬想讓人告白~天才們的戀愛頭腦戰~》"+(index == 1 ? "動畫 第04話" : "漫畫 第02卷 第18話"));
-    message.channel.send(richembed);
-  }
-  
   else if (!isself && (headlower == "新增筆記" || headlower == "!newnote" || headlower == "!addnote")) {
     var noteTitle = message.content.match(/\s*!db\s*`[^\s]+`/);
     var noteDetail = message.content.substring(noteTitle ? noteTitle.length : headlower.length).replace(/(^\s*)|(\s*$)/g,"");
@@ -289,7 +284,11 @@ bot.on("message", function(message) {
             message.channel.send("由於本機的記憶體很小！所以一人最多擁有16份筆記！十分抱歉！( > 人 <  ; )\n你已經達到持有筆記上限，還請刪除多餘的筆記！");
           }
           else {
-            message.channel.send(numberOfNote);
+            var noteTitles = new Set();
+            for (var row in rows) {
+              noteTitles.add(row.note_title);
+            }
+            message.channel.send(Array.from(noteTitles));
           }
         }
         else {
@@ -475,6 +474,12 @@ bot.on("message", function(message) {
   
   else if (!isself && (headlower == "≣owo≣" || endlower == "≣owo≣")) {
     message.channel.send("OwO ？");
+  }
+  
+  else if (lowermessage.indexOf("咚噠yo") != -1 || lowermessage.indexOf("咚~噠yo") != -1 || lowermessage.indexOf("咚～噠yo") != -1) {
+    var index = Math.floor(Math.random()*2)+1;
+    var richembed = new Discord.RichEmbed().setColor(14535382).setTitle("**咚噠YO!!**").setImage("https://raw.githubusercontent.com/OwOb/OwO-bot/master/image/%E5%92%9A%E5%99%A0YO_"+to02d(index)+".jpg").setFooter("《輝夜姬想讓人告白~天才們的戀愛頭腦戰~》"+(index == 1 ? "動畫 第04話" : "漫畫 第02卷 第18話"));
+    message.channel.send(richembed);
   }
   
   else {
