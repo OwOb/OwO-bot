@@ -266,7 +266,7 @@ bot.on("message", function(message) {
     message.channel.send(richembed);
   }
   
-  else if (/*!isself*/owner && (headlower == "新增筆記" || headlower == "!newnote" || headlower == "!addnote")) {
+  else if (!isself && (headlower == "新增筆記" || headlower == "!newnote" || headlower == "!addnote")) {
     var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(新增筆記|!newnote|!addnote)\s*`(.|\n)+`/);
     var noteNewNo = 1;
     var noteNewDetail = message.content.substring(matchTitle ? matchTitle[0].length : headlower.length).replace(/(^\s*)|(\s*$)/g,"");
@@ -317,7 +317,7 @@ bot.on("message", function(message) {
     }
   }
   
-  else if (/*!isself*/owner && (headlower == "我的筆記" || headlower == "!mynote")) {
+  else if (!isself && (headlower == "我的筆記" || headlower == "!mynote")) {
     client.query("SELECT * FROM Note_Table WHERE user_id = '"+message.author.id+"';", (err, res) => {
       if (!err) {
         var rows = res.rows;
@@ -340,7 +340,7 @@ bot.on("message", function(message) {
     });
   }
   
-  else if (/*!isself*/owner && (headlower == "筆記" || headlower == "!note")) {
+  else if (!isself && (headlower == "筆記" || headlower == "!note")) {
     var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(筆記|!note)\s*`(.|\n)+`/);
     var noteFindNo = !matchTitle && /^(|-)\d+$/.test(args[1]) ? parseInt(args[1]) : null;
     var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
@@ -387,7 +387,7 @@ bot.on("message", function(message) {
     }
   }
   
-  else if (/*!isself*/owner && (headlower == "刪除筆記" || headlower == "!delnote")) {
+  else if (!isself && (headlower == "刪除筆記" || headlower == "!delnote")) {
     var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(筆記|!note)\s*`(.|\n)+`/);
     var noteFindNo = !matchTitle && /^(|-)\d+$/.test(args[1]) ? parseInt(args[1]) : null;
     var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
