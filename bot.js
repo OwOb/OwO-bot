@@ -335,7 +335,7 @@ bot.on("message", function(message) {
           noteList.sort(function (a, b) { return a[0]-b[0]; });
           var notes = "你總共有 "+rows.length.toString()+" 個筆記:\n";
           for (var note of noteList)
-            notes += "筆記編號 **"+to02d(note[0])+"** : **`"+note[1]+"`**";
+            notes += "筆記編號 **"+to02d(note[0])+"** : **`"+note[1]+"`**\";
           message.channel.send(notes);
         }
         else
