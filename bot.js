@@ -335,7 +335,7 @@ bot.on("message", function(message) {
           noteList.sort(function (a, b) { return a[0]-b[0]; });
           var notes = "根據本機不可靠的記憶體來看，你擁有以下 "+rows.length.toString()+" 份筆記:\n";
           for (var note of noteList)
-            notes += "筆記編號 **"+to02d(note[0])+"** : **`"+note[1]+"`**\";
+            notes += "筆記編號 **"+to02d(note[0])+"** : **`"+note[1]+"`**\n";
           message.channel.send(notes);
         }
         else
