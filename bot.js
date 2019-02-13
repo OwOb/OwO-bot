@@ -268,7 +268,7 @@ bot.on("message", function(message) {
   else if (!isself && (headlower == "新增筆記" || headlower == "!new_note")) {
     var noteTitle = message.content.match(/\s*!db\s*`[^\s]+`/);
     var noteDetail = message.content.substring(noteTitle ? noteTitle.length : headlower.length).replace(/(^\s*)|(\s*$)/g,"");
-    noteTitle = noteTitle.split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ");
+    noteTitle = noteTitle ? noteTitle.split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
     
     if (!noteDetail) {
       message.channel.send("根本就沒有內容是要本機紀錄什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" (\`筆記標題\`) [筆記內容]");
