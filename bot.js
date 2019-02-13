@@ -274,15 +274,15 @@ bot.on("message", function(message) {
     
     if (!noteNewDetail)
       message.channel.send("根本就沒有內容是要本機紀錄什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" (**`筆記標題`**) [筆記內容]");
-    else if (noteNewTitle && noteNewTitle.length >= 128)
-      message.channel.send("由於本機的記憶體很小！所以只能記錄標題小於128字的筆記！十分抱歉！( > 人 <  ; )");
+    else if (noteNewTitle && noteNewTitle.length >= 64)
+      message.channel.send("由於本機的記憶體很小！所以只能記錄標題小於64字的筆記！十分抱歉！( > 人 <  ; )");
     else if (noteNewDetail.length >= 1600)
       message.channel.send("由於本機的記憶體很小！所以只能記錄內容小於1600字的筆記！十分抱歉！( > 人 <  ; )");
     else {
       client.query("SELECT * FROM Note_Table WHERE user_id = '"+message.author.id+"';", (err, res) => {
         if (!err) {
           var rows = res.rows;
-          if (rows.length >= 16)
+          if (rows.length >= noteMAXN)
             message.channel.send("由於本機的記憶體很小！所以一人最多擁有16份筆記！十分抱歉！( > 人 <  ; )\n你已經達到持有筆記上限，還請刪除多餘的筆記！");
           else {
             var noteTitles = new Set();
@@ -323,12 +323,33 @@ bot.on("message", function(message) {
     }
   }
   
+  else if (/*!isself*/owner && (headlower == "我的筆記" || headlower == "!mynote")) {
+    client.query("SELECT * FROM Note_Table WHERE user_id = '"+message.author.id+"';", (err, res) => {
+      if (!err) {
+        var rows = res.rows;
+        var noteList = [];
+        
+        if (rows.length) {
+          for (var row of rows)
+            noteList.push([row.note_no, row.note_title]);
+          noteList.sort(function (a, b) { return a[0]-b[0]; });
+          var notes = "你總共有 "+rows.length.toString()+" 個筆記:\n";
+          for (var note of noteList)
+            notes += "筆記編號 **"+to02d(note[0])+"** : **`"+note[1]+"`**";
+          message.channel.send(notes);
+        }
+        else
+          message.channel.send("別想愚弄本機！你根本就沒有筆記！O3O");
+      }
+      else
+        message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+    });
+  }
+  
   else if (/*!isself*/owner && (headlower == "筆記" || headlower == "!note")) {
     var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(筆記|!note)\s*`(.|\n)+`/);
     var noteFindNo = !matchTitle && /^(|-)\d+$/.test(args[1]) ? parseInt(args[1]) : null;
     var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
-    console.log(noteFindNo == null ? "null" : noteFindNo);
-    console.log(noteFindTitle || "empty");
     
     if (!noteFindTitle && noteFindNo == null)
       message.channel.send("指令格式有誤啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [**`筆記標題`**/筆記編號]");
