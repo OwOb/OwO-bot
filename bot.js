@@ -310,7 +310,7 @@ bot.on("message", function(message) {
               
               client.query("INSERT INTO Note_Table (user_id, note_no, note_title, note_detail) VALUES ("+message.author.id+", "+noteNewNo.toString()+", CONCAT('"+noteNewTitle.replace(/'/g,"', chr(39), '")+"'), CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'));", (err, res) => {
                 if (!err)
-                  message.channel.send("已將筆記成功儲存於\\`"+noteNewTitle+"\\`！ OwO/");
+                  message.channel.send("筆記編號"+to02d(noteNewNo)+"，筆記\\`"+noteNewTitle+"\\`已成功儲存！ OwO/");
                 else
                   message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
               });
