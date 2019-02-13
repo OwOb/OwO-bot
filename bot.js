@@ -271,7 +271,7 @@ bot.on("message", function(message) {
     noteTitle = noteTitle.split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ");
     
     if (!noteDetail) {
-      message.channel.send("根本就沒有內容是要本機紀錄什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower" (\`筆記標題\`) [筆記內容]");
+      message.channel.send("根本就沒有內容是要本機紀錄什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" (\`筆記標題\`) [筆記內容]");
     }
     else if (noteTitle && noteTitle.length >= 128) {
       message.channel.send("由於本機的記憶體很小！所以只能記錄標題小於128字的筆記！十分抱歉！( > 人 <  ; )");
