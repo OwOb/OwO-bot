@@ -73,7 +73,7 @@ bot.on("message", function(message) {
   var nickname = message.guild.members.get(message.author.id).nickname ? message.guild.members.get(message.author.id).nickname : message.author.username;
   
   if (!isself)
-    console.log("----------------\n群組: "+guild+" / 頻道: "+channel+" / 留言者: "+nickname+"\n內容:\n"+message.content);
+    console.log("----------------\n群組: "+guild+" / 頻道: "+channel+" / 留言者: "+nickname+"\n"+message.content);
   
   if (/*message.author.bot ||*/ user_cd[message.author.id]) return ;
   
@@ -363,34 +363,82 @@ bot.on("message", function(message) {
           var rows = res.rows;
           var noteFind = null;
           
-          if (noteFindTitle) {
-            for (var row of rows) {
+          if (noteFindTitle)
+            for (var row of rows)
               if (row.note_title.replace(/(^\s*)|(\s*$)/g,"") == noteFindTitle) {
                 noteFind = row;
                 break;
               }
-            }
-          }
-          else {
-            for (var row of rows) {
+          else
+            for (var row of rows)
               if (row.note_no == noteFindNo) {
                 noteFind = row;
                 break;
               }
-            }
-          }
+          
           if (noteFind)
             message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** / 標題 **`"+noteFind.note_title+"`**\n\n"+noteFind.note_detail);
           else if (noteFindTitle)
             message.channel.send("別想愚弄本機！你根本就沒有標題為 **`"+noteFindTitle+"`** 的筆記！O3O");
           else
-            message.channel.send("別想愚弄本機！你根本就沒有編號為 **"+noteFindNo+"** 的筆記！O3O")
+            message.channel.send("別想愚弄本機！你根本就沒有編號為 **"+to02d(noteFindNo)+"** 的筆記！O3O");
         }
         else
           message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
       });
     }
+  }
+  
+  else if (/*!isself*/owner && (headlower == "刪除筆記" || headlower == "!delnote")) {
+    var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(筆記|!note)\s*`(.|\n)+`/);
+    var noteFindNo = !matchTitle && /^(|-)\d+$/.test(args[1]) ? parseInt(args[1]) : null;
+    var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
     
+    client.query("SELECT * FROM Note_Table WHERE user_id = '"+message.author.id+"';", (err, res) => {
+      if (!err) {
+        var rows = res.rows;
+        var noteFind = null;
+        
+        if (!rows.length)
+          message.channel.send("別想愚弄本機！你根本就沒有筆記是要刪除什麼啦！");
+        else if (!noteFindTitle && noteFindNo == null)
+          message.channel.send("指令格式有誤啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [**`筆記標題`**/筆記編號]");
+        else if (!noteFindTitle && noteFindNo <= 0)
+          message.channel.send("別想愚弄本機！筆記編號一定是正整數！O3O");
+        else if (!noteFindTitle && noteFindNo > noteMAXN)
+          message.channel.send("別想愚弄本機！筆記編號不可能超過"+noteMAXN.toString()+"！O3O");
+        
+        else {
+          if (noteFindTitle)
+            for (var row of rows)
+              if (row.note_title.replace(/(^\s*)|(\s*$)/g,"") == noteFindTitle) {
+                noteFind = row;
+                break;
+              }
+          else
+            for (var row of rows)
+              if (row.note_no == noteFindNo) {
+                noteFind = row;
+                break;
+              }
+          
+          if (noteFind) {
+            client.query("DELETE FROM Note_Table WHERE "+(noteFindTitle ? "note_title = CONCAT('"+noteFindTitle.replace(/'/g,"', chr(39), '")+"')" : "note_no = "+noteFindNo.toString()), (err, res) => {
+              if (!err)
+                message.channel.send("筆記編號 **"+to02d(noteNewNo)+"** : 筆記 **`"+noteNewTitle+"`** 已成功刪除！ OwO/");
+              else
+                message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+            });
+          }
+          else if (noteFindTitle)
+            message.channel.send("別想愚弄本機！你根本就沒有標題為 **`"+noteFindTitle+"`** 的筆記！O3O");
+          else
+            message.channel.send("別想愚弄本機！你根本就沒有編號為 **"+to02d(noteFindNo)+"** 的筆記！O3O");
+        }
+      }
+      else
+        message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+    });
   }
   
   else if (!isself && (message.content.indexOf("什麼是") == 0 || headlower == ("!google"))) {
