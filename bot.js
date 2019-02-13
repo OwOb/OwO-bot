@@ -70,6 +70,8 @@ bot.on("message", function(message) {
   
   var isself = message.author.id == process.env.OwObot_ID;
   var owner = message.author.id == process.env.OwO_ID;
+  var guild = message.guild.name;
+  var channel = message.channel.name;
   var nickname = message.guild.members.get(message.author.id).nickname ? message.guild.members.get(message.author.id).nickname : message.author.username;
   
   var lowermessage = message.content.toLowerCase();
@@ -208,7 +210,7 @@ bot.on("message", function(message) {
     message.channel.send(nickname+"的ID為: "+message.author.id);
   }
   
-  else if (headlower == "!me") {
+  else if (headlower == "!me" || headlower == "!whoami") {
     var roles = message.member.roles.array();
     var rolename = "";
     for (var key in roles) {
@@ -216,9 +218,9 @@ bot.on("message", function(message) {
         rolename += ", "+roles[key].name;
     }
     if (rolename.length)
-      message.channel.send(nickname+"是本頻道的: "+rolename.substring(2));
+      message.channel.send(nickname+"是**"+guild+"**中的: "+rolename.substring(2));
     else
-      message.channel.send(nickname+"不屬於本頻道的任何身分組");
+      message.channel.send(nickname+"不屬於**"+guild+"**中的任何身分組");
   }
   
   else if (!isself && headlower == "!say") {
