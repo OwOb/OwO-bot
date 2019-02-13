@@ -298,7 +298,7 @@ bot.on("message", function(message) {
                 break;
             
             if (noteTitles.has(noteNewTitle))
-              message.channel.send("你已經擁有\\`"+noteNewTitle+"\\`相同標題的筆記了！請刪除原筆記或者換另一個標題名稱！");
+              message.channel.send("你已經擁有相同標題的筆記 `"+noteNewTitle+"` 了！請刪除原筆記或者換另一個標題名稱！");
             else {
               if (!noteNewTitle) {
                 var index = 1;
@@ -310,7 +310,7 @@ bot.on("message", function(message) {
               
               client.query("INSERT INTO Note_Table (user_id, note_no, note_title, note_detail) VALUES ("+message.author.id+", "+noteNewNo.toString()+", CONCAT('"+noteNewTitle.replace(/'/g,"', chr(39), '")+"'), CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'));", (err, res) => {
                 if (!err)
-                  message.channel.send("筆記編號"+to02d(noteNewNo)+"，筆記\\`"+noteNewTitle+"\\`已成功儲存！ OwO/");
+                  message.channel.send("筆記編號 **"+to02d(noteNewNo)+"** : 筆記 `"+noteNewTitle+"` 已成功儲存！ OwO/");
                 else
                   message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
               });
