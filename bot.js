@@ -261,36 +261,52 @@ bot.on("message", function(message) {
   }
   
   else if (!isself && (headlower == "新增筆記" || headlower == "!newnote" || headlower == "!addnote")) {
-    var noteTitle = message.content.match(/\s*!db\s*`[^\s]+`/);
-    var noteDetail = message.content.substring(noteTitle ? noteTitle.length : headlower.length).replace(/(^\s*)|(\s*$)/g,"");
-    noteTitle = noteTitle ? noteTitle.split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
+    var noteNewTitle = message.content.match(/\s*!db\s*`[^\s]+`/);
+    var noteNewNo = 1;
+    var noteNewDetail = message.content.substring(noteNewTitle ? noteNewTitle.length : headlower.length).replace(/(^\s*)|(\s*$)/g,"");
+    noteNewTitle = noteNewTitle ? noteNewTitle.split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
     
-    if (!noteDetail) {
+    if (!noteNewDetail)
       message.channel.send("根本就沒有內容是要本機紀錄什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" (\`筆記標題\`) [筆記內容]");
-    }
-    else if (noteTitle && noteTitle.length >= 128) {
+    else if (noteNewTitle && noteNewTitle.length >= 128)
       message.channel.send("由於本機的記憶體很小！所以只能記錄標題小於128字的筆記！十分抱歉！( > 人 <  ; )");
-    }
-    else if (noteDetail.length >= 1600) {
+    else if (noteNewDetail.length >= 1600)
       message.channel.send("由於本機的記憶體很小！所以只能記錄內容小於1600字的筆記！十分抱歉！( > 人 <  ; )");
-    }
     else {
       var db_command = "SELECT * FROM Note_Table WHERE User_ID = '"+message.author.id+"';";
       client.query(db_command, (err, res) => {
         if (!err) {
           var rows = res.rows;
           var numberOfNote = rows.length;
-          if (numberOfNote >= 16) {
+          
+          if (numberOfNote >= 16)
             message.channel.send("由於本機的記憶體很小！所以一人最多擁有16份筆記！十分抱歉！( > 人 <  ; )\n你已經達到持有筆記上限，還請刪除多餘的筆記！");
-          }
           else {
             var noteTitles = new Set();
+            var noteNos = new Set();
+            
             for (var row of rows) {
-              noteTitles.add(row.note_title);
+              noteTitles.add(row.note_title.replace(/(^\s*)|(\s*$)/g,""));
+              noteNos.add(row.note_no);
             }
-            message.channel.send(numberOfNote);
-            console.log(noteTitles.length);
-            console.log(Array.from(noteTitles));
+            for (noteNewNo = 1; noteNewNo <= noteMAXN; noteNewNo++)
+              if (!noteNos.has(noteNewNo))
+                break;
+            
+            if (noteTitles.has(noteNewTitle))
+              message.channel.send("已經存在相同標題的筆記，請另取新標題名稱！");
+            else {
+              if (!noteNewTitle) {
+                var index = 1;
+                for (index = 1; index <= noteMAXN; index++)
+                  if (!noteTitles.has(nickname+"的筆記"+to02d(index)))
+                    break;
+                noteNewTitle = nickname+"的筆記"+to02d(index);
+              }
+
+              message.channel.send(noteNewTitle);
+              console.log(Array.from(noteTitles));
+            }
           }
         }
         else {
