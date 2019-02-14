@@ -279,7 +279,7 @@ bot.on("message", function(message) {
     else if (noteNewDetail.length >= 1600)
       message.channel.send("由於本機的記憶體很小！所以只能記錄內容小於1600字的筆記！十分抱歉！( > 人 <  ; )");
     else {
-      client.query("SELECT * FROM Note_Table WHERE user_id = '"+message.author.id+"';", (err, res) => {
+      client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
         if (!err) {
           var rows = res.rows;
           if (rows.length >= noteMAXN)
@@ -318,7 +318,7 @@ bot.on("message", function(message) {
   }
   
   else if (!isself && (headlower == "我的筆記" || headlower == "!mynote")) {
-    client.query("SELECT * FROM Note_Table WHERE user_id = '"+message.author.id+"';", (err, res) => {
+    client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
       if (!err) {
         var rows = res.rows;
         var noteList = [];
@@ -392,7 +392,7 @@ bot.on("message", function(message) {
     var noteFindNo = !matchTitle && /^(|-)\d+$/.test(args[1]) ? parseInt(args[1]) : null;
     var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
     
-    client.query("SELECT * FROM Note_Table WHERE user_id = '"+message.author.id+"';", (err, res) => {
+    client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
       if (!err) {
         var rows = res.rows;
         var noteFind = null;
