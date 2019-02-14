@@ -352,7 +352,7 @@ bot.on("message", function(message) {
     else if (!noteFindTitle && noteFindNo > noteMAXN)
       message.channel.send("別想愚弄本機！筆記編號不可能超過"+noteMAXN.toString()+"！O3O");
     else {
-      client.query("SELECT * FROM Note_Table WHERE user_id = '"+message.author.id+"';", (err, res) => {
+      client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
         if (!err) {
           var rows = res.rows;
           var noteFind = null;
@@ -425,7 +425,7 @@ bot.on("message", function(message) {
           }
           
           if (noteFind) {
-            client.query("DELETE FROM Note_Table WHERE "+(noteFindTitle ? "note_title = CONCAT('"+noteFindTitle.replace(/'/g,"', chr(39), '")+"')" : "note_no = "+noteFindNo.toString()), (err, res) => {
+            client.query("DELETE FROM Note_Table WHERE user_id = "+message.author.id+" AND "+(noteFindTitle ? "note_title = CONCAT('"+noteFindTitle.replace(/'/g,"', chr(39), '")+"')" : "note_no = "+noteFindNo.toString()), (err, res) => {
               if (!err)
                 message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** : 筆記 **`"+noteFind.note_title.replace(/(^\s*)|(\s*$)/g,"")+"`** 已成功刪除！ OwO/");
               else
