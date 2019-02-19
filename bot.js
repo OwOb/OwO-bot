@@ -443,6 +443,15 @@ bot.on("message", function(message) {
     });
   }
   
+  else if (/*!isself*/ owner && headlower == "!tex") {
+    var texCommand = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23");
+    try {
+      var res = sync_request("GET", "http://latex2png.com/?latex="+texCommand, {timeout : 500}).body.toString();
+      var imageURL = "http://latex2png.com/"+res.match(/"\/output\/\/latex_[0-9a-f]+.png"/)[0];
+      message.channel.send({files:[imageURL]});
+    }
+  }
+  
   else if (!isself && (message.content.indexOf("什麼是") == 0 || headlower == ("!google"))) {
     if (message.content.indexOf("什麼是") == 0)
       message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""));
