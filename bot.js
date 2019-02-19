@@ -494,8 +494,19 @@ bot.on("message", function(message) {
           if (!err && !stderr) {
             message.channel.send({files:[imageName]});
           }
-          else
+          else {
             message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+            var errormessage = err ? err.toString() : stderr;
+            //console.log("err:\n"+err);
+            if (errormessage.length < 1900)
+              message.channel.send("發生錯誤!!\n\n錯誤訊息：\n```\n"+errormessage+"\n```");
+            else {
+              message.channel.send("完成~~~  OwO/\n\ncmd訊息：");
+              for (var i = 0; i < errormessage.length; i += 1900)
+                message.channel.send("```\n"+errormessage.substring(i,i+1900)+"\n```");
+              //message.channel.send("發生錯誤!!\n\n錯誤訊息：\n```\n"+errormessage.substring(0,1900)+"\n訊息太長以下省略...\n```");
+            }
+          }
         }
       );
     }
