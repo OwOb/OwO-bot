@@ -445,7 +445,8 @@ bot.on("message", function(message) {
     });
   }
   
-  else if (!isself && headlower == "!tex") {
+  else if (/*!isself */owner && headlower == "!tex") {
+    /*
     var texCommand = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\%/g,"%25").replace(/\s+/g,"%20").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23");
     try {
       var res = sync_request("GET", "http://latex2png.com/?res=300&latex="+texCommand, {timeout : 500}).body.toString();
@@ -479,6 +480,27 @@ bot.on("message", function(message) {
     catch (e) {
       message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
     }
+    */
+    if (args.length > 1) {
+      var katexCommand = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"");
+      var nowTime = Date.now();
+      var katexName = nowTime+".txt", imageName = nowTime+".png";
+      var wstream = fs.createWriteStream(katexName);
+      wstream.write(katexCommand);
+      wstream.end();
+      cmd.get(
+        "katex-screenshot "+katexName+" "+imageName,
+        function(err, data, stderr) {
+          if (!err && !stderr) {
+            message.channel.send({files:[imageName]});
+          }
+          else
+            message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+        }
+      );
+    }
+    else
+      message.channel.send("沒給指令是要轉換什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [KaTeX指令]");
   }
   
   else if (!isself && (message.content.indexOf("什麼是") == 0 || headlower == ("!google"))) {
