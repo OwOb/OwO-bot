@@ -446,7 +446,9 @@ bot.on("message", function(message) {
   else if (/*!isself*/ owner && headlower == "!tex") {
     var texCommand = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23");
     try {
+      console.log("http://latex2png.com/?latex="+texCommand);
       var res = sync_request("GET", "http://latex2png.com/?latex="+texCommand, {timeout : 500}).body.toString();
+      console.log(res);
       var imageURL = "http://latex2png.com/"+res.match(/"\/output\/\/latex_[0-9a-f]+.png"/)[0];
       message.channel.send({files:[imageURL]});
     }
@@ -463,19 +465,6 @@ bot.on("message", function(message) {
   }
   
   else if (!isself && (headlower == "圖片搜尋" || headlower == "google圖片" || headlower == "!image")) {
-//     var search = encodeURI(message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ")).replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/#/g,"%23");
-//     request({
-//         url: "https://www.googleapis.com/customsearch/v1?q="+search+"&searchType=image&cx="+process.env.GoogleCSE_TOKEN.replace(/:/g,"%3A")+"&key="+process.env.GoogleAPI_TOKEN,
-//         method: "GET"
-//       },
-//       function(error,response,body) {
-//         if (!error) {
-//           //
-//         }
-//         else
-//           message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
-//       }
-//     );
     var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ");
     GoogleImagesClient.search(search)
     .then(images => {
