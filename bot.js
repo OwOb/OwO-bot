@@ -465,6 +465,7 @@ bot.on("message", function(message) {
     }
     catch (e) {
       message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+      console.log(e);
     }
   }
   
