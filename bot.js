@@ -445,7 +445,7 @@ bot.on("message", function(message) {
     });
   }
   
-  else if (/*!isself */owner && headlower == "!tex") {
+  else if (!isself && headlower == "!tex") {
     if (args.length > 1) {
       var texCommand = encodeURI(message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"")).replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/#/g,"%23");
       try {
@@ -468,9 +468,9 @@ bot.on("message", function(message) {
             });
           }
           else
-            message.channel.send("無法轉換成圖片！O3O\n請檢查Tex指令是否有誤！");
+            message.channel.send("無法轉換成圖片！O3O\n請檢查TeX指令是否有誤！");
         }).on('error', function(err) {
-          message.channel.send("無法轉換成圖片！O3O\n請檢查Tex指令是否有誤！");
+          message.channel.send("無法轉換成圖片！O3O\n請檢查TeX指令是否有誤！");
         });
       }
       catch (err) {
