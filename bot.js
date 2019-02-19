@@ -70,7 +70,7 @@ bot.on("message", function(message) {
   
   var isself = message.author.id == process.env.OwObot_ID;
   var owner = message.author.id == process.env.OwO_ID;
-  var guild = message.guild.name;
+  var guild = message.guild ? message.guild.name : "[私訊]";
   var channel = message.channel.name;
   var nickname = message.guild.members.get(message.author.id).nickname ? message.guild.members.get(message.author.id).nickname : message.author.username;
   
