@@ -447,27 +447,37 @@ bot.on("message", function(message) {
   
   else if (/*!isself */owner && headlower == "!tex") {
     if (args.length > 1) {
-      var texCommand = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\%/g,"%25").replace(/\s+/g,"%20").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23");
+      var texCommand = encodeURI(message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"")).replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/#/g,"%23");
       try {
-        var res = sync_request("GET", "http://latex2png.com/?res=300&latex="+texCommand, {timeout : 1}).body.toString();
+        var res = sync_request("GET", "http://latex2png.com/?res=300&color=FFFFFF&latex="+texCommand, {timeout : 500}).body.toString();
         var imageURL = "http://latex2png.com/"+res.match(/\/output\/\/latex_[0-9a-f]+\.png/);
         var imageName = "./"+imageURL.match(/latex_[0-9a-f]+\.png/);
-        request(imageURL).pipe(new PNG()).on('parsed', function() {
-          var dst = new PNG({
-            width: this.width+20,
-            height: this.height+20,
-            colorType: 2,
-            bgColor: { red: 54, green: 57, blue: 63}
-          });
-          this.bitblt(dst, 0, 0, this.width, this.height, 10, 10);
-          dst.pack().pipe(fs.createWriteStream(imageName)).on("close", function() {
-            message.channel.send({files:[imageName]});
-          });
+        request(imageURL)..on('error', function(err) {
+          console.log(err);
+          message.channel.send("Oops!! 🛠");
+        }).pipe(new PNG()).on('parsed', function() {
+          if (this.width > 10 && this.height > 10) {
+            var dst = new PNG({
+              width: this.width+20,
+              height: this.height+20,
+              colorType: 2,
+              bgColor: { red: 54, green: 57, blue: 63}
+            });
+            this.bitblt(dst, 0, 0, this.width, this.height, 10, 10);
+            dst.pack().pipe(fs.createWriteStream(imageName)).on("close", function() {
+              message.channel.send({files:[imageName]});
+            });
+          }
+          else
+            message.channel.send("無法轉換成圖片！O3O\n請檢查Tex指令是否有誤！");
         });
       }
-      catch (e) {
-        console.log(e);
-        message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+      catch (err) {
+        console.log(err);
+        if (err.message.indexOf("Request timed out") >= 0)
+          message.channel.send("轉換的網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
+        else
+          message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
       }
     }
     else
