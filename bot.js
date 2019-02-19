@@ -446,69 +446,29 @@ bot.on("message", function(message) {
   }
   
   else if (/*!isself */owner && headlower == "!tex") {
-    /*
-    var texCommand = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\%/g,"%25").replace(/\s+/g,"%20").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23");
-    try {
-      var res = sync_request("GET", "http://latex2png.com/?res=300&latex="+texCommand, {timeout : 500}).body.toString();
-      var imageURL = "http://latex2png.com/"+res.match(/\/output\/\/latex_[0-9a-f]+\.png/);
-      var imageName = "./"+imageURL.match(/latex_[0-9a-f]+\.png/);
-      request(imageURL).pipe(new PNG()).on('parsed', function() {
-        for (var y = 0; y < this.height; y++) {
-          for (var x = 0; x < this.width; x++) {
-            var idx = (this.width*y+x)<<2;
-            this.data[idx] = 255-this.data[idx];
-            this.data[idx+1] = 255-this.data[idx+1];
-            this.data[idx+2] = 255-this.data[idx+2];
-          }
-        }
-        var dst = new PNG({
-          width: this.width+20,
-          height: this.height+20,
-          colorType: 2,
-          bgColor: {
-            red: 54,
-            green: 57,
-            blue: 63
-          }
-        });
-        this.bitblt(dst, 0, 0, this.width, this.height, 10, 10);
-        dst.pack().pipe(fs.createWriteStream(imageName)).on("close", function() {
-          message.channel.send({files:[imageName]});
-        });
-      });
-    }
-    catch (e) {
-      message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
-    }
-    */
     if (args.length > 1) {
-      var katexCommand = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"");
-      var nowTime = Date.now();
-      var katexName = nowTime+".txt", imageName = nowTime+".png";
-      var wstream = fs.createWriteStream(katexName);
-      wstream.write(katexCommand);
-      wstream.end();
-      cmd.get(
-        "katex-screenshot "+katexName+" "+imageName,
-        function(err, data, stderr) {
-          if (!err && !stderr) {
+      var texCommand = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\%/g,"%25").replace(/\s+/g,"%20").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23");
+      try {
+        var res = sync_request("GET", "http://latex2png.com/?res=300&latex="+texCommand, {timeout : 500}).body.toString();
+        var imageURL = "http://latex2png.com/"+res.match(/\/output\/\/latex_[0-9a-f]+\.png/);
+        var imageName = "./"+imageURL.match(/latex_[0-9a-f]+\.png/);
+        request(imageURL).pipe(new PNG()).on('parsed', function() {
+          var dst = new PNG({
+            width: this.width+20,
+            height: this.height+20,
+            colorType: 2,
+            bgColor: { red: 54, green: 57, blue: 63}
+          });
+          this.bitblt(dst, 0, 0, this.width, this.height, 10, 10);
+          dst.pack().pipe(fs.createWriteStream(imageName)).on("close", function() {
             message.channel.send({files:[imageName]});
-          }
-          else {
-            message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
-            var errormessage = err ? err.toString() : stderr;
-            //console.log("err:\n"+err);
-            if (errormessage.length < 1900)
-              message.channel.send("發生錯誤!!\n\n錯誤訊息：\n```\n"+errormessage+"\n```");
-            else {
-              message.channel.send("完成~~~  OwO/\n\ncmd訊息：");
-              for (var i = 0; i < errormessage.length; i += 1900)
-                message.channel.send("```\n"+errormessage.substring(i,i+1900)+"\n```");
-              //message.channel.send("發生錯誤!!\n\n錯誤訊息：\n```\n"+errormessage.substring(0,1900)+"\n訊息太長以下省略...\n```");
-            }
-          }
-        }
-      );
+          });
+        });
+      }
+      catch (e) {
+        console.log(e);
+        message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+      }
     }
     else
       message.channel.send("沒給指令是要轉換什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [KaTeX指令]");
