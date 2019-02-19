@@ -450,6 +450,9 @@ bot.on("message", function(message) {
       var imageURL = "http://latex2png.com/"+res.match(/"\/output\/\/latex_[0-9a-f]+.png"/)[0];
       message.channel.send({files:[imageURL]});
     }
+    catch (e) {
+      message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+    }
   }
   
   else if (!isself && (message.content.indexOf("什麼是") == 0 || headlower == ("!google"))) {
