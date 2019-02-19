@@ -447,7 +447,7 @@ bot.on("message", function(message) {
     var texCommand = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\%/g,"%25").replace(/\s+/g,"%20").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23");
     try {
       var res = sync_request("GET", "http://latex2png.com/?latex="+texCommand, {timeout : 500}).body.toString();
-      var imageURL = "http://latex2png.com/"+res.match(/"\/output\/\/latex_[0-9a-f]+.png"/);
+      var imageURL = "http://latex2png.com/"+res.match(/\/output\/\/latex_[0-9a-f]+.png/);
       console.log(imageURL);
       message.channel.send({files:[imageURL]});
     }
