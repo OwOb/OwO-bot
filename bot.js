@@ -453,8 +453,7 @@ bot.on("message", function(message) {
         var imageURL = "http://latex2png.com/"+res.match(/\/output\/\/latex_[0-9a-f]+\.png/);
         var imageName = "./"+imageURL.match(/latex_[0-9a-f]+\.png/);
         request(imageURL).on('error', function(err) {
-          console.log(err);
-          message.channel.send("Oops!! 🛠");
+          message.channel.send("轉換的網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
         }).pipe(new PNG()).on('parsed', function() {
           if (this.width > 10 && this.height > 10) {
             var dst = new PNG({
@@ -470,6 +469,8 @@ bot.on("message", function(message) {
           }
           else
             message.channel.send("無法轉換成圖片！O3O\n請檢查Tex指令是否有誤！");
+        }).on('error', function(err) {
+          message.channel.send("無法轉換成圖片！O3O\n請檢查Tex指令是否有誤！");
         });
       }
       catch (err) {
@@ -557,7 +558,7 @@ bot.on("message", function(message) {
       language = "python3";
     var codeS = lowermessage.indexOf("```");
     if (codeS < 0) {
-      message.channel.send("沒給code是要本機執行什麼啦!! (╯‵□ˊ)╯︵┴─┴")
+      message.channel.send("沒給code是要本機執行什麼啦!! (╯‵□ˊ)╯︵┴─┴");
     }
     else {
       codeS += lowermessage.substring(codeS).indexOf("\n")+1;
