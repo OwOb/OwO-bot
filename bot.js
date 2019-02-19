@@ -445,7 +445,7 @@ bot.on("message", function(message) {
     });
   }
   
-  else if (/*!isself*/ owner && headlower == "!tex") {
+  else if (!isself && headlower == "!tex") {
     var texCommand = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\%/g,"%25").replace(/\s+/g,"%20").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23");
     try {
       var res = sync_request("GET", "http://latex2png.com/?res=300&latex="+texCommand, {timeout : 500}).body.toString();
