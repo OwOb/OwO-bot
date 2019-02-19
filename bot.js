@@ -3,8 +3,7 @@ const { Client } = require('pg');
 var fs = require('fs');
 var request = require("request");
 var sync_request = require("sync-request");
-const imagemin = require('imagemin');
-const pngToJpeg = require('png-to-jpeg');
+var PNG = require('pngjs').PNG;
 var GoogleImages = require("google-images");
 var cmd = require("node-cmd");
 var safeEval = require("notevil");
@@ -452,13 +451,24 @@ bot.on("message", function(message) {
       var res = sync_request("GET", "http://latex2png.com/?res=300&latex="+texCommand, {timeout : 500}).body.toString();
       var imageURL = "http://latex2png.com/"+res.match(/\/output\/\/latex_[0-9a-f]+\.png/);
       var imageName = "./"+imageURL.match(/latex_[0-9a-f]+\.png/);
-      request(imageURL).pipe(fs.createWriteStream("./"+imageName)).on("close", function(){
-        imagemin(["./"+imageName], "./", {
-          plugins: [
-            pngToJpeg({quality: 100})
-          ]
-        }).then((files) => {
-          message.channel.send({files:[files[0].path]});
+      request(imageURL).pipe(new PNG({
+        colorType: 2,
+        bgColor: {
+          red: 54,
+          green: 57,
+          blue: 63
+        }
+      })).on('parsed', function() {
+        for (var y = 0; y < this.height; y++) {
+          for (var x = 0; x < this.width; x++) {
+            var idx = (this.width*y+x)*3;
+            this.data[idx] = 255-this.data[idx];
+            this.data[idx+1] = 255-this.data[idx+1];
+            this.data[idx+2] = 255-this.data[idx+2];
+          }
+        }
+        this.pack().pipe(fs.createWriteStream(imageName)).on("close", function() {
+          message.channel.send({files:[imageName]});
         });
       });
     }
