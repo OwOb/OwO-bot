@@ -453,19 +453,17 @@ bot.on("message", function(message) {
       var imageURL = "http://latex2png.com/"+res.match(/\/output\/\/latex_[0-9a-f]+\.png/);
       var imageName = "./"+imageURL.match(/latex_[0-9a-f]+\.png/);
       request(imageURL).pipe(fs.createWriteStream("./"+imageName)).on("close", function(){
-        imagemin(["./"+imageName], "build/images", {
+        imagemin(["./"+imageName], "./", {
           plugins: [
             pngToJpeg({quality: 85})
           ]
         }).then((file) => {
-          console.log('PNGs converted to JPEGs:', file);
+          message.channel.send({files:[file.path]});
         });
       });
-      message.channel.send({files:[imageURL]});
     }
     catch (e) {
       message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
-      console.log(e);
     }
   }
   
