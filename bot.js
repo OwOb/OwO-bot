@@ -1,8 +1,8 @@
 const Discord = require("discord.js");
 const { Client } = require('pg');
+var fs = require('fs');
 var request = require("request");
 var sync_request = require("sync-request");
-const imagedownload = require('image-downloader');
 const imagemin = require('imagemin');
 const pngToJpeg = require('png-to-jpeg');
 var GoogleImages = require("google-images");
@@ -451,20 +451,15 @@ bot.on("message", function(message) {
     try {
       var res = sync_request("GET", "http://latex2png.com/?latex="+texCommand, {timeout : 500}).body.toString();
       var imageURL = "http://latex2png.com/"+res.match(/\/output\/\/latex_[0-9a-f]+\.png/);
-      imagedownload({
-        url: imageURL, dest: "./"+imageURL.match(/latex_[0-9a-f]+\.png/)
-      }).then({ filename, image }) => {
-        imagemin(["./"+filename], "build/images", {
-            plugins: [
-                pngToJpeg({quality: 85})
-            ]
-        }).then((files) => {
-            // Please keep in mind that all files now have the wrong extension
-            // You might want to change them manually
-            console.log('PNGs converted to JPEGs:', files);
+      var imageName = "./"+imageURL.match(/latex_[0-9z-f]+\.png/);
+      request(imageURL).pipe(fs.createWriteStream("./"+imageName)).on("close", function(){
+        imagemin(["./"+imageName], "build/images", {
+          plugins: [
+            pngToJpeg({quality: 85})
+          ]
+        }).then((file) => {
+          console.log('PNGs converted to JPEGs:', file);
         });
-      }).catch((err) => {
-        message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
       });
       message.channel.send({files:[imageURL]});
     }
