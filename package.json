@@ -15,6 +15,7 @@
 		"mathjs-simple-integral": "0.1.1",
 		"request": "2.83.0",
 		"sync-request": "6.0.0",
+		"image-downloader": "3.4.2",
 		"imagemin": "6.1.0",
 		"png-to-jpeg": "1.0.1",
 		"google-images": "2.1.0",
