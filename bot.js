@@ -455,7 +455,7 @@ bot.on("message", function(message) {
       request(imageURL).pipe(fs.createWriteStream("./"+imageName)).on("close", function(){
         imagemin(["./"+imageName], "./", {
           plugins: [
-            pngToJpeg({quality: 85})
+            pngToJpeg({quality: 100})
           ]
         }).then((files) => {
           message.channel.send({files:[files[0].path]});
