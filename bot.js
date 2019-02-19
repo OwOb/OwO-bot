@@ -72,7 +72,7 @@ bot.on("message", function(message) {
   var owner = message.author.id == process.env.OwO_ID;
   var guild = message.guild ? message.guild.name : "[私訊]";
   var channel = message.channel.name;
-  var nickname = message.guild.members.get(message.author.id).nickname ? message.guild.members.get(message.author.id).nickname : message.author.username;
+  var nickname = message.guild && message.guild.members.get(message.author.id).nickname ? message.guild.members.get(message.author.id).nickname : message.author.username;
   
   if (!isself)
     console.log("----------------\n群組: "+guild+" / 頻道: "+channel+" / 留言者: "+nickname+"\n"+message.content);
