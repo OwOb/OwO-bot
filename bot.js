@@ -451,7 +451,7 @@ bot.on("message", function(message) {
     try {
       var res = sync_request("GET", "http://latex2png.com/?latex="+texCommand, {timeout : 500}).body.toString();
       var imageURL = "http://latex2png.com/"+res.match(/\/output\/\/latex_[0-9a-f]+\.png/);
-      var imageName = "./"+imageURL.match(/latex_[0-9z-f]+\.png/);
+      var imageName = "./"+imageURL.match(/latex_[0-9a-f]+\.png/);
       request(imageURL).pipe(fs.createWriteStream("./"+imageName)).on("close", function(){
         imagemin(["./"+imageName], "build/images", {
           plugins: [
