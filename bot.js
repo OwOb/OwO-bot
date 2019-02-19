@@ -457,8 +457,8 @@ bot.on("message", function(message) {
           plugins: [
             pngToJpeg({quality: 85})
           ]
-        }).then((file) => {
-          message.channel.send({files:[file.path]});
+        }).then((files) => {
+          message.channel.send({files:[files[0].path]});
         });
       });
     }
