@@ -452,7 +452,7 @@ bot.on("message", function(message) {
         var res = sync_request("GET", "http://latex2png.com/?res=300&color=FFFFFF&latex="+texCommand, {timeout : 500}).body.toString();
         var imageURL = "http://latex2png.com/"+res.match(/\/output\/\/latex_[0-9a-f]+\.png/);
         var imageName = "./"+imageURL.match(/latex_[0-9a-f]+\.png/);
-        request(imageURL)..on('error', function(err) {
+        request(imageURL).on('error', function(err) {
           console.log(err);
           message.channel.send("Oops!! 🛠");
         }).pipe(new PNG()).on('parsed', function() {
