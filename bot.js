@@ -476,7 +476,7 @@ bot.on("message", function(message) {
             this.bitblt(dst, 0, 0, this.width, this.height, 10, 10);
             dst.pack().pipe(fs.createWriteStream(imageName)).on("close", function() {
               message.channel.send({files:[imageName]});
-              stopTyping();
+              //stopTyping();
             });
           }
           else {
@@ -501,6 +501,7 @@ bot.on("message", function(message) {
       message.channel.send("沒給指令是要轉換什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [KaTeX指令]");
       stopTyping();
     }
+    stopTyping();
   }
   
   else if (!isself && (message.content.indexOf("什麼是") == 0 || headlower == ("!google"))) {
