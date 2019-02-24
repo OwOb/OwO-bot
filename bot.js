@@ -87,19 +87,10 @@ bot.on("message", function(message) {
   
   var head = args[0], end = args[args.length-1]; 
   var headlower = args[0].toLowerCase(), endlower = args[args.length-1].toLowerCase();
-  
-  var startTyping = function() {
-    message.channel.startTyping();
-  };
-  var stopTyping = function() {
-    message.channel.stopTyping();
-  };
 
   
   if(!isself && headlower == "!test") {
-    startTyping();
     message.channel.send("本機正常運作中... ...");
-    stopTyping();
   }
   
   else if (owner && headlower == "!a") {
@@ -455,7 +446,6 @@ bot.on("message", function(message) {
   }
   
   else if (!isself && headlower == "!tex") {
-    startTyping();
     if (args.length > 1) {
       var texCommand = encodeURI(message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ")).replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/#/g,"%23");
       try {
@@ -464,7 +454,6 @@ bot.on("message", function(message) {
         var imageName = "./"+imageURL.match(/latex_[0-9a-f]+\.png/);
         request(imageURL).on('error', function(err) {
           message.channel.send("轉換的網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
-          stopTyping();
         }).pipe(new PNG()).on('parsed', function() {
           if (this.width > 10 && this.height > 10) {
             var dst = new PNG({
@@ -476,16 +465,12 @@ bot.on("message", function(message) {
             this.bitblt(dst, 0, 0, this.width, this.height, 10, 10);
             dst.pack().pipe(fs.createWriteStream(imageName)).on("close", function() {
               message.channel.send({files:[imageName]});
-              //stopTyping();
             });
           }
-          else {
+          else
             message.channel.send("無法轉換成圖片！O3O\n請檢查TeX指令是否有誤！");
-            stopTyping();
-          }
         }).on('error', function(err) {
           message.channel.send("無法轉換成圖片！O3O\n請檢查TeX指令是否有誤！");
-          stopTyping();
         });
       }
       catch (err) {
@@ -494,14 +479,10 @@ bot.on("message", function(message) {
           message.channel.send("轉換的網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
         else
           message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
-        stopTyping();
       }
     }
-    else {
+    else
       message.channel.send("沒給指令是要轉換什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [KaTeX指令]");
-      stopTyping();
-    }
-    stopTyping();
   }
   
   else if (!isself && (message.content.indexOf("什麼是") == 0 || headlower == ("!google"))) {
