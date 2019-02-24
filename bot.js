@@ -476,6 +476,7 @@ bot.on("message", function(message) {
             this.bitblt(dst, 0, 0, this.width, this.height, 10, 10);
             dst.pack().pipe(fs.createWriteStream(imageName)).on("close", function() {
               message.channel.send({files:[imageName]});
+              stopTyping();
             });
           }
           else {
