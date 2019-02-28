@@ -193,6 +193,20 @@ bot.on("message", function(message) {
     });
   }
   
+  else if (owner && headlower == "!req") {
+    var reqURL = message.content.substring(headlower.length).replace(/^\s*|\s*$/g, "");
+    request(reqURL, function (error, response, body) {
+      if (!error) {
+        if (body.length < 1900)
+          message.channel.send("```\n"+body+"\n```");
+        else
+          message.channel.send("```\n"+body.sustring(0,1900)+"\n\n訊息太長以下省略...\n```");
+      }
+      else
+        message.channel.send("QAQ");
+    });
+  }
+  
   else if (owner && headlower == "!sba") {
     if (args.length < (urllist ? 4 : 3) || lowerargs[1] == "s" && urllist && urllist[0] != args[2]) {
       message.channel.send("指令有誤啦！(╯‵□ˊ)╯︵┴─┴\n格式: !sba [活動類型] ([直播網址](限STREAMING)) [活動名稱]");
