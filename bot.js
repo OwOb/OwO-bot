@@ -200,7 +200,7 @@ bot.on("message", function(message) {
         if (body.length < 1900)
           message.channel.send("```\n"+body+"\n```");
         else
-          message.channel.send("```\n"+body.sustring(0,1900)+"\n\n訊息太長以下省略...\n```");
+          message.channel.send("```\n"+body.substring(0,1900)+"\n\n訊息太長以下省略...\n```");
       }
       else
         message.channel.send("QAQ");
