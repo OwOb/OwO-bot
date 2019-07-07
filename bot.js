@@ -54,7 +54,7 @@ bot.on("ready", function() {
     }
   );
   */
-  client.query("SELECT value FROM Var_Table WHERE var_name = 'set_sba');", (err, res) => {
+  client.query("SELECT value FROM Var_Table WHERE var_name = 'set_sba';", (err, res) => {
     if (!err) {
       var set_sba = res.rows.value.split(/\s+/g);
       bot.user.setActivity(set_sba[1], {type: activities[set_sba[1]]});
