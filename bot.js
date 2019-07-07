@@ -226,6 +226,77 @@ bot.on("message", function(message) {
     }
   }
   
+  else if (owner && headlower == "!var") {
+    client.query("SELECT * FROM Var_Table;", (err, res) => {
+      if (!err) {
+        var rows = res.rows;
+        var varNames = new Set();
+        for (var row of rows) {
+          varNames.add(row.var_nwme.replace(/(^\s*)|(\s*$)/g,""));
+        }
+        
+        if (lowerargs[1] == "new") {
+          if (lowerargs.length >= 4) {
+            var new_varName = args[2];
+            if (varNames.has(new_varName))
+              message.channel.send("該變數名稱已存在！");
+            else {
+              var new_varValue = args.slice(3).join(" ");
+              client.query("INSERT INTO Var_Table (var_name, value) VALUES (CONCAT('"+new_varName.replace(/'/g,"', chr(39), '")+"'), CONCAT('"+new_varValue.replace(/'/g,"', chr(39), '")+"'));", (err, res) => {
+                if (!err)
+                  message.channel.send("成功創建新變數 `"+new_varName+"`(`"+new_varValue+"`)");
+                else
+                  message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+              });
+            }
+          }
+          else
+            message.channel.send("指令格式有誤啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: !var new [變數名稱] [數值]");
+        }
+        else if (lowerargs[1] == "update") {
+          if (lowerargs.length >= 4) {
+            var new_varName = args[2];
+            if (!varNames.has(new_varName))
+              message.channel.send("該變數名稱不存在！");
+            else {
+              var new_varValue = args.slice(3).join(" ");
+              client.query("UPDATE Var_Table SET value = CONCAT('"+new_varValue.replace(/'/g,"', chr(39), '")+"') WHERE var_name = CONCAT('"+new_varName.replace(/'/g,"', chr(39), '")+"');", (err, res) => {
+                if (!err)
+                  message.channel.send("成功創更新變數值 `"+new_varName+"`(`"+new_varValue+"`)");
+                else
+                  message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+              });
+            }
+          }
+          else
+            message.channel.send("指令格式有誤啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: !var update [變數名稱] [數值]");
+        }
+        else if (lowerargs[1] == "del" || lowerargs[1] == "delete" || lowerargs[1] == "remove") {
+          if (lowerargs.length == 3) {
+            var new_varName = args[2];
+            if (!varNames.has(new_varName))
+              message.channel.send("該變數名稱不存在！");
+            else {
+              client.query("DELETE FROM Var_Table SET WHERE var_name = CONCAT('"+new_varName.replace(/'/g,"', chr(39), '")+"');", (err, res) => {
+                if (!err)
+                  message.channel.send("成功創刪除變數值 `"+new_varName+"`");
+                else
+                  message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+              });
+            }
+          }
+          else
+            message.channel.send("指令格式有誤啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: !var "+lowerargs[1]+" [變數名稱]");
+        }
+        else {
+          message.channel.send("指令格式有誤啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: !var [new/update/del]");
+        }
+      }
+      else
+        message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+    });
+  }
+  
   else if (headlower == "!id") {
     message.channel.send(nickname+"的ID為: "+message.author.id);
   }
