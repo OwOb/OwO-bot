@@ -580,9 +580,9 @@ bot.on("message", function(message) {
   
   else if (!isself && (message.content.indexOf("什麼是") == 0 || headlower == ("!google"))) {
     if (message.content.indexOf("什麼是") == 0)
-      message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""));
+      message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("什麼是".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,"").replace(/\?/g, "%3F"));
     else
-      message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("!google".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s||\?]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,""));
+      message.channel.send("https://www.google.com.tw/search?q="+message.content.substring("!google".length).replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/(^[\s]*)|([\s||\?]*$)/g,"").replace(/[\s||\?]+/g,"+").replace(/(\？*$)/g,"").replace(/\?/g, "%3F"));
   }
   
   else if (!isself && (headlower == "圖片搜尋" || headlower == "google圖片" || headlower == "!image")) {
@@ -601,6 +601,15 @@ bot.on("message", function(message) {
       message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
       console.log(error);
     });
+  }
+  
+  else if (!isself && (headlower == "以圖搜尋" || headlower == "以圖搜圖" || headlower == "!searchbyimage")) {
+    var image_url = message.attachments.height > 0 ? message.attachments.url.replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/\?/g, "%3F") : "";
+    if (image_url) {
+      message.channel.send(image_url);
+    }
+    else
+      message.channel.send("沒給圖片本機是要搜尋什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" (+[附件圖片])");
   }
   
   else if (message.content.indexOf("蛤") == 0) {
