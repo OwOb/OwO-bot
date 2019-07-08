@@ -605,14 +605,14 @@ bot.on("message", function(message) {
   
   else if (owner && !isself && (headlower == "以圖搜尋" || headlower == "以圖搜圖" || headlower == "!searchbyimage")) {
     function searchbyimage() {
-      var image_url = message.attachments.height > 0 ? message.attachments.url.replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/\?/g, "%3F") : "";
+      var image_url = message.attachments.first().height > 0 ? message.attachments.first().url.replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/\?/g, "%3F") : "";
       if (image_url) {
         message.channel.send(image_url);
       }
       else
         message.channel.send("沒給圖片本機是要搜尋什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" (+[附件圖片])");
     }
-    setTimeout(searchbyimage, 3000);
+    setTimeout(searchbyimage, 50);
   }
   
   else if (message.content.indexOf("蛤") == 0) {
