@@ -603,7 +603,7 @@ bot.on("message", function(message) {
     });
   }
   
-  else if (!isself && (headlower == "以圖搜尋" || headlower == "以圖搜圖" || headlower == "!searchbyimage")) {
+  else if (owner && !isself && (headlower == "以圖搜尋" || headlower == "以圖搜圖" || headlower == "!searchbyimage")) {
     var image_url = message.attachments.height > 0 ? message.attachments.url.replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/\?/g, "%3F") : "";
     if (image_url) {
       message.channel.send(image_url);
