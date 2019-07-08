@@ -27,6 +27,7 @@ var user_cd = new Array();
 var NakanoMiku = ["39", "３９", "三玖", "中野三玖", "三九", "三十九", "nakanomiku"];
 var languages = ["!c", "!cpp", "!c++", "!python", "!py", "!python2", "!py2", "!python3", "!py3"];
 var activities = {"p": "PLAYING", "s": "STREAMING", "l": "LISTENING", "w": "WATCHING"};
+var headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36"};
 
 /*
 function HappyNewYear() {
@@ -608,10 +609,10 @@ bot.on("message", function(message) {
     var image_url = message.attachments.first().height > 0 ? message.attachments.first().url.replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/\?/g, "%3F") : "";
     if (image_url) {
       var reqURL = "https://www.google.com.tw/searchbyimage?image_url="+image_url;
-      request(reqURL, function (error, response, body) {
+      request({headers: headers, uri: reqURL}, function (error, response, body) {
         if (!error) {
           var $ = cheerio.load(body);
-          var relation_search = $(".fKDtNb").text();
+          var relation_search = $(".fKDtNb")[0].text();
           message.channel.send(relation_search ? relation_search : "QAQ");
         }
         else
