@@ -611,9 +611,13 @@ bot.on("message", function(message) {
       var reqURL = "https://www.google.com.tw/searchbyimage?image_url="+image_url;
       request({headers: headers, uri: reqURL}, function (error, response, body) {
         if (!error) {
+          var iindex = body.indexOf("fKDtNb");
+          message.channel.send(iindex >= 0 ? body.subString(iindex, iindex+100) : "QAQ");
+          /*
           var $ = cheerio.load(body);
           var relation_search = $(".fKDtNb")[0].data;
           message.channel.send(relation_search ? relation_search : "QAQ");
+          */
         }
         else
           message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
