@@ -613,7 +613,8 @@ bot.on("message", function(message) {
         if (!error) {
           var $ = cheerio.load(body);
           var relation_search = $(".fKDtNb").text();
-          message.channel.send("Google姊姊偷偷告訴本機這張圖片可能跟 **"+relation_search.replace(/\s*/g,"")+"** 有關~~~");
+          var same_image_url = $(".O1id0e").children.children[0].href;
+          message.channel.send("Google姊姊偷偷告訴本機,\n這張圖片可能跟 **"+relation_search.replace(/\s*/g,"")+"** 有關~~~\n\n以下是搜尋到相同的圖片:\n"+same_image_url);
         }
         else
           message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
