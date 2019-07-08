@@ -612,7 +612,7 @@ bot.on("message", function(message) {
         if (!error) {
           var $ = cheerio.load(body);
           var relation_search = $(".fKDtNb").text();
-          message.channel.send(relation_search.replace(/\s*/g, ""));
+          message.channel.send(relation_search ? relation_search : "QAQ");
         }
         else
           message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
