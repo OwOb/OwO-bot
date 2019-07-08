@@ -21,7 +21,7 @@ client.connect();
 var bot = new Discord.Client();
 var GoogleImagesClient = new GoogleImages(process.env.GoogleCSE_TOKEN, process.env.GoogleAPI_TOKEN);
 
-var cd = 3000;
+var cd = 1000;
 var noteMAXN = 16;
 var user_cd = new Array();
 var NakanoMiku = ["39", "３９", "三玖", "中野三玖", "三九", "三十九", "nakanomiku"];
@@ -611,13 +611,9 @@ bot.on("message", function(message) {
       var reqURL = "https://www.google.com.tw/searchbyimage?image_url="+image_url;
       request({headers: headers, uri: reqURL}, function (error, response, body) {
         if (!error) {
-          var iindex = body.indexOf("fKDtNb",2);
-          message.channel.send(iindex >= 0 ? body.substring(iindex, iindex+100) : "QAQ");
-          /*
           var $ = cheerio.load(body);
-          var relation_search = $(".fKDtNb")[0].data;
+          var relation_search = $(".fKDtNb").data;
           message.channel.send(relation_search ? relation_search : "QAQ");
-          */
         }
         else
           message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
