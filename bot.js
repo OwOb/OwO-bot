@@ -611,7 +611,7 @@ bot.on("message", function(message) {
       var reqURL = "https://www.google.com.tw/searchbyimage?image_url="+image_url;
       request({headers: headers, uri: reqURL}, function (error, response, body) {
         if (!error) {
-          var iindex = body.indexOf("fKDtNb");
+          var iindex = body.indexOf("fKDtNb",2);
           message.channel.send(iindex >= 0 ? body.substring(iindex, iindex+100) : "QAQ");
           /*
           var $ = cheerio.load(body);
