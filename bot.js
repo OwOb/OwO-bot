@@ -3,6 +3,7 @@ const { Client } = require('pg');
 var fs = require('fs');
 var request = require("request");
 var sync_request = require("sync-request");
+var cheerio = require("cheerio");
 var PNG = require('pngjs').PNG;
 var GoogleImages = require("google-images");
 var cmd = require("node-cmd");
@@ -604,15 +605,21 @@ bot.on("message", function(message) {
   }
   
   else if (owner && !isself && (headlower == "以圖搜尋" || headlower == "以圖搜圖" || headlower == "!searchbyimage")) {
-    function searchbyimage() {
-      var image_url = message.attachments.first().height > 0 ? message.attachments.first().url.replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/\?/g, "%3F") : "";
-      if (image_url) {
-        message.channel.send(image_url);
-      }
-      else
-        message.channel.send("沒給圖片本機是要搜尋什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" (+[附件圖片])");
+    var image_url = message.attachments.first().height > 0 ? message.attachments.first().url.replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/\?/g, "%3F") : "";
+    if (image_url) {
+      var reqURL = "https://www.google.com.tw/searchbyimage?image_url="+image_url;
+      request(reqURL, function (error, response, body) {
+        if (!error) {
+          var $ = cheerio.load(body);
+          var relation_search = $("fKDtNb")[0].children[0].data;
+          message.channel.send(relation_search.replace(/\s*/g, ""));
+        }
+        else
+          message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
+      });
     }
-    setTimeout(searchbyimage, 50);
+    else
+      message.channel.send("沒給圖片本機是要搜尋什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" (+[附件圖片])");
   }
   
   else if (message.content.indexOf("蛤") == 0) {
