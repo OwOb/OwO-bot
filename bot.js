@@ -612,7 +612,7 @@ bot.on("message", function(message) {
       request({headers: headers, uri: reqURL}, function (error, response, body) {
         if (!error) {
           var iindex = body.indexOf("fKDtNb");
-          message.channel.send(iindex >= 0 ? body.subString(iindex, iindex+100) : "QAQ");
+          message.channel.send(iindex >= 0 ? body.substring(iindex, iindex+100) : "QAQ");
           /*
           var $ = cheerio.load(body);
           var relation_search = $(".fKDtNb")[0].data;
