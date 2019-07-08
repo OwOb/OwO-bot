@@ -16,6 +16,7 @@
 		"mathjs-simple-integral": "0.1.1",
 		"request": "2.83.0",
 		"sync-request": "6.0.0",
+		"cheerio": "1.0.0",
 		"pngjs": "3.3.3",
 		"google-images": "2.1.0",
 		"node-cmd": "3.0.0",
