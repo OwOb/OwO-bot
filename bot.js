@@ -611,7 +611,7 @@ bot.on("message", function(message) {
       request(reqURL, function (error, response, body) {
         if (!error) {
           var $ = cheerio.load(body);
-          var relation_search = $(".fKDtNb").data;
+          var relation_search = $(".fKDtNb").text();
           message.channel.send(relation_search.replace(/\s*/g, ""));
         }
         else
