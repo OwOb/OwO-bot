@@ -612,7 +612,7 @@ bot.on("message", function(message) {
       request({headers: headers, uri: reqURL}, function (error, response, body) {
         if (!error) {
           var $ = cheerio.load(body);
-          var relation_search = $(".fKDtNb")[0].text();
+          var relation_search = $(".fKDtNb")[0].data;
           message.channel.send(relation_search ? relation_search : "QAQ");
         }
         else
