@@ -619,7 +619,7 @@ bot.on("message", function(message) {
           var same_image_urls = new Array();
           var _ = $(".O1id0e").find(".gl").each(function(index, item){
             var _ = $($(item).children()[0]);
-            same_image_urls.append({"text": _.text(), "href": _.attr("href")});
+            same_image_urls.push({"text": _.text(), "href": _.attr("href")});
           });
           var same_image_url = same_image_urls.map(s => "["+s.text+"]("+s.href+")").join(" ");
           console.log(same_image_url);
