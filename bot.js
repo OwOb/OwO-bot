@@ -614,9 +614,9 @@ bot.on("message", function(message) {
         if (!error) {
           var $ = require('jquery')((new JSDOM()).window);
           $("body").append(body);
-          var relation_search = $(".fKDtNb");
+          var relation_search = $(".fKDtNb")[0];
           console.log(relation_search);
-          var same_image_url = $(".O1id0e");
+          var same_image_url = $(".O1id0e")[0];
           console.log(same_image_url);
           //message.channel.send("Google姊姊偷偷告訴本機,\n這張圖片可能跟 **"+relation_search.replace(/\s*/g,"")+"** 有關~~~\n\n以下是搜尋到相同的圖片:\n"+same_image_url);
         }
