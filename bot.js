@@ -3,6 +3,8 @@ const { Client } = require('pg');
 var fs = require('fs');
 var request = require("request");
 var sync_request = require("sync-request");
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 var PNG = require('pngjs').PNG;
 var GoogleImages = require("google-images");
 var cmd = require("node-cmd");
@@ -610,7 +612,7 @@ bot.on("message", function(message) {
       var reqURL = "https://www.google.com.tw/searchbyimage?hl=zh-TW&image_url="+image_url;
       request({headers: headers, uri: reqURL}, function (error, response, body) {
         if (!error) {
-          var $ = require('jquery')(require("jsdom").jsdom().defaultView);
+          var $ = require('jquery')((new JSDOM()).window);
           $("body").append(body);
           var relation_search = $(".fKDtNb")[0].text();
           //var same_image_url = $(".O1id0e")[0].children()[1].children()[0].text();
