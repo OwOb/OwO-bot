@@ -3,7 +3,6 @@ const { Client } = require('pg');
 var fs = require('fs');
 var request = require("request");
 var sync_request = require("sync-request");
-var cheerio = require("cheerio");
 var PNG = require('pngjs').PNG;
 var GoogleImages = require("google-images");
 var cmd = require("node-cmd");
@@ -611,9 +610,10 @@ bot.on("message", function(message) {
       var reqURL = "https://www.google.com.tw/searchbyimage?hl=zh-TW&image_url="+image_url;
       request({headers: headers, uri: reqURL}, function (error, response, body) {
         if (!error) {
-          var $ = cheerio.load(body);
-          var relation_search = $(".fKDtNb").text();
-          //var same_image_url = $(".O1id0e").children()[1].html();
+          var $ = require('jquery')(require("jsdom").jsdom().defaultView);
+          $("body").append(body);
+          var relation_search = $(".fKDtNb")[0].text();
+          //var same_image_url = $(".O1id0e")[0].children()[1].children()[0].text();
           var same_image_url = ""
           message.channel.send("Google姊姊偷偷告訴本機,\n這張圖片可能跟 **"+relation_search.replace(/\s*/g,"")+"** 有關~~~\n\n以下是搜尋到相同的圖片:\n"+same_image_url);
         }
