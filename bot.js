@@ -619,7 +619,7 @@ bot.on("message", function(message) {
           var href = _.length ? $($(_[0]).children()[0]).attr("href") : "";
           var same_image_url = href ? "https://www.google.com.tw/search?"+href : "";
           
-          var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**以圖搜尋結果**").setThumbnail(image_url).setDescription("\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n")
+          var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**以圖搜尋結果**").setThumbnail(image_url).setDescription("⁠\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n⁠")
                                                  .addField("這張圖片可能跟 __**"+relation_search.replace(/\s*/g,"")+"**__ 有關", "⁠")
                                                  .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")" : "似乎找不到相同的圖片... ╮(╯_╰)╭");
           message.channel.send(richembed);
