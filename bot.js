@@ -616,17 +616,13 @@ bot.on("message", function(message) {
           $("body").append(body);
           var relation_search = $($(".fKDtNb")[0]).text();
           //console.log(relation_search);
-          var same_image_urls = new Array();
-          var _ = $(".O1id0e").find(".gl").each(function(index, item){
-            var _ = $($(item).children()[0]);
-            var href = _.attr("href");
-            same_image_urls.push({"text": _.text(), "href": href.substring(href.indexOf("tbm="), href.indexOf("&sa="))});
-          });
-          var same_image_url = "["+same_image_urls[0].text+"](https://www.google.com.tw/search?"+same_image_urls[0].href+")";
+          var _ = $(".O1id0e").find(".gl");
+          var href = _.length ? $($(_[0]).children()[0]).attr("href") : "";
+          var same_image_url = href ? "https://www.google.com.tw/search?"+href.substring(href.indexOf("tbm="), href.indexOf("&sa=")) : "";
           //var same_image_url = same_image_urls.map(s => "["+s.text+"](https://www.google.com.tw/search?"+s.href+")").join(" ");
           //console.log(same_image_url);
           
-          var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("以圖搜尋結果").setThumbnail(image_url).setDescription("Google姊姊偷偷告訴本機,\n這張圖片可能跟 __**"+relation_search.replace(/\s*/g,"")+"**__ 有關~~~").addField("以下是搜尋到相同的圖片:", same_image_url);
+          var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("以圖搜尋結果").setThumbnail(image_url).setDescription("以下結果事Google姊姊偷偷告訴本機的~~~  >w<").addField("這張圖片可能跟 __**"+relation_search.replace(/\s*/g,"")+"**__ 有關", "").addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")" : "似乎找不到相同的圖片... ╮(╯_╰)╭");
           message.channel.send(richembed);
           //message.channel.send("Google姊姊偷偷告訴本機,\n這張圖片可能跟 **"+relation_search.replace(/\s*/g,"")+"** 有關~~~\n\n以下是搜尋到相同的圖片:\n"+same_image_url);
         }
