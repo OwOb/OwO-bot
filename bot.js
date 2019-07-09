@@ -614,6 +614,7 @@ bot.on("message", function(message) {
           var $ = cheerio.load(body);
           var relation_search = $(".fKDtNb").text();
           //var same_image_url = $(".O1id0e").children()[1].html();
+          var same_image_url = ""
           message.channel.send("Google姊姊偷偷告訴本機,\n這張圖片可能跟 **"+relation_search.replace(/\s*/g,"")+"** 有關~~~\n\n以下是搜尋到相同的圖片:\n"+same_image_url);
         }
         else
