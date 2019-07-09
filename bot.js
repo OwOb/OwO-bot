@@ -619,9 +619,11 @@ bot.on("message", function(message) {
           var same_image_urls = new Array();
           var _ = $(".O1id0e").find(".gl").each(function(index, item){
             var _ = $($(item).children()[0]);
-            same_image_urls.push({"text": _.text(), "href": _.attr("href")});
+            var href = _.attr("href");
+            same_image_urls.push({"text": _.text(), "href": href.substring(href.indexOf("tbm="), href.index("&sa="))});
           });
-          var same_image_url = same_image_urls.map(s => "["+s.text+"](https://www.google.com.tw/"+s.href+")").join(" ");
+          var same_image_url = "["+same_image_urls[0].text+"](https://www.google.com.tw/search?"+same_image_urls[0].href+")";
+          //var same_image_url = same_image_urls.map(s => "["+s.text+"](https://www.google.com.tw/search?"+s.href+")").join(" ");
           //console.log(same_image_url);
           
           var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("以圖搜尋結果").setThumbnail(image_url).setDescription("Google姊姊偷偷告訴本機,\n這張圖片可能跟 __**"+relation_search.replace(/\s*/g,"")+"**__ 有關~~~").addField("以下是搜尋到相同的圖片:", same_image_url);
