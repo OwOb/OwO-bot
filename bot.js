@@ -620,7 +620,7 @@ bot.on("message", function(message) {
           var _ = $(".O1id0e").find(".gl").each(function(index, item){
             var _ = $($(item).children()[0]);
             var href = _.attr("href");
-            same_image_urls.push({"text": _.text(), "href": href.substring(href.indexOf("tbm="), href.index("&sa="))});
+            same_image_urls.push({"text": _.text(), "href": href.substring(href.indexOf("tbm="), href.indexO("&sa="))});
           });
           var same_image_url = "["+same_image_urls[0].text+"](https://www.google.com.tw/search?"+same_image_urls[0].href+")";
           //var same_image_url = same_image_urls.map(s => "["+s.text+"](https://www.google.com.tw/search?"+s.href+")").join(" ");
