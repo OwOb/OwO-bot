@@ -618,10 +618,13 @@ bot.on("message", function(message) {
           var _ = $(".O1id0e").find(".gl");
           var href = _.length ? $($(_[0]).children()[0]).attr("href") : "";
           var same_image_url = href ? "https://www.google.com.tw/search?"+href : "";
+          var href_ = $($(".iu-card-header")[0]).attr("href");
+          var similar_image_url = href_ ? "https://www.google.com.tw/search?"+href_ : "";
           
           var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("這張圖片可能跟 __**"+relation_search.replace(/\s*/g,"")+"**__ 有關").setThumbnail(image_url)
-                                                 .setDescription("⁠\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n⁠\n⁠\n⁠")
-                                                 .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")" : "似乎找不到相同的圖片... ╮(╯_╰)╭");
+                                                 .setDescription("⁠\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n⁠\n⁠")
+                                                 .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")" : "似乎找不到相同的圖片... ╮(╯_╰)╭")
+                                                 .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")" : "似乎找不到相似的圖片... ╮(╯_╰)╭");
           message.channel.send(richembed);
         }
         else
