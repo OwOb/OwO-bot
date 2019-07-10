@@ -623,9 +623,21 @@ bot.on("message", function(message) {
           
           var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("這張圖片可能跟 __**"+relation_search.replace(/\s*/g,"")+"**__ 有關").setThumbnail(image_url)
                                                  .setDescription("⁠\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n⁠\n⁠")
-                                                 .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")" : "似乎找不到相同的圖片... ╮(╯_╰)╭")
-                                                 .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")" : "似乎找不到相似的圖片... ╮(╯_╰)╭");
-          message.channel.send(richembed);
+                                                 .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")\n⁠" : "似乎找不到相同的圖片... ╮(╯_╰)╭\n⁠")
+                                                 .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")\n⁠" : "似乎找不到相似的圖片... ╮(╯_╰)╭\n⁠");
+          GoogleImagesClient.search(relation_search)
+          .then(images => {
+            if (images.length > 0) {
+              var index = Math.floor(Math.random()*images.length);
+              richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURL(relation_search)+")").setImage(images[index]["url"]).setFooter(images[index]["url"]);
+              message.channel.send(richembed);
+            }
+            else
+              message.channel.send(richembed);
+          })
+          .catch(error => {
+            message.channel.send(richembed);
+          });
         }
         else
           message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
