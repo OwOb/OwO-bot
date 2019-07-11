@@ -25,6 +25,7 @@ var GoogleImagesClient = new GoogleImages(process.env.GoogleCSE_TOKEN, process.e
 var cd = 1000;
 var noteMAXN = 16;
 var user_cd = new Array();
+var channel_typing_count = new Array();
 var NakanoMiku = ["39", "３９", "三玖", "中野三玖", "三九", "三十九", "nakanomiku"];
 var languages = ["!c", "!cpp", "!c++", "!python", "!py", "!python2", "!py2", "!python3", "!py3"];
 var activities = {"p": "PLAYING", "s": "STREAMING", "l": "LISTENING", "w": "WATCHING"};
@@ -43,6 +44,20 @@ function to02d(n) {
     return n.toString();
   else
     return Math.floor(n/10).toString() + (n%10).toString();
+}
+
+function startTyping(channel) {
+  if (channel_typing_count[channel] === undefined)
+    channel_typing_count[channel] = 0;
+  if (!channel_typing_count[channel])
+    channel.startTyping();
+  channel_typing_count[channel]++;
+}
+
+function stopTyping(channel) {
+  channel_typing_count[channel]--;
+  if (!channel_typing_count[channel])
+    channel.stopTyping();
 }
 
 bot.on("ready", function() {
@@ -607,6 +622,7 @@ bot.on("message", function(message) {
   }
   
   else if (owner && !isself && (headlower == "以圖搜尋" || headlower == "以圖搜圖" || headlower == "!searchbyimage")) {
+    startTyping(message.channel);
     var image_url = message.attachments.first().height > 0 ? message.attachments.first().url.replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/\?/g, "%3F") : "";
     if (image_url) {
       var reqURL = "https://www.google.com.tw/searchbyimage?hl=zh-TW&image_url="+image_url;
@@ -631,22 +647,23 @@ bot.on("message", function(message) {
             if (images.length > 0) {
               var index = Math.floor(Math.random()*images.length);
               richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURI(relation_search)+")").setImage(images[index]["url"]).setFooter(images[index]["url"]);
-              message.channel.send(richembed);
             }
-            else {
+            else
               richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "似乎找不到更多 __"+relation_search+"__ 的圖片... ╮(╯_╰)╭");
-              message.channel.send(richembed);
-            }
+            message.channel.send(richembed);
+            stopTyping(message.channel);
           })
           .catch(error => {
             console.log(error);
             richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "似乎找不到更多 __"+relation_search+"__ 的圖片... ╮(╯_╰)╭");
             message.channel.send(richembed);
+            stopTyping(message.channel);
           });
-          
         }
-        else
+        else {
           message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
+          stopTyping(message.channel);
+        }
       });
     }
     else
