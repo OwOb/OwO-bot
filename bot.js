@@ -629,7 +629,7 @@ bot.on("message", function(message) {
           .then(images => {
             if (images.length > 0) {
               var index = Math.floor(Math.random()*images.length);
-              richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURL(relation_search)+")").setImage(images[index]["url"]).setFooter(images[index]["url"]);
+              richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURI(relation_search)+")").setImage(images[index]["url"]).setFooter(images[index]["url"]);
               message.channel.send(richembed);
             }
             else
