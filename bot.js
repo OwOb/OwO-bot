@@ -636,6 +636,7 @@ bot.on("message", function(message) {
               richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "似乎找不到更多 __"+relation_search+"__ 的圖片... ╮(╯_╰)╭");
           })
           .catch(error => {
+            console.log(error);
             richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "似乎找不到更多 __"+relation_search+"__ 的圖片... ╮(╯_╰)╭");
           });
           message.channel.send(richembed);
