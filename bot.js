@@ -631,15 +631,19 @@ bot.on("message", function(message) {
             if (images.length > 0) {
               var index = Math.floor(Math.random()*images.length);
               richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURI(relation_search)+")").setImage(images[index]["url"]).setFooter(images[index]["url"]);
+              message.channel.send(richembed);
             }
-            else
+            else {
               richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "似乎找不到更多 __"+relation_search+"__ 的圖片... ╮(╯_╰)╭");
+              message.channel.send(richembed);
+            }
           })
           .catch(error => {
             console.log(error);
             richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "似乎找不到更多 __"+relation_search+"__ 的圖片... ╮(╯_╰)╭");
+            message.channel.send(richembed);
           });
-          message.channel.send(richembed);
+          
         }
         else
           message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
