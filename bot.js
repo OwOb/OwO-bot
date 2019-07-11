@@ -623,42 +623,56 @@ bot.on("message", function(message) {
   
   else if (!isself && (headlower == "以圖搜尋" || headlower == "以圖搜圖" || headlower == "!searchbyimage")) {
     startTyping(message.channel);
-    var image_url = message.attachments.first().height > 0 ? message.attachments.first().url.replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/\?/g, "%3F") : "";
+    var attachments = message.attachments;
+    var image_url;
+    if (attachments && attachments.first().height > 0)
+      image_url = message.attachments.first().url.replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/\?/g, "%3F");
+    else if (urllist)
+      image_url = urllist[0];
+    else
+      image_url = "";
     if (image_url) {
       var reqURL = "https://www.google.com.tw/searchbyimage?hl=zh-TW&image_url="+image_url;
       request({headers: headers, uri: reqURL}, function (error, response, body) {
         if (!error) {
           var $ = require('jquery')((new JSDOM()).window);
           $("body").append(body);
-          var relation_search = $($(".fKDtNb")[0]).text().replace(/\s*/g,"");
-          var _ = $(".O1id0e").find(".gl");
-          var href = _.length ? $($(_[0]).children()[0]).attr("href") : "";
-          var same_image_url = href ? "https://www.google.com.tw/search?"+href : "";
-          var href_ = $($(".iu-card-header")[0]).attr("href");
-          var similar_image_url = href_ ? "https://www.google.com.tw/search?"+href_ : "";
-          
-          var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("這張圖片可能跟 __**"+relation_search+"**__ 有關").setThumbnail(image_url)
-                                                 .setDescription("⁠\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n⁠\n⁠")
-                                                 .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")\n⁠" : "似乎找不到相同的圖片... ╮(╯_╰)╭\n⁠")
-                                                 .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")\n⁠" : "似乎找不到相似的圖片... ╮(╯_╰)╭\n⁠");
-          console.log(typeof(relation_search));
-          GoogleImagesClient.search(relation_search)
-          .then(images => {
-            if (images.length > 0) {
-              var index = Math.floor(Math.random()*images.length);
-              richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURI(relation_search)+")").setImage(images[index]["url"]).setFooter(images[index]["url"]);
-            }
-            else
+          var check_image = $(".fKDtNb");
+          if (check_image.length) {
+            var relation_search = $(check_image[0]).text().replace(/\s*/g,"");
+            var _ = $(".O1id0e").find(".gl");
+            var href = _.length ? $($(_[0]).children()[0]).attr("href") : "";
+            var same_image_url = href ? "https://www.google.com.tw/search?"+href : "";
+            var href_ = $($(".iu-card-header")[0]).attr("href");
+            var similar_image_url = href_ ? "https://www.google.com.tw/search?"+href_ : "";
+
+            var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("這張圖片可能跟 __**"+relation_search+"**__ 有關").setThumbnail(image_url)
+                                                   .setDescription("⁠\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n⁠\n⁠")
+                                                   .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")\n⁠" : "似乎找不到相同的圖片... ╮(╯_╰)╭\n⁠")
+                                                   .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")\n⁠" : "似乎找不到相似的圖片... ╮(╯_╰)╭\n⁠");
+            console.log(typeof(relation_search));
+            GoogleImagesClient.search(relation_search)
+            .then(images => {
+              if (images.length > 0) {
+                var index = Math.floor(Math.random()*images.length);
+                richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURI(relation_search)+")").setImage(images[index]["url"]).setFooter(images[index]["url"]);
+              }
+              else
+                richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "似乎找不到更多 __"+relation_search+"__ 的圖片... ╮(╯_╰)╭");
+              message.channel.send(richembed);
+              stopTyping(message.channel);
+            })
+            .catch(error => {
+              console.log(error);
               richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "似乎找不到更多 __"+relation_search+"__ 的圖片... ╮(╯_╰)╭");
-            message.channel.send(richembed);
+              message.channel.send(richembed);
+              stopTyping(message.channel);
+            });
+          }
+          else {
+            message.channel.send("別想愚弄本機！你傳的網址根本就不是圖片！O3O");
             stopTyping(message.channel);
-          })
-          .catch(error => {
-            console.log(error);
-            richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "似乎找不到更多 __"+relation_search+"__ 的圖片... ╮(╯_╰)╭");
-            message.channel.send(richembed);
-            stopTyping(message.channel);
-          });
+          }
         }
         else {
           message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
@@ -666,8 +680,10 @@ bot.on("message", function(message) {
         }
       });
     }
-    else
-      message.channel.send("沒給圖片本機是要搜尋什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" (+[附件圖片])");
+    else {
+      message.channel.send("沒給圖片本機是要搜尋什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [附件圖片/圖片網址]");
+      stopTyping(message.channel);
+    }
   }
   
   else if (message.content.indexOf("蛤") == 0) {
