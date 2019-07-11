@@ -625,6 +625,7 @@ bot.on("message", function(message) {
                                                  .setDescription("⁠\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n⁠\n⁠")
                                                  .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")\n⁠" : "似乎找不到相同的圖片... ╮(╯_╰)╭\n⁠")
                                                  .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")\n⁠" : "似乎找不到相似的圖片... ╮(╯_╰)╭\n⁠");
+          console.log(typeof(relation_search));
           GoogleImagesClient.search(relation_search)
           .then(images => {
             if (images.length > 0) {
