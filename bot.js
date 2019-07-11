@@ -621,7 +621,7 @@ bot.on("message", function(message) {
     });
   }
   
-  else if (owner && !isself && (headlower == "以圖搜尋" || headlower == "以圖搜圖" || headlower == "!searchbyimage")) {
+  else if (!isself && (headlower == "以圖搜尋" || headlower == "以圖搜圖" || headlower == "!searchbyimage")) {
     startTyping(message.channel);
     var image_url = message.attachments.first().height > 0 ? message.attachments.first().url.replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/\?/g, "%3F") : "";
     if (image_url) {
