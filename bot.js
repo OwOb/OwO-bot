@@ -625,7 +625,7 @@ bot.on("message", function(message) {
     startTyping(message.channel);
     var attachments = message.attachments;
     var image_url;
-    if (attachments && attachments.first().height > 0)
+    if (attachments.size > 0 && attachments.first().height > 0)
       image_url = message.attachments.first().url.replace(/\%/g,"%25").replace(/\+/g,"%2B").replace(/=/g,"%3D").replace(/\&/g,"%26").replace(/\|/g,"%7C").replace(/#/g,"%23").replace(/\?/g, "%3F");
     else if (urllist)
       image_url = urllist[0];
