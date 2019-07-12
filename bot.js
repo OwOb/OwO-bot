@@ -506,7 +506,7 @@ bot.on("message", function(message) {
     var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(筆記|!note)\s*`(.|\n)+`/);
     var noteFindNo = !matchTitle && /^(|-)\d+$/.test(args[1]) ? parseInt(args[1]) : null;
     var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
-    var noteNewDetail = message.content.substring(matchTitle ? matchTitle[0].length : headlower.length).replace(/(^\s*)|(\s*$)/g,"");
+    var noteNewDetail = args.slices(2).join(" ").replace(/(^\s*)|(\s*$)/g,"");
     var noteAttachment = message.attachments;
     
     client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
