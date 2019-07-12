@@ -384,8 +384,9 @@ bot.on("message", function(message) {
     var noteNewNo = 1;
     var noteNewDetail = message.content.substring(matchTitle ? matchTitle[0].length : headlower.length).replace(/(^\s*)|(\s*$)/g,"");
     var noteNewTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
+    var noteAttachment = message.attachments;
     
-    if (!noteNewDetail)
+    if (!noteNewDetail && !noteAttachment.size)
       message.channel.send("根本就沒有內容是要本機紀錄什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" (**`筆記標題`**) [筆記內容]");
     else if (noteNewTitle && noteNewTitle.length >= 64)
       message.channel.send("由於本機的記憶體很小！所以只能記錄標題小於64字的筆記！十分抱歉！( > 人 <  ; )");
@@ -412,9 +413,10 @@ bot.on("message", function(message) {
             if (noteTitles.has(noteNewTitle))
               message.channel.send("你已經擁有相同標題的筆記 **`"+noteNewTitle+"`** 了！請刪除原筆記或者換另一個標題名稱！");
             else {
+              var noteAttachmentURL = noteAttachment.size ? noteAttachment.first().url : "";
               if (!noteNewTitle)
                 noteNewTitle = nickname+"的筆記"+to02d(noteNewNo);
-              client.query("INSERT INTO Note_Table (user_id, note_no, note_title, note_detail) VALUES ("+message.author.id+", "+noteNewNo.toString()+", CONCAT('"+noteNewTitle.replace(/'/g,"', chr(39), '")+"'), CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'));", (err, res) => {
+              client.query("INSERT INTO Note_Table (user_id, note_no, note_title, note_detail, attachment_url) VALUES ("+message.author.id+", "+noteNewNo.toString()+", CONCAT('"+noteNewTitle.replace(/'/g,"', chr(39), '")+"'), CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'), '"+noteAttachmentURL+"');", (err, res) => {
                 if (!err)
                   message.channel.send("筆記編號 **"+to02d(noteNewNo)+"** : 筆記 **`"+noteNewTitle+"`** 已成功儲存！ OwO/");
                 else
@@ -488,7 +490,7 @@ bot.on("message", function(message) {
           }
           
           if (noteFind)
-            message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** / 標題 **`"+noteFind.note_title.replace(/(^\s*)|(\s*$)/g,"")+"`**\n\n"+noteFind.note_detail.replace(/(^\s*)|(\s*$)/g,""));
+            message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** / 標題 **`"+noteFind.note_title.replace(/(^\s*)|(\s*$)/g,"")+"`**\n\n"+noteFind.note_detail.replace(/(^\s*)|(\s*$)/g,""), {files:(noteFind.attachment_url ? [noteFind.attachment_url] : [])});
           else if (noteFindTitle)
             message.channel.send("別想愚弄本機！你根本就沒有標題為 **`"+noteFindTitle+"`** 的筆記！O3O");
           else
