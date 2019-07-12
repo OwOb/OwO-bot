@@ -502,8 +502,8 @@ bot.on("message", function(message) {
     }
   }
   
-  else if (owner && !isself && (headlower == "更新筆記" || headlower == "!updatenote")) {
-    var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(更新筆記|!updatenote)\s*`(.|\n)+`/);
+  else if (owner && !isself && (headlower == "修改筆記" || headlower == "更新筆記" || headlower == "!updatenote")) {
+    var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(修改筆記|更新筆記|!updatenote)\s*`(.|\n)+`/);
     var noteFindNo = !matchTitle && /^(|-)\d+$/.test(args[1]) ? parseInt(args[1]) : null;
     var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
     var noteNewDetail = matchTitle ? message.content.substring(matchTitle[0].length).replace(/(^\s*)|(\s*$)/g,"") : args.slice(2).join(" ").replace(/(^\s*)|(\s*$)/g,"");
