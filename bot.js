@@ -513,57 +513,58 @@ bot.on("message", function(message) {
       message.channel.send("根本就沒有內容是要本機紀錄什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" (**`筆記標題`**) [筆記內容]");
     else if (noteNewDetail.length >= 1600)
       message.channel.send("由於本機的記憶體很小！所以只能記錄內容小於1600字的筆記！十分抱歉！( > 人 <  ; )");
-    
-    client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
-      if (!err) {
-        var rows = res.rows;
-        var noteFind = null;
-        
-        if (!rows.length)
-          message.channel.send("別想愚弄本機！你根本就沒有筆記是要更新什麼啦！");
-        else if (!noteFindTitle && noteFindNo == null)
-          message.channel.send("指令格式有誤啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [**`筆記標題`**/筆記編號]");
-        else if (!noteFindTitle && noteFindNo <= 0)
-          message.channel.send("別想愚弄本機！筆記編號一定是正整數！O3O");
-        else if (!noteFindTitle && noteFindNo > noteMAXN)
-          message.channel.send("別想愚弄本機！筆記編號不可能超過"+noteMAXN.toString()+"！O3O");
-        
-        else {
-          if (noteFindTitle) {
-            for (var row of rows) {
-              if (row.note_title.replace(/(^\s*)|(\s*$)/g,"") == noteFindTitle) {
-                noteFind = row;
-                break;
-              }
-            }
-          }
+    else {
+      client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
+        if (!err) {
+          var rows = res.rows;
+          var noteFind = null;
+
+          if (!rows.length)
+            message.channel.send("別想愚弄本機！你根本就沒有筆記是要更新什麼啦！");
+          else if (!noteFindTitle && noteFindNo == null)
+            message.channel.send("指令格式有誤啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [**`筆記標題`**/筆記編號]");
+          else if (!noteFindTitle && noteFindNo <= 0)
+            message.channel.send("別想愚弄本機！筆記編號一定是正整數！O3O");
+          else if (!noteFindTitle && noteFindNo > noteMAXN)
+            message.channel.send("別想愚弄本機！筆記編號不可能超過"+noteMAXN.toString()+"！O3O");
+
           else {
-            for (var row of rows) {
-              if (row.note_no == noteFindNo) {
-                noteFind = row;
-                break;
+            if (noteFindTitle) {
+              for (var row of rows) {
+                if (row.note_title.replace(/(^\s*)|(\s*$)/g,"") == noteFindTitle) {
+                  noteFind = row;
+                  break;
+                }
               }
             }
+            else {
+              for (var row of rows) {
+                if (row.note_no == noteFindNo) {
+                  noteFind = row;
+                  break;
+                }
+              }
+            }
+
+            if (noteFind) {
+              var noteAttachmentURL = noteAttachment.size ? noteAttachment.first().url : "";
+              client.query("UPDATE Note_Table SET note_detail = CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'), attachment_url = '"+noteAttachmentURL+"' WHERE user_id = "+message.author.id+" AND "+(noteFindTitle ? "note_title = CONCAT('"+noteFindTitle.replace(/'/g,"', chr(39), '")+"')" : "note_no = "+noteFindNo.toString()), (err, res) => {
+                if (!err)
+                  message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** : 筆記 **`"+noteFind.note_title.replace(/(^\s*)|(\s*$)/g,"")+"`** 已成功更新！ OwO/");
+                else
+                  message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+              });
+            }
+            else if (noteFindTitle)
+              message.channel.send("別想愚弄本機！你根本就沒有標題為 **`"+noteFindTitle+"`** 的筆記！O3O");
+            else
+              message.channel.send("別想愚弄本機！你根本就沒有編號為 **"+to02d(noteFindNo)+"** 的筆記！O3O");
           }
-          
-          if (noteFind) {
-            var noteAttachmentURL = noteAttachment.size ? noteAttachment.first().url : "";
-            client.query("UPDATE Note_Table SET note_detail = CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'), attachment_url = '"+noteAttachmentURL+"' WHERE user_id = "+message.author.id+" AND "+(noteFindTitle ? "note_title = CONCAT('"+noteFindTitle.replace(/'/g,"', chr(39), '")+"')" : "note_no = "+noteFindNo.toString()), (err, res) => {
-              if (!err)
-                message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** : 筆記 **`"+noteFind.note_title.replace(/(^\s*)|(\s*$)/g,"")+"`** 已成功更新！ OwO/");
-              else
-                message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
-            });
-          }
-          else if (noteFindTitle)
-            message.channel.send("別想愚弄本機！你根本就沒有標題為 **`"+noteFindTitle+"`** 的筆記！O3O");
-          else
-            message.channel.send("別想愚弄本機！你根本就沒有編號為 **"+to02d(noteFindNo)+"** 的筆記！O3O");
         }
-      }
-      else
-        message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
-    });
+        else
+          message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+      });
+    }
   }
   
   else if (!isself && (headlower == "刪除筆記" || headlower == "!delnote")) {
