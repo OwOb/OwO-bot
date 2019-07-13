@@ -509,6 +509,11 @@ bot.on("message", function(message) {
     var noteNewDetail = matchTitle ? message.content.substring(matchTitle[0].length).replace(/(^\s*)|(\s*$)/g,"") : (args.length ? message.content.substring(message.content.indexOf(args[1])+args[1].length).replace(/(^\s*)|(\s*$)/g,"") : "");
     var noteAttachment = message.attachments;
     
+    if (!noteNewDetail && !noteAttachment.size)
+      message.channel.send("根本就沒有內容是要本機紀錄什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" (**`筆記標題`**) [筆記內容]");
+    else if (noteNewDetail.length >= 1600)
+      message.channel.send("由於本機的記憶體很小！所以只能記錄內容小於1600字的筆記！十分抱歉！( > 人 <  ; )");
+    
     client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
       if (!err) {
         var rows = res.rows;
