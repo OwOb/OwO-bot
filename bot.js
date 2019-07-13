@@ -504,9 +504,9 @@ bot.on("message", function(message) {
   
   else if (!isself && (headlower == "修改筆記" || headlower == "更新筆記" || headlower == "!updatenote")) {
     var matchTitle = message.content.substring(0, message.content.indexOf("`", message.content.indexOf("`")+1)+1).match(/\s*(修改筆記|更新筆記|!updatenote)\s*`(.|\n)+`/);
-    var noteFindNo = !matchTitle && /^(|-)\d+$/.test(args[1]) ? parseInt(args[1]) : null;
+    var noteFindNo = !matchTitle && args.length && /^(|-)\d+$/.test(args[1]) ? parseInt(args[1]) : null;
     var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
-    var noteNewDetail = matchTitle ? message.content.substring(matchTitle[0].length).replace(/(^\s*)|(\s*$)/g,"") : args.slice(2).join(" ").replace(/(^\s*)|(\s*$)/g,"");
+    var noteNewDetail = matchTitle ? message.content.substring(matchTitle[0].length).replace(/(^\s*)|(\s*$)/g,"") : (args.length ? message.content.substring(message.content.indexOf(args[1])+args[1].length).replace(/(^\s*)|(\s*$)/g,"") : "");
     var noteAttachment = message.attachments;
     
     client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
