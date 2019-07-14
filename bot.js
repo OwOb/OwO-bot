@@ -258,7 +258,7 @@ bot.on("message", function(message) {
         var rows = res.rows;
         var varNames = new Set();
         for (var row of rows) {
-          varNames.add(row.var_nwme.replace(/(^\s*)|(\s*$)/g,""));
+          varNames.add(row.var_name.replace(/(^\s*)|(\s*$)/g,""));
         }
         
         if (lowerargs[1] == "new") {
