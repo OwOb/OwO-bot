@@ -81,6 +81,9 @@ bot.on("ready", function() {
       bot.user.setActivity("《OwO bot 使用手冊》", {type: "WATCHING"});
     }
   });
+  
+  bot.channels.get(process.env.bianyuanluzhai_voice_channel).join()
+  
   console.log("Ready");
   /*
   var nowTime = new Date();
