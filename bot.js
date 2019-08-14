@@ -82,11 +82,11 @@ bot.on("ready", function() {
     }
   });
   
-  
+  /*
   bot.channels.get(process.env.bianyuanluzhai_voice_channel).join()
   .then(connection => console.log('Connected'))
   .catch(console.error);
-  
+  */
   
   console.log("Ready");
   /*
