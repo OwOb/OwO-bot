@@ -737,28 +737,10 @@ bot.on("message", function(message) {
                 if (!error) {
                   var $ = require('jquery')((new JSDOM()).window);
                   $("body").append(body);
-                  var check_image = $(".THL2l");
-                  if (check_image.length) {
-                    check_image = check_image.slice(0, check_image.length < 10 ? check_image.length : 10);
-                    var index = Math.floor(Math.random()*check_image.length);
-                    var _ = "https://www.google.com.tw" + $($(check_image[index]).parent()).attr("href");
-                    request({headers: headers, uri: _}, function (error, response, body) {
-                      console.log(_);
-                      if (!error) {
-                        var $ = require('jquery')((new JSDOM()).window);
-                        $("body").append(body);
-                        var check_image = $("img.irc_mi");
-                        if (check_image.length) {
-                          var image_src = $(check_image[1]).attr("src");
-                          console.log(image_src);
-                          richembed = richembed.setImage(image_src).setFooter(image_src);
-                          richembed_set_image = true;
-                        }
-                      }
-                      else
-                        console.log(error);
-                    });
-                  }
+                  var check_image = $(".rg_meta");
+                  var image_json = JSON.parse(_);
+                  var image_ou = image_json["ou"];
+                  richembed = richembed.setImage(image_ou).setFooter(image_ou);
                 }
                 else
                   console.log(error);
