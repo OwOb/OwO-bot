@@ -351,7 +351,7 @@ bot.on("message", function(message) {
     message.channel.send(message.content.substring(5));
   }
   
-  else if (!isself && headlower.indexOf("...") == 0 && headlower == ".".repeat(headlower.length)) {
+  else if (!isself && message.content.match(/^\s*\.{3,}\s*$/g)) {
     message.channel.send("別無言了，本機在此有話直說 😐");
   }
   
