@@ -713,6 +713,7 @@ bot.on("message", function(message) {
           $("body").append(body);
           var check_image = $(".fKDtNb");
           if (check_image.length) {
+            var richembed_set_image = false;
             var relation_search = $(check_image[0]).text().replace(/\s*/g,"");
             var _ = $(".O1id0e").find(".gl");
             var href = _.length ? $($(_[0]).children()[0]).attr("href") : "";
@@ -723,8 +724,50 @@ bot.on("message", function(message) {
             var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("這張圖片可能跟 __**"+relation_search+"**__ 有關").setThumbnail(image_url)
                                                    .setDescription("⁠\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n⁠\n⁠")
                                                    .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")\n⁠" : "似乎找不到相同的圖片... ╮(╯_╰)╭\n⁠")
-                                                   .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")\n⁠" : "似乎找不到相似的圖片... ╮(╯_╰)╭\n⁠");
-            console.log(typeof(relation_search));
+                                                   .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")\n⁠" : "似乎找不到相似的圖片... ╮(╯_╰)╭\n⁠")
+                                                   .addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURI(relation_search)+")");
+            //console.log(typeof(relation_search));
+            if (similar_image_url) {
+              request({headers: headers, uri: similar_image_url}, function (error, response, body) {
+                if (!error) {
+                  var $ = require('jquery')((new JSDOM()).window);
+                  $("body").append(body);
+                  var check_image = $(".THL2l");
+                  if (check_image.length) {
+                    check_image = check_image.slice(0, check_image.length < 10 ? check_image.length : 10);
+                    var index = Math.floor(Math.random()*check_image.length);
+                    var _ = "https://www.google.com.tw" + $($(check_image[index]).parent()).attr("href");
+                    request({headers: headers, uri: _}, function (error, response, body) {
+                      if (!error) {
+                        var $ = require('jquery')((new JSDOM()).window);
+                        $("body").append(body);
+                        var check_image = $("img.irc_mi");
+                        if (check_image.length) {
+                          var image_src = $(check_image[1]).attr("src");
+                          richembed = richembed.setImage(image_src).setFooter(image_src);
+                          richembed_set_image = true;
+                        }
+                      }
+                      else
+                        console.log(error);
+                    });
+                  }
+                }
+                else
+                  console.log(error);
+                
+                if (!richembed_set_image)
+                  richembed = richembed.setImage(image_url).setFooter(image_url);
+                message.channel.send(richembed);
+                stopTyping(message.channel);
+              });
+            }
+            else {
+              richembed = richembed.setImage(image_url).setFooter(image_url);
+              message.channel.send(richembed);
+              stopTyping(message.channel);
+            }
+            /*
             GoogleImagesClient.search(relation_search)
             .then(images => {
               if (images.length > 0) {
@@ -742,6 +785,7 @@ bot.on("message", function(message) {
               message.channel.send(richembed);
               stopTyping(message.channel);
             });
+            */
           }
           else {
             message.channel.send("別想愚弄本機！你傳的網址根本就不是圖片！O3O");
