@@ -730,9 +730,10 @@ bot.on("message", function(message) {
                                                    .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")\n⁠" : "似乎找不到相同的圖片... ╮(╯_╰)╭\n⁠")
                                                    .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")\n⁠" : "似乎找不到相似的圖片... ╮(╯_╰)╭\n⁠")
                                                    .addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURI(relation_search)+")");
-            //console.log(typeof(relation_search));
+
             if (similar_image_url) {
               request({headers: headers, uri: similar_image_url}, function (error, response, body) {
+                console.log(similar_image_url);
                 if (!error) {
                   var $ = require('jquery')((new JSDOM()).window);
                   $("body").append(body);
@@ -742,12 +743,14 @@ bot.on("message", function(message) {
                     var index = Math.floor(Math.random()*check_image.length);
                     var _ = "https://www.google.com.tw" + $($(check_image[index]).parent()).attr("href");
                     request({headers: headers, uri: _}, function (error, response, body) {
+                      console.log(_);
                       if (!error) {
                         var $ = require('jquery')((new JSDOM()).window);
                         $("body").append(body);
                         var check_image = $("img.irc_mi");
                         if (check_image.length) {
                           var image_src = $(check_image[1]).attr("src");
+                          console.log(image_src);
                           richembed = richembed.setImage(image_src).setFooter(image_src);
                           richembed_set_image = true;
                         }
