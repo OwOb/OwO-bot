@@ -696,6 +696,8 @@ bot.on("message", function(message) {
             var image_pt = image_json["pt"], image_ou = image_json["ou"], image_ru = image_json["ru"];
             var image_ow = image_json["ow"], image_oh = image_json["oh"];
             richembed = richembed.addBlankField().addField("相關圖片", "[__**"+image_pt+"**__]("+image_ru+")\n"+image_ow+"×"+image_oh).setImage(image_ou).setFooter(image_ou);
+            message.channel.send(richembed);
+            stopTyping(message.channel);
           }
           else {
             message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
