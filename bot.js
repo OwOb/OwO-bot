@@ -738,9 +738,14 @@ bot.on("message", function(message) {
                   var $ = require('jquery')((new JSDOM()).window);
                   $("body").append(body);
                   var check_image = $(".rg_meta");
-                  var image_json = JSON.parse(_);
-                  var image_ou = image_json["ou"];
-                  richembed = richembed.setImage(image_ou).setFooter(image_ou);
+                  if (check_image.length) {
+                    var index = Math.floor(Math.random()*(check_image.length < 10 ? check_image.length : 10));
+                    var _ = $(check_image[index]).text();
+                    var image_json = JSON.parse(_);
+                    var image_ou = image_json["ou"];
+                    richembed = richembed.setImage(image_ou).setFooter(image_ou);
+                    richembed_set_image = true;
+                  }
                 }
                 else
                   console.log(error);
