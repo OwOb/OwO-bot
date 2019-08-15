@@ -679,20 +679,24 @@ bot.on("message", function(message) {
   
   else if (!isself && (headlower == "圖片搜尋" || headlower == "google圖片" || headlower == "!image")) {
     var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ");
-    GoogleImagesClient.search(search)
-    .then(images => {
-      if (images.length > 0) {
-        var index = Math.floor(Math.random()*images.length);
-        var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**").setImage(images[index]["url"]).setFooter(images[index]["url"]);
-        message.channel.send(richembed);
-      }
-      else
-        message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
-    })
-    .catch(error => {
-      message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
-      console.log(error);
-    });
+    if (search) {
+      GoogleImagesClient.search(search)
+      .then(images => {
+        if (images.length > 0) {
+          var index = Math.floor(Math.random()*images.length);
+          var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**").setImage(images[index]["url"]).setFooter(images[index]["url"]);
+          message.channel.send(richembed);
+        }
+        else
+          message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
+      })
+      .catch(error => {
+        message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+        console.log(error);
+      });
+    }
+    else
+      message.channel.send("沒給關鍵字本機要搜尋什麼啦！(╯‵□ˊ)╯︵┴─┴");
   }
   
   else if (!isself && (headlower == "以圖搜尋" || headlower == "以圖搜圖" || headlower == "!searchbyimage")) {
