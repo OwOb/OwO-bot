@@ -355,12 +355,6 @@ bot.on("message", function(message) {
     message.channel.send("別無言了，本機在此有話直說 😐");
   }
   
-  else if (NakanoMiku.indexOf(headlower) != -1 || NakanoMiku.indexOf(endlower) != -1) {
-    var mikumessage = ["三玖天下第一", "三玖是天", "三玖三玖得第一"];
-    var richembed = new Discord.RichEmbed().setColor(11068927).setTitle("**"+mikumessage[Math.floor(Math.random()*mikumessage.length)]+"!!  (*´∀`)～♥**").setImage("https://raw.githubusercontent.com/OwOb/OwO-bot/master/image/39/"+to02d(Math.floor(Math.random()*12)+1)+".jpg");
-    message.channel.send(richembed);
-  }
-  
   else if (!isself && (headlower == "3210" || message.content.indexOf("新年快樂") != -1 || lowermessage.indexOf("happy new year") != -1)) {
     message.channel.send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
   }
@@ -1017,6 +1011,12 @@ bot.on("message", function(message) {
           message.channel.send("算式格式有誤啦！害本機算那麼久！(╯‵□ˊ)╯︵┴─┴");
         }
       }
+    }
+    
+    else if (NakanoMiku.indexOf(headlower) != -1 || NakanoMiku.indexOf(endlower) != -1) {
+      var mikumessage = ["三玖天下第一", "三玖是天", "三玖三玖得第一"];
+      var richembed = new Discord.RichEmbed().setColor(11068927).setTitle("**"+mikumessage[Math.floor(Math.random()*mikumessage.length)]+"!!  (*´∀`)～♥**").setImage("https://raw.githubusercontent.com/OwOb/OwO-bot/master/image/39/"+to02d(Math.floor(Math.random()*12)+1)+".jpg");
+      message.channel.send(richembed);
     }
     
     else if (!isself && message.content.indexOf("誰是世界上最醜的人") != -1) {
