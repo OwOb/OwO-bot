@@ -910,7 +910,7 @@ bot.on("message", function(message) {
     var qmatch = message.content.match(/((\s*[qQ]+\s*)+(\n|$))/g);
     if (qmatch) {
       var index = Math.floor(Math.random()*qmatch.length);
-      message.channel.send("別難過了\\~\\~\\~  😭\n本機會陪著你的\\~\\~\\~  "+qmatch[index].replace(/^\s+|\s+$/g, ''));
+      message.channel.send("別難過了\\~\\~\\~  😭\n本機會陪著你的\\~\\~\\~  "+qmatch[index].replace(/^\s+|\s+$/g, '').replace(/\s+/g, ' '));
     }
 
     else if (!isself && (head.indexOf("😶") != -1 || end.indexOf("😶") != -1)) {
