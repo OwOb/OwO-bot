@@ -744,7 +744,7 @@ bot.on("message", function(message) {
                     var image_json = JSON.parse(_);
                     var image_pt = image_json["pt"], image_ou = image_json["ou"], image_ru = image_json["ru"];
                     //var image_ow = image_json["ow"], image_oh = image_json["oh"];
-                    richembed = richembed.addField("相關圖片", [__**"+image_pt+"**__]("+image_ru+")).setImage(image_ou).setFooter(image_ou);
+                    richembed = richembed.addField("相關圖片", "[__**"+image_pt+"**__]("+image_ru+")").setImage(image_ou).setFooter(image_ou);
                     richembed_set_image = true;
                   }
                 }
