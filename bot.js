@@ -754,15 +754,15 @@ bot.on("message", function(message) {
             var relation_search = $(check_image[0]).text().replace(/\s*/g,"");
             var _ = $(".O1id0e").find(".gl");
             var href = _.length ? $($(_[0]).children()[0]).attr("href") : "";
-            var same_image_url = href ? "https://www.google.com.tw/search?"+href : "";
+            var same_image_url = href ? "https://www.google.com.tw"+href : "";
             var href_ = $($(".iu-card-header")[0]).attr("href");
-            var similar_image_url = href_ ? "https://www.google.com.tw/search?"+href_ : "";
+            var similar_image_url = href_ ? "https://www.google.com.tw"+href_ : "";
 
             var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("這張圖片可能跟 __**"+relation_search+"**__ 有關").setThumbnail(image_url)
                                                    .setDescription("⁠\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n⁠\n⁠")
                                                    .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")\n⁠" : "似乎找不到相同的圖片... ╮(╯_╰)╭\n⁠")
                                                    .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")\n⁠" : "似乎找不到相似的圖片... ╮(╯_╰)╭\n⁠")
-                                                   .addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURI(relation_search)+")\n\n⁠");
+                                                   .addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURIComponent(relation_search)+")\n\n⁠");
 
             if (similar_image_url) {
               request({headers: headers, uri: similar_image_url}, function (error, response, body) {
@@ -777,8 +777,8 @@ bot.on("message", function(message) {
                     var image_json = JSON.parse(_);
                     var image_pt = image_json["pt"], image_ou = image_json["ou"], image_ru = image_json["ru"];
                     var image_ow = image_json["ow"], image_oh = image_json["oh"];
-                    //richembed = richembed.addField("相關圖片", "[__**"+image_pt+"**__]("+image_ru+")\n"+image_ow+"×"+image_oh)
-                    //                       .setImage(image_ou).setFooter(image_ou);
+                    richembed = richembed.addField("相關圖片", "[__**"+image_pt+"**__]("+image_ru+")\n"+image_ow+"×"+image_oh)
+                                           .setImage(image_ou).setFooter(image_ou);
                     richembed_set_image = true;
                   }
                 }
