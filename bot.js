@@ -729,7 +729,7 @@ bot.on("message", function(message) {
                                                    .setDescription("⁠\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n⁠\n⁠")
                                                    .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")\n⁠" : "似乎找不到相同的圖片... ╮(╯_╰)╭\n⁠")
                                                    .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")\n⁠" : "似乎找不到相似的圖片... ╮(╯_╰)╭\n⁠")
-                                                   .addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURI(relation_search)+")\n");
+                                                   .addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURI(relation_search)+")\n\n");
 
             if (similar_image_url) {
               request({headers: headers, uri: similar_image_url}, function (error, response, body) {
@@ -742,9 +742,9 @@ bot.on("message", function(message) {
                     var index = Math.floor(Math.random()*(check_image.length < 10 ? check_image.length : 10));
                     var _ = $(check_image[index]).text();
                     var image_json = JSON.parse(_);
-                    var image_ou = image_json["ou"];
-                    var image_pt = image_json["pt"];
-                    richembed = richembed.addField("\n__**"+image_pt+"**__").setImage(image_ou).setFooter(image_ou);
+                    var image_pt = image_json["pt"], image_ou = image_json["ou"], image_ru = image_json["ru"];
+                    var image_ow = image_json["ow"], image_oh = image_json["oh"];
+                    richembed = richembed.addField("[__**"+image_pt+"**__]("+image_ru+")", image_ow+"×"+image_oh).setImage(image_ou).setFooter(image_ou);
                     richembed_set_image = true;
                   }
                 }
