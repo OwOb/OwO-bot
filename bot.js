@@ -737,9 +737,9 @@ bot.on("message", function(message) {
     var attachments = message.attachments;
     var image_url;
     if (attachments.size > 0 && attachments.first().height > 0)
-      image_url = encodeURIComponent(message.attachments.first().url);
+      image_url = message.attachments.first().url;
     else if (urllist)
-      image_url = encodeURIComponent(urllist[0]);
+      image_url = urllist[0];
     else
       image_url = "";
     if (image_url) {
