@@ -1015,6 +1015,11 @@ bot.on("message", function(message) {
       }
     }
     
+    else if (message.content.match(/^\s*[nNｎＮ]((?!\n)\s)*[=＝]((?!\n)\s)*[0-9]+\s*$/g)) {
+      var h_id = parseInt(message.content.split(message.content.indexOf("=") > 0 ? "=" : "＝")[1]);
+      console.log(h_id);
+    }
+    
     else if (NakanoMiku.indexOf(headlower) != -1 || NakanoMiku.indexOf(endlower) != -1) {
       var mikumessage = ["三玖天下第一", "三玖是天", "三玖三玖得第一"];
       var richembed = new Discord.RichEmbed().setColor(11068927).setTitle("**"+mikumessage[Math.floor(Math.random()*mikumessage.length)]+"!!  (*´∀`)～♥**").setImage("https://raw.githubusercontent.com/OwOb/OwO-bot/master/image/39/"+to02d(Math.floor(Math.random()*12)+1)+".jpg");
