@@ -995,13 +995,15 @@ bot.on("message", function(message) {
       }
     }
 
-    else if (!isself && (message.content.indexOf("運算") == 0 ||  message.content.indexOf("calculate") == 0 || message.content.indexOf("calc") == 0)) {
+    else if (!isself && (message.content.indexOf("運算") == 0 || message.content.indexOf("計算") == 0 || message.content.indexOf("!calculate") == 0 || message.content.indexOf("!calc") == 0)) {
       if (args.length == 1)
         message.channel.send("沒給算式本機要算什麼啦！(╯‵□ˊ)╯︵┴─┴");
       else {
         try {
           if (message.content.indexOf("運算") == 0)
             message.channel.send(math.format(math.eval(message.content.replace(/　/g," ").substring("運算".length).replace(/\'/g,"\"")), {precision: 14}));
+          else if (message.content.indexOf("計算") == 0)
+            message.channel.send(math.format(math.eval(message.content.replace(/　/g," ").substring("計算".length).replace(/\'/g,"\"")), {precision: 14}));
           else if (message.content.indexOf("calculate") == 0)
             message.channel.send(math.format(math.eval(message.content.replace(/　/g," ").substring("calculate".length).replace(/\'/g,"\"")), {precision: 14}));
           else
