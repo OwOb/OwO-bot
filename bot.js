@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const { PG } = require('pg');
+const { Client } = require('pg');
 var fs = require('fs');
 var request = require("request");
 var sync_request = require("sync-request");
@@ -12,13 +12,12 @@ var safeEval = require("notevil");
 const {c, cpp, node, python, java} = require("compile-run");
 var math = require("mathjs");
 math.import(require("mathjs-simple-integral"));
-const botdb = require('./botdb');
 
-const botDB_Client = new PG({
+const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 });
-botDB_Client.connect();
+client.connect();
 
 var bot = new Discord.Client();
 var GoogleImagesClient = new GoogleImages(process.env.GoogleCSE_TOKEN, process.env.GoogleAPI_TOKEN);
@@ -73,7 +72,7 @@ bot.on("ready", function() {
     }
   );
   */
-  botDB_Client.query("SELECT value FROM Var_Table WHERE var_name = 'set_sba';", (err, res) => {
+  client.query("SELECT value FROM Var_Table WHERE var_name = 'set_sba';", (err, res) => {
     if (!err) {
       var set_sba = res.rows[0].value.split(/\s+/g);
       bot.user.setActivity(set_sba[1], {type: activities[set_sba[0]]});
@@ -211,7 +210,7 @@ bot.on("message", function(message) {
       db_command += ";";
     console.log("----------------");
     console.log(db_command);
-    botDB_Client.query(db_command, (err, res) => {
+    client.query(db_command, (err, res) => {
       if (!err) {
         console.log(res);
         /*
@@ -261,7 +260,7 @@ bot.on("message", function(message) {
   }
   
   else if (owner && headlower == "!var") {
-    botDB_Client.query("SELECT * FROM Var_Table;", (err, res) => {
+    client.query("SELECT * FROM Var_Table;", (err, res) => {
       if (!err) {
         var rows = res.rows;
         var varNames = new Set();
@@ -276,7 +275,7 @@ bot.on("message", function(message) {
               message.channel.send("該變數名稱已存在！");
             else {
               var new_varValue = args.slice(3).join(" ");
-              botdb.newVar+new(new_varName, new_varValue, (err, res) => {
+              client.query("INSERT INTO Var_Table (var_name, value) VALUES (CONCAT('"+new_varName.replace(/'/g,"', chr(39), '")+"'), CONCAT('"+new_varValue.replace(/'/g,"', chr(39), '")+"'));", (err, res) => {
                 if (!err)
                   message.channel.send("成功創建新變數 `"+new_varName+"`(`"+new_varValue+"`)");
                 else
@@ -294,7 +293,7 @@ bot.on("message", function(message) {
               message.channel.send("該變數名稱不存在！");
             else {
               var new_varValue = args.slice(3).join(" ");
-              botdb.updateVar(new_varName, new_varValue, (err, res) => {
+              client.query("UPDATE Var_Table SET value = CONCAT('"+new_varValue.replace(/'/g,"', chr(39), '")+"') WHERE var_name = CONCAT('"+new_varName.replace(/'/g,"', chr(39), '")+"');", (err, res) => {
                 if (!err)
                   message.channel.send("成功創更新變數值 `"+new_varName+"`(`"+new_varValue+"`)");
                 else
@@ -311,7 +310,7 @@ bot.on("message", function(message) {
             if (!varNames.has(new_varName))
               message.channel.send("該變數名稱不存在！");
             else {
-              botdb.delVar(new_varName, (err, res) => {
+              client.query("DELETE FROM Var_Table SET WHERE var_name = CONCAT('"+new_varName.replace(/'/g,"', chr(39), '")+"');", (err, res) => {
                 if (!err)
                   message.channel.send("成功創刪除變數值 `"+new_varName+"`");
                 else
@@ -395,7 +394,7 @@ bot.on("message", function(message) {
     else if (noteNewDetail.length >= 1600)
       message.channel.send("由於本機的記憶體很小！所以只能記錄內容小於1600字的筆記！十分抱歉！( > 人 <  ; )");
     else {
-      botDB_Client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
+      client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
         if (!err) {
           var rows = res.rows;
           if (rows.length >= noteMAXN)
@@ -418,7 +417,7 @@ bot.on("message", function(message) {
               var noteAttachmentURL = noteAttachment.size ? noteAttachment.first().url : "";
               if (!noteNewTitle)
                 noteNewTitle = nickname+"的筆記"+to02d(noteNewNo);
-              botDB_Client.query("INSERT INTO Note_Table (user_id, note_no, note_title, note_detail, attachment_url) VALUES ("+message.author.id+", "+noteNewNo.toString()+", CONCAT('"+noteNewTitle.replace(/'/g,"', chr(39), '")+"'), CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'), '"+noteAttachmentURL+"');", (err, res) => {
+              client.query("INSERT INTO Note_Table (user_id, note_no, note_title, note_detail, attachment_url) VALUES ("+message.author.id+", "+noteNewNo.toString()+", CONCAT('"+noteNewTitle.replace(/'/g,"', chr(39), '")+"'), CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'), '"+noteAttachmentURL+"');", (err, res) => {
                 if (!err)
                   message.channel.send("筆記編號 **"+to02d(noteNewNo)+"** : 筆記 **`"+noteNewTitle+"`** 已成功儲存！ OwO/");
                 else
@@ -435,7 +434,7 @@ bot.on("message", function(message) {
   }
   
   else if (!isself && (headlower == "我的筆記" || headlower == "!mynote")) {
-    botDB_Client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
+    client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
       if (!err) {
         var rows = res.rows;
         var noteList = [];
@@ -469,7 +468,7 @@ bot.on("message", function(message) {
     else if (!noteFindTitle && noteFindNo > noteMAXN)
       message.channel.send("別想愚弄本機！筆記編號不可能超過"+noteMAXN.toString()+"！O3O");
     else {
-      botDB_Client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
+      client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
         if (!err) {
           var rows = res.rows;
           var noteFind = null;
@@ -516,7 +515,7 @@ bot.on("message", function(message) {
     else if (noteNewDetail.length >= 1600)
       message.channel.send("由於本機的記憶體很小！所以只能記錄內容小於1600字的筆記！十分抱歉！( > 人 <  ; )");
     else {
-      botDB_Client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
+      client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
         if (!err) {
           var rows = res.rows;
           var noteFind = null;
@@ -550,7 +549,7 @@ bot.on("message", function(message) {
 
             if (noteFind) {
               var noteAttachmentURL = noteAttachment.size ? noteAttachment.first().url : "";
-              botDB_Client.query("UPDATE Note_Table SET note_detail = CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'), attachment_url = '"+noteAttachmentURL+"' WHERE user_id = "+message.author.id+" AND "+(noteFindTitle ? "note_title = CONCAT('"+noteFindTitle.replace(/'/g,"', chr(39), '")+"')" : "note_no = "+noteFindNo.toString()), (err, res) => {
+              client.query("UPDATE Note_Table SET note_detail = CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'), attachment_url = '"+noteAttachmentURL+"' WHERE user_id = "+message.author.id+" AND "+(noteFindTitle ? "note_title = CONCAT('"+noteFindTitle.replace(/'/g,"', chr(39), '")+"')" : "note_no = "+noteFindNo.toString()), (err, res) => {
                 if (!err)
                   message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** : 筆記 **`"+noteFind.note_title.replace(/(^\s*)|(\s*$)/g,"")+"`** 已成功更新！ OwO/");
                 else
@@ -574,7 +573,7 @@ bot.on("message", function(message) {
     var noteFindNo = !matchTitle && /^(|-)\d+$/.test(args[1]) ? parseInt(args[1]) : null;
     var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
     
-    botDB_Client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
+    client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
       if (!err) {
         var rows = res.rows;
         var noteFind = null;
@@ -607,7 +606,7 @@ bot.on("message", function(message) {
           }
           
           if (noteFind) {
-            botDB_Client.query("DELETE FROM Note_Table WHERE user_id = "+message.author.id+" AND "+(noteFindTitle ? "note_title = CONCAT('"+noteFindTitle.replace(/'/g,"', chr(39), '")+"')" : "note_no = "+noteFindNo.toString()), (err, res) => {
+            client.query("DELETE FROM Note_Table WHERE user_id = "+message.author.id+" AND "+(noteFindTitle ? "note_title = CONCAT('"+noteFindTitle.replace(/'/g,"', chr(39), '")+"')" : "note_no = "+noteFindNo.toString()), (err, res) => {
               if (!err)
                 message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** : 筆記 **`"+noteFind.note_title.replace(/(^\s*)|(\s*$)/g,"")+"`** 已成功刪除！ OwO/");
               else
