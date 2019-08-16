@@ -1015,9 +1015,17 @@ bot.on("message", function(message) {
       }
     }
     
-    else if (message.content.match(/^\s*[nNｎＮ]((?!\n)\s)*[=＝]((?!\n)\s)*[0-9]+\s*$/g)) {
-      var h_id = parseInt(message.content.split(message.content.indexOf("=") > 0 ? "=" : "＝")[1]);
-      console.log(h_id);
+    else if (message.content.match(/^\s*([nNｎＮ]|[cCｃC])((?!\n)\s)*[=＝]((?!\n)\s)*[0-9]+\s*$/g)) {
+      var h_split = message.content.split(message.content.indexOf("=") > 0 ? "=" : "＝");
+      var h_web = h_split[0].replace(/^\s+|\s+$/g, ""), h_id = parseInt(h_split[1]).toString();
+      var richembed = new Discord.RichEmbed();
+      
+      if ("nNｎＮ".indexOf(h_web) >= 0) {
+        console.log("https://nhentai.net/g/"+h_id+"/");
+      }
+      else if ("cCｃC".indexOf(h_web) >= 0) {
+        console.log("https://18comic.org/album/"+h_id+"/");
+      }
     }
     
     else if (NakanoMiku.indexOf(headlower) != -1 || NakanoMiku.indexOf(endlower) != -1) {
