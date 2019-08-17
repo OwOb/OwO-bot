@@ -1026,7 +1026,7 @@ bot.on("message", function(message) {
         if ("nNｎＮ".indexOf(h_web) >= 0) {
           var nhURL = "https://nhentai.net/g/"+h_id+"/";
           console.log(nhURL);
-          var res = sync_request("GET", nhURL, {headers = headers, timeout : 30000});
+          var res = sync_request("GET", nhURL, {headers: headers, timeout : 30000});
           h_request_status = res.statusCode;
           if (h_request_status < 300) {
             var $ = require('jquery')((new JSDOM()).window);
