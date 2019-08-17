@@ -975,7 +975,7 @@ bot.on("message", function(message) {
   
   else {
     var qmatch = message.content.match(/([qQｑＱ]((?!\n)\s)*){2,}(\n|$)/g);
-    if (qmatch) {
+    if (!isself && qmatch) {
       var index = Math.floor(Math.random()*qmatch.length);
       message.channel.send("別難過了\\~\\~\\~  😭\n本機會陪著你的\\~\\~\\~  "+qmatch[index].replace(/^\s+|\s+$/g, '').replace(/\s+/g, ' '));
     }
@@ -1015,16 +1015,43 @@ bot.on("message", function(message) {
       }
     }
     
-    else if (message.content.match(/^\s*([nNｎＮ]|[cCｃC])((?!\n)\s)*[=＝]((?!\n)\s)*[0-9]+\s*$/g)) {
+    else if (!isself && message.content.match(/^\s*([nNｎＮ]|[cCｃC])((?!\n)\s)*[=＝]((?!\n)\s)*.+\s*$/g)) {
       var h_split = message.content.split(message.content.indexOf("=") > 0 ? "=" : "＝");
-      var h_web = h_split[0].replace(/^\s+|\s+$/g, ""), h_id = parseInt(h_split[1]).toString();
-      var richembed = new Discord.RichEmbed();
-      
-      if ("nNｎＮ".indexOf(h_web) >= 0) {
-        console.log("https://nhentai.net/g/"+h_id+"/");
+      var h_web = h_split[0].replace(/^\s+|\s+$/g, ""), h_id = h_split.slice(1).join("=").replace(/\s+/g, "");
+      if (/^\d+$/.test(h_id)) {
+        startTyping(message.channel);
+        var richembed = new Discord.RichEmbed();
+        var h_request_status = 0;
+        h_id = parseInt(h_id).toString();
+        if ("nNｎＮ".indexOf(h_web) >= 0) {
+          var nhURL = "https://nhentai.net/g/"+h_id+"/";
+          console.log(nhURL);
+          var res = sync_request("GET", nhURL, {headers = headers, timeout : 30000});
+          h_request_status = res.statusCode;
+          if (h_request_status < 300) {
+            var $ = require('jquery')((new JSDOM()).window);
+            $("body").append(res.getBody());
+            var h_info = $("#info"), h_top_image_url = $($(".lazyload")[0]).attr("data-src");
+            var title = $(h_info).children($(h_info).children("h2").length ? "h2" : "h1").text();
+            richembed = richembed.setColor(15541587).setTitle(title).setURL(nhURL)
+                                 .setImage(h_top_image_url);
+          }
+        }
+        else if ("cCｃC".indexOf(h_web) >= 0) {
+          console.log("https://18comic.org/album/"+h_id+"/");
+          h_request_status = 0;
+        }
+        
+        if (h_request_status && h_request_status < 200)
+          message.channel.send(richembed);
+        else if (h_request_status == 404)
+          message.channel.send("找不到該本本... Q Q");
+        else if (h_request_status)
+          message.channel.send("本本網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
+        stopTyping(message.channel);
       }
-      else if ("cCｃC".indexOf(h_web) >= 0) {
-        console.log("https://18comic.org/album/"+h_id+"/");
+      else {
+        message.channel.send("格式有誤啦！後半部分必須為神秘數字！(╯‵□ˊ)╯︵┴─┴");
       }
     }
     
