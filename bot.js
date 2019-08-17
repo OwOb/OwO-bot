@@ -1030,7 +1030,7 @@ bot.on("message", function(message) {
           h_request_status = res.statusCode;
           if (h_request_status < 300) {
             var $ = require('jquery')((new JSDOM()).window);
-            $("body").append(res.getBody());
+            $("body").append(res.body.toString());
             var h_info = $("#info"), h_top_image_url = $($(".lazyload")[0]).attr("data-src");
             var title = $(h_info).children($(h_info).children("h2").length ? "h2" : "h1").text();
             richembed = richembed.setColor(15541587).setTitle(title).setURL(nhURL)
