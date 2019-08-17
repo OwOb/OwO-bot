@@ -1033,7 +1033,7 @@ bot.on("message", function(message) {
             $("body").append(res.body.toString());
             var h_info = $("#info"), h_top_image_url = $($(".lazyload")[0]).attr("data-src");
             var title = $(h_info).children($(h_info).children("h2").length ? "h2" : "h1").text();
-            richembed = richembed.setColor(15541587).setTitle(title).setURL(nhURL)
+            richembed = richembed.setColor(15541587).setTitle("__**"+title.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**__").setURL(nhURL)
                                  .setImage(h_top_image_url);
           }
         }
