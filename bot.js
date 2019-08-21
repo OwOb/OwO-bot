@@ -54,7 +54,7 @@ function channelTyping(dc_channel, func) {
       if (channel_typing_count[dc_channel] === undefined)
         channel_typing_count[dc_channel] = 0;
       if (!channel_typing_count[dc_channel])
-        channel.startTyping();
+        dc_channel.startTyping();
       channel_typing_count[dc_channel]++;
       consloe.log(channel_typing_count[dc_channel]);
       return 0;
@@ -67,7 +67,7 @@ function channelTyping(dc_channel, func) {
       console.log("stop...");
       channel_typing_count[dc_channel]--;
       if (!channel_typing_count[dc_channel])
-        channel.stopTyping();
+        dc_channel.stopTyping();
     }
   );
 }
