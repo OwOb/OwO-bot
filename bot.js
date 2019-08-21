@@ -49,17 +49,17 @@ function to02d(n) {
 
 function channelTyping(dc_channel, func) {
   Step(
-    async function startTyping() {
+    function startTyping() {
       console.log("typing...");
       if (channel_typing_count[dc_channel] === undefined)
         channel_typing_count[dc_channel] = 0;
       if (!channel_typing_count[dc_channel])
-        await dc_channel.startTyping();
+        dc_channel.startTyping();
       channel_typing_count[dc_channel]++;
       console.log(channel_typing_count[dc_channel]);
       return 0;
     },
-    function main() {
+    function() {
       func();
       return 0;
     },
@@ -690,27 +690,30 @@ bot.on("message", function(message) {
         var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ");
         if (search) {
           var reqURL = "https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURIComponent(search);
-          var res = sync_request("GET", reqURL, {headers: headers, timeout : 3000});
-          if (res.statusCode < 300) {
-            var $ = require('jquery')((new JSDOM()).window);
-            $("body").append(res.body.toString());
-            var check_image = $(".rg_meta");
-            if (check_image.length) {
-              var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**")
-                                                     .setDescription("⁠").addField("搜尋結果", "[點我查看]("+reqURL+")\n⁠");
-              var index = Math.floor(Math.random()*(check_image.length < 10 ? check_image.length : 10));
-              var _ = $(check_image[index]).text();
-              var image_json = JSON.parse(_);
-              var image_pt = image_json["pt"], image_ou = image_json["ou"], image_ru = image_json["ru"];
-              var image_ow = image_json["ow"], image_oh = image_json["oh"];
-              richembed = richembed.addField("相關圖片", "[__**"+image_pt+"**__]("+image_ru+")\n"+image_ow+"×"+image_oh).setImage(image_ou).setFooter(image_ou);
-              message.channel.send(richembed);
+          request({headers: headers, uri: reqURL}, function (error, response, body) {
+            if (!error) {
+              var $ = require('jquery')((new JSDOM()).window);
+              $("body").append(body);
+              var check_image = $(".rg_meta");
+              if (check_image.length) {
+                var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**")
+                                                       .setDescription("⁠").addField("搜尋結果", "[點我查看]("+reqURL+")\n⁠");
+                var index = Math.floor(Math.random()*(check_image.length < 10 ? check_image.length : 10));
+                var _ = $(check_image[index]).text();
+                var image_json = JSON.parse(_);
+                var image_pt = image_json["pt"], image_ou = image_json["ou"], image_ru = image_json["ru"];
+                var image_ow = image_json["ow"], image_oh = image_json["oh"];
+                richembed = richembed.addField("相關圖片", "[__**"+image_pt+"**__]("+image_ru+")\n"+image_ow+"×"+image_oh).setImage(image_ou).setFooter(image_ou);
+                message.channel.send(richembed);
+              }
+              else {
+                message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
+              }
             }
-            else
-              message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
-          }
-          else
-            message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
+            else {
+              message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
+            }
+          });
           /*
           GoogleImagesClient.search(search)
           .then(images => {
