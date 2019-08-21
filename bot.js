@@ -709,7 +709,7 @@ bot.on("message", function(message) {
               }
             }
             else {
-              message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");l);
+              message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
             }
           });
           /*
