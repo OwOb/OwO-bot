@@ -57,8 +57,12 @@ function channelTyping(dc_channel, func) {
         channel.startTyping();
       channel_typing_count[dc_channel]++;
       consloe.log(channel_typing_count[dc_channel]);
+      return 0;
     },
-    func,
+    function main() {
+      func();
+      return 0;
+    },
     function stopTyping() {
       consloe.log("stop...");
       channel_typing_count[dc_channel]--;
