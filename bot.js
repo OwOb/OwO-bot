@@ -50,6 +50,7 @@ function to02d(n) {
 function channelTyping(dc_channel, func) {
   Step(
     function startTyping() {
+      consloe.log("typing...");
       if (channel_typing_count[dc_channel] === undefined)
         channel_typing_count[dc_channel] = 0;
       if (!channel_typing_count[dc_channel])
@@ -59,6 +60,7 @@ function channelTyping(dc_channel, func) {
     },
     func,
     function stopTyping() {
+      consloe.log("stop...");
       channel_typing_count[dc_channel]--;
       if (!channel_typing_count[dc_channel])
         channel.stopTyping();
