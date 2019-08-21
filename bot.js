@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-var Step = require("step")
 const { Client } = require('pg');
 var fs = require('fs');
 var request = require("request");
@@ -47,7 +46,7 @@ function to02d(n) {
     return Math.floor(n/10).toString() + (n%10).toString();
 }
 
-async function startTyping(channel) {
+function startTyping(channel) {
   if (channel_typing_count[channel] === undefined)
     channel_typing_count[channel] = 0;
   if (!channel_typing_count[channel])
@@ -673,62 +672,58 @@ bot.on("message", function(message) {
   }
   
   else if (!isself && (headlower == "圖片搜尋" || headlower == "google圖片" || headlower == "!image")) {
-    Step(
-      startTyping(message.channel),
-      function() {
-        var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ");
-        if (search) {
-          var reqURL = "https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURIComponent(search);
-          var res = sync_request("GET", reqURL, {headers: headers, timeout : 3000});
-          var status_code = res.statusCode;
-          if (status_code < 300) {
-            var $ = require('jquery')((new JSDOM()).window);
-            $("body").append(res.body.toString());
-            var check_image = $(".rg_meta");
-            if (check_image.length) {
-              var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**")
-                                                     .setDescription("⁠").addField("搜尋結果", "[點我查看]("+reqURL+")\n⁠");
-              var index = Math.floor(Math.random()*(check_image.length < 10 ? check_image.length : 10));
-              var _ = $(check_image[index]).text();
-              var image_json = JSON.parse(_);
-              var image_pt = image_json["pt"], image_ou = image_json["ou"], image_ru = image_json["ru"];
-              var image_ow = image_json["ow"], image_oh = image_json["oh"];
-              richembed = richembed.addField("相關圖片", "[__**"+image_pt+"**__]("+image_ru+")\n"+image_ow+"×"+image_oh).setImage(image_ou).setFooter(image_ou);
-              message.channel.send(richembed);
-              stopTyping(message.channel);
-            }
-            else {
-              message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
-              stopTyping(message.channel);
-            }
-          }
-          else {
-            message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
+    startTyping(message.channel);
+    var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ");
+    if (search) {
+      var reqURL = "https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURIComponent(search);
+      request({headers: headers, uri: reqURL}, function (error, response, body) {
+        if (!error) {
+          var $ = require('jquery')((new JSDOM()).window);
+          $("body").append(body);
+          var check_image = $(".rg_meta");
+          if (check_image.length) {
+            var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**")
+                                                   .setDescription("⁠").addField("搜尋結果", "[點我查看]("+reqURL+")\n⁠");
+            var index = Math.floor(Math.random()*(check_image.length < 10 ? check_image.length : 10));
+            var _ = $(check_image[index]).text();
+            var image_json = JSON.parse(_);
+            var image_pt = image_json["pt"], image_ou = image_json["ou"], image_ru = image_json["ru"];
+            var image_ow = image_json["ow"], image_oh = image_json["oh"];
+            richembed = richembed.addField("相關圖片", "[__**"+image_pt+"**__]("+image_ru+")\n"+image_ow+"×"+image_oh).setImage(image_ou).setFooter(image_ou);
+            message.channel.send(richembed);
             stopTyping(message.channel);
           }
-          /*
-          GoogleImagesClient.search(search)
-          .then(images => {
-            if (images.length > 0) {
-              var index = Math.floor(Math.random()*images.length);
-              var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/(\*)/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**").setImage(images[index]["url"]).setFooter(images[index]["url"]);
-              message.channel.send(richembed);
-            }
-            else
-              message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
-          })
-          .catch(error => {
-            message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
-            console.log(error);
-          });
-          */
+          else {
+            message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
+            stopTyping(message.channel);
+          }
         }
         else {
-          message.channel.send("沒給關鍵字本機要搜尋什麼啦！(╯‵□ˊ)╯︵┴─┴");
+          message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
           stopTyping(message.channel);
         }
-      }
-    );
+      });
+      /*
+      GoogleImagesClient.search(search)
+      .then(images => {
+        if (images.length > 0) {
+          var index = Math.floor(Math.random()*images.length);
+          var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/(\*)/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**").setImage(images[index]["url"]).setFooter(images[index]["url"]);
+          message.channel.send(richembed);
+        }
+        else
+          message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
+      })
+      .catch(error => {
+        message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+        console.log(error);
+      });
+      */
+    }
+    else {
+      message.channel.send("沒給關鍵字本機要搜尋什麼啦！(╯‵□ˊ)╯︵┴─┴");
+      stopTyping(message.channel);
+    }
   }
   
   else if (!isself && (headlower == "以圖搜尋" || headlower == "以圖搜圖" || headlower == "!searchbyimage")) {
@@ -1021,55 +1016,43 @@ bot.on("message", function(message) {
     }
     
     else if (!isself && message.content.match(/^\s*([nNｎＮ]|[cCｃC])((?!\n)\s)*[=＝]((?!\n)\s)*.+\s*$/g)) {
-      Step(
-        function() {
-          startTyping(message.channel);
-          return 0;
-        },
-        function() {
-          var h_split = message.content.split(message.content.indexOf("=") > 0 ? "=" : "＝");
-          var h_web = h_split[0].replace(/^\s+|\s+$/g, ""), h_id = h_split.slice(1).join("=").replace(/\s+/g, "");
-          if (/^\d+$/.test(h_id)) {
-            //startTyping(message.channel);
-            var richembed = new Discord.RichEmbed();
-            var h_request_status = 0;
-            h_id = parseInt(h_id).toString();
-            if ("nNｎＮ".indexOf(h_web) >= 0) {
-              var nhURL = "https://nhentai.net/g/"+h_id+"/";
-              console.log(nhURL);
-              var res = sync_request("GET", nhURL, {headers: headers, timeout : 3000});
-              h_request_status = res.statusCode;
-              if (h_request_status < 300) {
-                var $ = require('jquery')((new JSDOM()).window);
-                $("body").append(res.body.toString());
-                var h_info = $("#info"), h_top_image_url = $($(".lazyload")[0]).attr("data-src");
-                var title = $(h_info).children($(h_info).children("h2").length ? "h2" : "h1").text();
-                richembed = richembed.setColor(15541587).setTitle("__**"+title.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**__").setURL(nhURL)
-                                     .setImage(h_top_image_url);
-              }
-            }
-            else if ("cCｃC".indexOf(h_web) >= 0) {
-              console.log("https://18comic.org/album/"+h_id+"/");
-              h_request_status = 0;
-            }
-
-            if (h_request_status && h_request_status < 300)
-              message.channel.send(richembed);
-            else if (h_request_status == 404)
-              message.channel.send("找不到該本本... Q Q");
-            else if (h_request_status)
-              message.channel.send("本本網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
-            //stopTyping(message.channel);
+      var h_split = message.content.split(message.content.indexOf("=") > 0 ? "=" : "＝");
+      var h_web = h_split[0].replace(/^\s+|\s+$/g, ""), h_id = h_split.slice(1).join("=").replace(/\s+/g, "");
+      if (/^\d+$/.test(h_id)) {
+        startTyping(message.channel);
+        var richembed = new Discord.RichEmbed();
+        var h_request_status = 0;
+        h_id = parseInt(h_id).toString();
+        if ("nNｎＮ".indexOf(h_web) >= 0) {
+          var nhURL = "https://nhentai.net/g/"+h_id+"/";
+          console.log(nhURL);
+          var res = sync_request("GET", nhURL, {headers: headers, timeout : 3000});
+          h_request_status = res.statusCode;
+          if (h_request_status < 300) {
+            var $ = require('jquery')((new JSDOM()).window);
+            $("body").append(res.body.toString());
+            var h_info = $("#info"), h_top_image_url = $($(".lazyload")[0]).attr("data-src");
+            var title = $(h_info).children($(h_info).children("h2").length ? "h2" : "h1").text();
+            richembed = richembed.setColor(15541587).setTitle("__**"+title.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**__").setURL(nhURL)
+                                 .setImage(h_top_image_url);
           }
-          else {
-            message.channel.send("格式有誤啦！後半部分必須為神秘數字！(╯‵□ˊ)╯︵┴─┴");
-          }
-          return 0;
-        },
-        function() {
-          stopTyping(message.channel);
         }
-      );
+        else if ("cCｃC".indexOf(h_web) >= 0) {
+          console.log("https://18comic.org/album/"+h_id+"/");
+          h_request_status = 0;
+        }
+        
+        if (h_request_status && h_request_status < 300)
+          message.channel.send(richembed);
+        else if (h_request_status == 404)
+          message.channel.send("找不到該本本... Q Q");
+        else if (h_request_status)
+          message.channel.send("本本網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
+        stopTyping(message.channel);
+      }
+      else {
+        message.channel.send("格式有誤啦！後半部分必須為神秘數字！(╯‵□ˊ)╯︵┴─┴");
+      }
     }
     
     else if (NakanoMiku.indexOf(headlower) != -1 || NakanoMiku.indexOf(endlower) != -1) {
