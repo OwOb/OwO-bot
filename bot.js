@@ -47,13 +47,13 @@ function to02d(n) {
     return Math.floor(n/10).toString() + (n%10).toString();
 }
 
-async function channelTyping(dc_channel, func) {
+function channelTyping(dc_channel, func) {
   Step(
     function startTyping() {
       if (channel_typing_count[dc_channel] === undefined)
         channel_typing_count[dc_channel] = 0;
       if (!channel_typing_count[dc_channel])
-        await channel.startTyping();
+        channel.startTyping();
       channel_typing_count[dc_channel]++;
       consloe.log(channel_typing_count[dc_channel]);
     },
