@@ -689,21 +689,19 @@ bot.on("message", function(message) {
       function() {
         var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ");
         if (search) {
-          var reqURL = "https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURIComponent(search);
+          var reqURL = "https://www.googleapis.com/customsearch/v1?searchType=image&hl=zh-TW&key="+process.env.GoogleAPI_TOKEN+"&cx="+process.env.GoogleCSE_TOKEN+"&q="+encodeURIComponent(search);
           request({headers: headers, uri: reqURL}, function (error, response, body) {
-            if (!error) {
-              var $ = require('jquery')((new JSDOM()).window);
-              $("body").append(body);
-              var check_image = $(".rg_meta");
-              if (check_image.length) {
+            if (!error && response.statusCode < 300) {
+              var res = JSON.parse(body);
+              var images = res.queries.items;
+              if (images.length) {
                 var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**")
                                                        .setDescription("⁠").addField("搜尋結果", "[點我查看]("+reqURL+")\n⁠");
-                var index = Math.floor(Math.random()*(check_image.length < 10 ? check_image.length : 10));
-                var _ = $(check_image[index]).text();
-                var image_json = JSON.parse(_);
-                var image_pt = image_json["pt"], image_ou = image_json["ou"], image_ru = image_json["ru"];
-                var image_ow = image_json["ow"], image_oh = image_json["oh"];
-                richembed = richembed.addField("相關圖片", "[__**"+image_pt+"**__]("+image_ru+")\n"+image_ow+"×"+image_oh).setImage(image_ou).setFooter(image_ou);
+                var index = Math.floor(Math.random()*images.length);
+                var image_json = images[index]
+                var image_title = image_json.title, image_url = image_json.link, image_details = image_json.image;
+                var image_link = image_details.contextLink, image_width = image_details.width, image_height = image_details.height;
+                richembed = richembed.addField("相關圖片", "[__**"+image_title.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**__]("+image_link+")\n"+image_width+"×"+image_height).setImage(image_url).setFooter(image_url);
                 message.channel.send(richembed);
               }
               else {
