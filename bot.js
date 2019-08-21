@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-var Strp = require("step")
+var Step = require("step")
 const { Client } = require("pg");
 var fs = require("fs");
 var request = require("request");
