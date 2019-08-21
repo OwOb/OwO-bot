@@ -676,33 +676,33 @@ bot.on("message", function(message) {
     var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ");
     if (search) {
       var reqURL = "https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURIComponent(search);
-      request({headers: headers, uri: reqURL}, function (error, response, body) {
-        if (!error) {
-          var $ = require('jquery')((new JSDOM()).window);
-          $("body").append(body);
-          var check_image = $(".rg_meta");
-          if (check_image.length) {
-            var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**")
-                                                   .setDescription("⁠").addField("搜尋結果", "[點我查看]("+reqURL+")\n⁠");
-            var index = Math.floor(Math.random()*(check_image.length < 10 ? check_image.length : 10));
-            var _ = $(check_image[index]).text();
-            var image_json = JSON.parse(_);
-            var image_pt = image_json["pt"], image_ou = image_json["ou"], image_ru = image_json["ru"];
-            var image_ow = image_json["ow"], image_oh = image_json["oh"];
-            richembed = richembed.addField("相關圖片", "[__**"+image_pt+"**__]("+image_ru+")\n"+image_ow+"×"+image_oh).setImage(image_ou).setFooter(image_ou);
-            message.channel.send(richembed);
-            stopTyping(message.channel);
-          }
-          else {
-            message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
-            stopTyping(message.channel);
-          }
-        }
-        else {
-          message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
+      var res = sync_request("GET", reqURL, {headers: headers, timeout : 3000});
+      var status_code = res.statusCode;
+      if (status_code < 300) {
+        var $ = require('jquery')((new JSDOM()).window);
+        $("body").append(res.body.toString());
+        var check_image = $(".rg_meta");
+        if (check_image.length) {
+          var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**")
+                                                 .setDescription("⁠").addField("搜尋結果", "[點我查看]("+reqURL+")\n⁠");
+          var index = Math.floor(Math.random()*(check_image.length < 10 ? check_image.length : 10));
+          var _ = $(check_image[index]).text();
+          var image_json = JSON.parse(_);
+          var image_pt = image_json["pt"], image_ou = image_json["ou"], image_ru = image_json["ru"];
+          var image_ow = image_json["ow"], image_oh = image_json["oh"];
+          richembed = richembed.addField("相關圖片", "[__**"+image_pt+"**__]("+image_ru+")\n"+image_ow+"×"+image_oh).setImage(image_ou).setFooter(image_ou);
+          message.channel.send(richembed);
           stopTyping(message.channel);
         }
-      });
+        else {
+          message.channel.send("本機找不到符合的圖片... ╮(╯_╰)╭");
+          stopTyping(message.channel);
+        }
+      }
+      else {
+        message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
+        stopTyping(message.channel);
+      }
       /*
       GoogleImagesClient.search(search)
       .then(images => {
