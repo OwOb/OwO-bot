@@ -693,7 +693,7 @@ bot.on("message", function(message) {
           request({headers: headers, uri: reqURL}, function (error, response, body) {
             if (!error && response.statusCode < 300) {
               var res = JSON.parse(body);
-              var images = res.url.queries.items;
+              var images = res.items;
               if (images.length) {
                 var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**")
                                                        .setDescription("⁠").addField("搜尋結果", "[點我查看]("+reqURL+")\n⁠");
