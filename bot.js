@@ -53,8 +53,9 @@ function channelTyping(dc_channel, func) {
       if (channel_typing_count[dc_channel] === undefined)
         channel_typing_count[dc_channel] = 0;
       if (!channel_typing_count[dc_channel])
-        channel.startTyping();
+        await channel.startTyping();
       channel_typing_count[dc_channel]++;
+      consloe.log(channel_typing_count[dc_channel]);
     },
     func,
     function stopTyping() {
@@ -65,11 +66,6 @@ function channelTyping(dc_channel, func) {
   );
 }
 
-function stopTyping(channel) {
-  channel_typing_count[channel]--;
-  if (!channel_typing_count[channel])
-    channel.stopTyping();
-}
 
 bot.on("ready", function() {
   /*
