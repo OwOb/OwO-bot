@@ -46,7 +46,7 @@ function to02d(n) {
     return Math.floor(n/10).toString() + (n%10).toString();
 }
 
-function startTyping(channel) {
+async function startTyping(channel) {
   if (channel_typing_count[channel] === undefined)
     channel_typing_count[channel] = 0;
   if (!channel_typing_count[channel])
