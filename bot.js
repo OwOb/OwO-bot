@@ -690,7 +690,9 @@ bot.on("message", function(message) {
         var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ");
         if (search) {
           var reqURL = "https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURIComponent(search);
+          console.log(reqURL);
           var res = sync_request("GET", reqURL, {headers: headers, timeout : 3000});
+          console.log(res.statusCode);
           if (res.statusCode < 300) {
             var $ = require('jquery')((new JSDOM()).window);
             $("body").append(body);
