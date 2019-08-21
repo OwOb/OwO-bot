@@ -1024,6 +1024,7 @@ bot.on("message", function(message) {
       Step(
         function() {
           startTyping(message.channel);
+          return 0;
         },
         function() {
           var h_split = message.content.split(message.content.indexOf("=") > 0 ? "=" : "＝");
@@ -1063,6 +1064,7 @@ bot.on("message", function(message) {
           else {
             message.channel.send("格式有誤啦！後半部分必須為神秘數字！(╯‵□ˊ)╯︵┴─┴");
           }
+          return 0;
         },
         function() {
           stopTyping(message.channel);
