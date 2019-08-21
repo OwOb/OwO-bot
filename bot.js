@@ -57,8 +57,12 @@ function channelTyping(dc_channel, func) {
         dc_channel.startTyping();
       channel_typing_count[dc_channel]++;
       console.log(channel_typing_count[dc_channel]);
+      return 0;
     },
-    func,
+    function() {
+      func();
+      return 0;
+    }
     function stopTyping() {
       console.log("stop...");
       channel_typing_count[dc_channel]--;
