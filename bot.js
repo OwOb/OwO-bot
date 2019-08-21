@@ -64,7 +64,7 @@ function channelTyping(dc_channel, func) {
       return 0;
     },
     function stopTyping() {
-      consloe.log("stop...");
+      console.log("stop...");
       channel_typing_count[dc_channel]--;
       if (!channel_typing_count[dc_channel])
         channel.stopTyping();
