@@ -690,12 +690,10 @@ bot.on("message", function(message) {
         var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ");
         if (search) {
           var reqURL = "https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURIComponent(search);
-          console.log(reqURL);
           var res = sync_request("GET", reqURL, {headers: headers, timeout : 3000});
-          console.log(res.statusCode);
           if (res.statusCode < 300) {
             var $ = require('jquery')((new JSDOM()).window);
-            $("body").append(body);
+            $("body").append(res.body.toString());
             var check_image = $(".rg_meta");
             if (check_image.length) {
               var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**")
@@ -706,7 +704,6 @@ bot.on("message", function(message) {
               var image_pt = image_json["pt"], image_ou = image_json["ou"], image_ru = image_json["ru"];
               var image_ow = image_json["ow"], image_oh = image_json["oh"];
               richembed = richembed.addField("相關圖片", "[__**"+image_pt+"**__]("+image_ru+")\n"+image_ow+"×"+image_oh).setImage(image_ou).setFooter(image_ou);
-              console.log(image_ru);
               message.channel.send(richembed);
             }
             else
