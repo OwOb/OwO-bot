@@ -1059,7 +1059,7 @@ bot.on("message", function(message) {
             
             Step(
               function s_req() {
-                console = s_url;
+                console.log(s_url);
                 request(s_url, function (error, response, body) {
                   if (!error) {
                     status_code = response.statusCode;
