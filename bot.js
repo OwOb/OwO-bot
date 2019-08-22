@@ -8,6 +8,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 var PNG = require("pngjs").PNG;
 //var GoogleImages = require("google-images");
+const ytdl = require("ytdl-core");
 var cmd = require("node-cmd");
 var safeEval = require("notevil");
 const {c, cpp, node, python, java} = require("compile-run");
@@ -99,11 +100,6 @@ bot.on("ready", function() {
     }
   });
   
-  /*
-  bot.channels.get(process.env.bianyuanluzhai_voice_channel).join()
-  .then(connection => console.log('Connected'))
-  .catch(console.error);
-  */
   
   console.log("Ready");
   /*
@@ -241,6 +237,21 @@ bot.on("message", function(message) {
         console.log(err);
       }
     });
+  }
+  
+  else if (owner && headlower == "!join") {
+    bot.channels.get(process.env.test_voice_channel).join()
+                .then(connection => {
+                  const stream = ytdl(process.env.test_video, {filter : "audioonly"});
+                  const dispatcher = connection.playStream(stream, streamOptions);
+                  console.log("Connected");
+                }).catch(error => {
+                  console.log(error);
+                });
+  }
+  
+  else if (owner && headlower == "!leave") {
+    bot.channels.get(process.env.test_voice_channel).leave();
   }
   
   else if (owner && headlower == "!req") {
