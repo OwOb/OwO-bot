@@ -23,6 +23,7 @@
 		"jsdom": "15.1.1",
 		"pngjs": "3.3.3",
 		"google-images": "2.1.0",
+		"ytdl-core": "0.29.5",
 		"node-cmd": "3.0.0",
 		"notevil": "1.1.0",
 		"compile-run": "2.3.0"
