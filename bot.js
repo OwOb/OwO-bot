@@ -244,13 +244,12 @@ bot.on("message", function(message) {
                 .then(connection => {
                   console.log("Connected");
                   const stream = ytdl("https://www.youtube.com/watch?v=XAWgeLF9EVQ", {filter: "audioonly"});
-                  const dispatcher = connection.playStream(stream, {seek: 0, volume: 1})
-                                               .on("end", () => {
-                                                  console.log("end");
-                                               })
-                                               .on("error", error => {
-                                                  console.log("error");
-                                               });
+                  const dispatcher = connection.playStream(stream, {seek: 0, volume: 1});
+                  dispatcher/*.on("end", () => {
+                    console.log("end");
+                  })*/.on("error", error => {
+                    console.log("error");
+                  });
                 }).catch(error => {
                   console.log(error);
                 });
