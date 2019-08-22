@@ -1047,8 +1047,10 @@ bot.on("message", function(message) {
                 var title = $(h_info).children($(h_info).children("h2").length ? "h2" : "h1").text();
                 richembed = richembed.setColor(15541587).setTitle("__**"+title.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**__").setURL(s_url)
                                      .setImage(h_top_image_url);
+                message.channel.send(richembed);
               };
             }
+            
             else if ("cCｃC".indexOf(s_web) >= 0) {
               s_name = "本本", h_flag = true, s_url = "https://18comic.org/album/"+s_id+"/";
               s_func = function(body) {
@@ -1057,34 +1059,23 @@ bot.on("message", function(message) {
               };
             }
             
-            Step(
-              async function s_req() {
-                console.log(s_url);
-                await request({headers: headers, uri: s_url}, function (error, response, body) {
-                  console.log(response.statusCode);
-                  if (!error) {
-                    status_code = response.statusCode;
-                    if (status_code < 300)
-                      s_func(body);
-                  }
-                  else {
-                    console.log(error);
-                    status_code = 0;
-                  }
-                });
-                return 0;
-              },
-              function s_send() {
-                if (status_code && status_code < 300)
-                  message.channel.send(richembed);
+            request({headers: headers, uri: s_url}, function (error, response, body) {
+              console.log(response.statusCode);
+              if (!error) {
+                status_code = response.statusCode;
+                if (status_code < 300)
+                  s_func(body);
                 else if (status_code == 404)
                   message.channel.send("找不到該"+s_name+"... Q Q");
-                else if (status_code > 0)
+                else if (status_code)
                   message.channel.send((h_flag ? "本本" : "")+"網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
-                else if (!status_code)
-                  message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
               }
-            );
+              else {
+                console.log(error);
+                status_code = 0;
+                message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+              }
+            });
           }
           else {
             message.channel.send("格式有誤啦！後半部分必須為神秘數字！(╯‵□ˊ)╯︵┴─┴");
