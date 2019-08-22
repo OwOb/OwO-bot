@@ -700,7 +700,7 @@ bot.on("message", function(message) {
               $("body").append(body);
               var check_image = $(".rg_meta");
               if (check_image.length) {
-                var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("__** "+dc_markdown(search)+" **__")
+                var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("__**\u200b"+dc_markdown(search)+"\u200b**__")
                                                        .setDescription("⁠").addField("搜尋結果", "[點我查看]("+reqURL+")\n⁠");
                 var index = Math.floor(Math.random()*(check_image.length < 10 ? check_image.length : 10));
                 var _ = $(check_image[index]).text();
@@ -768,7 +768,7 @@ bot.on("message", function(message) {
             var href_ = $($(".iu-card-header")[0]).attr("href");
             var similar_image_url = href_ ? "https://www.google.com.tw"+href_ : "";
 
-            var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("這張圖片可能跟__** "+dc_markdown(relation_search)+" **__有關").setThumbnail(image_url)
+            var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("這張圖片可能跟__**\u200b"+dc_markdown(relation_search)+" \u200b**__有關").setThumbnail(image_url)
                                                    .setDescription("⁠\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n⁠\n⁠")
                                                    .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")\n⁠" : "似乎找不到相同的圖片... ╮(╯_╰)╭\n⁠")
                                                    .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")\n⁠" : "似乎找不到相似的圖片... ╮(╯_╰)╭\n⁠")
@@ -1049,7 +1049,7 @@ bot.on("message", function(message) {
                 $("body").append(body);
                 var h_info = $("#info"), h_top_image_url = $($(".lazyload")[0]).attr("data-src");
                 var h_title = $(h_info).children($(h_info).children("h2").length ? "h2" : "h1").text();
-                richembed = richembed.setColor(15541587).setTitle("__** "+dc_markdown(h_title)+" **__").setURL(s_url)
+                richembed = richembed.setColor(15541587).setTitle("__**\u200b"+dc_markdown(h_title)+"\u200b**__").setURL(s_url)
                                      .setImage(h_top_image_url);
                 message.channel.send(richembed);
               };
@@ -1060,9 +1060,9 @@ bot.on("message", function(message) {
               s_func = function(body) {
                 var $ = require('jquery')((new JSDOM()).window);
                 $("body").append(body);
-                var h_top_image_url = $($($(".thumb-overlay")[1]).children()).attr("src");
+                var h_top_image_url = "https://cdn-ms.18comic.org/media/photos/"+s_id+"/00001.jpg";
                 var h_title = $($(".pull-left")[1]).text();
-                richembed = richembed.setColor(16742912).setTitle("__** "+dc_markdown(h_title)+" **__").setURL(s_url)
+                richembed = richembed.setColor(16742912).setTitle("__**\u200b"+dc_markdown(h_title)+"\u200b**__").setURL(s_url)
                                      .setImage(h_top_image_url);;
                 message.channel.send(richembed);
               };
