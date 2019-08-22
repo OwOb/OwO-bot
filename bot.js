@@ -47,6 +47,10 @@ function to02d(n) {
     return Math.floor(n/10).toString() + (n%10).toString();
 }
 
+function dc_markdown(s) {
+  return s.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`");
+}
+
 function channelTyping(dc_channel, func) {
   Step(
     function startTyping() {
@@ -696,14 +700,14 @@ bot.on("message", function(message) {
               $("body").append(body);
               var check_image = $(".rg_meta");
               if (check_image.length) {
-                var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("**"+search.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**")
+                var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("__** "+dc_markdown(search)+" **__")
                                                        .setDescription("⁠").addField("搜尋結果", "[點我查看]("+reqURL+")\n⁠");
                 var index = Math.floor(Math.random()*(check_image.length < 10 ? check_image.length : 10));
                 var _ = $(check_image[index]).text();
                 var image_json = JSON.parse(_);
                 var image_pt = image_json["pt"], image_ou = image_json["ou"], image_ru = image_json["ru"];
                 var image_ow = image_json["ow"], image_oh = image_json["oh"];
-                richembed = richembed.addField("相關圖片", "[__**"+image_pt+"**__]("+image_ru+")\n"+image_ow+"×"+image_oh).setImage(image_ou).setFooter(image_ou);
+                richembed = richembed.addField("相關圖片", "__**["+dc_markdown(image_pt)+"]("+image_ru+")**__\n"+image_ow+"×"+image_oh).setImage(image_ou).setFooter(image_ou);
                 message.channel.send(richembed);
               }
               else {
@@ -764,7 +768,7 @@ bot.on("message", function(message) {
             var href_ = $($(".iu-card-header")[0]).attr("href");
             var similar_image_url = href_ ? "https://www.google.com.tw"+href_ : "";
 
-            var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("這張圖片可能跟 __**"+relation_search+"**__ 有關").setThumbnail(image_url)
+            var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("這張圖片可能跟__** "+dc_markdown(relation_search)+" **__有關").setThumbnail(image_url)
                                                    .setDescription("⁠\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n⁠\n⁠")
                                                    .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")\n⁠" : "似乎找不到相同的圖片... ╮(╯_╰)╭\n⁠")
                                                    .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")\n⁠" : "似乎找不到相似的圖片... ╮(╯_╰)╭\n⁠")
@@ -783,7 +787,7 @@ bot.on("message", function(message) {
                     var image_json = JSON.parse(_);
                     var image_pt = image_json["pt"], image_ou = image_json["ou"], image_ru = image_json["ru"];
                     var image_ow = image_json["ow"], image_oh = image_json["oh"];
-                    richembed = richembed.addField("相關圖片", "[__**"+image_pt+"**__]("+image_ru+")\n"+image_ow+"×"+image_oh)
+                    richembed = richembed.addField("相關圖片", "__**["+dc_markdown(image_pt)+"]("+image_ru+")**__\n"+image_ow+"×"+image_oh)
                                            .setImage(image_ou).setFooter(image_ou);
                     richembed_set_image = true;
                   }
@@ -1044,8 +1048,8 @@ bot.on("message", function(message) {
                 var $ = require('jquery')((new JSDOM()).window);
                 $("body").append(body);
                 var h_info = $("#info"), h_top_image_url = $($(".lazyload")[0]).attr("data-src");
-                var title = $(h_info).children($(h_info).children("h2").length ? "h2" : "h1").text();
-                richembed = richembed.setColor(15541587).setTitle("__**"+title.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**__").setURL(s_url)
+                var h_title = $(h_info).children($(h_info).children("h2").length ? "h2" : "h1").text();
+                richembed = richembed.setColor(15541587).setTitle("__** "+dc_markdown(h_title)+" **__").setURL(s_url)
                                      .setImage(h_top_image_url);
                 message.channel.send(richembed);
               };
@@ -1054,13 +1058,18 @@ bot.on("message", function(message) {
             else if ("cCｃC".indexOf(s_web) >= 0) {
               s_name = "本本", h_flag = true, s_url = "https://18comic.org/album/"+s_id+"/";
               s_func = function(body) {
-                richembed = richembed;
-                status_code = -1;
+                var $ = require('jquery')((new JSDOM()).window);
+                $("body").append(body);
+                var h_top_image_url = $($($(".thumb-overlay")[1]).children()).attr("src");
+                var h_title = $($(".pull-left")[1]).text();
+                richembed = richembed.setColor(16742912).setTitle("__** "+dc_markdown(h_title)+" **__").setURL(s_url)
+                                     .setImage(h_top_image_url);;
+                message.channel.send(richembed);
               };
             }
             
             request({headers: headers, uri: s_url}, function (error, response, body) {
-              console.log(response.statusCode);
+              //console.log(response.statusCode);
               if (!error) {
                 status_code = response.statusCode;
                 if (status_code < 300)
@@ -1071,7 +1080,6 @@ bot.on("message", function(message) {
                   message.channel.send((h_flag ? "本本" : "")+"網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
               }
               else {
-                console.log(error);
                 status_code = 0;
                 message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
               }
