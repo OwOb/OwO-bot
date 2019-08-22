@@ -243,7 +243,7 @@ bot.on("message", function(message) {
     bot.channels.get(process.env.test_voice_channel).join()
                 .then(connection => {
                   const stream = ytdl(process.env.test_video, {filter : "audioonly"});
-                  const dispatcher = connection.playStream(stream, streamOptions);
+                  const dispatcher = connection.playStream(stream);
                   console.log("Connected");
                 }).catch(error => {
                   console.log(error);
