@@ -1061,6 +1061,7 @@ bot.on("message", function(message) {
               function s_req() {
                 console.log(s_url);
                 request({headers: headers, uri: s_url}, function (error, response, body) {
+                  console.log(response.statusCode);
                   if (!error) {
                     status_code = response.statusCode;
                     if (status_code < 300)
