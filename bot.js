@@ -1060,14 +1060,16 @@ bot.on("message", function(message) {
             Step(
               function s_req() {
                 console.log(s_url);
-                request(s_url, function (error, response, body) {
+                request({headers: headers, uri: s_url}, function (error, response, body) {
                   if (!error) {
                     status_code = response.statusCode;
                     if (status_code < 300)
                       s_func(body);
                   }
-                  else
+                  else {
+                    console.log(error);
                     status_code = 0;
+                  }
                 });
                 return 0;
               },
