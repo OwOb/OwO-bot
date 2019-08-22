@@ -7,7 +7,7 @@ var sync_request = require("sync-request");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 var PNG = require("pngjs").PNG;
-var GoogleImages = require("google-images");
+//var GoogleImages = require("google-images");
 var cmd = require("node-cmd");
 var safeEval = require("notevil");
 const {c, cpp, node, python, java} = require("compile-run");
@@ -21,7 +21,7 @@ const client = new Client({
 client.connect();
 
 var bot = new Discord.Client();
-var GoogleImagesClient = new GoogleImages(process.env.GoogleCSE_TOKEN, process.env.GoogleAPI_TOKEN);
+//var GoogleImagesClient = new GoogleImages(process.env.GoogleCSE_TOKEN, process.env.GoogleAPI_TOKEN);
 
 var cd = 1000;
 var noteMAXN = 16;
@@ -1030,37 +1030,58 @@ bot.on("message", function(message) {
     else if (!isself && message.content.match(/^\s*([nNｎＮ]|[cCｃC])((?!\n)\s)*[=＝]((?!\n)\s)*.+\s*$/g)) {
       channelTyping(message.channel,
         function() {
-          var h_split = message.content.split(message.content.indexOf("=") > 0 ? "=" : "＝");
-          var h_web = h_split[0].replace(/^\s+|\s+$/g, ""), h_id = h_split.slice(1).join("=").replace(/\s+/g, "");
-          if (/^\d+$/.test(h_id)) {
+          var s_split = message.content.split(message.content.indexOf("=") > 0 ? "=" : "＝");
+          var s_web = s_split[0].replace(/^\s+|\s+$/g, ""), s_id = s_split.slice(1).join("=").replace(/\s+/g, "");
+          var s_name = "", h_flag = false;
+          if (/^\d+$/.test(s_id)) {
             var richembed = new Discord.RichEmbed();
-            var h_request_status = 0;
-            h_id = parseInt(h_id).toString();
-            if ("nNｎＮ".indexOf(h_web) >= 0) {
-              var nhURL = "https://nhentai.net/g/"+h_id+"/";
-              console.log(nhURL);
-              var res = sync_request("GET", nhURL, {headers: headers, timeout : 3000});
-              h_request_status = res.statusCode;
-              if (h_request_status < 300) {
+            var s_url = "", status_code = 0;
+            var s_func;
+            s_id = parseInt(s_id).toString();
+            if ("nNｎＮ".indexOf(s_web) >= 0) {
+              s_name = "本本", h_flag = true, s_url = "https://nhentai.net/g/"+s_id+"/";
+              s_func = function(body) {
                 var $ = require('jquery')((new JSDOM()).window);
-                $("body").append(res.body.toString());
+                $("body").append(body);
                 var h_info = $("#info"), h_top_image_url = $($(".lazyload")[0]).attr("data-src");
                 var title = $(h_info).children($(h_info).children("h2").length ? "h2" : "h1").text();
                 richembed = richembed.setColor(15541587).setTitle("__**"+title.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`")+"**__").setURL(nhURL)
                                      .setImage(h_top_image_url);
+              };
+            }
+            else if ("cCｃC".indexOf(s_web) >= 0) {
+              s_name = "本本", h_flag = true, s_url = "https://18comic.org/album/"+s_id+"/";
+              s_func = function(body) {
+                richembed = richembed;
+                status_code = -1;
+              };
+            }
+            
+            Step(
+              function s_req() {
+                console = s_url;
+                request(s_url, function (error, response, body) {
+                  if (!error) {
+                    status_code = response.statusCode;
+                    if (status_code < 300)
+                      s_func(body);
+                  }
+                  else
+                    status_code = 0;
+                });
+                return 0;
+              },
+              function s_send() {
+                if (status_code && status_code < 300)
+                  message.channel.send(richembed);
+                else if (status_code == 404)
+                  message.channel.send("找不到該"+s_name+"... Q Q");
+                else if (status_code > 0)
+                  message.channel.send((h_flag ? "本本" : "")+"網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
+                else if (!status_code)
+                  message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
               }
-            }
-            else if ("cCｃC".indexOf(h_web) >= 0) {
-              console.log("https://18comic.org/album/"+h_id+"/");
-              h_request_status = 0;
-            }
-
-            if (h_request_status && h_request_status < 300)
-              message.channel.send(richembed);
-            else if (h_request_status == 404)
-              message.channel.send("找不到該本本... Q Q");
-            else if (h_request_status)
-              message.channel.send("本本網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
+            );
           }
           else {
             message.channel.send("格式有誤啦！後半部分必須為神秘數字！(╯‵□ˊ)╯︵┴─┴");
