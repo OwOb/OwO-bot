@@ -1061,7 +1061,7 @@ bot.on("message", function(message) {
                 var $ = require('jquery')((new JSDOM()).window);
                 $("body").append(body);
                 var h_top_image_url = "https://cdn-ms.18comic.org/media/photos/"+s_id+"/00001.jpg";
-                var h_title = $($(".pull-left")[1]).text();
+                var h_title = $($(".pull-left")[1]).text().replace(/^\s|\s$/g, "");
                 richembed = richembed.setColor(16742912).setTitle("__**\u200b"+dc_markdown(h_title)+"\u200b**__").setURL(s_url)
                                      .setImage(h_top_image_url);;
                 message.channel.send(richembed);
