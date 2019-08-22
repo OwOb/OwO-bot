@@ -1031,7 +1031,7 @@ bot.on("message", function(message) {
       }
     }
     
-    else if (!isself && message.content.match(/^\s*([nNｎＮ]|[cCｃC])((?!\n)\s)*[=＝]((?!\n)\s)*.+\s*$/g)) {
+    else if (!isself && message.content.match(/^\s*(n|c)((?!\n)\s)*[=＝]((?!\n)\s)*.+\s*$/gi)) {
       channelTyping(message.channel,
         function() {
           var s_split = message.content.split(message.content.indexOf("=") > 0 ? "=" : "＝");
@@ -1042,7 +1042,7 @@ bot.on("message", function(message) {
             var s_url = "", status_code = 0;
             var s_func;
             s_id = parseInt(s_id).toString();
-            if ("nNｎＮ".indexOf(s_web) >= 0) {
+            if (/^n$/i.test(s_web)) {
               s_name = "本本", h_flag = true, s_url = "https://nhentai.net/g/"+s_id+"/";
               s_func = function(body) {
                 var $ = require('jquery')((new JSDOM()).window);
@@ -1055,7 +1055,7 @@ bot.on("message", function(message) {
               };
             }
             
-            else if ("cCｃC".indexOf(s_web) >= 0) {
+            else if (/^c$/i.test(s_web)) {
               s_name = "本本", h_flag = true, s_url = "https://18comic.org/album/"+s_id+"/";
               s_func = function(body) {
                 var $ = require('jquery')((new JSDOM()).window);
