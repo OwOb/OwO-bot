@@ -242,9 +242,15 @@ bot.on("message", function(message) {
   else if (owner && headlower == "!join") {
     bot.channels.get(process.env.test_voice_channel).join()
                 .then(connection => {
-                  const stream = ytdl(process.env.test_video, {filter : "audioonly"});
-                  const dispatcher = connection.playStream(stream, {seek: 0, volume: 1});
                   console.log("Connected");
+                  const stream = ytdl(process.env.test_video, {filter: "audioonly"});
+                  const dispatcher = connection.playStream(stream, {seek: 0, volume: 1})
+                                               .on("end", () => {
+                                                  console.log("end");
+                                               })
+                                               .on("error", error => {
+                                                  console.log("error");
+                                               });
                 }).catch(error => {
                   console.log(error);
                 });
