@@ -1058,9 +1058,9 @@ bot.on("message", function(message) {
             }
             
             Step(
-              function s_req() {
+              async function s_req() {
                 console.log(s_url);
-                request({headers: headers, uri: s_url}, function (error, response, body) {
+                await request({headers: headers, uri: s_url}, function (error, response, body) {
                   console.log(response.statusCode);
                   if (!error) {
                     status_code = response.statusCode;
