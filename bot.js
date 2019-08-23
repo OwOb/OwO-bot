@@ -112,7 +112,7 @@ bot.on("ready", function() {
   */
 });
 
-bot.on("message", async message => {
+bot.on("message", message => {
   
   var isself = message.author.id == process.env.OwObot_ID;
   var owner = message.author.id == process.env.OwO_ID;
@@ -248,14 +248,18 @@ bot.on("message", async message => {
         voiceChannel.join()
                     .then(connection => {
                       console.log("Connected");
-                      const stream = await ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY', { filter : 'audioonly' });
-                      const dispatcher = connection.playStream(stream, streamOptions);
-                      dispatcher.on("end", end => {
-                        console.log("left channel");
-                        voiceChannel.leave();
-                      }).on("error", error => {
-                        console.log(error);
-                      });
+                      const stream = ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY', { filter : 'audioonly' });
+                      if (stream) {
+                        const dispatcher = connection.playStream(stream, streamOptions);
+                        dispatcher.on("end", end => {
+                          console.log("left channel");
+                          voiceChannel.leave();
+                        }).on("error", error => {
+                          console.log(error);
+                        });
+                      }
+                      else
+                        console.log("QAQ");
                     }).catch(error => {
                       console.log(error);
                     });
