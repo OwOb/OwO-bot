@@ -26,6 +26,7 @@ var bot = new Discord.Client();
 
 var cd = 1000;
 var noteMAXN = 16;
+const streamOptions = { seek: 0, volume: 1 };
 var user_cd = new Array();
 var channel_typing_count = new Array();
 var NakanoMiku = ["39", "３９", "三玖", "中野三玖", "三九", "三十九", "nakanomiku"];
@@ -243,12 +244,11 @@ bot.on("message", function(message) {
     bot.channels.get(process.env.test_voice_channel).join()
                 .then(connection => {
                   console.log("Connected");
-                  const stream = ytdl("https://www.youtube.com/watch?v=XAWgeLF9EVQ", {filter: "audioonly"});
-                  const dispatcher = connection.playStream(stream, {seek: 0, volume: 1});
-                  dispatcher/*.on("end", () => {
-                    console.log("end");
-                  })*/.on("error", error => {
-                    console.log("error");
+                  const stream = ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY', { filter : 'audioonly' });
+                  const dispatcher = connection.playStream(stream, streamOptions);
+                  dispatcher.on("end", end => {
+                    console.log("left channel");
+                    voiceChannel.leave();
                   });
                 }).catch(error => {
                   console.log(error);
