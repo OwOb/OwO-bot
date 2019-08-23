@@ -250,7 +250,12 @@ bot.on("message", message => {
                       console.log("Connected");
                       const stream = ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY');
                       const dispatcher = connection.playStream(stream, streamOptions);
-                      dispatcher.on("end", end => {
+                      dispatcher.on("start", () => {
+                        console.log("start");
+                      }).on("debug", info => {
+                        console.log("debug");
+                        console.log(info);
+                      }).on("end", reason => {
                         console.log(end);
                         console.log("left channel");
                         voiceChannel.leave();
