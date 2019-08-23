@@ -248,8 +248,8 @@ bot.on("message", function(message) {
         voiceChannel.join()
                     .then(connection => {
                       console.log("Connected");
-                      //const stream = ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY', { filter : 'audioonly' });
-                      const dispatcher = connection.playArbitraryInput('./test.mp3');
+                      const stream = await ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY', { filter : 'audioonly' });
+                      const dispatcher = connection.playStream(stream, streamOptions);
                       dispatcher.on("end", end => {
                         console.log("left channel");
                         voiceChannel.leave();
