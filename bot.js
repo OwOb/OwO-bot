@@ -249,15 +249,14 @@ bot.on("message", message => {
                     .then(connection => {
                       console.log("Connected");
                       const stream = ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY');
-                      setTimeout(function() {
-                        const dispatcher = connection.playStream(stream, streamOptions);
-                        dispatcher.on("end", end => {
-                          console.log("left channel");
-                         voiceChannel.leave();
-                        }).on("error", error => {
-                          console.log(error);
-                        });
-                      }, 5000);
+                      const dispatcher = connection.playStream(stream, streamOptions);
+                      dispatcher.on("end", end => {
+                        console.log(end);
+                        console.log("left channel");
+                        voiceChannel.leave();
+                      }).on("error", error => {
+                        console.log(error);
+                      });
                     }).catch(error => {
                       console.log(error);
                     });
