@@ -112,7 +112,7 @@ bot.on("ready", function() {
   */
 });
 
-bot.on("message", function(message) {
+bot.on("message", async message => {
   
   var isself = message.author.id == process.env.OwObot_ID;
   var owner = message.author.id == process.env.OwO_ID;
