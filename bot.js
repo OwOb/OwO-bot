@@ -249,6 +249,7 @@ bot.on("message", message => {
                     .then(connection => {
                       console.log("Connected");
                       const dispatcher = connection.playStream(ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY'), { seek: 0, volume: 1 });
+                      dispatcher.resume();
                       dispatcher.on("start", () => {
                         console.log("start");
                       }).on("debug", info => {
