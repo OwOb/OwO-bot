@@ -256,7 +256,8 @@ bot.on("message", message => {
                         console.log("debug");
                         console.log(info);
                       }).on("end", reason => {
-                        console.log(end);
+                        console.log("end");
+                        console.log(reason);
                         console.log("left channel");
                         voiceChannel.leave();
                       }).on("error", error => {
