@@ -8,7 +8,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 var PNG = require("pngjs").PNG;
 //var GoogleImages = require("google-images");
-const ytdl = require("ytdl-core");
+var ytdl = require("ytdl-core");
 var cmd = require("node-cmd");
 var safeEval = require("notevil");
 const {c, cpp, node, python, java} = require("compile-run");
@@ -248,8 +248,7 @@ bot.on("message", message => {
         voiceChannel.join()
                     .then(connection => {
                       console.log("Connected");
-                      const stream = ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY');
-                      const dispatcher = connection.playStream(stream, streamOptions);
+                      const dispatcher = connection.playStream(ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY'), { seek: 0, volume: 1 });
                       dispatcher.on("start", () => {
                         console.log("start");
                       }).on("debug", info => {
