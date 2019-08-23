@@ -249,17 +249,15 @@ bot.on("message", message => {
                     .then(connection => {
                       console.log("Connected");
                       const stream = ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY', { filter : 'audioonly' });
-                      if (stream) {
+                      setTimeout(function() {
                         const dispatcher = connection.playStream(stream, streamOptions);
                         dispatcher.on("end", end => {
                           console.log("left channel");
-                          voiceChannel.leave();
+                         voiceChannel.leave();
                         }).on("error", error => {
                           console.log(error);
                         });
-                      }
-                      else
-                        console.log("QAQ");
+                      }, 5000);
                     }).catch(error => {
                       console.log(error);
                     });
