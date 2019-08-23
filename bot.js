@@ -250,17 +250,17 @@ bot.on("message", message => {
                       console.log("Connected");
                       const dispatcher = connection.playStream(ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY'), { seek: 0, volume: 1 });
                       dispatcher.resume();
-                      dispatcher.on("start", () => {
+                      dispatcher.once("start", () => {
                         console.log("start");
-                      }).on("debug", info => {
+                      }).once("debug", info => {
                         console.log("debug");
                         console.log(info);
-                      }).on("end", reason => {
+                      }).once("end", reason => {
                         console.log("end");
                         console.log(reason);
                         console.log("left channel");
                         voiceChannel.leave();
-                      }).on("error", error => {
+                      }).once("error", error => {
                         console.log(error);
                       });
                     }).catch(error => {
