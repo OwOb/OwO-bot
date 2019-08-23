@@ -248,7 +248,7 @@ bot.on("message", message => {
         voiceChannel.join()
                     .then(connection => {
                       console.log("Connected");
-                      const stream = ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY', { filter : 'audioonly' });
+                      const stream = ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY');
                       setTimeout(function() {
                         const dispatcher = connection.playStream(stream, streamOptions);
                         dispatcher.on("end", end => {
