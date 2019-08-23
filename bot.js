@@ -241,7 +241,8 @@ bot.on("message", function(message) {
   }
   
   else if (owner && headlower == "!join") {
-    bot.channels.get(process.env.test_voice_channel).join()
+    var voiceChannel = bot.channels.get(process.env.test_voice_channel);
+    voiceChannel.join()
                 .then(connection => {
                   console.log("Connected");
                   const stream = ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY', { filter : 'audioonly' });
