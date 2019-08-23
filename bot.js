@@ -247,7 +247,7 @@ bot.on("message", function(message) {
                   .then(connection => {
                     console.log("Connected");
                     const stream = ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY', { filter : 'audioonly' });
-                    const dispatcher = connection.playStream(stream, streamOptions);
+                    const dispatcher = connection.playFile('./test.mp3');
                     dispatcher.on("end", end => {
                       console.log("left channel");
                       voiceChannel.leave();
