@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 var Step = require("step")
-const { PG } = require("pg");
+const PG = require("pg");
 var fs = require("fs");
 var request = require("request");
 var sync_request = require("sync-request");
@@ -15,7 +15,7 @@ const {c, cpp, node, python, java} = require("compile-run");
 var math = require("mathjs");
 math.import(require("mathjs-simple-integral"));
 
-const bot_db = new PG({
+const bot_db = new PG.Client({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 });
