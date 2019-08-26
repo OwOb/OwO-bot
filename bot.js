@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 var Step = require("step")
-const { Client } = require("pg");
+const { PG } = require("pg");
 var fs = require("fs");
 var request = require("request");
 var sync_request = require("sync-request");
@@ -15,11 +15,11 @@ const {c, cpp, node, python, java} = require("compile-run");
 var math = require("mathjs");
 math.import(require("mathjs-simple-integral"));
 
-const client = new Client({
+const bot_db = new PG({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 });
-client.connect();
+bot_db.connect();
 
 var bot = new Discord.Client();
 //var GoogleImagesClient = new GoogleImages(process.env.GoogleCSE_TOKEN, process.env.GoogleAPI_TOKEN);
@@ -46,6 +46,10 @@ function to02d(n) {
     return n.toString();
   else
     return Math.floor(n/10).toString() + (n%10).toString();
+}
+
+function sql39(s) {
+  return "CONCAT('"+s.replace(/'/g,"', chr(39), '")+"')";
 }
 
 function dc_markdown(s) {
@@ -90,7 +94,7 @@ bot.on("ready", function() {
     }
   );
   */
-  client.query("SELECT value FROM Var_Table WHERE var_name = 'set_sba';", (err, res) => {
+  bot_db.query("SELECT value FROM Var_Table WHERE var_name = 'set_sba';", (err, res) => {
     if (!err) {
       var set_sba = res.rows[0].value.split(/\s+/g);
       bot.user.setActivity(set_sba[1], {type: activities[set_sba[0]]});
@@ -223,7 +227,7 @@ bot.on("message", message => {
       db_command += ";";
     console.log("----------------");
     console.log(db_command);
-    client.query(db_command, (err, res) => {
+    bot_db.query(db_command, (err, res) => {
       if (!err) {
         console.log(res);
         /*
@@ -303,12 +307,16 @@ bot.on("message", message => {
       //console.log(activitytype);
       //console.log(activityurl);
       bot.user.setActivity(setbotact, activityurl ? {type: activitytype, url: activityurl} : {type: activitytype});
+      bot_db.query("UPDATE Var_Table SET value = "+sql39(setbotact)+" WHERE var_name = 'set_sba';", (err, res) => {
+        if (err)
+          console.log(err);
+      });
       message.channel.send("設定為: "+activitytype+" "+setbotact);
     }
   }
   
   else if (owner && headlower == "!var") {
-    client.query("SELECT * FROM Var_Table;", (err, res) => {
+    bot_db.query("SELECT * FROM Var_Table;", (err, res) => {
       if (!err) {
         var rows = res.rows;
         var varNames = new Set();
@@ -323,7 +331,7 @@ bot.on("message", message => {
               message.channel.send("該變數名稱已存在！");
             else {
               var new_varValue = args.slice(3).join(" ");
-              client.query("INSERT INTO Var_Table (var_name, value) VALUES (CONCAT('"+new_varName.replace(/'/g,"', chr(39), '")+"'), CONCAT('"+new_varValue.replace(/'/g,"', chr(39), '")+"'));", (err, res) => {
+              bot_db.query("INSERT INTO Var_Table (var_name, value) VALUES (CONCAT('"+new_varName.replace(/'/g,"', chr(39), '")+"'), CONCAT('"+new_varValue.replace(/'/g,"', chr(39), '")+"'));", (err, res) => {
                 if (!err)
                   message.channel.send("成功創建新變數 `"+new_varName+"`(`"+new_varValue+"`)");
                 else
@@ -341,7 +349,7 @@ bot.on("message", message => {
               message.channel.send("該變數名稱不存在！");
             else {
               var new_varValue = args.slice(3).join(" ");
-              client.query("UPDATE Var_Table SET value = CONCAT('"+new_varValue.replace(/'/g,"', chr(39), '")+"') WHERE var_name = CONCAT('"+new_varName.replace(/'/g,"', chr(39), '")+"');", (err, res) => {
+              bot_db.query("UPDATE Var_Table SET value = CONCAT('"+new_varValue.replace(/'/g,"', chr(39), '")+"') WHERE var_name = CONCAT('"+new_varName.replace(/'/g,"', chr(39), '")+"');", (err, res) => {
                 if (!err)
                   message.channel.send("成功創更新變數值 `"+new_varName+"`(`"+new_varValue+"`)");
                 else
@@ -358,7 +366,7 @@ bot.on("message", message => {
             if (!varNames.has(new_varName))
               message.channel.send("該變數名稱不存在！");
             else {
-              client.query("DELETE FROM Var_Table SET WHERE var_name = CONCAT('"+new_varName.replace(/'/g,"', chr(39), '")+"');", (err, res) => {
+              bot_db.query("DELETE FROM Var_Table SET WHERE var_name = CONCAT('"+new_varName.replace(/'/g,"', chr(39), '")+"');", (err, res) => {
                 if (!err)
                   message.channel.send("成功創刪除變數值 `"+new_varName+"`");
                 else
@@ -442,7 +450,7 @@ bot.on("message", message => {
     else if (noteNewDetail.length >= 1600)
       message.channel.send("由於本機的記憶體很小！所以只能記錄內容小於1600字的筆記！十分抱歉！( > 人 <  ; )");
     else {
-      client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
+      bot_db.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
         if (!err) {
           var rows = res.rows;
           if (rows.length >= noteMAXN)
@@ -465,7 +473,7 @@ bot.on("message", message => {
               var noteAttachmentURL = noteAttachment.size ? noteAttachment.first().url : "";
               if (!noteNewTitle)
                 noteNewTitle = nickname+"的筆記"+to02d(noteNewNo);
-              client.query("INSERT INTO Note_Table (user_id, note_no, note_title, note_detail, attachment_url) VALUES ("+message.author.id+", "+noteNewNo.toString()+", CONCAT('"+noteNewTitle.replace(/'/g,"', chr(39), '")+"'), CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'), '"+noteAttachmentURL+"');", (err, res) => {
+              bot_db.query("INSERT INTO Note_Table (user_id, note_no, note_title, note_detail, attachment_url) VALUES ("+message.author.id+", "+noteNewNo.toString()+", CONCAT('"+noteNewTitle.replace(/'/g,"', chr(39), '")+"'), CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'), '"+noteAttachmentURL+"');", (err, res) => {
                 if (!err)
                   message.channel.send("筆記編號 **"+to02d(noteNewNo)+"** : 筆記 **`"+noteNewTitle+"`** 已成功儲存！ OwO/");
                 else
@@ -482,7 +490,7 @@ bot.on("message", message => {
   }
   
   else if (!isself && (headlower == "我的筆記" || headlower == "!mynote")) {
-    client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
+    bot_db.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
       if (!err) {
         var rows = res.rows;
         var noteList = [];
@@ -516,7 +524,7 @@ bot.on("message", message => {
     else if (!noteFindTitle && noteFindNo > noteMAXN)
       message.channel.send("別想愚弄本機！筆記編號不可能超過"+noteMAXN.toString()+"！O3O");
     else {
-      client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
+      bot_db.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
         if (!err) {
           var rows = res.rows;
           var noteFind = null;
@@ -563,7 +571,7 @@ bot.on("message", message => {
     else if (noteNewDetail.length >= 1600)
       message.channel.send("由於本機的記憶體很小！所以只能記錄內容小於1600字的筆記！十分抱歉！( > 人 <  ; )");
     else {
-      client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
+      bot_db.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
         if (!err) {
           var rows = res.rows;
           var noteFind = null;
@@ -597,7 +605,7 @@ bot.on("message", message => {
 
             if (noteFind) {
               var noteAttachmentURL = noteAttachment.size ? noteAttachment.first().url : "";
-              client.query("UPDATE Note_Table SET note_detail = CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'), attachment_url = '"+noteAttachmentURL+"' WHERE user_id = "+message.author.id+" AND "+(noteFindTitle ? "note_title = CONCAT('"+noteFindTitle.replace(/'/g,"', chr(39), '")+"')" : "note_no = "+noteFindNo.toString()), (err, res) => {
+              bot_db.query("UPDATE Note_Table SET note_detail = CONCAT('"+noteNewDetail.replace(/'/g,"', chr(39), '")+"'), attachment_url = '"+noteAttachmentURL+"' WHERE user_id = "+message.author.id+" AND "+(noteFindTitle ? "note_title = CONCAT('"+noteFindTitle.replace(/'/g,"', chr(39), '")+"')" : "note_no = "+noteFindNo.toString()), (err, res) => {
                 if (!err)
                   message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** : 筆記 **`"+noteFind.note_title.replace(/(^\s*)|(\s*$)/g,"")+"`** 已成功更新！ OwO/");
                 else
@@ -621,7 +629,7 @@ bot.on("message", message => {
     var noteFindNo = !matchTitle && /^(|-)\d+$/.test(args[1]) ? parseInt(args[1]) : null;
     var noteFindTitle = matchTitle ? matchTitle[0].split("`")[1].replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ") : "";
     
-    client.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
+    bot_db.query("SELECT * FROM Note_Table WHERE user_id = "+message.author.id+";", (err, res) => {
       if (!err) {
         var rows = res.rows;
         var noteFind = null;
@@ -654,7 +662,7 @@ bot.on("message", message => {
           }
           
           if (noteFind) {
-            client.query("DELETE FROM Note_Table WHERE user_id = "+message.author.id+" AND "+(noteFindTitle ? "note_title = CONCAT('"+noteFindTitle.replace(/'/g,"', chr(39), '")+"')" : "note_no = "+noteFindNo.toString()), (err, res) => {
+            bot_db.query("DELETE FROM Note_Table WHERE user_id = "+message.author.id+" AND "+(noteFindTitle ? "note_title = CONCAT('"+noteFindTitle.replace(/'/g,"', chr(39), '")+"')" : "note_no = "+noteFindNo.toString()), (err, res) => {
               if (!err)
                 message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** : 筆記 **`"+noteFind.note_title.replace(/(^\s*)|(\s*$)/g,"")+"`** 已成功刪除！ OwO/");
               else
