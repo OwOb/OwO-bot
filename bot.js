@@ -57,6 +57,10 @@ function sql39(s) {
   return "CONCAT('"+s.replace(/'/g,"', chr(39), '")+"')";
 }
 
+function req_opt(url) {
+  return {headers: headers, uri: url, timeout: 3000};
+}
+
 function dc_markdown(s) {
   return s.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`");
 }
@@ -692,7 +696,7 @@ bot.on("message", message => {
         var res = sync_request("GET", "http://latex2png.com/?res=300&color=FFFFFF&latex="+texCommand, {timeout : 500}).body.toString();
         var imageURL = "http://latex2png.com/"+res.match(/\/output\/\/latex_[0-9a-f]+\.png/);
         var imageName = "./"+imageURL.match(/latex_[0-9a-f]+\.png/);
-        request(imageURL).on('error', function(err) {
+        request(req_opt(imageURL)).on('error', function(err) {
           message.channel.send("轉換的網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
         }).pipe(new PNG()).on('parsed', function() {
           if (this.width > 10 && this.height > 10) {
@@ -738,7 +742,7 @@ bot.on("message", message => {
         var search = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/\s+/g," ");
         if (search) {
           var reqURL = "https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURIComponent(search);
-          request({headers: headers, uri: reqURL}, function (error, response, body) {
+          request(req_opt(reqURL), function (error, response, body) {
             if (!error) {
               var $ = require('jquery')((new JSDOM()).window);
               $("body").append(body);
@@ -798,7 +802,7 @@ bot.on("message", message => {
       image_url = "";
     if (image_url) {
       var reqURL = "https://www.google.com.tw/searchbyimage?hl=zh-TW&image_url="+image_url;
-      request({headers: headers, uri: reqURL}, function (error, response, body) {
+      request(req_opt(reqURL), function (error, response, body) {
         if (!error) {
           var $ = require('jquery')((new JSDOM()).window);
           $("body").append(body);
@@ -819,7 +823,7 @@ bot.on("message", message => {
                                                    .addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURIComponent(relation_search)+")\n\n⁠");
 
             if (similar_image_url) {
-              request({headers: headers, uri: similar_image_url}, function (error, response, body) {
+              request(req_opt(similar_image_url), function (error, response, body) {
                 console.log(similar_image_url);
                 if (!error) {
                   var $ = require('jquery')((new JSDOM()).window);
@@ -1153,7 +1157,7 @@ bot.on("message", message => {
             
           if (!s_format) {
             console.log(s_url);
-            request({headers: headers, uri: s_url}, function (error, response, body) {
+            request(req_opt(s_url), function (error, response, body) {
               //console.log(response.statusCode);
               if (!error) {
                 status_code = response.statusCode;
