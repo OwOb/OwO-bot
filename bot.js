@@ -59,13 +59,13 @@ function dc_markdown(s) {
 function channelTyping(dc_channel, func) {
   Step(
     function startTyping() {
-      console.log("typing...");
+      //console.log("typing...");
       if (channel_typing_count[dc_channel] === undefined)
         channel_typing_count[dc_channel] = 0;
       if (!channel_typing_count[dc_channel])
         dc_channel.startTyping();
       channel_typing_count[dc_channel]++;
-      console.log(channel_typing_count[dc_channel]);
+      //console.log(channel_typing_count[dc_channel]);
       return 0;
     },
     function main_() {
@@ -73,7 +73,7 @@ function channelTyping(dc_channel, func) {
       return 0;
     },
     function stopTyping() {
-      console.log("stop...");
+      //console.log("stop...");
       channel_typing_count[dc_channel]--;
       if (!channel_typing_count[dc_channel])
         dc_channel.stopTyping();
@@ -1078,7 +1078,6 @@ bot.on("message", message => {
           var s_name = "", s_web_name = "", s_format = "";
           var richembed = new Discord.RichEmbed();
           var s_url = "", status_code = 0, s_func;
-          console.log(s_web+" | "+s_id);
 
           if (/^n$/i.test(s_web)) {
             if (/^\d+$/.test(s_id)) {
@@ -1116,7 +1115,6 @@ bot.on("message", message => {
           }
           else if (/^(p|pixiv)$/i.test(s_web)) {
             if (/^\d+$/.test(s_id)) {
-              console.log("OwO");
               s_id = parseInt(s_id).toString();
               s_name = "圖片", s_web_name = "Pixiv", s_url = "https://www.pixiv.net/member_illust.php?mode=medium&illust_id="+s_id;
               s_func = function(body) {
@@ -1126,24 +1124,21 @@ bot.on("message", message => {
                   if (body[end_index] == "{") b_count++;
                   else if (body[end_index] == "}") b_count--;
                 }
-                //var p_json = JSON.parse(body.substring(begin_index, end_index+1));
-                var p_json = body.substring(begin_index, end_index+1);
-                console.log(p_json);
-                /*
-                richembed = richembed.setColor(16742912).setTitle("__**\u200b"+dc_markdown(h_title)+"\u200b**__").setURL(s_url)
-                                     .setImage(h_top_image_url);
+                var p_json = JSON.parse(body.substring(begin_index, end_index+1));
+                var p_title = p_json.title, p_image_url = p_json.url;
+                var p_des = p_json.description, p_tags = p_json.tags;
+                var p_description = "**\u200b"+dc_markdown(p_des)+"\u200b**\n\n"+p_tags.join(" ");
+                richembed = richembed.setColor(38650).setTitle("__**\u200b"+dc_markdown(p_title)+"\u200b**__").setURL(s_url)
+                                     .setDescription(p_description)
+                                     .setImage(p_image_url);
                 message.channel.send(richembed);
-                */
               };
             }
-            else {
-              console.log("QAQ");
+            else
               s_format = "後半部分必須為數字！";
-            }
           }
             
           if (!s_format) {
-            console.log(s_url);
             request({headers: headers, uri: s_url}, function (error, response, body) {
               //console.log(response.statusCode);
               if (!error) {
