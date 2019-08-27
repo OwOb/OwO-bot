@@ -6,6 +6,7 @@ var request = require("request");
 var sync_request = require("sync-request");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
+const htmlToText = require('html-to-text');
 var PNG = require("pngjs").PNG;
 //var GoogleImages = require("google-images");
 var ytdl = require("ytdl-core");
@@ -1134,7 +1135,7 @@ bot.on("message", message => {
                 var p_user = JSON.parse(body.substring(begin_index, end_index));
                 console.log(p_user);
                 var p_title = p_json.title, p_image_url = p_json.urls.regular, p_footer = p_json.urls.original;
-                var p_des = p_json.description.replace(/<\s*br\s*>/g, "\n"), p_tags = p_json.tags.tags;
+                var p_des = htmlToText(p_json.description).replace(/^\s+|\s$/g, ""), p_tags = p_json.tags.tags;
                 console.log(p_tags);
                 var p_description = "**\u200b"+dc_markdown(p_des)+"\u200b**\n\n"/*+p_tags.map(t => "#"+dc_markdown(t)).join(" ")*/;
                 richembed = richembed.setColor(38650).setTitle("__**\u200b"+dc_markdown(p_title)+"\u200b**__").setURL(s_url)
