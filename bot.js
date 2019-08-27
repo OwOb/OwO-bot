@@ -1118,8 +1118,7 @@ bot.on("message", message => {
               s_id = parseInt(s_id).toString();
               s_name = "圖片", s_web_name = "Pixiv", s_url = "https://www.pixiv.net/member_illust.php?mode=medium&illust_id="+s_id;
               s_func = function(body) {
-                var f_match = "{\"illustId\":";
-                var begin_index = body.indexOf(f_match)+f_match.length, end_index = -1, b_count = 0;
+                var begin_index = body.indexOf("{\"illustId\":"), end_index = -1, b_count = 0;
                 for (end_index = begin_index+1, b_count = 1; b_count; end_index++) {
                   if (body[end_index] == "{") b_count++;
                   else if (body[end_index] == "}") b_count--;
