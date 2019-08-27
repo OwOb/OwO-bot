@@ -1114,7 +1114,7 @@ bot.on("message", message => {
             else
               s_format = "後半部分必須為神秘數字！";
           }
-          else if (/^(p|pixiv)$/i.text(s_web)) {
+          else if (/^(p|pixiv)$/i.test(s_web)) {
             if (/^\d+$/.test(s_id)) {
               console.log("OwO");
               s_id = parseInt(s_id).toString();
