@@ -65,6 +65,10 @@ function dc_markdown(s) {
   return s.replace(/\\/g,"\\\\").replace(/\*/g,"\\*").replace(/~/g,"\\~").replace(/\_/g,"\\_").replace(/`/g,"\\`");
 }
 
+function pixiv_url(p_url) {
+  return p_url.replace("pximg.net", "pixiv.cat");
+}
+
 function channelTyping(dc_channel, func) {
   Step(
     function startTyping() {
@@ -1139,15 +1143,20 @@ bot.on("message", message => {
                 }
                 var p_user = JSON.parse(body.substring(begin_index, end_index));
                 console.log(p_user);
-                var p_title = p_json.title, p_image_url = p_json.urls.regular.replace("pximg.net", "pixiv.cat"), p_footer = p_json.urls.original.replace("pximg.net", "pixiv.cat");
+                var p_title = p_json.title, p_image_url = pixiv_url(p_json.urls.original);
+                var p_user_name = p_user.name, p_user_icon = pixiv_url(p_user.imageBig), p_user_url = "https://www.pixiv.net/member.php?id="+p_user.id;
                 var p_des = htmlToText.fromString(p_json.description, htmlToText_opt).replace(/^\s+|\s$/g, ""), p_tags = p_json.tags.tags;
+                var p_image_width = p_json.width, p_image_height = p_json.height, p_image_date = new Date(p_json.createDate);
                 console.log(p_json);
                 console.log(p_tags);
                 console.log(p_image_url)
                 var p_description = dc_markdown(p_des)+"\n\n"/*+p_tags.map(t => "#"+dc_markdown(t)).join(" ")*/;
                 richembed = richembed.setColor(38650).setTitle("__**\u200b"+dc_markdown(p_title)+"\u200b**__").setURL(s_url)
                                      .setDescription(p_description)
-                                     .setImage(p_image_url).setFooter(p_footer);
+                                     .setAuthor(p_user_name, p_user_icon, p_user_url)
+                                     .setImage(p_image_url)
+                                     .setFooter(p_image_width+"×"+p_image_height)
+                                     .setTimestamp(p_image_date);
                 message.channel.send(richembed);
               };
             }
