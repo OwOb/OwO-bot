@@ -1125,6 +1125,7 @@ bot.on("message", message => {
                   else if (body[end_index] == "}") b_count--;
                 }
                 var p_json = JSON.parse(body.substring(begin_index, end_index+1));
+                console.log(p_json);
                 var p_title = p_json.title, p_image_url = p_json.url;
                 var p_des = p_json.description, p_tags = p_json.tags;
                 var p_description = "**\u200b"+dc_markdown(p_des)+"\u200b**\n\n"+p_tags.join(" ");
