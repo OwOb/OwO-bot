@@ -1070,19 +1070,19 @@ bot.on("message", message => {
       }
     }
     
-    else if (!isself && message.content.match(/^\s*(n|c)((?!\n)\s)*[=＝]((?!\n)\s)*.+\s*$/gi)) {
+    else if (!isself && message.content.match(/^\s*(n|c|p|pixiv)((?!\n)\s)*[=＝]((?!\n)\s)*.+\s*$/gi)) {
       channelTyping(message.channel,
         function() {
           var s_split = message.content.split(message.content.indexOf("=") > 0 ? "=" : "＝");
           var s_web = s_split[0].replace(/^\s+|\s+$/g, ""), s_id = s_split.slice(1).join("=").replace(/\s+/g, "");
-          var s_name = "", h_flag = false;
-          if (/^\d+$/.test(s_id)) {
-            var richembed = new Discord.RichEmbed();
-            var s_url = "", status_code = 0;
-            var s_func;
-            s_id = parseInt(s_id).toString();
-            if (/^n$/i.test(s_web)) {
-              s_name = "本本", h_flag = true, s_url = "https://nhentai.net/g/"+s_id+"/";
+          var s_name = "", s_web_name = "", s_format = "";
+          var richembed = new Discord.RichEmbed();
+          var s_url = "", status_code = 0, s_func;
+
+          if (/^n$/i.test(s_web)) {
+            if (/^\d+$/.test(s_id)) {
+              s_id = parseInt(s_id).toString();
+              s_name = "本本", s_web_name = "本本網站", s_url = "https://nhentai.net/g/"+s_id+"/";
               s_func = function(body) {
                 var $ = require('jquery')((new JSDOM()).window);
                 $("body").append(body);
@@ -1093,20 +1093,47 @@ bot.on("message", message => {
                 message.channel.send(richembed);
               };
             }
-            
-            else if (/^c$/i.test(s_web)) {
-              s_name = "本本", h_flag = true, s_url = "https://18comic.org/album/"+s_id+"/";
+            else
+              s_format = "後半部分必須為神秘數字！"
+          }
+          else if (/^c$/i.test(s_web)) 
+            if (/^\d+$/.test(s_id)) {
+              s_name = "本本", s_web_name = "本本網站", s_url = "https://18comic.org/album/"+s_id+"/";
+              s_func = function(body) {
+                var f_match = "\""+s_id+"\":";
+                var begin_index = body.indexOf(f_match)+f_match.length, end_index = -1, b_count = 0;
+                for (end_index = begin_index+1, b_count = 1; b_count; end_index++) {
+                  if (body[end_index] == "{") b_count++;
+                  else if (body[end_index] == "}") b_count--;
+                }
+                //var p_json = JSON.parse(body.substring(begin_index, end_index+1));
+                var p_json = body.substring(begin_index, end_index+1);
+                console.log(p_json);
+                /*
+                richembed = richembed.setColor(16742912).setTitle("__**\u200b"+dc_markdown(h_title)+"\u200b**__").setURL(s_url)
+                                     .setImage(h_top_image_url);
+                message.channel.send(richembed);
+                */
+              };
+            }
+            else
+              s_format = "後半部分必須為神秘數字！";
+          }
+          else if (/^(p|pixiv)$/i.text(s_web)) {
+            if (/^\d+$/.test(s_id)) {
+              s_name = "圖片", s_web_name = "Pixiv", s_url = "https://www.pixiv.net/member_illust.php?mode=medium&illust_id="+s_id;
               s_func = function(body) {
                 var $ = require('jquery')((new JSDOM()).window);
                 $("body").append(body);
-                var h_top_image_url = "https://cdn-ms.18comic.org/media/photos/"+s_id+"/00001.jpg";
-                var h_title = $($(".pull-left")[1]).text().replace(/^\s|\s$/g, "");
-                richembed = richembed.setColor(16742912).setTitle("__**\u200b"+dc_markdown(h_title)+"\u200b**__").setURL(s_url)
-                                     .setImage(h_top_image_url);;
-                message.channel.send(richembed);
+                
               };
+              console.log(s_url);
             }
+            else
+              s_format = "後半部分必須為數字！";
+          }
             
+          if (!s_format) {
             request({headers: headers, uri: s_url}, function (error, response, body) {
               //console.log(response.statusCode);
               if (!error) {
@@ -1116,7 +1143,7 @@ bot.on("message", message => {
                 else if (status_code == 404)
                   message.channel.send("找不到該"+s_name+"... Q Q");
                 else if (status_code)
-                  message.channel.send((h_flag ? "本本" : "")+"網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
+                  message.channel.send(s_web_name+"似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
               }
               else {
                 status_code = 0;
@@ -1125,7 +1152,7 @@ bot.on("message", message => {
             });
           }
           else {
-            message.channel.send("格式有誤啦！後半部分必須為神秘數字！(╯‵□ˊ)╯︵┴─┴");
+            message.channel.send("格式有誤啦！"+s_format+" (╯‵□ˊ)╯︵┴─┴");
           }
         }
       );
