@@ -22,6 +22,7 @@
 		"sync-request": "6.0.0",
 		"jquery": "3.4.1",
 		"jsdom": "15.1.1",
+		"html-to-text": "5.1.1",
 		"pngjs": "3.3.3",
 		"google-images": "2.1.0",
 		"ytdl-core": "0.29.5",
