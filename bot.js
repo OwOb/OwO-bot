@@ -1140,7 +1140,6 @@ bot.on("message", message => {
                 console.log(p_tags);
                 console.log(p_json.description);
                 var p_description = "**\u200b"+dc_markdown(p_des)+"\u200b**\n\n"/*+p_tags.map(t => "#"+dc_markdown(t)).join(" ")*/;
-                console.log(p_description);
                 richembed = richembed.setColor(38650).setTitle("__**\u200b"+dc_markdown(p_title)+"\u200b**__").setURL(s_url)
                                      .setDescription(p_description)
                                      .setImage(p_image_url).setFooter(p_footer);
@@ -1152,6 +1151,7 @@ bot.on("message", message => {
           }
             
           if (!s_format) {
+            console.log(s_url);
             request({headers: headers, uri: s_url}, function (error, response, body) {
               //console.log(response.statusCode);
               if (!error) {
@@ -1165,6 +1165,7 @@ bot.on("message", message => {
               }
               else {
                 status_code = 0;
+                console.log(error);
                 message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
               }
             });
