@@ -1096,7 +1096,7 @@ bot.on("message", message => {
             else
               s_format = "後半部分必須為神秘數字！"
           }
-          else if (/^c$/i.test(s_web)) 
+          else if (/^c$/i.test(s_web)) {
             if (/^\d+$/.test(s_id)) {
               s_name = "本本", s_web_name = "本本網站", s_url = "https://18comic.org/album/"+s_id+"/";
               s_func = function(body) {
