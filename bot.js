@@ -1114,6 +1114,7 @@ bot.on("message", message => {
           }
           else if (/^(p|pixiv)$/i.text(s_web)) {
             if (/^\d+$/.test(s_id)) {
+              console.log("OO");
               s_name = "圖片", s_web_name = "Pixiv", s_url = "https://www.pixiv.net/member_illust.php?mode=medium&illust_id="+s_id;
               s_func = function(body) {
                 var f_match = "\""+s_id+"\":";
@@ -1132,8 +1133,10 @@ bot.on("message", message => {
                 */
               };
             }
-            else
+            else {
+              console.log("QAQ");
               s_format = "後半部分必須為數字！";
+            }
           }
             
           if (!s_format) {
