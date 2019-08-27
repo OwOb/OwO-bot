@@ -1124,7 +1124,7 @@ bot.on("message", message => {
                   else if (body[end_index] == "}") b_count--;
                 }
                 var p_json = JSON.parse(body.substring(begin_index, end_index));
-                for (begin_index = body.indexOf("{\"userId\":"), end_index+1, b_count = 1; b_count; end_index++) {
+                for (begin_index = body.indexOf("{\"userId\":"), end_index = begin_index+1, b_count = 1; b_count; end_index++) {
                   if (body[end_index] == "{") b_count++;
                   else if (body[end_index] == "}") b_count--;
                 }
