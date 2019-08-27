@@ -36,7 +36,7 @@ var headers = {
   "accept-language": "zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7,zh-CN;q=0.6",
   "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36"
 };
-var htmlToText_opt = {noLinkBrackets: true};
+var htmlToText_opt = {ignoreHref: true};
 
 /*
 function HappyNewYear() {
