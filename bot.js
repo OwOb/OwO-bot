@@ -1078,6 +1078,7 @@ bot.on("message", message => {
           var s_name = "", s_web_name = "", s_format = "";
           var richembed = new Discord.RichEmbed();
           var s_url = "", status_code = 0, s_func;
+          console.log(s_web+" | "+s_id);
 
           if (/^n$/i.test(s_web)) {
             if (/^\d+$/.test(s_id)) {
@@ -1098,6 +1099,7 @@ bot.on("message", message => {
           }
           else if (/^c$/i.test(s_web)) {
             if (/^\d+$/.test(s_id)) {
+              s_id = parseInt(s_id).toString();
               s_name = "本本", s_web_name = "本本網站", s_url = "https://18comic.org/album/"+s_id+"/";
               s_func = function(body) {
                 var $ = require('jquery')((new JSDOM()).window);
@@ -1114,7 +1116,8 @@ bot.on("message", message => {
           }
           else if (/^(p|pixiv)$/i.text(s_web)) {
             if (/^\d+$/.test(s_id)) {
-              console.log("OO");
+              console.log("OwO");
+              s_id = parseInt(s_id).toString();
               s_name = "圖片", s_web_name = "Pixiv", s_url = "https://www.pixiv.net/member_illust.php?mode=medium&illust_id="+s_id;
               s_func = function(body) {
                 var f_match = "\""+s_id+"\":";
