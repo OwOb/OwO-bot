@@ -1124,16 +1124,19 @@ bot.on("message", message => {
                   else if (body[end_index] == "}") b_count--;
                 }
                 var p_json = JSON.parse(body.substring(begin_index, end_index));
-                console.log(p_json);
-                /*
-                var p_title = p_json.title, p_image_url = p_json.url;
-                var p_des = p_json.description, p_tags = p_json.tags;
-                var p_description = "**\u200b"+dc_markdown(p_des)+"\u200b**\n\n"+p_tags.join(" ");
+                for (begin_index = body.indexOf("{\"userId\":"), end_index+1, b_count = 1; b_count; end_index++) {
+                  if (body[end_index] == "{") b_count++;
+                  else if (body[end_index] == "}") b_count--;
+                }
+                var p_user = JSON.parse(body.substring(begin_index, end_index));
+                console.log(p_user);
+                var p_title = p_json.title, p_image_url = p_json.urls.regular, p_footer = p_json.urls.original;
+                var p_des = p_json.description.replace(/<\s*br\s*>/g, "\n"), p_tags = p_json.tags;
+                var p_description = "**\u200b"+dc_markdown(p_des)+"\u200b**\n\n"+p_tags.map(t => "#"+dc_markdown(t)).join(" ");
                 richembed = richembed.setColor(38650).setTitle("__**\u200b"+dc_markdown(p_title)+"\u200b**__").setURL(s_url)
                                      .setDescription(p_description)
-                                     .setImage(p_image_url);
+                                     .setImage(p_image_url).setFooter(p_footer);
                 message.channel.send(richembed);
-                */
               };
             }
             else
