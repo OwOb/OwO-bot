@@ -1143,7 +1143,7 @@ bot.on("message", message => {
                 }
                 var p_user = JSON.parse(body.substring(begin_index, end_index));
                 console.log(p_user);
-                var p_title = p_json.title, p_image_url = pixiv_url(p_json.urls.original);
+                var p_title = p_json.title, p_image_url = pixiv_url(p_json.urls.regular), p_image_original = pixiv_url(p_json.urls.original);
                 var p_user_name = p_user.name, p_user_icon = pixiv_url(p_user.imageBig), p_user_url = "https://www.pixiv.net/member.php?id="+p_user.id;
                 var p_des = htmlToText.fromString(p_json.description, htmlToText_opt).replace(/^\s+|\s$/g, ""), p_tags = p_json.tags.tags;
                 var p_image_width = p_json.width, p_image_height = p_json.height, p_image_date = new Date(p_json.createDate);
