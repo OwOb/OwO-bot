@@ -1155,7 +1155,7 @@ bot.on("message", message => {
                 richembed = richembed.setColor(38650).setTitle("__**\u200b"+dc_markdown(p_title)+"\u200b**__").setURL(s_url)
                                      .setDescription(p_description)
                                      .setAuthor(p_user_name, p_user_icon, p_user_url)
-                                     .setThumbnail("https://www.pixiv.net/favicon.ico")
+                                     .setThumbnail("https://i.imgur.com/UH7DQG8.png")
                                      .addField("**LIKE**", p_like, true).addField("**蒐藏**", p_bookmark, true)
                                      .setImage(p_image_original)
                                      .setFooter("("+p_image_width+"×"+p_image_height+")")
