@@ -1157,8 +1157,8 @@ bot.on("message", message => {
                                      .setAuthor(p_user_name, p_user_icon, p_user_url)
                                      .setThumbnail("https://www.pixiv.net/favicon.ico")
                                      .addField("**LIKE**", p_like, true).addField("**蒐藏**", p_bookmark, true)
-                                     .setImage(p_image_url)
-                                     .setFooter(p_image_original+"("+p_image_width+"×"+p_image_height+")")
+                                     .setImage(p_image_original)
+                                     .setFooter("("+p_image_width+"×"+p_image_height+")")
                                      .setTimestamp(p_image_date);
                 message.channel.send(richembed);
               };
