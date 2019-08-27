@@ -36,6 +36,7 @@ var headers = {
   "accept-language": "zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7,zh-CN;q=0.6",
   "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36"
 };
+var htmlToText_opt = {hideLinkHrefIfSameAsText: true};
 
 /*
 function HappyNewYear() {
@@ -1135,7 +1136,7 @@ bot.on("message", message => {
                 var p_user = JSON.parse(body.substring(begin_index, end_index));
                 console.log(p_user);
                 var p_title = p_json.title, p_image_url = p_json.urls.regular, p_footer = p_json.urls.original;
-                var p_des = htmlToText.fromString(p_json.description).replace(/^\s+|\s$/g, ""), p_tags = p_json.tags.tags;
+                var p_des = htmlToText.fromString(p_json.description, htmlToText_opt).replace(/^\s+|\s$/g, ""), p_tags = p_json.tags.tags;
                 console.log(p_tags);
                 console.log(p_json.description);
                 var p_description = "**\u200b"+dc_markdown(p_des)+"\u200b**\n\n"/*+p_tags.map(t => "#"+dc_markdown(t)).join(" ")*/;
