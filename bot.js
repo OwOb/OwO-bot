@@ -1137,6 +1137,7 @@ bot.on("message", message => {
                 var p_title = p_json.title, p_image_url = p_json.urls.regular, p_footer = p_json.urls.original;
                 var p_des = htmlToText.fromString(p_json.description).replace(/^\s+|\s$/g, ""), p_tags = p_json.tags.tags;
                 console.log(p_tags);
+                console.log(p_json.description);
                 var p_description = "**\u200b"+dc_markdown(p_des)+"\u200b**\n\n"/*+p_tags.map(t => "#"+dc_markdown(t)).join(" ")*/;
                 richembed = richembed.setColor(38650).setTitle("__**\u200b"+dc_markdown(p_title)+"\u200b**__").setURL(s_url)
                                      .setDescription(p_description)
