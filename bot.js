@@ -1118,7 +1118,7 @@ bot.on("message", message => {
               s_id = parseInt(s_id).toString();
               s_name = "圖片", s_web_name = "Pixiv", s_url = "https://www.pixiv.net/member_illust.php?mode=medium&illust_id="+s_id;
               s_func = function(body) {
-                var f_match = "\""+s_id+"\":";
+                var f_match = "{\"illustId\":";
                 var begin_index = body.indexOf(f_match)+f_match.length, end_index = -1, b_count = 0;
                 for (end_index = begin_index+1, b_count = 1; b_count; end_index++) {
                   if (body[end_index] == "{") b_count++;
@@ -1126,6 +1126,7 @@ bot.on("message", message => {
                 }
                 var p_json = JSON.parse(body.substring(begin_index, end_index));
                 console.log(p_json);
+                /*
                 var p_title = p_json.title, p_image_url = p_json.url;
                 var p_des = p_json.description, p_tags = p_json.tags;
                 var p_description = "**\u200b"+dc_markdown(p_des)+"\u200b**\n\n"+p_tags.join(" ");
@@ -1133,6 +1134,7 @@ bot.on("message", message => {
                                      .setDescription(p_description)
                                      .setImage(p_image_url);
                 message.channel.send(richembed);
+                */
               };
             }
             else
