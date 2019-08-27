@@ -1070,7 +1070,7 @@ bot.on("message", message => {
       }
     }
     
-    else if (!isself && message.content.match(/^\s*(n|c|p|pixiv)((?!\n)\s)*＝((?!\n)\s)*.+\s*$/gi)) {
+    else if (!isself && message.content.match(/^\s*(n|c|p|pixiv)((?!\n)\s)*=((?!\n)\s)*.+\s*$/gi)) {
       channelTyping(message.channel,
         function() {
           var s_split = message.content.split("=");
