@@ -1100,6 +1100,22 @@ bot.on("message", message => {
             if (/^\d+$/.test(s_id)) {
               s_name = "本本", s_web_name = "本本網站", s_url = "https://18comic.org/album/"+s_id+"/";
               s_func = function(body) {
+                var $ = require('jquery')((new JSDOM()).window);
+                $("body").append(body);
+                var h_top_image_url = "https://cdn-ms.18comic.org/media/photos/"+s_id+"/00001.jpg";
+                var h_title = $($(".pull-left")[1]).text().replace(/^\s|\s$/g, "");
+                richembed = richembed.setColor(16742912).setTitle("__**\u200b"+dc_markdown(h_title)+"\u200b**__").setURL(s_url)
+                                     .setImage(h_top_image_url);;
+                message.channel.send(richembed);
+              };
+            }
+            else
+              s_format = "後半部分必須為神秘數字！";
+          }
+          else if (/^(p|pixiv)$/i.text(s_web)) {
+            if (/^\d+$/.test(s_id)) {
+              s_name = "圖片", s_web_name = "Pixiv", s_url = "https://www.pixiv.net/member_illust.php?mode=medium&illust_id="+s_id;
+              s_func = function(body) {
                 var f_match = "\""+s_id+"\":";
                 var begin_index = body.indexOf(f_match)+f_match.length, end_index = -1, b_count = 0;
                 for (end_index = begin_index+1, b_count = 1; b_count; end_index++) {
@@ -1114,18 +1130,6 @@ bot.on("message", message => {
                                      .setImage(h_top_image_url);
                 message.channel.send(richembed);
                 */
-              };
-            }
-            else
-              s_format = "後半部分必須為神秘數字！";
-          }
-          else if (/^(p|pixiv)$/i.text(s_web)) {
-            if (/^\d+$/.test(s_id)) {
-              s_name = "圖片", s_web_name = "Pixiv", s_url = "https://www.pixiv.net/member_illust.php?mode=medium&illust_id="+s_id;
-              s_func = function(body) {
-                var $ = require('jquery')((new JSDOM()).window);
-                $("body").append(body);
-                
               };
               console.log(s_url);
             }
