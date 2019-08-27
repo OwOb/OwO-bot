@@ -1070,10 +1070,10 @@ bot.on("message", message => {
       }
     }
     
-    else if (!isself && message.content.match(/^\s*(n|c|p|pixiv)((?!\n)\s)*[=＝]((?!\n)\s)*.+\s*$/gi)) {
+    else if (!isself && message.content.match(/^\s*(n|c|p|pixiv)((?!\n)\s)*＝((?!\n)\s)*.+\s*$/gi)) {
       channelTyping(message.channel,
         function() {
-          var s_split = message.content.split(message.content.indexOf("=") > 0 ? "=" : "＝");
+          var s_split = message.content.split("=");
           var s_web = s_split[0].replace(/^\s+|\s+$/g, ""), s_id = s_split.slice(1).join("=").replace(/\s+/g, "");
           var s_name = "", s_web_name = "", s_format = "";
           var richembed = new Discord.RichEmbed();
@@ -1131,13 +1131,13 @@ bot.on("message", message => {
                 message.channel.send(richembed);
                 */
               };
-              console.log(s_url);
             }
             else
               s_format = "後半部分必須為數字！";
           }
             
           if (!s_format) {
+            console.log(s_url);
             request({headers: headers, uri: s_url}, function (error, response, body) {
               //console.log(response.statusCode);
               if (!error) {
