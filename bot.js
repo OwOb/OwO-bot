@@ -1169,7 +1169,7 @@ bot.on("message", message => {
                 if (p_r18) p_tags_string = "**R-18**　"+p_tags_string;
                 if (p_r18g) p_tags_string = "**R-18G**　"+p_tags_string;
                 if (p_original) p_tags_string = "**原創**　"+p_tags_string;
-                console.log(p_tags);
+                console.log(p_json);
                 richembed = richembed.setColor(38650).setThumbnail("https://i.imgur.com/UH7DQG8.png")
                                      .setTitle("__**\u200b"+dc_markdown(p_title)+"\u200b**__").setURL(s_url)
                                      .setAuthor(p_user_name, p_user_icon, p_user_url)
