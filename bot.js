@@ -1156,8 +1156,15 @@ bot.on("message", message => {
                     p_r18 = true;
                   else if (p_tag_index.tag == "R-18G")
                     p_r18g = true;
-                  else
-                    p_tags_string += "#**"+dc_markdown(p_tag_index.tag)+"**"+(p_tag_index.translation ? "("+p_tag_index.translation.en+")　" : "　");
+                  else {
+                    var p_tag_tran = p_tag_index.translation, p_tag = "";
+                    if (p_tag_tran && p_tag_tran.en.match(/\w/g).length < p_tag_tran.en.length/2)
+                      p_tag = p_tag_tran.en;
+                    else
+                      p_tag = p_tag_index.tag;
+                    p_tags_string += "#**"+dc_markdown(p_tag)+"**　";
+                    //p_tags_string += "#**"+dc_markdown(p_tag_index.tag)+"**"+(p_tag_index.translation ? "("+p_tag_index.translation.en+")　" : "　");
+                  }
                 }
                 if (p_r18) p_tags_string = "**R-18**　"+p_tags_string;
                 if (p_r18g) p_tags_string = "**R-18G**　"+p_tags_string;
