@@ -1142,21 +1142,18 @@ bot.on("message", message => {
                   else if (body[end_index] == "}") b_count--;
                 }
                 var p_user = JSON.parse(body.substring(begin_index, end_index));
-                console.log(p_user);
                 var p_title = p_json.title, p_image_url = pixiv_url(p_json.urls.regular), p_image_original = pixiv_url(p_json.urls.original);
                 var p_user_name = p_user.name, p_user_icon = pixiv_url(p_user.imageBig), p_user_url = "https://www.pixiv.net/member.php?id="+p_user.id;
                 var p_des = htmlToText.fromString(p_json.description, htmlToText_opt).replace(/^\s+|\s$/g, ""), p_tags = p_json.tags.tags;
                 var p_image_width = p_json.width, p_image_height = p_json.height, p_image_date = new Date(p_json.createDate);
-                var p_like = p_json.likeCount, p_bookmark = p_json.bookmarkCount;
-                console.log(p_json);
+                var p_view = p_json.viewCount, p_like = p_json.likeCount, p_bookmark = p_json.bookmarkCount;
                 console.log(p_tags);
-                console.log(p_image_url)
                 var p_description = dc_markdown(p_des)+"\n\u200b"/*+p_tags.map(t => "#"+dc_markdown(t)).join(" ")*/;
                 richembed = richembed.setColor(38650).setTitle("__**\u200b"+dc_markdown(p_title)+"\u200b**__").setURL(s_url)
                                      .setDescription(p_description)
                                      .setAuthor(p_user_name, p_user_icon, p_user_url)
                                      .setThumbnail("https://i.imgur.com/UH7DQG8.png")
-                                     .addField("**LIKE**", p_like, true).addField("**蒐藏**", p_bookmark, true)
+                                     .addField("**觀看**", p_view.toLocaleString(), true).addField("**蒐藏**", p_bookmark.toLocaleString(), true)
                                      .setImage(p_image_original)
                                      .setFooter("("+p_image_width+"×"+p_image_height+")")
                                      .setTimestamp(p_image_date);
