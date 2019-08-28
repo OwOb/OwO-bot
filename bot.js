@@ -1158,7 +1158,7 @@ bot.on("message", message => {
                     p_r18g = true;
                   else {
                     var p_tag_tran = p_tag_index.translation, p_tag = "";
-                    if (p_tag_tran && (p_tag_tran.en.match(/\w/g) == null || p_tag_tran.en.match(/\w/g).length < p_tag_tran.en.length/2))
+                    if (p_tag_tran && (p_tag_tran.en.match(/\w/g) == null || p_tag_tran.en.match(/[a-zA-Z]/g).length < p_tag_tran.en.length*0.75))
                       p_tag = p_tag_tran.en;
                     else
                       p_tag = p_tag_index.tag;
