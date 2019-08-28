@@ -1157,8 +1157,8 @@ bot.on("message", message => {
                   else if (p_tag_index.tag == "R-18G")
                     p_r18g = true;
                   else {
-                    var p_tag_tran = p_tag_index.translation, p_tag_en_match = p_tag_tran.en.match(/\w/g), p_tag = "";
-                    if (p_tag_tran && p_tag_en_match && p_tag_en_match.length < p_tag_tran.en.length/2)
+                    var p_tag_tran = p_tag_index.translation, p_tag = "";
+                    if (p_tag_tran && p_tag_tran.en.match(/\w/g) && p_tag_tran.en.match(/\w/g).length < p_tag_tran.en.length/2)
                       p_tag = p_tag_tran.en;
                     else
                       p_tag = p_tag_index.tag;
