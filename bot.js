@@ -1146,14 +1146,30 @@ bot.on("message", message => {
                 var p_user_name = p_user.name, p_user_icon = pixiv_url(p_user.imageBig), p_user_url = "https://www.pixiv.net/member.php?id="+p_user.id;
                 var p_des = htmlToText.fromString(p_json.description, htmlToText_opt).replace(/^\s+|\s$/g, ""), p_tags = p_json.tags.tags;
                 var p_image_width = p_json.width, p_image_height = p_json.height, p_image_date = new Date(p_json.createDate);
-                var p_view = p_json.viewCount, p_like = p_json.likeCount, p_bookmark = p_json.bookmarkCount;
+                var p_view = p_json.viewCount, p_comment = p_json.commentCount, p_like = p_json.likeCount, p_bookmark = p_json.bookmarkCount;
+                var p_tags_string = "", p_original = false, p_r18 = false, p_r18g = false;
+                for (var index = 0; index < p_tags.length; index++) {
+                  var p_tag_index = p_tags[index];
+                  if (p_tag_index.tag == "オリジナル")
+                    p_original = true;
+                  else if (p_tag_index.tag == "R-18")
+                    p_r18 = true;
+                  else if (p_tag_index.tag == "R-18G")
+                    p_r18g = true;
+                  else
+                    p_tags_string += "#**"+dc_markdown(p_tag_index).tag+"**"+(p_tag_index.translation ? "("+p_tag_index.translation.en+")  " : "  ");
+                }
+                if (p_r18) p_tags_string = "**R-18**  "+p_tags_string;
+                if (p_r18g) p_tags_string = "**R-18G**  "+p_tags_string;
+                if (p_original) p_tags_string = "**原創**  "+p_tags_string;
                 console.log(p_tags);
-                var p_description = dc_markdown(p_des)+"\n\u200b"/*+p_tags.map(t => "#"+dc_markdown(t)).join(" ")*/;
-                richembed = richembed.setColor(38650).setTitle("__**\u200b"+dc_markdown(p_title)+"\u200b**__").setURL(s_url)
-                                     .setDescription(p_description)
+                richembed = richembed.setColor(38650).setThumbnail("https://i.imgur.com/UH7DQG8.png")
+                                     .setTitle("__**\u200b"+dc_markdown(p_title)+"\u200b**__").setURL(s_url)
                                      .setAuthor(p_user_name, p_user_icon, p_user_url)
-                                     .setThumbnail("https://i.imgur.com/UH7DQG8.png")
-                                     .addField("**觀看**", p_view.toLocaleString(), true).addField("**蒐藏**", p_bookmark.toLocaleString(), true)
+                                     .setDescription(dc_markdown(p_des))
+                                     .addField("\u200b", p_tags_string+"\n\u200b")
+                                     .addField("**觀看**", p_view.toLocaleString(), true).addField("**評論**", p_comment.toLocaleString(), true)
+                                     .addField("**LIKE**", p_like.toLocaleString(), true).addField("**蒐藏**", p_bookmark.toLocaleString(), true)
                                      .setImage(p_image_original)
                                      .setFooter("("+p_image_width+"×"+p_image_height+")")
                                      .setTimestamp(p_image_date);
