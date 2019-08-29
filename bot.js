@@ -1162,12 +1162,12 @@ bot.on("message", message => {
                   if (p_r18g) p_tags_string = "**R-18G**　"+p_tags_string;
                   if (p_original) p_tags_string = "**原創**　"+p_tags_string;
                   console.log(p_json);
-                  richembed = richembed.setColor(38650).setThumbnail("https://i.imgur.com/UH7DQG8.png")
+                  richembed = richembed.setColor(38650)//.setThumbnail("https://i.imgur.com/UH7DQG8.png")
                                        .setTitle("__**\u200b"+dc_markdown(p_title)+"\u200b**__").setURL(s_url)
                                        .setAuthor(p_user_name, p_user_icon, p_user_url)
                                        .setDescription(dc_markdown(p_des))
                                        .addField("\u200b", p_tags_string+"\n\u200b")
-                                       .addField("**觀看**", p_view.toLocaleString(), true).addField("\u200b", "\u200b", true)  //.addField("**評論**", p_comment.toLocaleString(), true)
+                                       .addField("**觀看**", p_view.toLocaleString(), true)//.addField("\u200b", "\u200b", true)  //.addField("**評論**", p_comment.toLocaleString(), true)
                                        .addField("**LIKE**", p_like.toLocaleString(), true).addField("**蒐藏**", p_bookmark.toLocaleString(), true)
                                        .setImage(p_image_url)
                                        .setFooter("("+p_image_width+"×"+p_image_height+")")
