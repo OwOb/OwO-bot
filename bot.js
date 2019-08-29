@@ -1138,7 +1138,7 @@ bot.on("message", message => {
                   var p_title = p_illust.title || "", p_image_url = pixiv_url(s_page-1 && s_page <= parseInt(p_illust.page_count) ? p_illust.manga_a[s_page-1].url_big : p_illust.url_big);
                   var p_user_name = p_user.user_name, p_user_icon = pixiv_url(p_user.profile_img.main), p_user_url = "https://www.pixiv.net/member.php?id="+p_user.user_id;
                   var p_des = p_illust.comment ? p_illust.comment.replace(/^\s+|\r+|\s$/g, "") : "", p_tags = p_illust.display_tags;
-                  var p_image_width = p_illust.width, p_image_height = p_illust.height, p_image_date = new Date(p_illust.upload_timestamp*1000);
+                  var p_image_width = p_illust.illust_images[s_page].illust_image_width, p_image_height = p_illust.illust_images[s_page].illust_image_height, p_image_date = new Date(p_illust.upload_timestamp*1000);
                   var p_view = parseInt(p_illust.rating_view), /*p_comment = p_illust.commentCount,*/ p_like = parseInt(p_illust.rating_count), p_bookmark = p_illust.bookmark_user_total;
                   var p_tags_string = "", p_original = false, p_r18 = false, p_r18g = false;
                   for (var index = 0; index < p_tags.length; index++) {
