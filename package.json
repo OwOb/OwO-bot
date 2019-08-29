@@ -9,7 +9,7 @@
 	"author": "OwO",
 	"license": "ISC",
 	"dependencies": {
-		"discord.js": "^11.2.1",
+		"discord.js": "11.5.1",
 		"ffmpeg-binaries": "4.0.0",
 		"ffmpeg": "0.0.4",
 		"node-opus": "0.3.2",
