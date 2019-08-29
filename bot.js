@@ -1167,7 +1167,7 @@ bot.on("message", message => {
                                        .setAuthor(p_user_name, p_user_icon, p_user_url)
                                        .setDescription(dc_markdown(p_des))
                                        .addField("\u200b", p_tags_string+"\n\u200b")
-                                       .addField("**觀看**", p_view.toLocaleString(), true)//.addField("**評論**", p_comment.toLocaleString(), true)
+                                       .addField("**觀看**", p_view.toLocaleString(), true).addField("\u200b", "\u200b", true)  //.addField("**評論**", p_comment.toLocaleString(), true)
                                        .addField("**LIKE**", p_like.toLocaleString(), true).addField("**蒐藏**", p_bookmark.toLocaleString(), true)
                                        .setImage(p_image_url)
                                        .setFooter("("+p_image_width+"×"+p_image_height+")")
