@@ -157,11 +157,15 @@ bot.on("message", message => {
   }
   
   else if (owner && headlower == "!a") {
+    var richembed = new Discord.RichEmbed().setImage("https://i.imgur.com/vAjODEB.png");
+    message.channel.send(richembed);
+    /*
     var comm = "const {c, cpp, node, python, java} = require(\"compile-run\"); 10+10";
     console.log(comm);
     var mmm = safeEval(comm);
     console.log(mmm);
     message.channel.send(mmm);
+    */
     /*
     c.runSource("#include <stdio.h>\nint main() {\n    puts(\"OwO\");\n}",{executionPath: "", stdin: ""})
     .then(result => {
