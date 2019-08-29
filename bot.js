@@ -1127,7 +1127,7 @@ bot.on("message", message => {
               s_format = "格式有誤啦！後半部分必須為神秘數字！ (╯‵□ˊ)╯︵┴─┴";
           }
           else if (/^(p|pixiv)$/i.test(s_web)) {
-            if (/^\d+\:\d+$/.test(s_id)) {
+            if (/^\d+(\:\d+)?$/.test(s_id)) {
               s_split = s_id.split(":");
               s_id = parseInt(s_split[0]).toString(), s_page = s_split.length > 1 && parseInt(s_split[1]) ? parseInt(s_split[1]) : 1;
               s_name = "圖片", s_web_name = "Pixiv", s_url = "https://www.pixiv.net/touch/ajax/illust/details?illust_id="+s_id;
