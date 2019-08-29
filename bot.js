@@ -1129,58 +1129,53 @@ bot.on("message", message => {
           else if (/^(p|pixiv)$/i.test(s_web)) {
             if (/^\d+$/.test(s_id)) {
               s_id = parseInt(s_id).toString();
-              s_name = "圖片", s_web_name = "Pixiv", s_url = "https://www.pixiv.net/member_illust.php?mode=medium&illust_id="+s_id;
+              s_name = "圖片", s_web_name = "Pixiv", s_url = "https://www.pixiv.net/touch/ajax/illust/details?illust_id="+s_id;
               s_func = function(body) {
-                var begin_index = body.indexOf("{\"illustId\":"), end_index = -1, b_count = 0;
-                for (end_index = begin_index+1, b_count = 1; b_count; end_index++) {
-                  if (body[end_index] == "{") b_count++;
-                  else if (body[end_index] == "}") b_count--;
-                }
-                var p_json = JSON.parse(body.substring(begin_index, end_index));
-                for (begin_index = body.indexOf("{\"userId\":"), end_index = begin_index+1, b_count = 1; b_count; end_index++) {
-                  if (body[end_index] == "{") b_count++;
-                  else if (body[end_index] == "}") b_count--;
-                }
-                var p_user = JSON.parse(body.substring(begin_index, end_index));
-                var p_title = p_json.title, p_image_url = pixiv_url(p_json.urls.regular), p_image_original = pixiv_url(p_json.urls.original);
-                var p_user_name = p_user.name, p_user_icon = pixiv_url(p_user.imageBig), p_user_url = "https://www.pixiv.net/member.php?id="+p_user.id;
-                var p_des = htmlToText.fromString(p_json.description, htmlToText_opt).replace(/^\s+|\s$/g, ""), p_tags = p_json.tags.tags;
-                var p_image_width = p_json.width, p_image_height = p_json.height, p_image_date = new Date(p_json.createDate);
-                var p_view = p_json.viewCount, p_comment = p_json.commentCount, p_like = p_json.likeCount, p_bookmark = p_json.bookmarkCount;
-                var p_tags_string = "", p_original = false, p_r18 = false, p_r18g = false;
-                for (var index = 0; index < p_tags.length; index++) {
-                  var p_tag_index = p_tags[index];
-                  if (p_tag_index.tag == "オリジナル")
-                    p_original = true;
-                  else if (p_tag_index.tag == "R-18")
-                    p_r18 = true;
-                  else if (p_tag_index.tag == "R-18G")
-                    p_r18g = true;
-                  else {
-                    var p_tag_tran = p_tag_index.translation, p_tag = "";
-                    if (p_tag_tran && (p_tag_tran.en.match(/[a-zA-Z]/g) == null || p_tag_tran.en.match(/[a-zA-Z]/g).length < p_tag_tran.en.length*0.75))
-                      p_tag = p_tag_tran.en;
-                    else
-                      p_tag = p_tag_index.tag;
-                    p_tags_string += "#**"+dc_markdown(p_tag)+"**　";
-                    //p_tags_string += "#**"+dc_markdown(p_tag_index.tag)+"**"+(p_tag_index.translation ? "("+p_tag_index.translation.en+")　" : "　");
+                var p_json = JSON.parse(body);
+                if (!p_json.error) {
+                  var p_illust = p_json.body.illust_details, p_user = p_json.body.author_details;
+                  var p_title = p_illust.title, p_image_url = p_illust.url_big;
+                  var p_user_name = p_user.user_name, p_user_icon = pixiv_url(p_user.profile_img.main), p_user_url = "https://www.pixiv.net/member.php?id="+p_user.user_id;
+                  var p_des = p_illust.comment.replace(/^\s+|\r+|\s$/g, ""), p_tags = p_illust.display_tags;
+                  var p_image_width = p_illust.width, p_image_height = p_illust.height, p_image_date = new Date(p_illust.upload_timestamp);
+                  var p_view = p_illust.rating_view, p_comment = p_illust.commentCount, p_like = p_illust.rating_count, p_bookmark = p_illust.bookmark_user_total;
+                  var p_tags_string = "", p_original = false, p_r18 = false, p_r18g = false;
+                  for (var index = 0; index < p_tags.length; index++) {
+                    var p_tag_index = p_tags[index];
+                    if (p_tag_index.tag == "オリジナル")
+                      p_original = true;
+                    else if (p_tag_index.tag == "R-18")
+                      p_r18 = true;
+                    else if (p_tag_index.tag == "R-18G")
+                      p_r18g = true;
+                    else {
+                      var p_tag_tran = p_tag_index.translation, p_tag = "";
+                      if (p_tag_tran && (p_tag_tran.match(/[a-zA-Z]/g) == null || p_tag_tran.match(/[a-zA-Z]/g).length < p_tag_tran.length*0.75))
+                        p_tag = p_tag_tran;
+                      else
+                        p_tag = p_tag_index.tag;
+                      p_tags_string += "#**"+dc_markdown(p_tag)+"**　";
+                      //p_tags_string += "#**"+dc_markdown(p_tag_index.tag)+"**"+(p_tag_index.translation ? "("+p_tag_index.translation.en+")　" : "　");
+                    }
                   }
+                  if (p_r18) p_tags_string = "**R-18**　"+p_tags_string;
+                  if (p_r18g) p_tags_string = "**R-18G**　"+p_tags_string;
+                  if (p_original) p_tags_string = "**原創**　"+p_tags_string;
+                  console.log(p_json);
+                  richembed = richembed.setColor(38650).setThumbnail("https://i.imgur.com/UH7DQG8.png")
+                                       .setTitle("__**\u200b"+dc_markdown(p_title)+"\u200b**__").setURL(s_url)
+                                       .setAuthor(p_user_name, p_user_icon, p_user_url)
+                                       .setDescription(dc_markdown(p_des))
+                                       .addField("\u200b", p_tags_string+"\n\u200b")
+                                       .addField("**觀看**", p_view.toLocaleString(), true)//.addField("**評論**", p_comment.toLocaleString(), true)
+                                       .addField("**LIKE**", p_like.toLocaleString(), true).addField("**蒐藏**", p_bookmark.toLocaleString(), true)
+                                       .setImage(p_image_url)
+                                       .setFooter("("+p_image_width+"×"+p_image_height+")")
+                                       .setTimestamp(p_image_date);
+                  message.channel.send(richembed);
                 }
-                if (p_r18) p_tags_string = "**R-18**　"+p_tags_string;
-                if (p_r18g) p_tags_string = "**R-18G**　"+p_tags_string;
-                if (p_original) p_tags_string = "**原創**　"+p_tags_string;
-                console.log(p_json);
-                richembed = richembed.setColor(38650).setThumbnail("https://i.imgur.com/UH7DQG8.png")
-                                     .setTitle("__**\u200b"+dc_markdown(p_title)+"\u200b**__").setURL(s_url)
-                                     .setAuthor(p_user_name, p_user_icon, p_user_url)
-                                     .setDescription(dc_markdown(p_des))
-                                     .addField("\u200b", p_tags_string+"\n\u200b")
-                                     .addField("**觀看**", p_view.toLocaleString(), true).addField("**評論**", p_comment.toLocaleString(), true)
-                                     .addField("**LIKE**", p_like.toLocaleString(), true).addField("**蒐藏**", p_bookmark.toLocaleString(), true)
-                                     .setImage(p_image_original)
-                                     .setFooter("("+p_image_width+"×"+p_image_height+")")
-                                     .setTimestamp(p_image_date);
-                message.channel.send(richembed);
+                else
+                  message.channel.send(s_web_name+"似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
               };
             }
             else
