@@ -1134,7 +1134,7 @@ bot.on("message", message => {
                 var p_json = JSON.parse(body);
                 if (!p_json.error) {
                   var p_illust = p_json.body.illust_details, p_user = p_json.body.author_details;
-                  var p_title = p_illust.title, p_image_url = p_illust.url_big;
+                  var p_title = p_illust.title, p_image_url = pixiv_url(p_illust.url_big);
                   var p_user_name = p_user.user_name, p_user_icon = pixiv_url(p_user.profile_img.main), p_user_url = "https://www.pixiv.net/member.php?id="+p_user.user_id;
                   var p_des = p_illust.comment.replace(/^\s+|\r+|\s$/g, ""), p_tags = p_illust.display_tags;
                   var p_image_width = p_illust.width, p_image_height = p_illust.height, p_image_date = new Date(p_illust.upload_timestamp);
