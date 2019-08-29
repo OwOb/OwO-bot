@@ -704,7 +704,10 @@ bot.on("message", message => {
         var res = sync_request("GET", "http://latex2png.com/?res=300&color=FFFFFF&latex="+texCommand, {timeout : 500}).body.toString();
         var imageURL = "http://latex2png.com/"+res.match(/\/output\/\/latex_[0-9a-f]+\.png/);
         var imageName = "./"+imageURL.match(/latex_[0-9a-f]+\.png/);
+        console.log("http://latex2png.com/?res=300&color=FFFFFF&latex="+texCommand);
+        console.log(imageURL);
         request(req_opt(imageURL)).on('error', function(err) {
+          console.log(err);
           message.channel.send("轉換的網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
         }).pipe(new PNG()).on('parsed', function() {
           if (this.width > 10 && this.height > 10) {
