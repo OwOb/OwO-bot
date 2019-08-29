@@ -1137,7 +1137,7 @@ bot.on("message", message => {
                   var p_title = p_illust.title || "", p_image_url = pixiv_url(p_illust.url_big);
                   var p_user_name = p_user.user_name, p_user_icon = pixiv_url(p_user.profile_img.main), p_user_url = "https://www.pixiv.net/member.php?id="+p_user.user_id;
                   var p_des = p_illust.comment ? p_illust.comment.replace(/^\s+|\r+|\s$/g, "") : "", p_tags = p_illust.display_tags;
-                  var p_image_width = p_illust.width, p_image_height = p_illust.height, p_image_date = new Date(p_illust.upload_timestamp);
+                  var p_image_width = p_illust.width, p_image_height = p_illust.height, p_image_date = new Date(p_illust.upload_timestamp*1000);
                   var p_view = p_illust.rating_view, p_comment = p_illust.commentCount, p_like = p_illust.rating_count, p_bookmark = p_illust.bookmark_user_total;
                   var p_tags_string = "", p_original = false, p_r18 = false, p_r18g = false;
                   for (var index = 0; index < p_tags.length; index++) {
@@ -1162,12 +1162,12 @@ bot.on("message", message => {
                   if (p_r18g) p_tags_string = "**R-18G**　"+p_tags_string;
                   if (p_original) p_tags_string = "**原創**　"+p_tags_string;
                   console.log(p_json);
-                  richembed = richembed.setColor(38650)//.setThumbnail("https://i.imgur.com/UH7DQG8.png")
+                  richembed = richembed.setColor(38650).setThumbnail("https://i.imgur.com/UH7DQG8.png")
                                        .setTitle("__**\u200b"+dc_markdown(p_title)+"\u200b**__").setURL(s_url)
                                        .setAuthor(p_user_name, p_user_icon, p_user_url)
                                        .setDescription(dc_markdown(p_des))
                                        .addField("\u200b", p_tags_string+"\n\u200b")
-                                       .addField("**觀看**", p_view.toLocaleString(), true)//.addField("\u200b", "\u200b", true)  //.addField("**評論**", p_comment.toLocaleString(), true)
+                                       .addField("**觀看**", p_view.toLocaleString(), true).addField("\u200b", "\u200b", true)  //.addField("**評論**", p_comment.toLocaleString(), true)
                                        .addField("**LIKE**", p_like.toLocaleString(), true).addField("**蒐藏**", p_bookmark.toLocaleString(), true)
                                        .setImage(p_image_url)
                                        .setFooter("("+p_image_width+"×"+p_image_height+")")
