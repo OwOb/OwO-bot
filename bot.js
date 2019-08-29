@@ -1107,7 +1107,7 @@ bot.on("message", message => {
               };
             }
             else
-              s_format = "後半部分必須為神秘數字！"
+              s_format = "格式有誤啦！後半部分必須為神秘數字！ (╯‵□ˊ)╯︵┴─┴"
           }
           else if (/^c$/i.test(s_web)) {
             if (/^\d+$/.test(s_id)) {
@@ -1124,7 +1124,7 @@ bot.on("message", message => {
               };
             }
             else
-              s_format = "後半部分必須為神秘數字！";
+              s_format = "格式有誤啦！後半部分必須為神秘數字！ (╯‵□ˊ)╯︵┴─┴";
           }
           else if (/^(p|pixiv)$/i.test(s_web)) {
             if (/^\d+\:\d+$/.test(s_id)) {
@@ -1180,7 +1180,7 @@ bot.on("message", message => {
               };
             }
             else
-              s_format = "後半部分必須為數字！";
+              s_format = "格式有誤啦！ (╯‵□ˊ)╯︵┴─┴\n格式: "+s_web+" = [illust_id] (:[page])";
           }
             
           if (!s_format) {
@@ -1204,7 +1204,7 @@ bot.on("message", message => {
             });
           }
           else {
-            message.channel.send("格式有誤啦！"+s_format+" (╯‵□ˊ)╯︵┴─┴");
+            message.channel.send(s_format);
           }
         }
       );
