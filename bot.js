@@ -1169,7 +1169,7 @@ bot.on("message", message => {
                                        .addField("**標籤**", p_tags_string+"\n\u200b")
                                        .addField("**觀看**", p_view.toLocaleString(), true).addField("\u200b", "\u200b", true)  //.addField("**評論**", p_comment.toLocaleString(), true)
                                        .addField("**LIKE**", p_like.toLocaleString(), true).addField("**蒐藏**", p_bookmark.toLocaleString(), true)
-                                       .attachFile(p_image_url)
+                                       .setImage(p_image_url)
                                        .setFooter("("+p_image_width+"×"+p_image_height+")")
                                        .setTimestamp(p_image_date);
                   message.channel.send(richembed);
