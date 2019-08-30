@@ -432,7 +432,7 @@ bot.on("message", message => {
         help_file = "help";
       else if (command_text == "計算機" || command_text == "計算" || command_text == "運算" || command_text == "calculate" || command_text == "calc")
         help_file = "calculate";
-      else if (command_text == "程式執行" || command_text == "code")
+      else if (command_text == "程式" || command_text == "code")
         help_file = "code";
       else if (command_text == "latex" || command_text == "tex")
         help_file = "latex";
