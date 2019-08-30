@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 var Step = require("step")
 const PG = require("pg");
 var fs = require("fs");
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var request = require("request");
 var sync_request = require("sync-request");
 const jsdom = require("jsdom");
@@ -157,8 +158,15 @@ bot.on("message", message => {
   }
   
   else if (owner && headlower == "!a") {
-    var richembed = new Discord.RichEmbed().setImage("https://i.imgur.com/vAjODEB.png");
-    message.channel.send(richembed);
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST", 'http://latex2png.com/api/convert', true);
+    xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState === XMLHttpRequest.DONE && xmlhttp.status === 200) {
+          console.log(xmlhttp.responseText);
+      }
+    }
+    xmlhttp.send(JSON.stringify({"auth":{"user":"guest","password":"guest"},"latex":"D={-b\\pm\\sqrt{b^2-4ac}\\over2a}","resolution":600,"color":"000000"}));
+}
     /*
     var comm = "const {c, cpp, node, python, java} = require(\"compile-run\"); 10+10";
     console.log(comm);
