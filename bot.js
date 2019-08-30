@@ -444,6 +444,8 @@ bot.on("message", message => {
         help_file = "./help/"+help_file+".txt";
         fs.readFile(help_file, "utf8", function (error, data) {
           if (!error) {
+            console.log(data.toString().length);
+            console.log(data.toString());
             message.channel.send(data.toString());
           }
           else {
