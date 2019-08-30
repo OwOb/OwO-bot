@@ -15,7 +15,7 @@
 		"node-opus": "0.3.2",
 		"step": "1.0.0",
 		"pg": "7.8.0",
-		"fs": "12.9.1",
+		"fs": "v12.9.1",
 		"mathjs": "3.18.1",
 		"mathjs-simple-integral": "0.1.1",
 		"xmlhttprequest": "1.8.0",	
