@@ -425,6 +425,40 @@ bot.on("message", message => {
       message.channel.send(nickname+"不屬於**"+guild+"**中的任何身分組");
   }
   
+  else if (!isself && (headlower == "查詢指令" || headlower == "!help" || headlower == "!man")) {
+    if (lowerargs.length > 1) {
+      var command_text = lowerargs[1], help_file = "";
+      if (command_text == "查詢指令" || command_text == "help" || command_text == "man")
+        help_file = "help";
+      else if (command_text == "latex" || command_text == "tex")
+        help_file = "latex";
+      else if (command_text == "筆記" || command_text == "note")
+        help_file = "note";
+      else if (command_text == "圖片" || command_text == "image")
+        help_file = "image";
+      else if (command_text == "pixiv" || command_text == "p")
+        help_file = "pixiv";
+      else
+        help_file = "";
+      if (help_file) {
+        help_file = "./help/"+help_file+".txt";
+        fs.readFile(help_file, "utf16", function (error, data) {
+          if (!error) {
+            message.channel.send(data.toString());
+          }
+          else {
+            console.log(error);
+            message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
+          }
+        });
+      }
+      else
+        message.channel.send("別想愚弄本機！目前沒有**`"+command_text+"`**可供查詢！\n可以使用: "+headlower+" help 查詢如何查詢指令及有哪些指令可供查詢");
+    }
+    else
+      message.channel.send("沒給指令是要本機查詢什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [欲查詢指令]\n可以使用: "+headlower+" help 查詢如何查詢指令及有哪些指令可供查詢");
+  }
+  
   else if (!isself && headlower == "!say") {
     message.channel.send(message.content.substring(5));
   }
@@ -1117,7 +1151,7 @@ bot.on("message", message => {
               };
             }
             else
-              s_format = "格式有誤啦！後半部分必須為神秘數字！ (╯‵□ˊ)╯︵┴─┴"
+              s_format = "格式有誤啦！後半部分必須為神秘數字！(╯‵□ˊ)╯︵┴─┴"
           }
           else if (/^c$/i.test(s_web)) {
             if (/^\d+$/.test(s_id)) {
@@ -1134,7 +1168,7 @@ bot.on("message", message => {
               };
             }
             else
-              s_format = "格式有誤啦！後半部分必須為神秘數字！ (╯‵□ˊ)╯︵┴─┴";
+              s_format = "格式有誤啦！後半部分必須為神秘數字！(╯‵□ˊ)╯︵┴─┴";
           }
           else if (/^(p|pixiv)$/i.test(s_web)) {
             if (/^\d+(\:\d+)?$/.test(s_id)) {
@@ -1190,7 +1224,7 @@ bot.on("message", message => {
               };
             }
             else
-              s_format = "格式有誤啦！ (╯‵□ˊ)╯︵┴─┴\n格式: "+s_web+" = [illust_id] (:[page])";
+              s_format = "格式有誤啦！(╯‵□ˊ)╯︵┴─┴\n格式: "+s_web+" = [illust_id] (:[page])";
           }
             
           if (!s_format) {
