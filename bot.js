@@ -705,47 +705,36 @@ bot.on("message", message => {
   else if (!isself && headlower == "!tex") {
     if (args.length > 1) {
       var texCommand = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/((?!\n)\s)+/g," ");
-      try {
-       var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("POST", 'http://latex2png.com/api/convert', true);
-        xmlhttp.onreadystatechange = function() {
-          if (xmlhttp.readyState == 4 && xmlhttp.status < 300) {
-            var response = JSON.parse(xmlhttp.responseText);
-            if (!response["result-code"]) {
-              var imageURL = "http://latex2png.com"+response.url;
-              var imageName = "./"+imageURL.match(/[0-9a-f]+\.png/);
-              console.log(imageURL);
-              request(req_opt(imageURL)).pipe(new PNG()).on('parsed', function() {
-                var dst = new PNG({
-                  width: this.width+20,
-                   height: this.height+20,
-                  colorType: 2,
-                  bgColor: { red: 54, green: 57, blue: 63}
-                });
-                this.bitblt(dst, 0, 0, this.width, this.height, 10, 10);
-                dst.pack().pipe(fs.createWriteStream(imageName)).on("close", function() {
-                  message.channel.send({files:[imageName]});
-                });
-              }).on('error', function(err) {
-                console.log(err);
-                message.channel.send("無法轉換成圖片！O3O\n請檢查TeX指令是否有誤！");
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.open("POST", 'http://latex2png.com/api/convert', true);
+      xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status < 300) {
+          var response = JSON.parse(xmlhttp.responseText);
+          if (!response["result-code"]) {
+            var imageURL = "http://latex2png.com"+response.url;
+            var imageName = "./"+imageURL.match(/[0-9a-f]+\.png/);
+            console.log(imageURL);
+            request(req_opt(imageURL)).pipe(new PNG()).on('parsed', function() {
+              var dst = new PNG({
+                width: this.width+20,
+                 height: this.height+20,
+                colorType: 2,
+                bgColor: { red: 54, green: 57, blue: 63}
               });
-            }
-            else
+              this.bitblt(dst, 0, 0, this.width, this.height, 10, 10);
+              dst.pack().pipe(fs.createWriteStream(imageName)).on("close", function() {
+                message.channel.send({files:[imageName]});
+              });
+            }).on('error', function(err) {
+              console.log(err);
               message.channel.send("無法轉換成圖片！O3O\n請檢查TeX指令是否有誤！");
+            });
           }
           else
-            message.channel.send("轉換的網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
+            message.channel.send("無法轉換成圖片！O3O\n請檢查TeX指令是否有誤！");
         }
-        xmlhttp.send(JSON.stringify({"auth": {"user": "guest", "password": "guest"}, "latex": texCommand, "resolution": 300,"color": "ffffff"}));
       }
-      catch (err) {
-        console.log(err);
-        if (err.message.indexOf("Request timed out") >= 0)
-          message.channel.send("轉換的網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
-        else
-          message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
-      }
+      xmlhttp.send(JSON.stringify({"auth": {"user": "guest", "password": "guest"}, "latex": texCommand, "resolution": 300,"color": "ffffff"}));
     }
     else
       message.channel.send("沒給指令是要轉換什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [KaTeX指令]");
