@@ -161,12 +161,11 @@ bot.on("message", message => {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("POST", 'http://latex2png.com/api/convert', true);
     xmlhttp.onreadystatechange = function() {
-      if (xmlhttp.readyState === XMLHttpRequest.DONE && xmlhttp.status === 200) {
-          console.log(xmlhttp.responseText);
+      if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+          console.log(xhr.responseText);
       }
     }
     xmlhttp.send(JSON.stringify({"auth":{"user":"guest","password":"guest"},"latex":"D={-b\\pm\\sqrt{b^2-4ac}\\over2a}","resolution":600,"color":"000000"}));
-}
     /*
     var comm = "const {c, cpp, node, python, java} = require(\"compile-run\"); 10+10";
     console.log(comm);
