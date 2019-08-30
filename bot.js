@@ -725,8 +725,7 @@ bot.on("message", message => {
                 this.bitblt(dst, 0, 0, this.width, this.height, 10, 10);
                 dst.pack().pipe(fs.createWriteStream(imageName)).on("close", function() {
                   message.channel.send({files:[imageName]});
-                 });
-                }
+                });
               }).on('error', function(err) {
                 console.log(err);
                 message.channel.send("無法轉換成圖片！O3O\n請檢查TeX指令是否有誤！");
