@@ -442,7 +442,7 @@ bot.on("message", message => {
         help_file = "";
       if (help_file) {
         help_file = "./help/"+help_file+".txt";
-        fs.readFile(help_file, "utf16", function (error, data) {
+        fs.readFile(help_file, "utf16le", function (error, data) {
           if (!error) {
             message.channel.send(data.toString());
           }
