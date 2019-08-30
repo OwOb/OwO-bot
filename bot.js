@@ -978,7 +978,7 @@ bot.on("message", message => {
     var language = "";
     if (headlower == "!c")
       language = "c";
-    else if (headlower == "!cpp" || headlower == "!cpp")
+    else if (headlower == "!c++" || headlower == "!cpp")
        language = "cpp";
     else if (headlower == "!python2" || headlower == "!py2")
       language = "python2";
