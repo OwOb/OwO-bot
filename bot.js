@@ -444,12 +444,7 @@ bot.on("message", message => {
         help_file = "./help/"+help_file+".txt";
         fs.readFile(help_file, "utf8", function (error, data) {
           if (!error) {
-            message.channel.send(data.toString())
-                   .then(msg => {
-                     msg.fetchWebhook().then(webhook => {
-                       webhook.delete();
-                     });
-                   });
+            message.channel.send(data.toString());
           }
           else {
             console.log(error);
