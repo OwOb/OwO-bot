@@ -162,7 +162,7 @@ bot.on("message", message => {
     xmlhttp.open("POST", 'http://latex2png.com/api/convert', true);
     xmlhttp.onreadystatechange = function() {
       if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-          console.log(xhr.responseText);
+          console.log(xmlhttp.responseText);
       }
     }
     xmlhttp.send(JSON.stringify({"auth":{"user":"guest","password":"guest"},"latex":"D={-b\\pm\\sqrt{b^2-4ac}\\over2a}","resolution":600,"color":"000000"}));
