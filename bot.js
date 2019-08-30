@@ -709,7 +709,7 @@ bot.on("message", message => {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("POST", 'http://latex2png.com/api/convert', true);
         xmlhttp.onreadystatechange = function() {
-          if (xmlhttp.readyState == 4 && xmlhttp.status < 300) {
+          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var response = JSON.parse(xmlhttp.responseText);
             if (!response["result-code"]) {
               var imageURL = "http://latex2png.com"+response.url;
