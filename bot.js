@@ -443,11 +443,8 @@ bot.on("message", message => {
       if (help_file) {
         help_file = "./help/"+help_file+".txt";
         fs.readFile(help_file, "utf8", function (error, data) {
-          if (!error) {
-            console.log(data.toString().length);
-            console.log(data.toString());
+          if (!error)
             message.channel.send(data.toString());
-          }
           else {
             console.log(error);
             message.channel.send("Oops!! 好像發生了點錯誤... 等待本機修復... 🛠");
