@@ -715,25 +715,20 @@ bot.on("message", message => {
               var imageURL = "http://latex2png.com"+response.url;
               var imageName = "./"+imageURL.match(/[0-9a-f]+\.png/);
               console.log(imageURL);
-              request(req_opt(imageURL)).on('error', function(err) {
-                console.log(err);
-                message.channel.send("轉換的網站似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
-              }).pipe(new PNG()).on('parsed', function() {
-                if (this.width > 10 && this.height > 10) {
-                  var dst = new PNG({
-                    width: this.width+20,
-                    height: this.height+20,
-                    colorType: 2,
-                    bgColor: { red: 54, green: 57, blue: 63}
-                  });
-                  this.bitblt(dst, 0, 0, this.width, this.height, 10, 10);
-                  dst.pack().pipe(fs.createWriteStream(imageName)).on("close", function() {
-                    message.channel.send({files:[imageName]});
-                  });
+              request(req_opt(imageURL)).pipe(new PNG()).on('parsed', function() {
+                var dst = new PNG({
+                  width: this.width+20,
+                   height: this.height+20,
+                  colorType: 2,
+                  bgColor: { red: 54, green: 57, blue: 63}
+                });
+                this.bitblt(dst, 0, 0, this.width, this.height, 10, 10);
+                dst.pack().pipe(fs.createWriteStream(imageName)).on("close", function() {
+                  message.channel.send({files:[imageName]});
+                 });
                 }
-                else
-                  message.channel.send("無法轉換成圖片！O3O\n請檢查TeX指令是否有誤！");
               }).on('error', function(err) {
+                console.log(err);
                 message.channel.send("無法轉換成圖片！O3O\n請檢查TeX指令是否有誤！");
               });
             }
