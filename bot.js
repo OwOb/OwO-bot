@@ -979,7 +979,9 @@ bot.on("message", message => {
     if (headlower == "!c")
       language = "c";
     else if (headlower == "!c++" || headlower == "!cpp")
-       language = "cpp";
+      language = "cpp";
+    else if (headlower == "!js" || headlower == "!javascript" || headlower == "!nodejs" || headlower == "!node")
+      language = "js";
     else if (headlower == "!python2" || headlower == "!py2")
       language = "python2";
     else
@@ -1001,7 +1003,7 @@ bot.on("message", message => {
       //console.log("code:\n"+message.content.substring(codeS,codeE));
       //console.log("inputcode:\n"+inputcode);
       var lastTime = new Date();
-      (language == "c" ? c : language == "cpp" ? cpp : python).runSource(message.content.substring(codeS,codeE)+"\n", {executionPath: language == "python3" ? language : "", stdin: inputcode})
+      (language == "c" ? c : language == "cpp" ? cpp : language == "js" ? node : python).runSource(message.content.substring(codeS,codeE)+"\n", {executionPath: language == "python3" ? language : "", stdin: inputcode})
       .then(result => {
         if (!result.errorType) {
           var resultmessage = result.stdout;
