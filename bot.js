@@ -430,6 +430,8 @@ bot.on("message", message => {
       var command_text = lowerargs[1], help_file = "";
       if (command_text == "查詢指令" || command_text == "help" || command_text == "man")
         help_file = "help";
+      else if (command_text == "計算機" || command_text == "計算" || command_text == "運算" || command_text == "calculate" || command_text == "calc")
+        help_file = "calculate";
       else if (command_text == "程式執行" || command_text == "code")
         help_file = "code";
       else if (command_text == "latex" || command_text == "tex")
