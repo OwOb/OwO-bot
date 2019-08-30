@@ -712,7 +712,7 @@ bot.on("message", message => {
           if (xmlhttp.readyState == 4 && xmlhttp.status < 300) {
             var response = JSON.parse(xmlhttp.responseText);
             if (!response["result-code"]) {
-              var imageURL = response.url;
+              var imageURL = "http://latex2png.com"+response.url;
               var imageName = "./"+imageURL.match(/latex_[0-9a-f]+\.png/);
               console.log(imageURL);
               request(req_opt(imageURL)).on('error', function(err) {
