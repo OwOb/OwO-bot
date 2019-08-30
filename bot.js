@@ -994,7 +994,7 @@ bot.on("message", message => {
       codeS += lowermessage.substring(codeS).indexOf("\n")+1;
       var codeE = codeS+lowermessage.substring(codeS).indexOf("```");
       var inputS = codeE+3+lowermessage.substring(codeE+3).indexOf("```");
-      var inputcode = "";
+      var code_code = message.content.substring(codeS,codeE)+"\n", inputcode = "";
       if (inputS > codeE+3) {
         inputS = inputS+lowermessage.substring(inputS).indexOf("\n")+1;
         inputcode = message.content.substring(inputS,inputS+message.content.substring(inputS).indexOf("```"));
@@ -1003,7 +1003,7 @@ bot.on("message", message => {
       //console.log("code:\n"+message.content.substring(codeS,codeE));
       //console.log("inputcode:\n"+inputcode);
       var lastTime = new Date();
-      (language == "c" ? c : language == "cpp" ? cpp : language == "js" ? node : python).runSource(message.content.substring(codeS,codeE)+"\n", {executionPath: language == "python3" ? language : "", stdin: inputcode})
+      (language == "c" ? c : language == "cpp" ? cpp : language == "js" ? node : python).runSource(language == "js" ? "process={};"+code_code : code_code, {executionPath: language == "python3" ? language : "", stdin: inputcode})
       .then(result => {
         if (!result.errorType) {
           var resultmessage = result.stdout;
