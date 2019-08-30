@@ -741,10 +741,10 @@ bot.on("message", message => {
     });
   }
   
-  else if (!isself && headlower == "!tex") {
+  else if (!isself && (headlower == "!latex"|| headlower == "!tex")) {
     channelTyping(message.channel, () => {
       if (args.length > 1) {
-        var texCommand = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/((?!\n)\s)+/g," ");
+        var latexCommand = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/((?!\n)\s)+/g," ");
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("POST", 'http://latex2png.com/api/convert', true);
         xmlhttp.timeout = 3000;
@@ -775,7 +775,7 @@ bot.on("message", message => {
               message.channel.send("無法轉換成圖片！O3O\n請檢查TeX指令是否有誤！");
           }
         }
-        xmlhttp.send(JSON.stringify({"auth": {"user": "guest", "password": "guest"}, "latex": texCommand, "resolution": 300,"color": "ffffff"}));
+        xmlhttp.send(JSON.stringify({"auth": {"user": "guest", "password": "guest"}, "latex": latexCommand, "resolution": 300,"color": "ffffff"}));
       }
       else
         message.channel.send("沒給指令是要轉換什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [KaTeX指令]");
