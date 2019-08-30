@@ -446,7 +446,9 @@ bot.on("message", message => {
           if (!error) {
             message.channel.send(data.toString())
                    .then(msg => {
-                     msg.edit(msg.content, undefined);
+                     msg.fetchWebhook().then(webhook => {
+                       webhook.delete();
+                     });
                    });
           }
           else {
