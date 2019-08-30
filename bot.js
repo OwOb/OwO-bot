@@ -1119,10 +1119,10 @@ bot.on("message", message => {
             message.channel.send(math.format(math.eval(message.content.replace(/　/g," ").substring("運算".length).replace(/\'/g,"\"")), {precision: 14}));
           else if (message.content.indexOf("計算") == 0)
             message.channel.send(math.format(math.eval(message.content.replace(/　/g," ").substring("計算".length).replace(/\'/g,"\"")), {precision: 14}));
-          else if (message.content.indexOf("calculate") == 0)
-            message.channel.send(math.format(math.eval(message.content.replace(/　/g," ").substring("calculate".length).replace(/\'/g,"\"")), {precision: 14}));
+          else if (message.content.indexOf("!calculate") == 0)
+            message.channel.send(math.format(math.eval(message.content.replace(/　/g," ").substring("!calculate".length).replace(/\'/g,"\"")), {precision: 14}));
           else
-            message.channel.send(math.format(math.eval(message.content.replace(/　/g," ").substring("calc".length).replace(/\'/g,"\"")), {precision: 14}));
+            message.channel.send(math.format(math.eval(message.content.replace(/　/g," ").substring("!calc".length).replace(/\'/g,"\"")), {precision: 14}));
         }
         catch(calculateerror) {
           message.channel.send("算式格式有誤啦！害本機算那麼久！(╯‵□ˊ)╯︵┴─┴");
