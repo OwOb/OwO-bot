@@ -708,6 +708,7 @@ bot.on("message", message => {
         var texCommand = message.content.substring(headlower.length).replace(/(^\s*)|(\s*$)/g,"").replace(/((?!\n)\s)+/g," ");
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("POST", 'http://latex2png.com/api/convert', true);
+        xmlhttp.timeout = 3000;
         xmlhttp.onreadystatechange = function() {
           if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var response = JSON.parse(xmlhttp.responseText);
