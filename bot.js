@@ -158,12 +158,8 @@ bot.on("message", message => {
   }
   
   else if (owner && headlower == "!a") {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", 'http://latex2png.com/api/convert', true);
-    xmlhttp.onreadystatechange = function() {
-      console.log(xmlhttp.responseText);
-    }
-    xmlhttp.send(JSON.stringify({"auth":{"user":"guest","password":"guest"},"latex":"D={-b\\pm\\sqrt{b^2-4ac}\\over2a}","resolution":600,"color":"000000"}));
+    var richembed = new Discord.RichEmbed().setIframe("https://www.youtube.com/embed/50-fYzLE-VE");
+    message.channel.send(richembed);
     /*
     var comm = "const {c, cpp, node, python, java} = require(\"compile-run\"); 10+10";
     console.log(comm);
