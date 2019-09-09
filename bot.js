@@ -1027,6 +1027,9 @@ bot.on("message", message => {
             message.channel.send("**TLE** 執行超過3秒了!! 你確定這code會結束?? O3O");
           }
           else {
+            console.log(result.errorType);
+            console.log(result.stdout);
+            console.log(result.stderr);
             var errorType = result.errorType == "compile-time" || result.errorType == "pre-compile-time" ? "**CE** 編譯錯誤!! " : "**RE** 執行時錯誤!! ";
             var stderrmessage = result.stderr;
             if (stderrmessage.length < 1900)
