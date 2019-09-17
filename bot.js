@@ -894,13 +894,11 @@ bot.on("message", message => {
                   if (!richembed_set_image)
                     richembed = richembed.setImage(image_url).setFooter(image_url);
                   message.channel.send(richembed);
-                  stopTyping(message.channel);
                 });
               }
               else {
                 richembed = richembed.setImage(image_url).setFooter(image_url);
                 message.channel.send(richembed);
-                stopTyping(message.channel);
               }
               /*
               GoogleImagesClient.search(relation_search)
@@ -912,31 +910,23 @@ bot.on("message", message => {
                 else
                   richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "似乎找不到更多 __"+relation_search+"__ 的圖片... ╮(╯_╰)╭");
                 message.channel.send(richembed);
-                stopTyping(message.channel);
               })
               .catch(error => {
                 console.log(error);
                 richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "似乎找不到更多 __"+relation_search+"__ 的圖片... ╮(╯_╰)╭");
                 message.channel.send(richembed);
-                stopTyping(message.channel);
               });
               */
             }
-            else {
+            else
               message.channel.send("別想愚弄本機！你傳的網址根本就不是圖片！O3O");
-              stopTyping(message.channel);
-            }
           }
-          else {
+          else
             message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
-            stopTyping(message.channel);
-          }
         });
       }
-      else {
+      else
         message.channel.send("沒給圖片本機是要搜尋什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [附件圖片/圖片網址]");
-        stopTyping(message.channel);
-      }
     });
   }
   
