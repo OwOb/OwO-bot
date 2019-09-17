@@ -838,104 +838,106 @@ bot.on("message", message => {
   }
   
   else if (!isself && (headlower == "以圖搜尋" || headlower == "以圖搜圖" || headlower == "!searchbyimage")) {
-    startTyping(message.channel);
-    var attachments = message.attachments;
-    var image_url;
-    if (attachments.size > 0 && attachments.first().height > 0)
-      image_url = message.attachments.first().url;
-    else if (urllist)
-      image_url = urllist[0];
-    else
-      image_url = "";
-    if (image_url) {
-      var reqURL = "https://www.google.com.tw/searchbyimage?hl=zh-TW&image_url="+image_url;
-      request(req_opt(reqURL), function (error, response, body) {
-        if (!error) {
-          var $ = require('jquery')((new JSDOM()).window);
-          $("body").append(body);
-          var check_image = $(".fKDtNb");
-          if (check_image.length) {
-            var richembed_set_image = false;
-            var relation_search = $(check_image[0]).text().replace(/\s*/g,"");
-            var _ = $(".O1id0e").find(".gl");
-            var href = _.length ? $($(_[0]).children()[0]).attr("href") : "";
-            var same_image_url = href ? "https://www.google.com.tw"+href : "";
-            var href_ = $($(".iu-card-header")[0]).attr("href");
-            var similar_image_url = href_ ? "https://www.google.com.tw"+href_ : "";
+    channelTyping(message.channel,
+    function() {
+      var attachments = message.attachments;
+      var image_url;
+      if (attachments.size > 0 && attachments.first().height > 0)
+        image_url = message.attachments.first().url;
+      else if (urllist)
+        image_url = urllist[0];
+      else
+        image_url = "";
+      if (image_url) {
+        var reqURL = "https://www.google.com.tw/searchbyimage?hl=zh-TW&image_url="+image_url;
+        request(req_opt(reqURL), function (error, response, body) {
+          if (!error) {
+            var $ = require('jquery')((new JSDOM()).window);
+            $("body").append(body);
+            var check_image = $(".fKDtNb");
+            if (check_image.length) {
+              var richembed_set_image = false;
+              var relation_search = $(check_image[0]).text().replace(/\s*/g,"");
+              var _ = $(".O1id0e").find(".gl");
+              var href = _.length ? $($(_[0]).children()[0]).attr("href") : "";
+              var same_image_url = href ? "https://www.google.com.tw"+href : "";
+              var href_ = $($(".iu-card-header")[0]).attr("href");
+              var similar_image_url = href_ ? "https://www.google.com.tw"+href_ : "";
 
-            var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("這張圖片可能跟__**\u200b"+dc_markdown(relation_search)+" \u200b**__有關").setThumbnail(image_url)
-                                                   .setDescription("⁠\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n⁠\n⁠")
-                                                   .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")\n⁠" : "似乎找不到相同的圖片... ╮(╯_╰)╭\n⁠")
-                                                   .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")\n⁠" : "似乎找不到相似的圖片... ╮(╯_╰)╭\n⁠")
-                                                   .addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURIComponent(relation_search)+")\n\n⁠");
+              var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("這張圖片可能跟__**\u200b"+dc_markdown(relation_search)+" \u200b**__有關").setThumbnail(image_url)
+                                                     .setDescription("⁠\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n⁠\n⁠")
+                                                     .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")\n⁠" : "似乎找不到相同的圖片... ╮(╯_╰)╭\n⁠")
+                                                     .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")\n⁠" : "似乎找不到相似的圖片... ╮(╯_╰)╭\n⁠")
+                                                     .addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURIComponent(relation_search)+")\n\n⁠");
 
-            if (similar_image_url) {
-              request(req_opt(similar_image_url), function (error, response, body) {
-                console.log(similar_image_url);
-                if (!error) {
-                  var $ = require('jquery')((new JSDOM()).window);
-                  $("body").append(body);
-                  var check_image = $(".rg_meta");
-                  if (check_image.length) {
-                    var index = Math.floor(Math.random()*(check_image.length < 10 ? check_image.length : 10));
-                    var _ = $(check_image[index]).text();
-                    var image_json = JSON.parse(_);
-                    var image_pt = image_json["pt"], image_ou = image_json["ou"], image_ru = image_json["ru"];
-                    var image_ow = image_json["ow"], image_oh = image_json["oh"];
-                    richembed = richembed.addField("相關圖片", "__**["+dc_markdown(image_pt)+"]("+image_ru+")**__\n"+image_ow+"×"+image_oh)
-                                           .setImage(image_ou).setFooter(image_ou);
-                    richembed_set_image = true;
+              if (similar_image_url) {
+                request(req_opt(similar_image_url), function (error, response, body) {
+                  console.log(similar_image_url);
+                  if (!error) {
+                    var $ = require('jquery')((new JSDOM()).window);
+                    $("body").append(body);
+                    var check_image = $(".rg_meta");
+                    if (check_image.length) {
+                      var index = Math.floor(Math.random()*(check_image.length < 10 ? check_image.length : 10));
+                      var _ = $(check_image[index]).text();
+                      var image_json = JSON.parse(_);
+                      var image_pt = image_json["pt"], image_ou = image_json["ou"], image_ru = image_json["ru"];
+                      var image_ow = image_json["ow"], image_oh = image_json["oh"];
+                      richembed = richembed.addField("相關圖片", "__**["+dc_markdown(image_pt)+"]("+image_ru+")**__\n"+image_ow+"×"+image_oh)
+                                             .setImage(image_ou).setFooter(image_ou);
+                      richembed_set_image = true;
+                    }
                   }
+                  else
+                    console.log(error);
+
+                  if (!richembed_set_image)
+                    richembed = richembed.setImage(image_url).setFooter(image_url);
+                  message.channel.send(richembed);
+                  stopTyping(message.channel);
+                });
+              }
+              else {
+                richembed = richembed.setImage(image_url).setFooter(image_url);
+                message.channel.send(richembed);
+                stopTyping(message.channel);
+              }
+              /*
+              GoogleImagesClient.search(relation_search)
+              .then(images => {
+                if (images.length > 0) {
+                  var index = Math.floor(Math.random()*images.length);
+                  richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURI(relation_search)+")").setImage(images[index]["url"]).setFooter(images[index]["url"]);
                 }
                 else
-                  console.log(error);
-                
-                if (!richembed_set_image)
-                  richembed = richembed.setImage(image_url).setFooter(image_url);
+                  richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "似乎找不到更多 __"+relation_search+"__ 的圖片... ╮(╯_╰)╭");
+                message.channel.send(richembed);
+                stopTyping(message.channel);
+              })
+              .catch(error => {
+                console.log(error);
+                richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "似乎找不到更多 __"+relation_search+"__ 的圖片... ╮(╯_╰)╭");
                 message.channel.send(richembed);
                 stopTyping(message.channel);
               });
+              */
             }
             else {
-              richembed = richembed.setImage(image_url).setFooter(image_url);
-              message.channel.send(richembed);
+              message.channel.send("別想愚弄本機！你傳的網址根本就不是圖片！O3O");
               stopTyping(message.channel);
             }
-            /*
-            GoogleImagesClient.search(relation_search)
-            .then(images => {
-              if (images.length > 0) {
-                var index = Math.floor(Math.random()*images.length);
-                richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURI(relation_search)+")").setImage(images[index]["url"]).setFooter(images[index]["url"]);
-              }
-              else
-                richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "似乎找不到更多 __"+relation_search+"__ 的圖片... ╮(╯_╰)╭");
-              message.channel.send(richembed);
-              stopTyping(message.channel);
-            })
-            .catch(error => {
-              console.log(error);
-              richembed = richembed.addField("其他更多 __"+relation_search+"__ 的圖片:", "似乎找不到更多 __"+relation_search+"__ 的圖片... ╮(╯_╰)╭");
-              message.channel.send(richembed);
-              stopTyping(message.channel);
-            });
-            */
           }
           else {
-            message.channel.send("別想愚弄本機！你傳的網址根本就不是圖片！O3O");
+            message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
             stopTyping(message.channel);
           }
-        }
-        else {
-          message.channel.send("Google姊姊似乎沒有回應... 請稍後再嘗試！( > 人 <  ; )");
-          stopTyping(message.channel);
-        }
-      });
-    }
-    else {
-      message.channel.send("沒給圖片本機是要搜尋什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [附件圖片/圖片網址]");
-      stopTyping(message.channel);
-    }
+        });
+      }
+      else {
+        message.channel.send("沒給圖片本機是要搜尋什麼啦！(╯‵□ˊ)╯︵┴─┴\n指令格式: "+headlower+" [附件圖片/圖片網址]");
+        stopTyping(message.channel);
+      }
+    });
   }
   
   else if (message.content.indexOf("蛤") == 0) {
