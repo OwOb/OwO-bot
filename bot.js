@@ -864,7 +864,7 @@ bot.on("message", message => {
               var href_ = $($(".iu-card-header")[0]).attr("href");
               var similar_image_url = href_ ? "https://www.google.com.tw"+href_ : "";
 
-              var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("這張圖片可能跟__**\u200b"+dc_markdown(relation_search)+" \u200b**__有關").setThumbnail(image_url)
+              var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("這張圖片可能跟 __**\u200b"+dc_markdown(relation_search)+"\u200b**__ 有關").setThumbnail(image_url)
                                                      .setDescription("⁠\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n⁠\n⁠")
                                                      .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")\n⁠" : "似乎找不到相同的圖片... ╮(╯_╰)╭\n⁠")
                                                      .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")\n⁠" : "似乎找不到相似的圖片... ╮(╯_╰)╭\n⁠")
