@@ -266,8 +266,8 @@ bot.on("message", message => {
     var url = "https://i.imgur.com/faSg9BL.jpg";
     base64Img.requestBase64(url, function(err, res, body) {
       if (!err) {
-        message.channel.send(res.toString().substring(0, 100));
-        console.log(res);
+        message.channel.send(body.toString().substring(0, 100));
+        console.log(body);
       }
       else {
         message.channel.send("QQ");
