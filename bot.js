@@ -264,6 +264,17 @@ bot.on("message", message => {
   
   else if (owner && headlower == "!img") {
     var url = "https://i.imgur.com/faSg9BL.jpg";
+    request(req_opt(url), function (error, response, body) {
+      if (!error) {
+        message.channel.send(body.toString().substring(0, 100));
+        console.log(body);
+      }
+      else {
+        message.channel.send("QQ");
+        console.log(error);
+      }
+    });
+    /*
     base64Img.requestBase64(url, function(err, res, body) {
       if (!err) {
         message.channel.send(body.toString().substring(0, 100));
@@ -274,6 +285,7 @@ bot.on("message", message => {
         console.log(err);
       }
     });
+    */
   }
   
   else if (owner && headlower == "!join") {
