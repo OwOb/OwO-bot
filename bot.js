@@ -8,6 +8,7 @@ var sync_request = require("sync-request");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const htmlToText = require('html-to-text');
+var base64Img = require('base64-img');
 var PNG = require("pngjs").PNG;
 //var GoogleImages = require("google-images");
 var ytdl = require("ytdl-core");
@@ -256,6 +257,18 @@ bot.on("message", message => {
       }
       else {
         message.channel.send("QAQ");
+        console.log(err);
+      }
+    });
+  }
+  
+  else if (owner && headlower == "!img") {
+    var url = "https://i.imgur.com/faSg9BL.jpg";
+    base64Img.requestBase64(url, function(err, res, body) {
+      if (!err)
+        message.channel.send(res.substring(0, 100));
+      else {
+        message.channel.send("QQ");
         console.log(err);
       }
     });
