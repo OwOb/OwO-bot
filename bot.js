@@ -267,11 +267,8 @@ bot.on("message", message => {
     console.log(url);
     request(req_opt(url), function (error, response, body) {
       if (!error) {
-        message.channel.send("OK");
         var image_json = JSON.parse(body);
-        console.log(image_json);
-        console.log("------");
-        console.log(response);
+        message.channel.send(image_json.docs[1].title_chinese);
       }
       else {
         message.channel.send("QQ");
