@@ -268,7 +268,10 @@ bot.on("message", message => {
       if (!err) {
             request({
               url: "https://trace.moe/search",
-              headers: {origin: "https://trace.moe"},
+              headers: {"origin": "https://trace.moe",
+                        "authority": "trace.moe",
+                        "accept-encoding": "gzip, deflate, br",
+                        "sec-fetch-site": "same-origin"},
               method: "POST",
               body: body
             }, function (error, response, body) {
