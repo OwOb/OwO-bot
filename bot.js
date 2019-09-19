@@ -263,11 +263,15 @@ bot.on("message", message => {
   
   else if (owner && headlower == "!img") {
     var url = lowerargs.length == 1 ? "https://i.imgur.com/faSg9BL.jpg" : lowerargs[1];
-    request(req_opt("https://trace.moe/api/search?url="+encodeURIComponent(url)), function (error, response, body) {
+    url = "https://trace.moe/api/search?url="+encodeURIComponent(url);
+    console.log(url);
+    request(req_opt(url), function (error, response, body) {
       if (!error) {
         message.channel.send("OK");
         var image_json = JSON.parse(body);
         console.log(image_json);
+        console.log("------");
+        console.log(response);
       }
       else {
         message.channel.send("QQ");
