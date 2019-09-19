@@ -263,33 +263,16 @@ bot.on("message", message => {
   }
   
   else if (owner && headlower == "!img") {
-    var url = "https://i.imgur.com/faSg9BL.jpg";
-    base64Img.requestBase64(url, function(err, res, body) {
-      if (!err) {
-            request({
-              url: "https://trace.moe/search",
-              headers: {"origin": "https://trace.moe",
-                        "authority": "trace.moe",
-                        "accept-encoding": "gzip, deflate, br",
-                        "sec-fetch-site": "same-origin"},
-              method: "POST",
-              body: body
-            }, function (error, response, body) {
-              if (!error) {
-                message.channel.send("OK");
-                console.log(body);
-                console.log("----------");
-                console.log(response);
-              }
-              else {
-                message.channel.send("QQ");
-                console.log(error);
-              }
-            });
+    var url = lowerargs.length == 1 ? "https://i.imgur.com/faSg9BL.jpg" : lowerargs[1];
+    request("https://trace.moe/api/search?url="+encodeURIComponent(url), function (error, response, body) {
+      if (!error) {
+        message.channel.send("OK");
+        var image_json = JSON.parse(body);
+        console.log(image_json);
       }
       else {
         message.channel.send("QQ");
-        console.log(err);
+        console.log(error);
       }
     });
   }
