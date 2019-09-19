@@ -59,7 +59,7 @@ function sql39(s) {
 }
 
 function req_opt(url) {
-  return {headers: headers, uri: url, timeout: 3000};
+  return {headers: headers, uri: url, timeout: 5000};
 }
 
 function dc_markdown(s) {
