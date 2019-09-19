@@ -268,6 +268,7 @@ bot.on("message", message => {
       if (!err) {
             request({
               url: "https://trace.moe/search",
+              headers: {origin: "https://trace.moe"},
               method: "POST",
               body: body
             }, function (error, response, body) {
