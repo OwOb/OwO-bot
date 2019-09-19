@@ -272,8 +272,10 @@ bot.on("message", message => {
               body: body
             }, function (error, response, body) {
               if (!error) {
-                message.channel.send(body);
+                message.channel.send("OK");
                 console.log(body);
+                console.log("----------");
+                console.log(response);
               }
               else {
                 message.channel.send("QQ");
