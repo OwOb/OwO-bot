@@ -262,7 +262,7 @@ bot.on("message", message => {
   }
   
   else if (owner && headlower == "!img") {
-    var url = lowerargs.length == 1 ? "https://i.imgur.com/faSg9BL.jpg" : lowerargs[1];
+    var url = args.length == 1 ? "https://i.imgur.com/faSg9BL.jpg" : args[1];
     url = "https://trace.moe/api/search?url="+encodeURIComponent(url);
     console.log(url);
     request(req_opt(url), function (error, response, body) {
