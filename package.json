@@ -18,7 +18,7 @@
 		"mathjs": "3.18.1",
 		"mathjs-simple-integral": "0.1.1",
 		"xmlhttprequest": "1.8.0",	
-		"request": "2.83.0",
+		"request": "2.88.0",
 		"sync-request": "6.0.0",
 		"jquery": "3.4.1",
 		"jsdom": "15.1.1",
