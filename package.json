@@ -31,6 +31,5 @@
 		"node-cmd": "3.0.0",
 		"notevil": "1.1.0",
 		"compile-run": "2.3.0"
-	},
-	"is-music-bot": true
+	}
 }
