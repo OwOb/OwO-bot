@@ -341,7 +341,7 @@ bot.on("message", message => {
       //console.log(activitytype);
       //console.log(activityurl);
       bot.user.setActivity(setbotact, activityurl ? {type: activitytype, url: activityurl} : {type: activitytype});
-      bot_db.query("UPDATE Var_Table SET value = "+sql39(setbotact)+" WHERE var_name = 'set_sba';", (err, res) => {
+      bot_db.query("UPDATE Var_Table SET value = "+sql39(lowerargs[1]+" "+setbotact)+" WHERE var_name = 'set_sba';", (err, res) => {
         if (err)
           console.log(err);
       });
