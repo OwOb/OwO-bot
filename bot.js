@@ -12,10 +12,11 @@ var PNG = require("pngjs").PNG;
 //var GoogleImages = require("google-images");
 var ytdl = require("ytdl-core");
 var cmd = require("node-cmd");
-var safeEval = require("notevil");
+//var safeEval = require("notevil");
 const {c, cpp, node, python, java} = require("compile-run");
 var math = require("mathjs");
 math.import(require("mathjs-simple-integral"));
+require('dotenv').config();
 
 const bot_db = new PG.Client({
   connectionString: process.env.DATABASE_URL,
@@ -183,6 +184,7 @@ bot.on("message", message => {
   
   else if (owner && headlower == "!b") {
     //var ccode = message.content.substring(headlower.length);
+	/*
     try {
       var saf = safeEval(
         `
@@ -204,6 +206,7 @@ bot.on("message", message => {
     catch(e) {
       message.channel.send(e);
     }
+	*/
   }
   
   else if (owner && headlower == "!cmd") {
