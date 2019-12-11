@@ -283,13 +283,15 @@ bot.on("message", message => {
   else if (owner && headlower == "!join") {
     var streamOptions = { seek: 0, volume: 1 };
     var voiceChannel = message.member.voiceChannel;
+	console.log("join...");
     if (voiceChannel) {
       const permissions = voiceChannel.permissionsFor(message.client.user);
       if (permissions.has('CONNECT') && permissions.has('SPEAK')) {
+		console.log("join...");
         voiceChannel.join()
                     .then(connection => {
                       console.log("Connected");
-                      const dispatcher = connection.playStream(ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY'), { seek: 0, volume: 1 });
+                      const dispatcher = connection.playStream(ytdl('https://www.youtube.com/watch?v=y06Q5EzGook'), { filter : 'audioonly' });
                       dispatcher.resume();
                       dispatcher.once("start", () => {
                         console.log("start");
