@@ -40,13 +40,15 @@ var headers = {
 };
 var htmlToText_opt = {ignoreHref: true};
 
-/*
+
 function HappyNewYear() {
-  bot.channels.get("527078660616749056").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
+  bot.channels.get("402024100681220097").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
+  /*
   bot.channels.get("396212584757592066").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
   bot.channels.get("387545955324657666").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
+  */
 }
-*/
+
 
 function to02d(n) {
   if (n > 100)
@@ -123,7 +125,7 @@ bot.on("ready", function() {
   console.log("Ready");
   
   var nowTime = new Date();
-  var newYear = new Date("2019/12/20 08:30:00");
+  var newYear = new Date("2019/12/20 08:35:00");
   var timeZone = nowTime.getTimezoneOffset();
   var t = newYear.getTime()-28800000-nowTime.getTime()+timeZone*60000-100;
   if (t >= 0)
