@@ -121,14 +121,14 @@ bot.on("ready", function() {
   
   
   console.log("Ready");
-  /*
+  
   var nowTime = new Date();
-  var newYear = new Date("2019/01/01 00:00:00");
+  var newYear = new Date("2019/12/20 08:30:00");
   var timeZone = nowTime.getTimezoneOffset();
   var t = newYear.getTime()-28800000-nowTime.getTime()+timeZone*60000-100;
   if (t >= 0)
     setTimeout(HappyNewYear, t);
-  */
+  
 });
 
 bot.on("message", message => {
@@ -817,7 +817,7 @@ bot.on("message", message => {
               var check_image = $(".rg_meta");
               if (check_image.length) {
                 var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("__**\u200b"+dc_markdown(search)+"\u200b**__")
-                                                       .setDescription("⁠").addField("搜尋結果", "[點我查看]("+reqURL+")\n⁠");
+                                                       .setDescription("\u200b").addField("搜尋結果", "[點我查看]("+reqURL+")\n\u200b");
                 var index = Math.floor(Math.random()*(check_image.length < 10 ? check_image.length : 10));
                 var _ = $(check_image[index]).text();
                 var image_json = JSON.parse(_);
@@ -886,10 +886,10 @@ bot.on("message", message => {
               var similar_image_url = href_ ? "https://www.google.com.tw"+href_ : "";
 
               var richembed = new Discord.RichEmbed().setColor(3447003).setTitle("這張圖片可能跟 __**\u200b"+dc_markdown(relation_search)+"\u200b**__ 有關").setThumbnail(image_url)
-                                                     .setDescription("⁠\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n⁠\n⁠")
-                                                     .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")\n⁠" : "似乎找不到相同的圖片... ╮(╯_╰)╭\n⁠")
-                                                     .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")\n⁠" : "似乎找不到相似的圖片... ╮(╯_╰)╭\n⁠")
-                                                     .addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURIComponent(relation_search)+")\n\n⁠");
+                                                     .setDescription("\u200b\n以下結果是Google姊姊偷偷告訴本機的~~~  >w<\n\n\u200b")
+                                                     .addField("以下是搜尋到相同的圖片:", same_image_url ? "[點我查看]("+same_image_url+")\n\u200b" : "似乎找不到相同的圖片... ╮(╯_╰)╭\n\u200b")
+                                                     .addField("以下是看起來相似的圖片:", similar_image_url ? "[點我查看]("+similar_image_url+")\n\u200b" : "似乎找不到相似的圖片... ╮(╯_╰)╭\n\u200b")
+                                                     .addField("其他更多 __"+relation_search+"__ 的圖片:", "[點我查看](https://www.google.com.tw/search?hl=zh-TW&tbm=isch&q="+encodeURIComponent(relation_search)+")\n\n\u200b");
 
               if (similar_image_url) {
                 request(req_opt(similar_image_url), function (error, response, body) {
