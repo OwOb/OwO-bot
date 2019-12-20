@@ -42,7 +42,7 @@ var htmlToText_opt = {ignoreHref: true};
 
 
 function HappyNewYear() {
-  bot.channels.get("402024100681220097").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
+  bot.channels.get("402024100681220097").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["https://i.pixiv.cat/img-original/img/2019/01/08/01/31/47/72553052_p0.jpg"]});
   /*
   bot.channels.get("396212584757592066").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
   bot.channels.get("387545955324657666").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
@@ -125,7 +125,7 @@ bot.on("ready", function() {
   console.log("Ready");
   
   var nowTime = new Date();
-  var newYear = new Date("2019/12/20 21:35:00");
+  var newYear = new Date("2019/12/20 21:48:00");
   var timeZone = nowTime.getTimezoneOffset();
   var t = newYear.getTime()-28800000-nowTime.getTime()+timeZone*60000-500;
   if (t >= 0)
