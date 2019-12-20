@@ -125,7 +125,7 @@ bot.on("ready", function() {
   console.log("Ready");
   
   var nowTime = new Date();
-  var newYear = new Date("2019/12/20 21:55:00");
+  var newYear = new Date("2019/12/20 21:57:00");
   var timeZone = nowTime.getTimezoneOffset();
   var t = newYear.getTime()-28800000-nowTime.getTime()+timeZone*60000-500;
   if (t >= 0)
