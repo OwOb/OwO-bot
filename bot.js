@@ -42,7 +42,8 @@ var htmlToText_opt = {ignoreHref: true};
 
 
 function HappyNewYear() {
-  bot.channels.get("402024100681220097").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年2020.jpg"]});
+  var richembed = new Discord.RichEmbed().setColor(‭13386840‬).setTitle("**ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ**").setImage("./image/新年2020.jpg").setFooter("https://www.pixiv.net/artworks/72553052");
+  bot.channels.get("402024100681220097").send(richembed);
   /*
   bot.channels.get("396212584757592066").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
   bot.channels.get("387545955324657666").send("ヽ(≧▽≦)ﾉ｡+｡ﾟ☆ Happy New Year ☆ﾟ｡+｡ヽ(≧▽≦)ﾉ", {files:["./image/新年.png"]});
@@ -125,9 +126,9 @@ bot.on("ready", function() {
   console.log("Ready");
   
   var nowTime = new Date();
-  var newYear = new Date("2019/12/20 22:15:00");
+  var newYear = new Date("2019/12/20 22:21:00");
   var timeZone = nowTime.getTimezoneOffset();
-  var t = newYear.getTime()-28800000-nowTime.getTime()+timeZone*60000-500;
+  var t = newYear.getTime()-28800000-nowTime.getTime()+timeZone*60000-1500;
   if (t >= 0)
     setTimeout(HappyNewYear, t);
   
