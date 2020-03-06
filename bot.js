@@ -428,7 +428,7 @@ bot.on("message", message => {
   }
   
   else if (owner && headlower == "!10") {
-	for (var i = 0; i < 10; i++)
+	for (var i = 0; i < 20; i++)
 		message.channel.send(i);
   }
   
