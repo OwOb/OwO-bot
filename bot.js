@@ -427,6 +427,11 @@ bot.on("message", message => {
     });
   }
   
+  else if (owner && headlower == "!10") {
+	for (var i = 0; i < 10; i++)
+		message.channel.send(i);
+  }
+  
   else if (headlower == "!id") {
     message.channel.send(nickname+"的ID為: "+message.author.id);
   }
@@ -625,7 +630,7 @@ bot.on("message", message => {
           }
           
           if (noteFind)
-            message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** / 標題 **`"+noteFind.note_title.replace(/(^\s*)|(\s*$)/g,"")+"`**\n\n"+noteFind.note_detail.replace(/(^\s*)|(\s*$)/g,""), {files:(noteFind.attachment_url ? [noteFind.attachment_url] : [])});
+            message.channel.send("筆記編號 **"+to02d(noteFind.note_no)+"** / 標題 **`"+noteFind.note_title.replace(/(^\s*)|(\s*$)/g,"")+"`**\n\n"+noteFind.note_detail.replace(/(^\s*)|(\s*$)/g,""), {files:(noteFind.attachment_url.replace(/\s+/g,"") ? [noteFind.attachment_url] : [])});
           else if (noteFindTitle)
             message.channel.send("別想愚弄本機！你根本就沒有標題為 **`"+noteFindTitle+"`** 的筆記！O3O");
           else
