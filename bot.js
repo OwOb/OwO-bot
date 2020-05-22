@@ -1110,7 +1110,7 @@ bot.on("message", message => {
   }
   
   else {
-    var qmatch = message.content.match(/([qQｑＱ]((?!\n)\s)*){2,}(\n|$)/g);
+    var qmatch = message.content.match(/([qｑ𝐪𝘲𝙦𝓆𝓺𝔮𝖖𝕢ⓠQＱ𝐐𝘘𝙌𝒬𝓠𝔔𝕼ℚⓆ]((?!\n)\s)*)\1+(\n|$)/g);
     if (!isself && qmatch) {
       var index = Math.floor(Math.random()*qmatch.length);
       message.channel.send("別難過了\\~\\~\\~  😭\n本機會陪著你的\\~\\~\\~  "+qmatch[index].replace(/^\s+|\s+$/g, '').replace(/\s+/g, ' '));
