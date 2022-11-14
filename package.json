@@ -4,6 +4,7 @@
 	"description": "A bot for fun for discord",
 	"main": "bot.js",
 	"scripts": {
+		"build": "npm bot.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"engines": {
