@@ -4,7 +4,6 @@
 	"description": "A bot for fun for discord",
 	"main": "bot.js",
 	"scripts": {
-		"build": "npm bot.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"engines": {
@@ -14,11 +13,9 @@
 	"author": "OwO",
 	"license": "ISC",
 	"dependencies": {
-		"base64-img": "^1.0.4",
 		"compile-run": "^2.3.0",
 		"discord.js": "^11.5.1",
 		"dotenv": "^8.2.0",
-		"ffmpeg-binaries": "4.0.0",
 		"fs": "0.0.1-security",
 		"html-to-text": "^5.1.1",
 		"jquery": "^3.4.1",
@@ -26,7 +23,6 @@
 		"mathjs": "^3.18.1",
 		"mathjs-simple-integral": "^0.1.1",
 		"node-cmd": "^3.0.0",
-		"opusscript": "0.0.7",
 		"pg": "^7.8.0",
 		"pngjs": "^3.3.3",
 		"request": "^2.88.0",
