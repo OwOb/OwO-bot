@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'OwO-bot'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6240626D3E4A4259A79E99D81B9D0A6B }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3A1CCD2C47324CAAA861A36DB0AA60E7 }}
           package: .
