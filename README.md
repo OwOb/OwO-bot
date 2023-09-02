@@ -48,7 +48,7 @@ The [PostgreSQL](https://www.postgresql.org/) database needs to be established i
 |------|-------|-----------|-------------|------------|
 |BIGINT|INT    |VARCHAR(64)|VARCHAR(1800)|VARCHAR(1800)|
 
-If you want to use the relevant instructions of the execution program (see [below](#Program execution command)), you must first install the relevant environment ([GCC](https://gcc.gnu.org/), [Python](https://www.python.org/ )), and place the compiler or executable file in the path of the environment variable.
+If you want to use the relevant instructions of the execution program (see [below](#user-content-program-execution-command)), you must first install the relevant environment ([GCC](https://gcc.gnu.org/), [Python](https://www.python.org/ )), and place the compiler or executable file in the path of the environment variable.
 
 ## Implement
 Before running, you need to prepare Discord Bot and its token. For related setting instructions, please refer to [here](https://discord.com/developers/docs/intro).
